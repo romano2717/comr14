@@ -100,6 +100,18 @@ static NSString *api_upload_resident_info_edit = @"Survey/Survey.svc/UpdateResid
 static NSString *api_upload_crm_image = @"Survey/Survey.svc/UploadCRMImageWithBase64";
 
 
+//report
+
+static NSString *api_survey_report_total_survey_pm = @"Survey/Report.svc/GetTotalSurveyAndFeedbackByPM";
+
+static NSString *api_survey_report_total_issue_pm = @"Survey/Report.svc/GetTotalIssueWithStatusByPM";
+
+static NSString *api_survey_report_total_issue_po = @"Survey/Report.svc/GetTotalIssueWithStatusByPO";
+
+static NSString *api_survey_report_total_survey_po = @"Survey/Report.svc/GetTotalSurveyAndFeedbackByPO";
+
+
+
 #endif
 
 
