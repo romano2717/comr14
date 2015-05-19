@@ -250,110 +250,112 @@
     if(myDatabase.initializingComplete == 0)
         return;
     
-    @try {
-        post = nil;
-        
-        self.postsArray = nil;
-        
-        post = [[Post alloc] init];
-        
-        NSDictionary *params = @{@"order":@"order by updated_on desc"};
-        
-        if(self.segment.selectedSegmentIndex == 0)
-        {
-            if(newIssuesUp)
-                self.postsArray = [[NSMutableArray alloc] initWithArray:[post fetchIssuesWithParams:params forPostId:nil filterByBlock:YES newIssuesFirst:YES onlyOverDue:NO]];
-            else
-                self.postsArray = [[NSMutableArray alloc] initWithArray:[post fetchIssuesWithParams:params forPostId:nil filterByBlock:YES newIssuesFirst:NO onlyOverDue:NO]];
-        }
-        
-        else if(self.segment.selectedSegmentIndex == 1)
-        {
-            if(newIssuesUp)
-                self.postsArray = [[NSMutableArray alloc] initWithArray:[post fetchIssuesWithParams:params forPostId:nil filterByBlock:NO newIssuesFirst:YES onlyOverDue:NO]];
-            else
-                self.postsArray = [[NSMutableArray alloc] initWithArray:[post fetchIssuesWithParams:params forPostId:nil filterByBlock:NO newIssuesFirst:NO onlyOverDue:NO]];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+        @try {
+            post = nil;
             
-            NSMutableArray *sectionHeaders = [[NSMutableArray alloc] init];
+            self.postsArray = nil;
             
-            //reconstruct array to create headers
-            for (int i = 0; i < self.postsArray.count; i++) {
-                NSDictionary *top = (NSDictionary *)[self.postsArray objectAtIndex:i];
-                NSString *topKey = [[top allKeys] objectAtIndex:0];
-                
-                NSString *post_by = [[[top objectForKey:topKey] objectForKey:@"post"] valueForKey:@"post_by"];
-                
-                [sectionHeaders addObject:post_by];
+            post = [[Post alloc] init];
+            
+            NSDictionary *params = @{@"order":@"order by updated_on desc"};
+            
+            if(self.segment.selectedSegmentIndex == 0)
+            {
+                if(newIssuesUp)
+                    self.postsArray = [[NSMutableArray alloc] initWithArray:[post fetchIssuesWithParams:params forPostId:nil filterByBlock:YES newIssuesFirst:YES onlyOverDue:NO]];
+                else
+                    self.postsArray = [[NSMutableArray alloc] initWithArray:[post fetchIssuesWithParams:params forPostId:nil filterByBlock:YES newIssuesFirst:NO onlyOverDue:NO]];
             }
             
-            //remove dupes of sections
-            NSArray *cleanSectionHeadersArray = [[NSOrderedSet orderedSetWithArray:sectionHeaders] array];
-            self.sectionHeaders = nil;
-            self.sectionHeaders = cleanSectionHeadersArray;
-            
-            NSMutableArray *groupedPost = [[NSMutableArray alloc] init];
-            
-            for (int i = 0; i < cleanSectionHeadersArray.count; i++) {
+            else if(self.segment.selectedSegmentIndex == 1)
+            {
+                if(newIssuesUp)
+                    self.postsArray = [[NSMutableArray alloc] initWithArray:[post fetchIssuesWithParams:params forPostId:nil filterByBlock:NO newIssuesFirst:YES onlyOverDue:NO]];
+                else
+                    self.postsArray = [[NSMutableArray alloc] initWithArray:[post fetchIssuesWithParams:params forPostId:nil filterByBlock:NO newIssuesFirst:NO onlyOverDue:NO]];
                 
-                NSString *section = [cleanSectionHeadersArray objectAtIndex:i];
+                NSMutableArray *sectionHeaders = [[NSMutableArray alloc] init];
                 
-                NSMutableArray *row = [[NSMutableArray alloc] init];
-                
-                for (int j = 0; j < self.postsArray.count; j++) {
-                    
-                    NSDictionary *top = (NSDictionary *)[self.postsArray objectAtIndex:j];
+                //reconstruct array to create headers
+                for (int i = 0; i < self.postsArray.count; i++) {
+                    NSDictionary *top = (NSDictionary *)[self.postsArray objectAtIndex:i];
                     NSString *topKey = [[top allKeys] objectAtIndex:0];
+                    
                     NSString *post_by = [[[top objectForKey:topKey] objectForKey:@"post"] valueForKey:@"post_by"];
                     
-                    if([post_by isEqualToString:section])
-                    {
-                        [row addObject:top];
-                    }
+                    [sectionHeaders addObject:post_by];
                 }
                 
+                //remove dupes of sections
+                NSArray *cleanSectionHeadersArray = [[NSOrderedSet orderedSetWithArray:sectionHeaders] array];
+                self.sectionHeaders = nil;
+                self.sectionHeaders = cleanSectionHeadersArray;
                 
-                [groupedPost addObject:row];
+                NSMutableArray *groupedPost = [[NSMutableArray alloc] init];
+                
+                for (int i = 0; i < cleanSectionHeadersArray.count; i++) {
+                    
+                    NSString *section = [cleanSectionHeadersArray objectAtIndex:i];
+                    
+                    NSMutableArray *row = [[NSMutableArray alloc] init];
+                    
+                    for (int j = 0; j < self.postsArray.count; j++) {
+                        
+                        NSDictionary *top = (NSDictionary *)[self.postsArray objectAtIndex:j];
+                        NSString *topKey = [[top allKeys] objectAtIndex:0];
+                        NSString *post_by = [[[top objectForKey:topKey] objectForKey:@"post"] valueForKey:@"post_by"];
+                        
+                        if([post_by isEqualToString:section])
+                        {
+                            [row addObject:top];
+                        }
+                    }
+                    
+                    
+                    [groupedPost addObject:row];
+                }
+                
+                self.postsArray = groupedPost;
+            }
+            else
+            {
+                if(newIssuesUp)
+                    self.postsArray = [[NSMutableArray alloc] initWithArray:[post fetchIssuesWithParams:params forPostId:nil filterByBlock:YES newIssuesFirst:YES onlyOverDue:YES]];
+                else
+                    self.postsArray = [[NSMutableArray alloc] initWithArray:[post fetchIssuesWithParams:params forPostId:nil filterByBlock:YES newIssuesFirst:NO onlyOverDue:YES]];
             }
             
-            self.postsArray = groupedPost;
-        }
-        else
-        {
-            if(newIssuesUp)
-                self.postsArray = [[NSMutableArray alloc] initWithArray:[post fetchIssuesWithParams:params forPostId:nil filterByBlock:YES newIssuesFirst:YES onlyOverDue:YES]];
-            else
-                self.postsArray = [[NSMutableArray alloc] initWithArray:[post fetchIssuesWithParams:params forPostId:nil filterByBlock:YES newIssuesFirst:NO onlyOverDue:YES]];
-        }
-        
-
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.issuesTable reloadData];
-        });
-        
-
-        //bulb icon toggle
-        if(myDatabase.allPostWasSeen == NO)
-        {
+            
             dispatch_async(dispatch_get_main_queue(), ^{
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"toggleBulbIcon" object:nil userInfo:@{@"toggle":@"on"}];
+                [self.issuesTable reloadData];
             });
             
+            
+            //bulb icon toggle
+            if(myDatabase.allPostWasSeen == NO)
+            {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"toggleBulbIcon" object:nil userInfo:@{@"toggle":@"on"}];
+                });
+                
+            }
+            else
+            {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"toggleBulbIcon" object:nil userInfo:@{@"toggle":@"off"}];
+                });
+            }
         }
-        else
-        {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"toggleBulbIcon" object:nil userInfo:@{@"toggle":@"off"}];
-            });
+        @catch (NSException *exception) {
+            DDLogVerbose(@"fetchPostsWithNewIssuesUp: %@ [%@-%@]",exception,THIS_FILE,THIS_METHOD);
         }
-    }
-    @catch (NSException *exception) {
-        DDLogVerbose(@"fetchPostsWithNewIssuesUp: %@ [%@-%@]",exception,THIS_FILE,THIS_METHOD);
-    }
-    @finally {
+        @finally {
+            
+        }
         
-    }
-    
-    [self updateBadgeCount];
+        [self updateBadgeCount];
+    });
 }
 
 

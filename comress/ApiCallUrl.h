@@ -106,10 +106,15 @@ static NSString *api_survey_report_total_survey_pm = @"Survey/Report.svc/GetTota
 
 static NSString *api_survey_report_total_issue_pm = @"Survey/Report.svc/GetTotalIssueWithStatusByPM";
 
+static NSString *api_survey_report_average_sentiment_pm = @"Survey/Report.svc/GetAverageSentimentByPrecinct";
+
 static NSString *api_survey_report_total_issue_po = @"Survey/Report.svc/GetTotalIssueWithStatusByPO";
 
 static NSString *api_survey_report_total_survey_po = @"Survey/Report.svc/GetTotalSurveyAndFeedbackByPO";
 
+static NSString *api_survey_report_get_divisions = @"Job/Block.svc/GetDivistions";
+
+static NSString *api_survey_report_get_zones = @"Job/Block.svc/GetZones";
 
 
 #endif

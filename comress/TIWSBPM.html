@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+
+<html class="no-js">
+<head>
+    <meta charset="utf-8">
+
+    <title></title>
+    <meta content="" name="description">
+    <meta content="True" name="HandheldFriendly">
+    <meta content="320" name="MobileOptimized">
+    <meta content="width=device-width, initial-scale=1, minimal-ui" name=
+    "viewport">
+    <meta content="on" http-equiv="cleartype">
+    <link href="img/touch/apple-touch-icon-144x144-precomposed.png" rel=
+    "apple-touch-icon-precomposed" sizes="144x144">
+    <link href="img/touch/apple-touch-icon-114x114-precomposed.png" rel=
+    "apple-touch-icon-precomposed" sizes="114x114">
+    <link href="img/touch/apple-touch-icon-72x72-precomposed.png" rel=
+    "apple-touch-icon-precomposed" sizes="72x72">
+    <link href="img/touch/apple-touch-icon-57x57-precomposed.png" rel=
+    "apple-touch-icon-precomposed">
+    <link href="img/touch/touch-icon-196x196.png" rel="shortcut icon" sizes=
+    "196x196">
+    <link href="img/touch/apple-touch-icon.png" rel="shortcut icon">
+    <!-- Tile icon for Win8 (144x144 + tile color) -->
+    <meta content="img/touch/apple-touch-icon-144x144-precomposed.png" name=
+    "msapplication-TileImage">
+    <meta content="#222222" name="msapplication-TileColor">
+ 
+    <link href="css/normalize.css" rel="stylesheet">
+    <link href="css/main.css" rel="stylesheet">
+    <script src="js/vendor/modernizr-2.7.1.min.js"></script>
+</head>
+
+<body>
+    <!-- Add your site or application content here -->
+
+    <div id="columnchart_values" style="width: 100%; height: 100%">
+    </div><script src="js/vendor/jquery-2.1.0.min.js"></script> <script src="js/helper.js"></script> <script src="js/main.js"></script> <script src="js/lib.js"></script> <script src='https://www.google.com/jsapi' type='text/javascript'></script> <script type="text/javascript">
+        google.load("visualization", "1", {packages:["corechart"]});
+            
+            $(document).ready(function(){
+                requestData("ewogICJzdGFydERhdGUiIDogIlwvRGF0ZSgxNDI4OTY2MjU5MDAwKzA4MDApXC8iLAogICJlbmREYXRlIiA6ICJcL0RhdGUoMTQzMTU5NjAwMzAwMCswODAwKVwvIiwKICAidXJsIiA6ICJodHRwOlwvXC9jb21yZXNzdGVzdC5mbWl0LnNnXC9Db21yZXNzTVdDRlwvdjEuMDJcL1N1cnZleVwvUmVwb3J0LnN2Y1wvR2V0VG90YWxJc3N1ZVdpdGhTdGF0dXNCeVBPIiwKICAic2Vzc2lvbiIgOiAiYWM4OTI1YjAtZGE2OS00NDM0LTliYzMtYjM4YmIzN2JjN2Y2Igp9");
+            })
+
+            function requestData(encodedJson)
+            {
+                var jsonObject = jSonise(encodedJson);
+                
+                $.ajaxSetup({
+                    beforeSend: function(xhr) {
+                        xhr.setRequestHeader('ComSessionId', jsonObject.session);
+                    }
+                });
+                $.ajax({
+                    type: "POST",
+                    url: jsonObject.url,
+                    data: JSON.stringify({"startDate":""+jsonObject.startDate+"","endDate":""+jsonObject.endDate+""}), 
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    crossDomain: true,
+                    success: function(result){  
+                        drawChart(result);
+                    },
+                    error: function(request, status, error){
+                        alert("request error " + error);
+                    }       
+                });
+            }
+
+            function drawChart(jsonObject)
+            {
+                var IssueReportContainer = jsonObject.IssueReportContainer;
+                
+                var data = new google.visualization.DataTable();
+                
+                data.addColumn('string','Contract type')
+                data.addColumn('number','Pending')
+                data.addColumn('number','Start')
+                data.addColumn('number','Stop')
+                data.addColumn('number','Completed')
+                data.addColumn('number','Close')
+
+                data.addColumn('number', 'Pending Overdue')
+                data.addColumn('number','Start Overdue')
+                data.addColumn('number','Stop Overdue')
+                data.addColumn('number','Completed Overdue')
+                data.addColumn('number','Close Overdue')
+                data.addColumn('number','Oustanding Overdue')
+
+                //create rows
+                var rows = [];
+                for (i = 0; i < IssueReportContainer.length; i++) {
+                    var IssueReportContainerObj = IssueReportContainer[i];
+
+                    ContractTypeDes = IssueReportContainerObj['ContractTypeDes'];
+
+                    TotalComressPending = parseInt(IssueReportContainerObj['TotalComressPending'])
+                    TotalComressStart = parseInt(IssueReportContainerObj['TotalComressStart'])
+                    TotalComressStop = parseInt(IssueReportContainerObj['TotalComressStop'])
+                    TotalComressCompleted = parseInt(IssueReportContainerObj['TotalComressCompleted']) 
+                    TotalComressClose = parseInt(IssueReportContainerObj['TotalComressClose'])
+                    
+                    TotalComressPendingOverdue  = parseInt(IssueReportContainerObj['TotalComressPendingOverdue'])
+                    TotalComressStartOverdue  = parseInt(IssueReportContainerObj['TotalComressStartOverdue'])
+                    TotalComressStopOverdue  = parseInt(IssueReportContainerObj['TotalComressStopOverdue'])
+                    TotalComressCompletedOverdue  = parseInt(IssueReportContainerObj['TotalComressCompletedOverdue'])
+                    TotalComressCloseOverdue = parseInt(IssueReportContainerObj['TotalComressCloseOverdue'])
+                    
+                    TotalComressOutstandingOverdue = parseInt(IssueReportContainerObj['TotalComressOutstandingOverdue'])
+                    
+                    data.addRows([[
+                            ContractTypeDes,
+                            TotalComressPending,
+                            TotalComressStart,
+                            TotalComressStop,
+                            TotalComressCompleted,
+                            TotalComressClose,
+                            TotalComressPendingOverdue,
+                            TotalComressStartOverdue,
+                            TotalComressStopOverdue,
+                            TotalComressCompletedOverdue,
+                            TotalComressCloseOverdue,
+                            TotalComressOutstandingOverdue
+
+                        ]])
+
+                };
+                
+
+                var view = new google.visualization.DataView(data);
+                view.setColumns([
+                        0,
+                        1,{
+                            calc: function(dt,row){
+                                if(dt.getFormattedValue(row,1) > 0)
+                                    return dt.getFormattedValue(row, 1);
+                                else
+                                    return null
+                            },
+                            sourceColumn: 1,
+                            type: "string",
+                            role: "annotation" 
+                        },
+
+                        2,{
+                            calc: function(dt,row){
+                                if(dt.getFormattedValue(row,2) > 0)
+                                    return dt.getFormattedValue(row, 2);
+                                else
+                                    return null
+                            },
+                            sourceColumn: 2,
+                            type: "string",
+                            role: "annotation" 
+                        },
+
+                        3,{
+                            calc: function(dt,row){
+                                if(dt.getFormattedValue(row,3) > 0)
+                                    return dt.getFormattedValue(row, 3);
+                                else
+                                    return null
+                            },
+                            sourceColumn: 3,
+                            type: "string",
+                            role: "annotation" 
+                        },
+
+                        4,{
+                            calc: function(dt,row){
+                                if(dt.getFormattedValue(row,4) > 0)
+                                    return dt.getFormattedValue(row, 4);
+                                else
+                                    return null
+                            },
+                            sourceColumn: 4,
+                            type: "string",
+                            role: "annotation" 
+                        },
+
+                        5,{
+                            calc: function(dt,row){
+                                if(dt.getFormattedValue(row,5) > 0)
+                                    return dt.getFormattedValue(row, 5);
+                                else
+                                    return null
+                            },
+                            sourceColumn: 5,
+                            type: "string",
+                            role: "annotation" 
+                        },
+
+                        6,{
+                            calc: function(dt,row){
+                                if(dt.getFormattedValue(row,6) > 0)
+                                    return dt.getFormattedValue(row, 6);
+                                else
+                                    return null
+                            },
+                            sourceColumn: 6,
+                            type: "string",
+                            role: "annotation" 
+                        },
+
+                        7,{
+                            calc: function(dt,row){
+                                if(dt.getFormattedValue(row,7) > 0)
+                                    return dt.getFormattedValue(row, 7);
+                                else
+                                    return null
+                            },
+                            sourceColumn: 7,
+                            type: "string",
+                            role: "annotation" 
+                        },
+                        8,{
+                            calc: function(dt,row){
+                                if(dt.getFormattedValue(row,8) > 0)
+                                    return dt.getFormattedValue(row, 8);
+                                else
+                                    return null
+                            },
+                            sourceColumn: 8,
+                            type: "string",
+                            role: "annotation" 
+                        },
+                        9,{
+                            calc: function(dt,row){
+                                if(dt.getFormattedValue(row,9) > 0)
+                                    return dt.getFormattedValue(row, 9);
+                                else
+                                    return null
+                            },
+                            sourceColumn: 9,
+                            type: "string",
+                            role: "annotation" 
+                        },
+                        10,{
+                            calc: function(dt,row){
+                                if(dt.getFormattedValue(row,10) > 0)
+                                    return dt.getFormattedValue(row, 10);
+                                else
+                                    return null
+                            },
+                            sourceColumn: 10,
+                            type: "string",
+                            role: "annotation" 
+                        },
+                        11,{
+                            calc: function(dt,row){
+                                if(dt.getFormattedValue(row,11) > 0)
+                                    return dt.getFormattedValue(row, 11);
+                                else
+                                    return null
+                            },
+                            sourceColumn: 11,
+                            type: "string",
+                            role: "annotation" 
+                        }
+                ])
+                
+                var options = {
+                    width: "100%",
+                    height: "auto",
+                    legend: { position: 'bottom', maxLines: 10 },
+                    bar: { groupWidth: '95%' },
+                    isStacked: true,
+                };
+
+                var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values"));
+                chart.draw(view, options);
+            }
+            
+            
+    </script>
+        <div id="columnchart_values" style="width: 100%; height: auto"></div>
+</body>
+</html>

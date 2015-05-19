@@ -25,7 +25,7 @@
 
 static const int ping_interval = 600;
 
-static const BOOL allowLogging = YES;
+static const BOOL allowLogging = NO;
 
 static const int sync_interval = 5;
 

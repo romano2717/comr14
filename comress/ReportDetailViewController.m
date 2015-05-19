@@ -7,6 +7,7 @@
 //
 
 #import "ReportDetailViewController.h"
+#import "ReportFiltersViewController.h"
 
 @interface ReportDetailViewController ()
 
@@ -14,7 +15,7 @@
 
 @implementation ReportDetailViewController
 
-@synthesize reportType;
+@synthesize reportType,POisLoggedIn,PMisLoggedIn;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -22,9 +23,132 @@
     
     myDatabase = [Database sharedMyDbManager];
     
+    self.selectedDivisionId = [NSNumber numberWithInt:0];
+    self.selectedZoneId = [NSNumber numberWithInt:0];
+    
+    if(POisLoggedIn)
+        self.filterLabel.hidden = YES;
+    else if (PMisLoggedIn)
+        self.filterLabel.hidden = NO;
+    
+    //add tap gesture to filter to toggle filter view
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(toggleFilter)];
+    tap.numberOfTapsRequired = 1;
+    self.filterLabel.userInteractionEnabled = YES;
+    [self.filterLabel addGestureRecognizer:tap];
+    
+    
     [self setDefaultDateRange];
     
     self.title = reportType;
+    
+    //filter listeners
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(filterReports:) name:@"filterReports" object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(closeReportsFilter) name:@"closeReportsFilter" object:nil];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    
+    [self loadWebView];
+}
+
+- (void)filterReports:(NSNotification *)notif
+{
+    NSDictionary *dict = [notif userInfo];
+    
+    NSString *filter = @"Filters: None";
+    
+    if ([[dict objectForKey:@"division"] valueForKey:@"DivName"] != nil) {
+        NSString *zoneStr = [[dict objectForKey:@"zone"] valueForKey:@"ZoneName"];
+        
+        if(zoneStr.length == 0)
+            zoneStr = @"All";
+        
+        filter = [NSString stringWithFormat:@"Filters: %@, %@",[[dict objectForKey:@"division"] valueForKey:@"DivName"],zoneStr];
+        
+        self.selectedDivisionId = [NSNumber numberWithInt:[[[dict objectForKey:@"division"] valueForKey:@"DivId"] intValue]];
+        self.selectedZoneId = [NSNumber numberWithInt:[[[dict objectForKey:@"zone"] valueForKey:@"ZoneId"] intValue]];
+    }
+    
+    self.filterLabel.text = filter;
+    
+    [self mz_dismissFormSheetControllerAnimated:YES completionHandler:^(MZFormSheetController *formSheetController) {
+        [self requestReportData];
+    }];
+}
+
+- (void)closeReportsFilter
+{
+    [self mz_dismissFormSheetControllerAnimated:YES completionHandler:nil];
+}
+
+- (void)toggleFilter
+{
+    ReportFiltersViewController *reportsFilterVc = [self.storyboard instantiateViewControllerWithIdentifier:@"ReportFiltersViewController"];
+
+    
+    MZFormSheetController *formSheet = [[MZFormSheetController alloc] initWithViewController:reportsFilterVc];
+    
+    formSheet.presentedFormSheetSize = CGSizeMake(300, 400);
+    formSheet.shadowRadius = 2.0;
+    formSheet.shadowOpacity = 0.3;
+    formSheet.shouldDismissOnBackgroundViewTap = YES;
+    formSheet.shouldCenterVertically = YES;
+    formSheet.movementWhenKeyboardAppears = MZFormSheetWhenKeyboardAppearsCenterVertically;
+    
+    // If you want to animate status bar use this code
+    formSheet.didTapOnBackgroundViewCompletionHandler = ^(CGPoint location) {
+        
+    };
+    
+    formSheet.willPresentCompletionHandler = ^(UIViewController *presentedFSViewController) {
+        DDLogVerbose(@"will present");
+    };
+    formSheet.transitionStyle = MZFormSheetTransitionStyleCustom;
+    
+    [MZFormSheetController sharedBackgroundWindow].formSheetBackgroundWindowDelegate = self;
+    
+    [self mz_presentFormSheetController:formSheet animated:YES completionHandler:^(MZFormSheetController *formSheetController) {
+        DDLogVerbose(@"did present");
+    }];
+    
+    formSheet.willDismissCompletionHandler = ^(UIViewController *presentedFSViewController) {
+        DDLogVerbose(@"will dismiss");
+    };
+}
+
+- (void)loadWebView
+{
+    NSString *path = [[NSBundle mainBundle] bundlePath];
+    NSURL *baseURL = [NSURL fileURLWithPath:path];
+    
+    NSString *htmlFile = nil;
+    
+    if(POisLoggedIn)
+    {
+        htmlFile = [[NSBundle mainBundle] pathForResource:@"TSAFBPO" ofType:@"html"];
+        
+        if([reportType isEqualToString:@"Feedback Issues"])
+            htmlFile = [[NSBundle mainBundle] pathForResource:@"TIWSBPO" ofType:@"html"];
+    }
+    else if (PMisLoggedIn)
+    {
+        htmlFile = [[NSBundle mainBundle] pathForResource:@"TSAFBPM" ofType:@"html"];
+        
+        if([reportType isEqualToString:@"Feedback Issues"])
+            htmlFile = [[NSBundle mainBundle] pathForResource:@"TIWSBPM" ofType:@"html"];
+        else if([reportType isEqualToString:@"Average Sentiment"])
+            htmlFile = [[NSBundle mainBundle] pathForResource:@"ASBPM" ofType:@"html"];
+    }
+    
+    NSString* htmlString = [NSString stringWithContentsOfFile:htmlFile encoding:NSUTF8StringEncoding error:nil];
+    [self.webView loadHTMLString:htmlString baseURL:baseURL];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -60,7 +184,7 @@
     [self.actionSheetPicker showActionSheetPicker];
         
 }
-
+#pragma - mark date selection delegate
 - (void)setDefaultDateRange
 {
     self.selectedFromDate = [[NSDate date] dateByAddingTimeInterval:-2629743.83]; //last month
@@ -75,8 +199,6 @@
     
     NSString *lastMonthString = [format stringFromDate:self.selectedFromDate];
     self.fromDateTextFied.text = lastMonthString;
-    
-    [self requestReportData];
 }
 
 - (void)dateWasSelected:(NSDate *)selectedDate element:(id)element {
@@ -101,51 +223,87 @@
         textField.text = datestring;
     }
     
-    //validate date
-    if([self.selectedFromDate compare:self.selectedToDate] == NSOrderedDescending)
-    {
-        [self setDefaultDateRange];
-    }
-    else
-        [self requestReportData];
+    [self requestReportData];
 }
 
+#pragma - mark division and zone filter
+- (IBAction)filterDivision:(id)sender
+{
+
+}
+
+- (IBAction)filterZone:(id)sender
+{
+    
+}
+
+#pragma - mark uiwebview delegate
+- (void)webViewDidFinishLoad:(UIWebView *)webView
+{
+    [self requestReportData];
+    
+    CGRect newBounds = webView.bounds;
+    newBounds.size.height = webView.scrollView.contentSize.height;
+    webView.bounds = newBounds;
+}
+
+#pragma  - mark data request
 - (void)requestReportData
 {
     NSDateFormatter *format = [[NSDateFormatter alloc] init];
     [format setDateFormat:@"MM-DD-YYYY"];
     
+    DDLogVerbose(@"from %@",self.selectedFromDate);
+    DDLogVerbose(@"to %@",self.selectedToDate);
+    DDLogVerbose(@"======");
+    
     NSString *wcfDateFrom = [self serializedStringDateJson:self.selectedFromDate];
     NSString *wcfDateTo   = [self serializedStringDateJson:self.selectedToDate];
     
-    NSString *urlString = [NSString stringWithFormat:@"%@%@",myDatabase.api_url,api_survey_report_total_issue_po];
-    NSDictionary *params = @{@"startDate":wcfDateFrom,@"endDate":wcfDateTo};
     
-    if([reportType isEqualToString:@"Survey"])
-        urlString = [NSString stringWithFormat:@"%@%@",myDatabase.api_url,api_survey_report_total_survey_po];
+    NSString *urlString = nil;
+    NSString *params = nil;
     
-    
-    [myDatabase.AfManager POST:urlString parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    if(POisLoggedIn)
+    {
+        urlString = [NSString stringWithFormat:@"%@%@",myDatabase.api_url,api_survey_report_total_issue_po];
+        
+        if([reportType isEqualToString:@"Survey"])
+            urlString = [NSString stringWithFormat:@"%@%@",myDatabase.api_url,api_survey_report_total_survey_po];
+        
+        params = [myDatabase toJsonString:@{@"startDate":wcfDateFrom,@"endDate":wcfDateTo,@"url":urlString,@"session":[myDatabase.userDictionary valueForKey:@"guid"]}];
+    }
+    else if (PMisLoggedIn)
+    {
+        urlString = [NSString stringWithFormat:@"%@%@",myDatabase.api_url,api_survey_report_total_issue_po];
+        
+        if([reportType isEqualToString:@"Survey"])
+            urlString = [NSString stringWithFormat:@"%@%@",myDatabase.api_url,api_survey_report_total_survey_pm];
+        else if ([reportType isEqualToString:@"Feedback Issues"])
+            urlString = [NSString stringWithFormat:@"%@%@",myDatabase.api_url,api_survey_report_total_issue_pm];
+        else
+            urlString = [NSString stringWithFormat:@"%@%@",myDatabase.api_url,api_survey_report_average_sentiment_pm];
+        
+        params = [myDatabase toJsonString:@{@"startDate":wcfDateFrom,@"endDate":wcfDateTo,@"url":urlString,@"session":[myDatabase.userDictionary valueForKey:@"guid"],@"divId":self.selectedDivisionId,@"zoneId":self.selectedZoneId}];
+    }
 
-        NSDictionary *responseDict = (NSDictionary *)responseObject;
-        
-        [self drawChartToWebViewWithDict:responseDict];
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        DDLogVerbose(@"%@",error);
-    }];
+    
+    [self executeJavascript:@"requestData" withJsonObject:params];
+    
+    [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
 }
 
-- (void)drawChartToWebViewWithDict:(NSDictionary *)dict
+-(void)executeJavascript:(NSString *)methodName withJsonObject:(NSString *)object
 {
-    NSString *path = [[NSBundle mainBundle] bundlePath];
-    NSURL *baseURL = [NSURL fileURLWithPath:path];
+    NSData *jsonData = [object dataUsingEncoding:NSUTF8StringEncoding];
     
-    NSString *htmlFile = [[NSBundle mainBundle] pathForResource:@"TSAFBP" ofType:@"html"];
-    NSString* htmlString = [NSString stringWithContentsOfFile:htmlFile encoding:NSUTF8StringEncoding error:nil];
-    [self.webView loadHTMLString:htmlString baseURL:baseURL];
+    // Base64 encode the string to avoid problems
+    NSString *encodedString = [jsonData base64EncodedStringWithOptions:0];
+    
+    // Evaluate your JavaScript function with the encoded string as input
+    NSString *jsCall = [NSString stringWithFormat:@"%@(\"%@\")",methodName, encodedString];
+    [self.webView stringByEvaluatingJavaScriptFromString:jsCall];
 }
-
 
 #pragma - mark helper
 - (NSString *)serializedStringDateJson: (NSDate *)date

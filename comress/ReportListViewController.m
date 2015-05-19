@@ -19,8 +19,17 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    myDatabase = [Database sharedMyDbManager];
+    if([[myDatabase.userDictionary valueForKey:@"group_name"] isEqualToString:@"PM"] == YES)
+        PMisLoggedIn = YES;
+    else if ([[myDatabase.userDictionary valueForKey:@"group_name"] isEqualToString:@"PO"] == YES)
+        POisLoggedIn = YES;
+        
+    //default by PO
     self.reportsArray = [NSArray arrayWithObjects:@"Survey",@"Feedback Issues", nil];
     
+    if(PMisLoggedIn)
+        self.reportsArray = [NSArray arrayWithObjects:@"Survey",@"Feedback Issues",@"Average Sentiment", nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -47,6 +56,8 @@
         
         ReportDetailViewController *rdvc = [segue destinationViewController];
         rdvc.reportType = [self.reportsArray objectAtIndex:indexPath.row];
+        rdvc.PMisLoggedIn = PMisLoggedIn;
+        rdvc.POisLoggedIn = POisLoggedIn;
     }
 }
 
@@ -95,6 +106,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [self performSegueWithIdentifier:@"push_report_detail" sender:indexPath];
+
 }
 
 @end

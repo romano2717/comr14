@@ -8,8 +8,14 @@
 
 #import <UIKit/UIKit.h>
 #import "AppWideImports.h"
+#import "Database.h"
 
 @interface ReportListViewController : UIViewController<UITableViewDataSource, UITableViewDelegate>
+{
+    Database *myDatabase;
+    BOOL PMisLoggedIn;
+    BOOL POisLoggedIn;
+}
 
 @property (nonatomic, weak) IBOutlet UITableView *tableView;
 @property (nonatomic, weak) IBOutlet UISegmentedControl *segment;
