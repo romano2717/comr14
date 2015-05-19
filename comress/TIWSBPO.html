@@ -1,38 +1,33 @@
 <!DOCTYPE html>
 
-<html class="no-js">
+<html>
     
     <head>
         <meta charset="utf-8">
             
             <title></title>
-            <meta content="" name="description">
-                <meta content="True" name="HandheldFriendly">
-                    <meta content="320" name="MobileOptimized">
-                        <meta content="width=device-width, initial-scale=1, minimal-ui" name="viewport">
-                            <meta content="on" http-equiv="cleartype">
-                                
-                                <script src="js/vendor/modernizr-2.7.1.min.js"></script>
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+                    <link href="css/bootstrap-responsive.min.css" rel="stylesheet">
     </head>
     
     <body>
         <!-- Add your site or application content here -->
         
-        <div id="columnchart_values" style="width: 100%; height: 100%">
-        </div>
         <script src="js/vendor/jquery-2.1.0.min.js"></script>
-        <script src="js/helper.js"></script>
-        <script src="js/main.js"></script>
         <script src="js/lib.js"></script>
         <script src='https://www.google.com/jsapi' type='text/javascript'></script>
             <script type="text/javascript">
+            
+            var jsonChartOBject;
+            
             google.load("visualization", "1", {
             packages: ["corechart"]
             });
             
-            $(document).ready(function() {
-            requestData("ewogICJzdGFydERhdGUiIDogIlwvRGF0ZSgxNDI5MDQ1NDk4MDAwKzA4MDApXC8iLAogICJlbmREYXRlIiA6ICJcL0RhdGUoMTQzMTY3NTI0MjAwMCswODAwKVwvIiwKICAidXJsIiA6ICJodHRwOlwvXC9jb21yZXNzdGVzdC5mbWl0LnNnXC9Db21yZXNzTVdDRlwvdjEuMDJcL1N1cnZleVwvUmVwb3J0LnN2Y1wvR2V0VG90YWxJc3N1ZVdpdGhTdGF0dXNCeVBPIiwKICAic2Vzc2lvbiIgOiAiMmYzZDEzY2MtMWFlMy00YTExLWE2ZDEtMDEwZGQ2NGRlM2FlIgp9");
-            })
+            $(window).resize(function(){
+            drawChart();
+            });
             
             function requestData(encodedJson) {
             var jsonObject = jSonise(encodedJson);
@@ -53,7 +48,8 @@
             contentType: "application/json; charset=utf-8",
             crossDomain: true,
             success: function(result) {
-            drawChart(result);
+            jsonChartOBject = result;
+            drawChart();
             },
             error: function(request, status, error) {
             alert("request error " + error);
@@ -61,26 +57,26 @@
             });
             }
             
-            function drawChart(jsonObject) {
-            var IssueReportContainer = jsonObject.IssueReportContainer;
+            function drawChart() {
+            var IssueReportContainer = jsonChartOBject.IssueReportContainer;
             
             var data = new google.visualization.DataTable();
             
             var headersArray = ['Contract type', 'Pending', 'Start', 'Stop', 'Completed', 'Close', 'Pending Overdue', 'Start Overdue', 'Stop Overdue', 'Completed Overdue', 'Close Overdue', 'Oustanding Overdue']
             
-            data.addColumn('string',headersArray[0])
-            data.addColumn('number',headersArray[1])
-            data.addColumn('number',headersArray[2])
-            data.addColumn('number',headersArray[3])
-            data.addColumn('number',headersArray[4])
-            data.addColumn('number',headersArray[5])
+            data.addColumn('string', headersArray[0])
+            data.addColumn('number', headersArray[1])
+            data.addColumn('number', headersArray[2])
+            data.addColumn('number', headersArray[3])
+            data.addColumn('number', headersArray[4])
+            data.addColumn('number', headersArray[5])
             
-            data.addColumn('number',headersArray[6])
-            data.addColumn('number',headersArray[7])
-            data.addColumn('number',headersArray[8])
-            data.addColumn('number',headersArray[9])
-            data.addColumn('number',headersArray[10])
-            data.addColumn('number',headersArray[11])
+            data.addColumn('number', headersArray[6])
+            data.addColumn('number', headersArray[7])
+            data.addColumn('number', headersArray[8])
+            data.addColumn('number', headersArray[9])
+            data.addColumn('number', headersArray[10])
+            data.addColumn('number', headersArray[11])
             
             //create rows
             var rows = [];
@@ -256,10 +252,10 @@
             }
             ])
             
-            var colorsArray = ["#ffc600","#c6ff00","#ff00de","#06ff00","#c2c2c2","#8b6e0b","#85a80c","#9b0a88","#097f06","#746f6f","#fb6892","#7b7474"];
+            var colorsArray = ["#ffc600", "#c6ff00", "#ff00de", "#06ff00", "#c2c2c2", "#8b6e0b", "#85a80c", "#9b0a88", "#097f06", "#746f6f", "#fb6892", "#7b7474"];
             
             var options = {
-            width: 700,
+            width: "100%",
             height: 500,
             legend: {
             position: 'right',
@@ -326,11 +322,11 @@
             // }
             }
             </script>
-            <div id="columnchart_values" style="width: 700px; height: 500px;"></div>
-            <!-- <div id="legend" style="width: auto; height:100px;margin-left:130px;">
-            <ul id="legendUl" style="list-style-type: none;display:inline-flex">
-            </ul>
-            </div> -->
+            <div class="fluid">
+            <div class="span12">
+            <div id="columnchart_values" style="width: 650px; height: 500px;"></div>
+            </div>
+            </div>
             </body>
             
             </html>

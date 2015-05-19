@@ -1,105 +1,109 @@
 <!DOCTYPE html>
 
 <html class="no-js">
-<head>
-    <meta charset="utf-8">
-
-    <title></title>
-    <meta content="" name="description">
-    <meta content="True" name="HandheldFriendly">
-    <meta content="320" name="MobileOptimized">
-    <meta content="width=device-width, initial-scale=1, minimal-ui" name=
-    "viewport">
-    <meta content="on" http-equiv="cleartype">
-    <link href="img/touch/apple-touch-icon-144x144-precomposed.png" rel=
-    "apple-touch-icon-precomposed" sizes="144x144">
-    <link href="img/touch/apple-touch-icon-114x114-precomposed.png" rel=
-    "apple-touch-icon-precomposed" sizes="114x114">
-    <link href="img/touch/apple-touch-icon-72x72-precomposed.png" rel=
-    "apple-touch-icon-precomposed" sizes="72x72">
-    <link href="img/touch/apple-touch-icon-57x57-precomposed.png" rel=
-    "apple-touch-icon-precomposed">
-    <link href="img/touch/touch-icon-196x196.png" rel="shortcut icon" sizes=
-    "196x196">
-    <link href="img/touch/apple-touch-icon.png" rel="shortcut icon">
-    <!-- Tile icon for Win8 (144x144 + tile color) -->
-    <meta content="img/touch/apple-touch-icon-144x144-precomposed.png" name=
-    "msapplication-TileImage">
-    <meta content="#222222" name="msapplication-TileColor">
- 
-    <link href="css/normalize.css" rel="stylesheet">
-    <link href="css/main.css" rel="stylesheet">
-    <script src="js/vendor/modernizr-2.7.1.min.js"></script>
-</head>
-
-<body>
-    <!-- Add your site or application content here -->
-
-    <div id="columnchart_values" style="width: 100%; height: 100%">
-    </div><script src="js/vendor/jquery-2.1.0.min.js"></script> <script src="js/helper.js"></script> <script src="js/main.js"></script> <script src="js/lib.js"></script> <script src='https://www.google.com/jsapi' type='text/javascript'></script> <script type="text/javascript">
-        google.load("visualization", "1", {packages:["corechart"]});
+    <head>
+        <meta charset="utf-8">
+            
+            <title></title>
+            <meta content="" name="description">
+                <meta content="True" name="HandheldFriendly">
+                    <meta content="320" name="MobileOptimized">
+                        <meta content="width=device-width, initial-scale=1, minimal-ui" name=
+                            "viewport">
+                            <meta content="on" http-equiv="cleartype">
+                                <link href="img/touch/apple-touch-icon-144x144-precomposed.png" rel=
+                                    "apple-touch-icon-precomposed" sizes="144x144">
+                                    <link href="img/touch/apple-touch-icon-114x114-precomposed.png" rel=
+                                        "apple-touch-icon-precomposed" sizes="114x114">
+                                        <link href="img/touch/apple-touch-icon-72x72-precomposed.png" rel=
+                                            "apple-touch-icon-precomposed" sizes="72x72">
+                                            <link href="img/touch/apple-touch-icon-57x57-precomposed.png" rel=
+                                                "apple-touch-icon-precomposed">
+                                                <link href="img/touch/touch-icon-196x196.png" rel="shortcut icon" sizes=
+                                                    "196x196">
+                                                    <link href="img/touch/apple-touch-icon.png" rel="shortcut icon">
+                                                        <!-- Tile icon for Win8 (144x144 + tile color) -->
+                                                        <meta content="img/touch/apple-touch-icon-144x144-precomposed.png" name=
+                                                            "msapplication-TileImage">
+                                                            <meta content="#222222" name="msapplication-TileColor">
+                                                                
+                                                                <link href="css/normalize.css" rel="stylesheet">
+                                                                    <link href="css/main.css" rel="stylesheet">
+                                                                        <script src="js/vendor/modernizr-2.7.1.min.js"></script>
+    </head>
+    
+    <body>
+        <!-- Add your site or application content here -->
+        
+        <div id="columnchart_values" style="width: 100%; height: 100%">
+        </div><script src="js/vendor/jquery-2.1.0.min.js"></script> <script src="js/helper.js"></script> <script src="js/main.js"></script> <script src="js/lib.js"></script> <script src='https://www.google.com/jsapi' type='text/javascript'></script> <script type="text/javascript">
+            google.load("visualization", "1", {packages:["corechart"]});
+            
+            
             
             function requestData(encodedJson)
             {
-                var jsonObject = jSonise(encodedJson);
-                
-                $.ajaxSetup({
-                    beforeSend: function(xhr) {
-                        xhr.setRequestHeader('ComSessionId', jsonObject.session);
-                    }
-                });
-                $.ajax({
-                    type: "POST",
-                    url: jsonObject.url,
-                    data: JSON.stringify({"startDate":""+jsonObject.startDate+"","endDate":""+jsonObject.endDate+""}), 
-                    dataType: "json",
-                    contentType: "application/json; charset=utf-8",
-                    crossDomain: true,
-                    success: function(result){  
-                        drawChart(result);
-                    },
-                    error: function(request, status, error){
-                        alert("request error " + error);
-                    }       
-                });
+            var jsonObject = jSonise(encodedJson);
+            
+            $.ajaxSetup({
+            beforeSend: function(xhr) {
+            xhr.setRequestHeader('ComSessionId', jsonObject.session);
             }
-
+            });
+            $.ajax({
+            type: "POST",
+            url: jsonObject.url,
+            data: JSON.stringify({"startDate":""+jsonObject.startDate+"","endDate":""+jsonObject.endDate+"","divId":""+jsonObject.divId+"","zoneId":""+jsonObject.zoneId+""}),
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            crossDomain: true,
+            success: function(result){
+            drawChart(result);
+            },
+            error: function(request, status, error){
+            alert("request error " + error);
+            }
+            });
+            }
+            
             function drawChart(jsonObject)
             {
-                var TotalFeedback = jsonObject.SurveyReport["TotalFeedback"]
-                var TotalSurvey = jsonObject.SurveyReport["TotalSurvey"]
-                
-                var data = google.visualization.arrayToDataTable([
-                    ["Survey", "Feedback"],
-                    ["Survey", TotalSurvey],
-                    ["Feedback",TotalFeedback]
-                ]);
-
-                var view = new google.visualization.DataView(data);
-                view.setColumns([0, 1,
-                    { 
-                        calc: "stringify",
-                        sourceColumn: 1,
-                        type: "string",
-                        role: "annotation" 
-                    }
-                ]);
-
-                var options = {
-                    title: "Survey",
-                    width: "100%",
-                    height: "100%",
-                    bar: {groupWidth: "95%"},
-                    legend: { position: "none" },
-                    chartArea:{left:10,top:20,width:"100%",height:"25%"}
-                };
-
-                var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values"));
-                chart.draw(view, options);
+            var TotalFeedback = jsonObject.SurveyReport["TotalFeedback"]
+            var TotalSurvey = jsonObject.SurveyReport["TotalSurvey"]
+            
+            console.log(TotalFeedback +" "+ TotalSurvey)
+            
+            var data = google.visualization.arrayToDataTable([
+            ["Survey", "Feedback"],
+            ["Survey", TotalSurvey],
+            ["Feedback",TotalFeedback]
+            ]);
+            
+            var view = new google.visualization.DataView(data);
+            view.setColumns([0, 1,
+            { 
+            calc: "stringify",
+            sourceColumn: 1,
+            type: "string",
+            role: "annotation" 
+            }
+            ]);
+            
+            var options = {
+            title: "Survey",
+            width: "100%",
+            height: "100%",
+            bar: {groupWidth: "95%"},
+            legend: { position: "none" },
+            chartArea:{left:10,top:20,width:"100%",height:"25%"}
+            };
+            
+            var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values"));
+            chart.draw(view, options);
             }
             
             
-    </script>
-        <div id="columnchart_values" style="width: 100%; height: auto"></div>
-</body>
-</html>
+            </script>
+            <div id="columnchart_values" style="width: 100%; height: auto"></div>
+            </body>
+            </html>

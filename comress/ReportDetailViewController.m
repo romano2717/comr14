@@ -65,7 +65,10 @@
     NSString *filter = @"Filters: None";
     
     if ([[dict objectForKey:@"division"] valueForKey:@"DivName"] != nil) {
-        NSString *zoneStr = [[dict objectForKey:@"zone"] valueForKey:@"ZoneName"];
+        NSString *zoneStr;
+        
+        if([[dict objectForKey:@"zone"] valueForKey:@"ZoneName"] != [NSNull null])
+            zoneStr = [[dict objectForKey:@"zone"] valueForKey:@"ZoneName"];
         
         if(zoneStr.length == 0)
             zoneStr = @"All";
@@ -135,7 +138,12 @@
         htmlFile = [[NSBundle mainBundle] pathForResource:@"TSAFBPO" ofType:@"html"];
         
         if([reportType isEqualToString:@"Feedback Issues"])
+        {
+//            NSNumber *value = [NSNumber numberWithInt:UIInterfaceOrientationLandscapeLeft];
+//            [[UIDevice currentDevice] setValue:value forKey:@"orientation"];
             htmlFile = [[NSBundle mainBundle] pathForResource:@"TIWSBPO" ofType:@"html"];
+        }
+        
     }
     else if (PMisLoggedIn)
     {
@@ -187,8 +195,14 @@
 #pragma - mark date selection delegate
 - (void)setDefaultDateRange
 {
-    self.selectedFromDate = [[NSDate date] dateByAddingTimeInterval:-2629743.83]; //last month
-    self.selectedToDate = [NSDate date];
+    NSDateComponents *components = [[NSCalendar currentCalendar]
+                                    components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay
+                                    fromDate:[NSDate date]];
+    NSDate *startDate = [[NSCalendar currentCalendar]
+                         dateFromComponents:components];
+    
+    self.selectedFromDate = [startDate dateByAddingTimeInterval:-2592000]; //last month
+    self.selectedToDate = startDate;
     
     
     NSDateFormatter *format = [[NSDateFormatter alloc] init];
@@ -203,6 +217,14 @@
 
 - (void)dateWasSelected:(NSDate *)selectedDate element:(id)element {
 
+    NSDateComponents *components = [[NSCalendar currentCalendar]
+                                    components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay
+                                    fromDate:selectedDate];
+    NSDate *cleanDateWithoutTime = [[NSCalendar currentCalendar]
+                         dateFromComponents:components];
+    
+    selectedDate = cleanDateWithoutTime;
+    
     UITextField *textField = (UITextField *)element;
     
     NSDateFormatter *format = [[NSDateFormatter alloc] init];
@@ -250,13 +272,6 @@
 #pragma  - mark data request
 - (void)requestReportData
 {
-    NSDateFormatter *format = [[NSDateFormatter alloc] init];
-    [format setDateFormat:@"MM-DD-YYYY"];
-    
-    DDLogVerbose(@"from %@",self.selectedFromDate);
-    DDLogVerbose(@"to %@",self.selectedToDate);
-    DDLogVerbose(@"======");
-    
     NSString *wcfDateFrom = [self serializedStringDateJson:self.selectedFromDate];
     NSString *wcfDateTo   = [self serializedStringDateJson:self.selectedToDate];
     

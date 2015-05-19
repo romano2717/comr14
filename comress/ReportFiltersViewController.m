@@ -68,9 +68,11 @@
     [self.zoneArray removeAllObjects];
     [self.zoneArrayObj removeAllObjects];
     
-    //default
+    //default zone : All
     [self.zoneArray addObject:@"All"];
     [self.zoneArrayObj addObject:@{@"DivId":[NSNumber numberWithInt:0],@"ZoneId":[NSNumber numberWithInt:0],@"ZoneName":@""}];
+    self.zoneTextField.text = @"All";
+    self.selectedZoneDict = [self.zoneArrayObj firstObject];
     
     [myDatabase.AfManager POST:[NSString stringWithFormat:@"%@%@",myDatabase.api_url,api_survey_report_get_zones] parameters:@{@"divId":divisionId} success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
@@ -131,7 +133,11 @@
     NSDictionary *dict = @{@"division":self.selectedDivisionDict ? self.selectedDivisionDict : @"",@"zone":self.selectedZoneDict ? self.selectedZoneDict : @""};
     DDLogVerbose(@"filter %@",dict);
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"filterReports" object:nil userInfo:dict];
+    if(self.selectedDivisionDict == nil && self.selectedZoneDict == nil)
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"closeReportsFilter" object:nil];
+
+    else
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"filterReports" object:nil userInfo:dict];
 }
 
 - (void)selectDivision:(id)sender
