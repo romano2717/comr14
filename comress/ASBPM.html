@@ -1,105 +1,199 @@
 <!DOCTYPE html>
 
-<html class="no-js">
-<head>
-    <meta charset="utf-8">
-
-    <title></title>
-    <meta content="" name="description">
-    <meta content="True" name="HandheldFriendly">
-    <meta content="320" name="MobileOptimized">
-    <meta content="width=device-width, initial-scale=1, minimal-ui" name=
-    "viewport">
-    <meta content="on" http-equiv="cleartype">
-    <link href="img/touch/apple-touch-icon-144x144-precomposed.png" rel=
-    "apple-touch-icon-precomposed" sizes="144x144">
-    <link href="img/touch/apple-touch-icon-114x114-precomposed.png" rel=
-    "apple-touch-icon-precomposed" sizes="114x114">
-    <link href="img/touch/apple-touch-icon-72x72-precomposed.png" rel=
-    "apple-touch-icon-precomposed" sizes="72x72">
-    <link href="img/touch/apple-touch-icon-57x57-precomposed.png" rel=
-    "apple-touch-icon-precomposed">
-    <link href="img/touch/touch-icon-196x196.png" rel="shortcut icon" sizes=
-    "196x196">
-    <link href="img/touch/apple-touch-icon.png" rel="shortcut icon">
-    <!-- Tile icon for Win8 (144x144 + tile color) -->
-    <meta content="img/touch/apple-touch-icon-144x144-precomposed.png" name=
-    "msapplication-TileImage">
-    <meta content="#222222" name="msapplication-TileColor">
- 
-    <link href="css/normalize.css" rel="stylesheet">
-    <link href="css/main.css" rel="stylesheet">
-    <script src="js/vendor/modernizr-2.7.1.min.js"></script>
-</head>
-
-<body>
-    <!-- Add your site or application content here -->
-
-    <div id="columnchart_values" style="width: 100%; height: 100%">
-    </div><script src="js/vendor/jquery-2.1.0.min.js"></script> <script src="js/helper.js"></script> <script src="js/main.js"></script> <script src="js/lib.js"></script> <script src='https://www.google.com/jsapi' type='text/javascript'></script> <script type="text/javascript">
-        google.load("visualization", "1", {packages:["corechart"]});
+<html>
+    
+    <head>
+        <meta charset="utf-8">
             
-            function requestData(encodedJson)
-            {
-                var jsonObject = jSonise(encodedJson);
-                
-                $.ajaxSetup({
-                    beforeSend: function(xhr) {
-                        xhr.setRequestHeader('ComSessionId', jsonObject.session);
-                    }
-                });
-                $.ajax({
-                    type: "POST",
-                    url: jsonObject.url,
-                    data: JSON.stringify({"startDate":""+jsonObject.startDate+"","endDate":""+jsonObject.endDate+""}), 
-                    dataType: "json",
-                    contentType: "application/json; charset=utf-8",
-                    crossDomain: true,
-                    success: function(result){  
-                        drawChart(result);
-                    },
-                    error: function(request, status, error){
-                        alert("request error " + error);
-                    }       
-                });
+            <title></title>
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+                    <link href="css/bootstrap-responsive.min.css" rel="stylesheet">
+    </head>
+    
+    <body>
+        <!-- Add your site or application content here -->
+        
+        <script src="js/vendor/jquery-2.1.0.min.js"></script>
+        <script src="js/lib.js"></script>
+        <script src='https://www.google.com/jsapi' type='text/javascript'></script>
+            <script type="text/javascript">
+            var jsonChartOBject;
+            
+            google.load("visualization", "1", {
+            packages: ["corechart"]
+            });
+            
+            $(document).ready(function(){
+            requestData("ewogICJkaXZJZCIgOiAwLAogICJ6b25lSWQiIDogMCwKICAic3RhcnREYXRlIiA6ICJcL0RhdGUoMTQyOTQ1OTIwMDAwMCswODAwKVwvIiwKICAiZW5kRGF0ZSIgOiAiXC9EYXRlKDE0MzIwNTEyMDAwMDArMDgwMClcLyIsCiAgInVybCIgOiAiaHR0cDpcL1wvY29tcmVzc3Rlc3QuZm1pdC5zZ1wvQ29tcmVzc01XQ0ZcL3YxLjAyXC9TdXJ2ZXlcL1JlcG9ydC5zdmNcL0dldEF2ZXJhZ2VTZW50aW1lbnRCeVByZWNpbmN0IiwKICAic2Vzc2lvbiIgOiAiYTQyOTZjOTctODQyZS00ZDY4LTk5OTktNTI3MjZlZmIyZjBkIgp9")
+            })
+            
+            function requestData(encodedJson) {
+            var jsonObject = jSonise(encodedJson);
+            
+            $.ajaxSetup({
+            beforeSend: function(xhr) {
+            xhr.setRequestHeader('ComSessionId', jsonObject.session);
             }
-
-            function drawChart(jsonObject)
-            {
-                var TotalFeedback = jsonObject.SurveyReport["TotalFeedback"]
-                var TotalSurvey = jsonObject.SurveyReport["TotalSurvey"]
-                
-                var data = google.visualization.arrayToDataTable([
-                    ["Survey", "Feedback"],
-                    ["Survey", TotalSurvey],
-                    ["Feedback",TotalFeedback]
-                ]);
-
-                var view = new google.visualization.DataView(data);
-                view.setColumns([0, 1,
-                    { 
-                        calc: "stringify",
-                        sourceColumn: 1,
-                        type: "string",
-                        role: "annotation" 
-                    }
-                ]);
-
-                var options = {
-                    title: "Survey",
-                    width: "100%",
-                    height: "100%",
-                    bar: {groupWidth: "95%"},
-                    legend: { position: "none" },
-                    chartArea:{left:10,top:20,width:"100%",height:"25%"}
-                };
-
-                var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values"));
-                chart.draw(view, options);
+            });
+            $.ajax({
+            type: "POST",
+            url: jsonObject.url,
+            data: JSON.stringify({
+            "startDate": "" + jsonObject.startDate + "",
+            "endDate": "" + jsonObject.endDate + "",
+            "divId":""+jsonObject.divId+""
+            }),
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            crossDomain: true,
+            success: function(result) {
+            jsonChartOBject = result;
+            
+            if(jsonChartOBject.AverageSentimentOfPrecinct.length > 0)
+            drawChart();
+            else
+            $("#columnchart_values").html("No results.")
+            },
+            error: function(request, status, error) {
+            alert("request error " + error);
+            }
+            });
             }
             
+            Object.size = function(obj) {
+            var size = 0, key;
+            for (key in obj) {
+            if (obj.hasOwnProperty(key)) size++;
+            }
+            return size;
+            };
             
-    </script>
-        <div id="columnchart_values" style="width: 100%; height: auto"></div>
-</body>
-</html>
+            function drawChart() {
+            var AverageSentimentOfPrecinctObj = jsonChartOBject.AverageSentimentOfPrecinct;
+            
+            var data = new google.visualization.DataTable();
+            
+            data.addColumn('string','Precinct')
+            
+            var zoneDict = {}
+            
+            for(i = 0; i < AverageSentimentOfPrecinctObj.length; i++)
+            {
+            var AverageSentimentOfPrecinct = AverageSentimentOfPrecinctObj[i];
+            
+            ZoneName = AverageSentimentOfPrecinct['ZoneName']
+            PrecinctName = AverageSentimentOfPrecinct['PrecinctName']
+            
+            console.log("PrecinctName " + PrecinctName)
+            
+            if(zoneDict[ZoneName] == null)
+            zoneDict[ZoneName] = 1
+            else
+            zoneDict[ZoneName] = zoneDict[ZoneName] + 1
+            
+            data.addColumn('number',PrecinctName)
+            }
+            console.log("data " + data)
+            
+            countsArr = []
+            zonesArr = []
+            
+            for(var zoneKey in zoneDict)
+            {
+            countsArr.push(zoneDict[zoneKey]);
+            zonesArr.push(zoneKey)
+            }
+            
+            console.log("zones " + zonesArr)
+            
+            for(i = 0; i < zonesArr.length; i++)
+            {
+            zName = zonesArr[i]
+            
+            rowsArr = []
+            rowsViewSet = [];
+            rowsArr.push(zName)
+            for(x = 0; x < AverageSentimentOfPrecinctObj.length; x++)
+            {
+            var AverageSentimentOfPrecinct = AverageSentimentOfPrecinctObj[x];
+            
+            AverageRating = AverageSentimentOfPrecinct['AverageRating']
+            DivName = AverageSentimentOfPrecinct['DivName']
+            PrecinctName = AverageSentimentOfPrecinct['PrecinctName']
+            ZoneName = AverageSentimentOfPrecinct['ZoneName']
+            
+            
+            if(zName == ZoneName)
+            {
+            console.log(zName+ "==" +ZoneName)
+            console.log("push("+AverageRating+")")
+            rowsArr.push(AverageRating)
+            
+            }
+            else
+            {
+            rowsArr.push(0)
+            }
+            }
+            console.log(rowsArr)
+            data.addRows([rowsArr])
+            }
+            
+            
+            viewSetArr = []
+            for(i = 0; i <= AverageSentimentOfPrecinctObj.length; i++)
+            {
+            if(i == 0)
+            {
+            viewSetArr.push(0)
+            }
+            
+            else
+            {
+            viewSetArr.push(i)
+            viewSetArr.push(
+            {
+            calc: "stringify",
+            sourceColumn: i,
+            type: "string",
+            role: "annotation"
+            
+            }
+            )
+            }
+            }
+            var view = new google.visualization.DataView(data);
+            view.setColumns(viewSetArr)
+            
+            
+            var options = {
+            width: "100%",
+            height: 500,
+            legend: {
+            position: 'right',
+            maxLines: 10
+            },
+            bar: {
+            groupWidth: '95%'
+            },
+            isStacked: true,
+            vAxis: {
+            title: "Percentage",
+            viewWindowMode:'explicit',
+            textPosition: 'none'
+            }
+            };
+            
+            var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values"));
+            chart.draw(view, options);
+            }
+            </script>
+            <div class="fluid">
+            <div class="span12">
+            <div id="columnchart_values" style="width: 650px; height: 500px;"></div>
+            </div>
+            </div>
+            </body>
+            
+            </html>

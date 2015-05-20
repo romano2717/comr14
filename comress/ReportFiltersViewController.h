@@ -18,6 +18,7 @@
 
 @property (nonatomic,weak) IBOutlet UITextField *divisionTextField;
 @property (nonatomic,weak) IBOutlet UITextField *zoneTextField;
+@property (nonatomic,weak) IBOutlet UILabel *zoneLabel;
 @property (nonatomic,weak) IBOutlet UITextField *precinctTextField;
 
 @property (nonatomic, strong) NSMutableArray *divisionArray;
@@ -28,5 +29,7 @@
 
 @property (nonatomic, strong) NSDictionary *selectedDivisionDict;
 @property (nonatomic, strong) NSDictionary *selectedZoneDict;
+
+@property (nonatomic) BOOL hideZoneFilter; //when PM view the average sentiment, no nee for zone filtering
 
 @end

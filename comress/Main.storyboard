@@ -173,20 +173,8 @@
                     </view>
                     <navigationItem key="navigationItem" id="mlk-9J-F3S">
                         <nil key="title"/>
-                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="Bjz-bS-yfg">
-                            <rect key="frame" x="234" y="8" width="133" height="29"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <constraints>
-                                <constraint firstAttribute="width" constant="133" id="vl9-lX-qMH"/>
-                            </constraints>
-                            <segments>
-                                <segment title="Me"/>
-                                <segment title="Others"/>
-                            </segments>
-                        </segmentedControl>
                     </navigationItem>
                     <connections>
-                        <outlet property="segment" destination="Bjz-bS-yfg" id="NqY-py-TAD"/>
                         <outlet property="tableView" destination="RhE-dj-K2s" id="rKV-3Y-Cf0"/>
                         <segue destination="snk-Tc-hS7" kind="show" identifier="push_report_detail" id="xwz-B3-D96"/>
                     </connections>
@@ -237,8 +225,8 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="24" id="HUS-83-QT5"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
+                                <color key="textColor" red="0.0064558116310000002" green="0.00090609822590000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <webView contentMode="scaleToFill" scalesPageToFit="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OND-CQ-US5">
@@ -368,6 +356,7 @@
                     </view>
                     <connections>
                         <outlet property="divisionTextField" destination="slr-ek-roU" id="xS4-4C-nez"/>
+                        <outlet property="zoneLabel" destination="BUs-Cf-xNX" id="7ex-Zz-a28"/>
                         <outlet property="zoneTextField" destination="1DD-kl-ysp" id="UzE-Ob-KMR"/>
                     </connections>
                 </viewController>

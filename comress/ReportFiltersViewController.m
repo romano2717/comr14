@@ -14,6 +14,8 @@
 
 @implementation ReportFiltersViewController
 
+@synthesize hideZoneFilter;
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -25,6 +27,12 @@
     
     self.divisionArrayObj = [[NSMutableArray alloc] init];
     self.zoneArrayObj = [[NSMutableArray alloc] init];
+
+    if(hideZoneFilter)
+    {
+        self.zoneTextField.hidden = YES;
+        self.zoneLabel.hidden = YES;
+    }
     
     [self getDivisions];
 }

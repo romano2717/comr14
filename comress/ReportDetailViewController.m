@@ -37,6 +37,10 @@
     self.filterLabel.userInteractionEnabled = YES;
     [self.filterLabel addGestureRecognizer:tap];
     
+    NSDictionary *underlineAttribute = @{NSUnderlineStyleAttributeName: @(NSUnderlineStyleSingle)};
+    self.filterLabel.attributedText = [[NSAttributedString alloc] initWithString:@"Filters: None"
+                                                             attributes:underlineAttribute];
+    
     
     [self setDefaultDateRange];
     
@@ -94,7 +98,10 @@
 - (void)toggleFilter
 {
     ReportFiltersViewController *reportsFilterVc = [self.storyboard instantiateViewControllerWithIdentifier:@"ReportFiltersViewController"];
-
+    if(PMisLoggedIn && [reportType isEqualToString:@"Average Sentiment"])
+        reportsFilterVc.hideZoneFilter = YES;
+    else
+        reportsFilterVc.hideZoneFilter = NO;
     
     MZFormSheetController *formSheet = [[MZFormSheetController alloc] initWithViewController:reportsFilterVc];
     
