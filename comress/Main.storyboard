@@ -279,9 +279,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Division" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="71h-Mx-1iw">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Division:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="71h-Mx-1iw">
                                 <rect key="frame" x="16" y="28" width="568" height="21"/>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
@@ -294,9 +294,9 @@
                                     <outlet property="delegate" destination="teI-ks-uYT" id="4Aq-wN-8HQ"/>
                                 </connections>
                             </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Zone" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BUs-Cf-xNX">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Zone:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BUs-Cf-xNX">
                                 <rect key="frame" x="16" y="95" width="568" height="21"/>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
@@ -5229,11 +5229,12 @@ Please note that, by using the Town Council’s services, you signify that you h
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
-                        <segue destination="BW0-OX-23b" kind="relationship" relationship="viewControllers" id="u7Y-xg-7CH"/>
-                        <segue destination="yox-EP-f23" kind="relationship" relationship="viewControllers" id="RqC-iZ-JSe"/>
                         <segue destination="onP-e6-mVT" kind="presentation" identifier="modal_login" animates="NO" id="cqu-JP-Kpv"/>
                         <segue destination="hJK-hM-yZC" kind="presentation" identifier="modal_activation" animates="NO" id="Od3-aS-nTi"/>
                         <segue destination="vLd-aN-V70" kind="presentation" identifier="modal_initializer" animates="NO" id="YCm-fb-gyL"/>
+                        <segue destination="BW0-OX-23b" kind="relationship" relationship="viewControllers" id="u7Y-xg-7CH"/>
+                        <segue destination="Ppw-tB-pjh" kind="relationship" relationship="viewControllers" id="F9y-GJ-Sgh"/>
+                        <segue destination="yox-EP-f23" kind="relationship" relationship="viewControllers" id="RqC-iZ-JSe"/>
                         <segue destination="IUQ-5a-voL" kind="relationship" relationship="viewControllers" id="Zj4-nn-pJY"/>
                         <segue destination="eA0-UL-piT" kind="relationship" relationship="viewControllers" id="dG5-db-OPz"/>
                     </connections>

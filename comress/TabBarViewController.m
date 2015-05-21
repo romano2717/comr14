@@ -24,13 +24,18 @@
     
     myDatabase = [Database sharedMyDbManager];
     
-    //hide svc. ambass for CT_NU
+    NSMutableArray *tabbarViewControllers = [NSMutableArray arrayWithArray: [self viewControllers]];
+    [tabbarViewControllers removeObjectAtIndex:1]; //temp hide routine
+    
+    
+    //hide svc. ambass, and statistics for CT_NU
     if([[myDatabase.userDictionary valueForKey:@"group_name"] isEqualToString:@"CT_NU"] == YES)
     {
-        NSMutableArray *tabbarViewControllers = [NSMutableArray arrayWithArray: [self viewControllers]];
-        [tabbarViewControllers removeObjectAtIndex: 1];
-        [self setViewControllers: tabbarViewControllers ];
+        [tabbarViewControllers removeObjectAtIndex: 1]; // svc amabassador
+        [tabbarViewControllers removeObjectAtIndex: 1]; // statistics
     }
+    
+    [self setViewControllers: tabbarViewControllers];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -94,12 +99,12 @@
             }];
             if(needtoInit == YES)
                 [self performSegueWithIdentifier:@"modal_initializer" sender:self];
-            else if (myDatabase.userBlocksInitComplete == 0)
+            else if (myDatabase.userBlocksInitComplete == 0 || myDatabase.userBlocksMappingInitComplete == NO)
                 [self performSegueWithIdentifier:@"modal_initializer" sender:self];
             
             return;
         }
-        else if (myDatabase.userBlocksInitComplete == 0)
+        else if (myDatabase.userBlocksInitComplete == 0 || myDatabase.userBlocksMappingInitComplete == NO)
         {
             [self performSegueWithIdentifier:@"modal_initializer" sender:self];
             

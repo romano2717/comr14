@@ -495,7 +495,7 @@
     {
         [self sendLocationAsMessageWithUrl:mapImageUrl];
         [locationManager stopUpdatingLocation];
-        [MBProgressHUD hideHUDForView:self.view animated:YES];        
+        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
     }
 }
 

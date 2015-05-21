@@ -187,7 +187,9 @@
             {
                 myDatabase.userBlocksInitComplete = 1;
                 
-                [self checkPostCount];
+                [self downloadBlockUserMappingCount];
+                
+                
             }
             
             
@@ -197,6 +199,69 @@
         }];
         
     }];
+}
+
+
+#pragma mark - check if we need to sync user blocks mapping
+- (void)downloadBlockUserMappingCount
+{
+    myDatabase.userBlocksMappingInitComplete = NO;
+    
+    [myDatabase.AfManager GET:[NSString stringWithFormat:@"%@%@",myDatabase.api_url,api_download_user_block_mapping] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSArray *BlockUserMappingList = (NSArray *)[responseObject objectForKey:@"BlockUserMappingList"];
+
+        [myDatabase.databaseQ inTransaction:^(FMDatabase *db, BOOL *rollback) {
+           
+            BOOL del = [db executeUpdate:@"delete from block_user_mapping"];
+            if(!del)
+            {
+                *rollback = YES;
+                return;
+            }
+            
+            
+            FMResultSet *rs = [db executeQuery:@"select count(*) as count from block_user_mapping"];
+            BOOL downloadBlocksUserMapping = NO;
+            while ([rs next]) {
+                if([rs intForColumn:@"count"] == 0)
+                    downloadBlocksUserMapping = YES;
+            }
+            
+            if(downloadBlocksUserMapping == NO)
+            {
+                [self checkPostCount];
+                return;
+            }
+
+            
+            for (int i = 0 ; i < BlockUserMappingList.count; i++) {
+                NSDictionary *theDict = [BlockUserMappingList objectAtIndex:i];
+                
+                NSNumber *BlkId = [NSNumber numberWithInt:[[theDict valueForKey:@"BlkId"] intValue]];
+                NSString *SupervisorId = [[theDict valueForKey:@"SupervisorId"] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+                NSString *UserId = [[theDict valueForKey:@"UserId"] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+                NSString *division = [[theDict valueForKey:@"DivName"] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+                
+                BOOL ins = [db executeUpdate:@"insert into block_user_mapping(block_id, supervisor_id, user_id, division) values (?,?,?,?)",BlkId,SupervisorId,UserId,division];
+                
+                if(!ins)
+                {
+                    *rollback = YES;
+                    return;
+                }
+            }
+        }];
+        
+        myDatabase.userBlocksMappingInitComplete = YES;
+        
+        [self checkPostCount];
+
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        myDatabase.userBlocksMappingInitComplete = NO;
+        [self initializingCompleteWithUi:NO];
+    }];
+ 
 }
 
 

@@ -116,7 +116,18 @@ contract_type;
 
 - (NSArray *)fetchIssuesWithParams:(NSDictionary *)params forPostId:(NSNumber *)postId filterByBlock:(BOOL)filter newIssuesFirst:(BOOL)newIssuesFirst onlyOverDue:(BOOL)onlyOverDue
 {
-    @try {
+    BOOL POisLoggedIn = YES; //CT_NU uses the same logic as PO
+    BOOL PMisLoggedIn = YES;
+    
+    if([[myDatabase.userDictionary valueForKey:@"group_name"] isEqualToString:@"PM"])
+    {
+        PMisLoggedIn = YES;
+        POisLoggedIn = NO;
+    }
+    
+    
+
+//    @try {
         int __block overDueIssues = 0;
         
         myDatabase.allPostWasSeen = YES;
@@ -189,7 +200,7 @@ contract_type;
 
         
         [myDatabase.databaseQ inTransaction:^(FMDatabase *db, BOOL *rollback) {
-            db.traceExecution = NO;
+            db.traceExecution = YES;
             FMResultSet *rsPost = [db executeQuery:q];
             
             while ([rsPost next]) {
@@ -211,11 +222,46 @@ contract_type;
                 NSMutableDictionary *postDict = [[NSMutableDictionary alloc] init];
                 NSMutableDictionary *postChild = [[NSMutableDictionary alloc] init];
                 
-                if([rsPost boolForColumn:@"seen"] == NO && onlyOverDue == YES) //if we found at leas one we flag it to no
+                if([rsPost boolForColumn:@"seen"] == NO && onlyOverDue == YES) //if we found at least one we flag it to no
                     myDatabase.allPostWasSeen = NO;
                 
                 
                 [postChild setObject:[rsPost resultDictionary] forKey:@"post"];
+                
+                //change the post_by of this post based on who's PO this block belongs to
+                NSMutableDictionary *mutablePostDict = [[NSMutableDictionary alloc] initWithDictionary:[rsPost resultDictionary]];
+                
+                FMResultSet *rsGetPoOfThisBlock = [db executeQuery:@"select user_id from block_user_mapping where block_id = ?",[NSNumber numberWithInt:[[mutablePostDict valueForKey:@"block_id"] intValue]]];
+                while ([rsGetPoOfThisBlock next]) {
+                    [mutablePostDict setObject:[rsGetPoOfThisBlock stringForColumn:@"user_id"] forKey:@"under_by"];
+                }
+                
+                //OTHERS: check if this block is owned by a PO/contractor under the current user's pm/supervisor
+                if(onlyOverDue == NO && filter == NO)
+                {
+                    if(POisLoggedIn)
+                    {
+                        FMResultSet *rsCheckSupervisor = [db executeQuery:@"select * from block_user_mapping where supervisor_id = (select supervisor_id from block_user_mapping where user_id = ?) and user_id != ? and block_id = ?",[myDatabase.userDictionary valueForKey:@"user_id"],[myDatabase.userDictionary valueForKey:@"user_id"],[NSNumber numberWithInt:[[mutablePostDict valueForKey:@"block_id"] intValue]]];
+                        
+                        if([rsCheckSupervisor next] == YES)
+                            [postChild setObject:mutablePostDict forKey:@"post"];
+                        else
+                            continue; //don't add
+                    }
+                    else if(PMisLoggedIn)
+                    {
+                        FMResultSet *rsCheckSupervisor = [db executeQuery:@"select block_id from block_user_mapping where block_id = ? and supervisor_id != ?",[NSNumber numberWithInt:[[mutablePostDict valueForKey:@"block_id"] intValue]],[myDatabase.userDictionary valueForKey:@"user_id"]];
+                        
+                        if([rsCheckSupervisor next] == YES)
+                            [postChild setObject:mutablePostDict forKey:@"post"];
+                        else
+                            continue;// don't add
+                    }
+                }
+
+                else
+                    [postChild setObject:mutablePostDict forKey:@"post"];
+                
                 
                 if(onlyOverDue == YES)
                     overDueIssues ++;
@@ -342,13 +388,73 @@ contract_type;
         }
        
         return arr;
-    }
-    @catch (NSException *exception) {
-        DDLogVerbose(@"fetchIssuesWithParams: %@",exception);
-    }
-    @finally {
+//    }
+//    @catch (NSException *exception) {
+//        DDLogVerbose(@"fetchIssuesWithParams: %@",exception);
+//    }
+//    @finally {
+//
+//    }
+}
 
+- (NSArray *)fetchIssuesWithParamsForPM:(NSDictionary *)params forPostId:(NSNumber *)postId filterByBlock:(BOOL)filter newIssuesFirst:(BOOL)newIssuesFirst onlyOverDue:(BOOL)onlyOverDue
+{
+    NSMutableString *q;
+    
+    if(postId == nil)
+    {
+        if(onlyOverDue == NO)
+        {
+            if(filter == YES) //ME
+            {
+                q = [[NSMutableString alloc] initWithString:[NSString stringWithFormat:@"select p.post_id,client_post_id from post p left join block_user_mapping bum on bum.block_id = p.block_id where p.block_id in (select block_id from block_user_mapping where supervisor_id = '%@') ",[myDatabase.userDictionary valueForKey:@"user_id"]]];
+            }
+            else //Others
+            {
+                q = [[NSMutableString alloc] initWithString:[NSString stringWithFormat:@"select p.post_id,client_post_id from post p left join block_user_mapping bum on bum.block_id = p.block_id where p.block_id not in (select block_id from block_user_mapping where supervisor_id != '%@') ",[myDatabase.userDictionary valueForKey:@"user_id"]]];
+            }
+        }
     }
+    
+    if([params valueForKey:@"order"])
+    {
+        [q appendString:[params valueForKey:@"order"]];
+    }
+    
+    NSMutableArray *postIdArray = [[NSMutableArray alloc] init];
+
+    [myDatabase.databaseQ inTransaction:^(FMDatabase *db, BOOL *rollback) {
+        db.traceExecution = YES;
+        FMResultSet *rs = [db executeQuery:q];
+        
+        while ([rs next]) {
+            
+            NSNumber *theClientPostId = [NSNumber numberWithInt:[rs intForColumn:@"client_post_id"]];
+            NSNumber *thePostId = [NSNumber numberWithInt:[rs intForColumn:@"post_id"]];
+            
+            [postIdArray addObject:@{@"clientPostId":theClientPostId,@"postId":thePostId}];
+        }
+    }];
+    
+    NSMutableArray *postArray = [[NSMutableArray alloc] init];
+    
+    for(int i = 0; i < postIdArray.count; i++)
+    {
+        NSDictionary *dict = [postIdArray objectAtIndex:i];
+        
+        NSNumber *clientPostId = [dict valueForKey:@"clientPostId"];
+
+        NSArray *post = [self fetchIssuesWithParams:params forPostId:clientPostId filterByBlock:filter newIssuesFirst:NO onlyOverDue:onlyOverDue];
+
+        if(filter == YES)
+            [postArray addObject:[post firstObject]];
+        else
+        {
+            NSMutableDictionary *mutablePostDict = [[NSMutableDictionary alloc] initWithDictionary:[post firstObject]];
+        }
+    }
+    
+    return postArray;
 }
 
 - (NSArray *)postsToSend

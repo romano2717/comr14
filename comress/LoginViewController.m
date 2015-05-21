@@ -135,6 +135,7 @@
                     {
                         //new user.
                         myDatabase.userBlocksInitComplete = 0;
+                        myDatabase.userBlocksMappingInitComplete = NO;
                         
                         user_q = [db executeUpdate:@"insert into users (company_id, user_id, company_name, group_id, group_name, full_name, guid, device_id, is_active,contract_type) values (?,?,?,?,?,?,?,?,?,?)",res_CompanyId,res_UserId,res_CompanyName,res_GroupId,res_GroupName,res_UserName,res_SessionId,res_deviceId,is_active,contract_type];
                         if(!user_q)

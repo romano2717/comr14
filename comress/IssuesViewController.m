@@ -26,11 +26,20 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 
-    
     myDatabase = [Database sharedMyDbManager];
     
     comment = [[Comment alloc] init];
     user = [[Users alloc] init];
+    
+    //check what kind of account is logged in
+    POisLoggedIn = YES; //CT_NU uses the same logic as PO
+    
+    if([[myDatabase.userDictionary valueForKey:@"group_name"] isEqualToString:@"PM"])
+    {
+        PMisLoggedIn = YES;
+        POisLoggedIn = NO;
+    }
+    
     
     self.postsNotSeen = [[NSMutableArray alloc] init];
     
@@ -200,7 +209,10 @@
             
             if (self.segment.selectedSegmentIndex == 0)
             {
-                dict = (NSDictionary *)[self.postsArray objectAtIndex:indexPath.row];
+                if(POisLoggedIn)
+                    dict = (NSDictionary *)[self.postsArray objectAtIndex:indexPath.row];
+                else
+                    dict = (NSDictionary *)[[self.postsArray objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
             }
 
             else if(self.segment.selectedSegmentIndex == 1)
@@ -250,7 +262,7 @@
     if(myDatabase.initializingComplete == 0)
         return;
     
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+//    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         @try {
             post = nil;
             
@@ -262,61 +274,45 @@
             
             if(self.segment.selectedSegmentIndex == 0)
             {
-                if(newIssuesUp)
-                    self.postsArray = [[NSMutableArray alloc] initWithArray:[post fetchIssuesWithParams:params forPostId:nil filterByBlock:YES newIssuesFirst:YES onlyOverDue:NO]];
-                else
-                    self.postsArray = [[NSMutableArray alloc] initWithArray:[post fetchIssuesWithParams:params forPostId:nil filterByBlock:YES newIssuesFirst:NO onlyOverDue:NO]];
+                if(POisLoggedIn)
+                {
+                    if(newIssuesUp)
+                        self.postsArray = [[NSMutableArray alloc] initWithArray:[post fetchIssuesWithParams:params forPostId:nil filterByBlock:YES newIssuesFirst:YES onlyOverDue:NO]];
+                    else
+                        self.postsArray = [[NSMutableArray alloc] initWithArray:[post fetchIssuesWithParams:params forPostId:nil filterByBlock:YES newIssuesFirst:NO onlyOverDue:NO]];
+                }
+                else if (PMisLoggedIn)
+                {
+                    if(newIssuesUp)
+                        self.postsArray = [[NSMutableArray alloc] initWithArray:[post fetchIssuesWithParamsForPM:params forPostId:nil filterByBlock:YES newIssuesFirst:YES onlyOverDue:NO]];
+                    else
+                        self.postsArray = [[NSMutableArray alloc] initWithArray:[post fetchIssuesWithParamsForPM:params forPostId:nil filterByBlock:YES newIssuesFirst:NO onlyOverDue:NO]];
+                    
+                    // group the post
+                    [self groupPost];
+                }
             }
             
             else if(self.segment.selectedSegmentIndex == 1)
             {
-                if(newIssuesUp)
-                    self.postsArray = [[NSMutableArray alloc] initWithArray:[post fetchIssuesWithParams:params forPostId:nil filterByBlock:NO newIssuesFirst:YES onlyOverDue:NO]];
-                else
-                    self.postsArray = [[NSMutableArray alloc] initWithArray:[post fetchIssuesWithParams:params forPostId:nil filterByBlock:NO newIssuesFirst:NO onlyOverDue:NO]];
-                
-                NSMutableArray *sectionHeaders = [[NSMutableArray alloc] init];
-                
-                //reconstruct array to create headers
-                for (int i = 0; i < self.postsArray.count; i++) {
-                    NSDictionary *top = (NSDictionary *)[self.postsArray objectAtIndex:i];
-                    NSString *topKey = [[top allKeys] objectAtIndex:0];
-                    
-                    NSString *post_by = [[[top objectForKey:topKey] objectForKey:@"post"] valueForKey:@"post_by"];
-                    
-                    [sectionHeaders addObject:post_by];
+                if(POisLoggedIn)
+                {
+                    if(newIssuesUp)
+                        self.postsArray = [[NSMutableArray alloc] initWithArray:[post fetchIssuesWithParams:params forPostId:nil filterByBlock:NO newIssuesFirst:YES onlyOverDue:NO]];
+                    else
+                        self.postsArray = [[NSMutableArray alloc] initWithArray:[post fetchIssuesWithParams:params forPostId:nil filterByBlock:NO newIssuesFirst:NO onlyOverDue:NO]];
+                }
+                else if (PMisLoggedIn)
+                {
+                    if(newIssuesUp)
+                        self.postsArray = [[NSMutableArray alloc] initWithArray:[post fetchIssuesWithParamsForPM:params forPostId:nil filterByBlock:NO newIssuesFirst:YES onlyOverDue:NO]];
+                    else
+                        self.postsArray = [[NSMutableArray alloc] initWithArray:[post fetchIssuesWithParamsForPM:params forPostId:nil filterByBlock:NO newIssuesFirst:NO onlyOverDue:NO]];
                 }
                 
-                //remove dupes of sections
-                NSArray *cleanSectionHeadersArray = [[NSOrderedSet orderedSetWithArray:sectionHeaders] array];
-                self.sectionHeaders = nil;
-                self.sectionHeaders = cleanSectionHeadersArray;
                 
-                NSMutableArray *groupedPost = [[NSMutableArray alloc] init];
-                
-                for (int i = 0; i < cleanSectionHeadersArray.count; i++) {
-                    
-                    NSString *section = [cleanSectionHeadersArray objectAtIndex:i];
-                    
-                    NSMutableArray *row = [[NSMutableArray alloc] init];
-                    
-                    for (int j = 0; j < self.postsArray.count; j++) {
-                        
-                        NSDictionary *top = (NSDictionary *)[self.postsArray objectAtIndex:j];
-                        NSString *topKey = [[top allKeys] objectAtIndex:0];
-                        NSString *post_by = [[[top objectForKey:topKey] objectForKey:@"post"] valueForKey:@"post_by"];
-                        
-                        if([post_by isEqualToString:section])
-                        {
-                            [row addObject:top];
-                        }
-                    }
-                    
-                    
-                    [groupedPost addObject:row];
-                }
-                
-                self.postsArray = groupedPost;
+                // group the post
+                [self groupPost];
             }
             else
             {
@@ -327,25 +323,25 @@
             }
             
             
+            //update ui
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self.issuesTable reloadData];
-            });
-            
-            
-            //bulb icon toggle
-            if(myDatabase.allPostWasSeen == NO)
-            {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [[NSNotificationCenter defaultCenter] postNotificationName:@"toggleBulbIcon" object:nil userInfo:@{@"toggle":@"on"}];
-                });
                 
-            }
-            else
-            {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [[NSNotificationCenter defaultCenter] postNotificationName:@"toggleBulbIcon" object:nil userInfo:@{@"toggle":@"off"}];
-                });
-            }
+                //bulb icon toggle
+                if(myDatabase.allPostWasSeen == NO)
+                {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [[NSNotificationCenter defaultCenter] postNotificationName:@"toggleBulbIcon" object:nil userInfo:@{@"toggle":@"on"}];
+                    });
+                    
+                }
+                else
+                {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [[NSNotificationCenter defaultCenter] postNotificationName:@"toggleBulbIcon" object:nil userInfo:@{@"toggle":@"off"}];
+                    });
+                }
+            });
         }
         @catch (NSException *exception) {
             DDLogVerbose(@"fetchPostsWithNewIssuesUp: %@ [%@-%@]",exception,THIS_FILE,THIS_METHOD);
@@ -353,11 +349,57 @@
         @finally {
             
         }
-        
+    
         [self updateBadgeCount];
-    });
+//    });
 }
 
+#pragma mark - grouping of post
+- (void)groupPost
+{
+    NSMutableArray *sectionHeaders = [[NSMutableArray alloc] init];
+    
+    //reconstruct array to create headers
+    for (int i = 0; i < self.postsArray.count; i++) {
+        NSDictionary *top = (NSDictionary *)[self.postsArray objectAtIndex:i];
+        NSString *topKey = [[top allKeys] objectAtIndex:0];
+        
+        NSString *post_by = [[[top objectForKey:topKey] objectForKey:@"post"] valueForKey:@"under_by"];
+        
+        [sectionHeaders addObject:post_by];
+    }
+    
+    //remove dupes of sections
+    NSArray *cleanSectionHeadersArray = [[NSOrderedSet orderedSetWithArray:sectionHeaders] array];
+    self.sectionHeaders = nil;
+    self.sectionHeaders = cleanSectionHeadersArray;
+    
+    NSMutableArray *groupedPost = [[NSMutableArray alloc] init];
+    
+    for (int i = 0; i < cleanSectionHeadersArray.count; i++) {
+        
+        NSString *section = [cleanSectionHeadersArray objectAtIndex:i];
+        
+        NSMutableArray *row = [[NSMutableArray alloc] init];
+        
+        for (int j = 0; j < self.postsArray.count; j++) {
+            
+            NSDictionary *top = (NSDictionary *)[self.postsArray objectAtIndex:j];
+            NSString *topKey = [[top allKeys] objectAtIndex:0];
+            NSString *post_by = [[[top objectForKey:topKey] objectForKey:@"post"] valueForKey:@"under_by"];
+            
+            if([post_by isEqualToString:section])
+            {
+                [row addObject:top];
+            }
+        }
+        
+        
+        [groupedPost addObject:row];
+    }
+    
+    self.postsArray = groupedPost;
+}
 
 #pragma mark - Table view data source
 
@@ -367,12 +409,17 @@
     long count;
     
     if(self.segment.selectedSegmentIndex == 0)
-        count = 1;
+    {
+        if(POisLoggedIn)
+            count = 1;
+        else
+            count = self.sectionHeaders.count;
+    }
     else if(self.segment.selectedSegmentIndex == 1)
         count = self.sectionHeaders.count;
     else
         count = 1;
-        
+    
     
     return count;
 }
@@ -383,7 +430,13 @@
     long count;
     
     if(self.segment.selectedSegmentIndex == 0)
-        count = self.postsArray.count;
+    {
+        if(POisLoggedIn)
+            count = self.postsArray.count;
+        else
+            count = [[self.postsArray objectAtIndex:section] count];
+    }
+    
     else if(self.segment.selectedSegmentIndex == 1)
         count = [[self.postsArray objectAtIndex:section] count];
     else
@@ -400,7 +453,13 @@
         NSDictionary *dict;
         
         if(self.segment.selectedSegmentIndex == 0)
-            dict = (NSDictionary *)[self.postsArray objectAtIndex:indexPath.row];
+        {
+            if(POisLoggedIn)
+                dict = (NSDictionary *)[self.postsArray objectAtIndex:indexPath.row];
+            else
+                dict = (NSDictionary *)[[self.postsArray objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+        }
+        
         else if(self.segment.selectedSegmentIndex == 1)
             dict = (NSDictionary *)[[self.postsArray objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
         else
@@ -425,6 +484,13 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
+    if(self.segment.selectedSegmentIndex == 0)
+    {
+        if(POisLoggedIn)
+            return nil;
+        else
+            return [self.sectionHeaders objectAtIndex:section];
+    }
     if(self.segment.selectedSegmentIndex == 1)
         return [self.sectionHeaders objectAtIndex:section];
     
@@ -449,7 +515,12 @@
 {
     NSDictionary *dict;
     if(self.segment.selectedSegmentIndex == 0)
-        dict = (NSDictionary *)[self.postsArray objectAtIndex:indexPath.row];
+    {
+        if(POisLoggedIn)
+            dict = (NSDictionary *)[self.postsArray objectAtIndex:indexPath.row];
+        else
+            dict = (NSDictionary *)[[self.postsArray objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+    }
     else if(self.segment.selectedSegmentIndex == 1)
         dict = (NSDictionary *)[[self.postsArray objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
     else
@@ -584,7 +655,12 @@
     //upload post status change
     NSDictionary *dict;
     if(self.segment.selectedSegmentIndex == 0)
-        dict = (NSDictionary *)[self.postsArray objectAtIndex:indexPath.row];
+    {
+        if(POisLoggedIn)
+            dict = (NSDictionary *)[self.postsArray objectAtIndex:indexPath.row];
+        else
+            dict = (NSDictionary *)[[self.postsArray objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+    }
     else if(self.segment.selectedSegmentIndex == 1)
         dict = (NSDictionary *)[[self.postsArray objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
     else
@@ -625,8 +701,17 @@
     
     if(self.segment.selectedSegmentIndex == 0)
     {
-        dict = (NSDictionary *)[self.postsArray objectAtIndex:indexPath.row];
-        clickedPostId = [NSNumber numberWithInt:[[[dict allKeys] objectAtIndex:0] intValue]];
+        if(POisLoggedIn)
+        {
+            dict = (NSDictionary *)[self.postsArray objectAtIndex:indexPath.row];
+            clickedPostId = [NSNumber numberWithInt:[[[dict allKeys] objectAtIndex:0] intValue]];
+        }
+        else
+        {
+            dict = (NSDictionary *)[[self.postsArray objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+            clickedPostId = [NSNumber numberWithInt:[[[dict allKeys] objectAtIndex:0] intValue]];
+        }
+        
     }
     else if(self.segment.selectedSegmentIndex == 1)
     {

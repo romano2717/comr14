@@ -50,8 +50,8 @@
     syncKickstartTimerOutgoing = [NSTimer scheduledTimerWithTimeInterval:3.0 target:self selector:@selector(uploadPost) userInfo:nil repeats:YES];
 
     //[self startDownload];
-    downloadIsTriggeredBySelf = YES;
-    syncKickstartTimerIncoming = [NSTimer scheduledTimerWithTimeInterval:3.0 target:self selector:@selector(startDownload) userInfo:nil repeats:YES];
+    //downloadIsTriggeredBySelf = YES;
+    //syncKickstartTimerIncoming = [NSTimer scheduledTimerWithTimeInterval:3.0 target:self selector:@selector(startDownload) userInfo:nil repeats:YES];
 }
 
 
@@ -2179,6 +2179,19 @@
                     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                         [self notifyLocallyWithMessage:[NSString stringWithFormat:@"%@ : %@",PostBy,PostTopic]];
                     });
+                }
+                else //update
+                {
+                    if([PostId intValue] > 0)
+                    {
+                        BOOL qUps = [theDb executeUpdate:@"update post set status = ?, block_id = ?, level = ?, address = ?, post_by = ?, post_topic = ?, post_type = ?, postal_code = ?, severity = ?, post_date = ? ,contract_type where post_id = ?",ActionStatus,BlkId,Level,Location,PostBy,PostTopic,PostType,PostalCode,Severity,PostDate,contractType,PostId];
+                        
+                        if(!qUps)
+                        {
+                            *rollback = YES;
+                            return;
+                        }
+                    }
                 }
             }];
             

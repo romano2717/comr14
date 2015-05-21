@@ -58,6 +58,7 @@
     //if(withUi == YES)
     myDatabase.initializingComplete = 1;
     myDatabase.userBlocksInitComplete = 1;
+    myDatabase.userBlocksMappingInitComplete = YES;
     
     [self dismissViewControllerAnimated:YES completion:^{
         

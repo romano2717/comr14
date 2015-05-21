@@ -240,6 +240,7 @@
             sync.stop = YES;
             myDatabase.initializingComplete = 0;
             myDatabase.userBlocksInitComplete = NO;
+            myDatabase.userBlocksMappingInitComplete = NO;
             
             self.updateAppUrl = [responseObject objectForKey:@"updateURL"];
             
@@ -444,12 +445,23 @@
                     jsonDate = (NSDate *)[rs5 dateForColumn:@"date"];
                 }
                 [sync startDownloadSurveyPage:1 totalPage:0 requestDate:jsonDate];
+                
+                
+                
+                //download feedback issues list
+                FMResultSet *rs6 = [db executeQuery:@"select date from su_feedback_issues_last_req_date"];
+                
+                if([rs6 next])
+                {
+                    jsonDate = (NSDate *)[rs6 dateForColumn:@"date"];
+                }
+                [sync startDownloadFeedBackIssuesForPage:1 totalPage:0 requestDate:jsonDate];
             }];
             break;
         }
         
             
-        default:
+        default: //11
         {
             [myDatabase.databaseQ inTransaction:^(FMDatabase *db, BOOL *rollback) {
                 FMResultSet *rs = [db executeQuery:@"select date from post_last_request_date"];

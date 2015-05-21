@@ -50,6 +50,8 @@ static NSString *api_update_status_after_read = @"Messaging/CommentNoti.svc/Upda
 
 static NSString *api_update_post_status = @"Messaging/Post.svc/UpdatePostActionStatus";
 
+static NSString *api_download_user_block_mapping =  @"Job/Block.svc/GetBlockUserMapping";
+
 
 
 

@@ -28,6 +28,9 @@
     Comment *comment;
     Users *user;
     Database *myDatabase;
+    
+    BOOL PMisLoggedIn;
+    BOOL POisLoggedIn;
 }
 
 @property (nonatomic, weak) IBOutlet UITableView *issuesTable;

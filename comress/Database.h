@@ -28,6 +28,7 @@
 
 @property (nonatomic) int initializingComplete;
 @property (nonatomic) int userBlocksInitComplete;
+@property (nonatomic) int userBlocksMappingInitComplete;
 @property (nonatomic) BOOL allPostWasSeen;
 
 @property (nonatomic, strong) NSDictionary *clientDictionary;

@@ -8,11 +8,11 @@
 
 #import "Database.h"
 
-static const int newDatabaseVersion = 3; //this database version is incremented everytime the database version is updated
+static const int newDatabaseVersion = 5; //this database version is incremented everytime the database version is updated
 
 @implementation Database
 
-@synthesize initializingComplete,userBlocksInitComplete,allPostWasSeen;
+@synthesize initializingComplete,userBlocksInitComplete,allPostWasSeen,userBlocksMappingInitComplete;
 
 
 +(instancetype)sharedMyDbManager {
@@ -28,6 +28,7 @@ static const int newDatabaseVersion = 3; //this database version is incremented 
     if (self = [super init]) {
         initializingComplete = 0;
         userBlocksInitComplete = 0;
+        userBlocksMappingInitComplete = NO;
         allPostWasSeen = YES;
         
         [self copyDbToDocumentsDir];
@@ -167,7 +168,13 @@ static const int newDatabaseVersion = 3; //this database version is incremented 
                                     @"CREATE TABLE IF NOT EXISTS suv_crm (client_crm_id INTEGER PRIMARY KEY AUTOINCREMENT, crm_id INTEGER DEFAULT (0), client_feed_back_issue_id INTEGER DEFAULT (0), feedback_issue_id INTEGER DEFAULT (0), description VARCHAR (300), postal_code VARCHAR (10), address VARCHAR (100), level VARCHAR (30), no_of_image INTEGER DEFAULT (0));",
                                     
                                     //11-may-2015 when PO close an issue, remarks and/or actions done is required
-                                    @"CREATE TABLE post_close_issue_remarks (id INTEGER PRIMARY KEY AUTOINCREMENT, actions_taken VARCHAR (100), remarks VARCHAR (300), post_id INTEGER DEFAULT (0), uploaded INTEGER DEFAULT (0), client_post_id INTEGER DEFAULT (0));"
+                                    @"CREATE TABLE IF NOT EXISTS post_close_issue_remarks (id INTEGER PRIMARY KEY AUTOINCREMENT, actions_taken VARCHAR (100), remarks VARCHAR (300), post_id INTEGER DEFAULT (0), uploaded INTEGER DEFAULT (0), client_post_id INTEGER DEFAULT (0));",
+                                    
+                                    //20-may-2015 block mapping for revised issue grouping
+                                    @"CREATE TABLE IF NOT EXISTS block_user_mapping (id INTEGER PRIMARY KEY AUTOINCREMENT, block_id INTEGER DEFAULT (0), supervisor_id VARCHAR (50), user_id VARCHAR (50));",
+                                    
+                                    //21-may-2014 add division for block mapping
+                                    @"ALTER TABLE block_user_mapping add division VARCHAR (30)"
                                     ];
         
         
@@ -180,8 +187,7 @@ static const int newDatabaseVersion = 3; //this database version is incremented 
 
                 if(!create)
                 {
-                    *rollback = YES;
-                    return ;
+                    DDLogVerbose(@"warning: %@",[db lastError]);
                 }
             }
         }];
