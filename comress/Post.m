@@ -468,6 +468,37 @@ contract_type;
     return postArray;
 }
 
+- (NSArray *)fetchIssuesForPO:(NSString *)poID
+{
+    NSDictionary *params = @{@"order":@"order by updated_on desc"};
+    
+    NSMutableArray *postArray = [[NSMutableArray alloc] init];
+    NSMutableArray *postIdArray = [[NSMutableArray alloc] init];
+    
+    
+    [myDatabase.databaseQ inTransaction:^(FMDatabase *db, BOOL *rollback) {
+        FMResultSet *rs = [db executeQuery:@"select p.client_post_id from post p left join block_user_mapping bum on p.block_id = bum.block_id where bum.user_id = ?",poID];
+        
+       
+        while ([rs next]) {
+            NSNumber *thePostId = [NSNumber numberWithInt:[rs intForColumn:@"client_post_id"]];
+            
+            [postIdArray addObject:thePostId];
+        }
+    }];
+    
+    for (int i = 0; i < postIdArray.count; i++) {
+        
+        NSNumber *thePostId = [postIdArray objectAtIndex:i];
+        
+        NSArray *post = [self fetchIssuesWithParams:params forPostId:thePostId filterByBlock:NO newIssuesFirst:YES onlyOverDue:NO];
+        
+        [postArray addObject:[post firstObject]];
+    }
+    
+    return postArray;
+}
+
 - (NSArray *)postsToSend
 {
     [myDatabase.databaseQ inTransaction:^(FMDatabase *db, BOOL *rollback) {

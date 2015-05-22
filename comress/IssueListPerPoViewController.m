@@ -21,6 +21,8 @@
     // Do any additional setup after loading the view.
     
     self.title = [poDict valueForKey:@"po"];
+    
+    post = [[Post alloc] init];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -38,6 +40,55 @@
 }
 */
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    self.postsArray = [post fetchIssuesForPO:[poDict valueForKey:@"po"]];
+    
+    [self.issuesTableView reloadData];
+}
+
+
+#pragma mark - Table view data source
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    // Return the number of sections.
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    // Return the number of rows in the section.
+    
+    return self.postsArray.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    @try {
+        
+        static NSString *nonPmCellIdentifier = @"cell";
+        NSDictionary *dict = (NSDictionary *)[self.postsArray objectAtIndex:indexPath.row];
+        IssuesTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:nonPmCellIdentifier forIndexPath:indexPath];
+    
+        [cell initCellWithResultSet:dict forSegment:0];
+    
+        return cell;
+
+    }
+    @catch (NSException *exception) {
+        DDLogVerbose(@"cellForRowAtIndexPath exception: %@ [%@-%@]",exception,THIS_FILE,THIS_METHOD);
+    }
+    @finally {
+        
+    }
+}
+
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [self performSegueWithIdentifier:@"push_chat_issues" sender:indexPath];
+}
 
 
 

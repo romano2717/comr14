@@ -7,11 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Post.h"
+#import "IssuesTableViewCell.h"
 
 @interface IssueListPerPoViewController : UIViewController
+{
+    Post *post;
+}
 
 @property (nonatomic, weak) IBOutlet UITableView *issuesTableView;
-
 @property (nonatomic, strong) NSDictionary *poDict;
-
+@property (nonatomic, strong) NSArray *postsArray;
 @end

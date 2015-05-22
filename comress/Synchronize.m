@@ -245,6 +245,9 @@
         }
         
         [postListDict setObject:postListArray forKey:@"postList"];
+        DDLogVerbose(@"%@",[myDatabase toJsonString:postListDict]);
+        DDLogVerbose(@"%@",[myDatabase.userDictionary valueForKey:@"guid"]);
+        DDLogVerbose(@"%@",[NSString stringWithFormat:@"%@%@",myDatabase.api_url,api_post_send]);
         
         if(postListArray.count == 0)
         {
@@ -1164,8 +1167,8 @@
             
             surveyContainer = @{@"surveyContainer":surveyDict};
             
+            DDLogVerbose(@"%@",[myDatabase toJsonString:surveyContainer]);
 
-            
         } //end of while ([rsSurvey next])
         
         if(doUpload == NO)
