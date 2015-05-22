@@ -122,6 +122,17 @@
     MESegmentedControl *segment = (MESegmentedControl *)sender;
     self.segment = segment;
     
+    if(PMisLoggedIn && segment.selectedSegmentIndex == 1)
+    {
+        self.issuesTable.estimatedRowHeight = 38.0;
+        self.issuesTable.rowHeight = UITableViewAutomaticDimension;
+    }
+    else
+    {
+        self.issuesTable.estimatedRowHeight = 115.0;
+        self.issuesTable.rowHeight = UITableViewAutomaticDimension;
+    }
+    
     [self fetchPostsWithNewIssuesUp:NO];
 }
 
@@ -192,42 +203,42 @@
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    
+    NSNumber *postId;
+    NSDictionary *dict;
+    
+    if([sender isKindOfClass:[NSIndexPath class]])
+    {
+        NSIndexPath *indexPath = (NSIndexPath *)sender;
+        
+        if (self.segment.selectedSegmentIndex == 0)
+        {
+            if(POisLoggedIn)
+                dict = (NSDictionary *)[self.postsArray objectAtIndex:indexPath.row];
+            else
+                dict = (NSDictionary *)[[self.postsArray objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+        }
+        
+        else if(self.segment.selectedSegmentIndex == 1)
+        {
+            dict = (NSDictionary *)[[self.postsArray objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+        }
+        else
+        {
+            dict = (NSDictionary *)[self.postsArray objectAtIndex:indexPath.row];
+        }
+        
+        postId = [NSNumber numberWithInt:[[[dict allKeys] objectAtIndex:0] intValue]];
+    }
+    else
+        postId = sender;
+    
+    
     if([segue.identifier isEqualToString:@"push_chat_issues"])
     {
         self.tabBarController.tabBar.hidden = YES;
         self.hidesBottomBarWhenPushed = YES;
         self.navigationController.navigationBar.hidden = NO;
-        
-        NSNumber *postId;
-        NSDictionary *dict;
-        
-        if([sender isKindOfClass:[NSIndexPath class]])
-        {
-            NSIndexPath *indexPath = (NSIndexPath *)sender;
-            
-            
-            
-            if (self.segment.selectedSegmentIndex == 0)
-            {
-                if(POisLoggedIn)
-                    dict = (NSDictionary *)[self.postsArray objectAtIndex:indexPath.row];
-                else
-                    dict = (NSDictionary *)[[self.postsArray objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-            }
-
-            else if(self.segment.selectedSegmentIndex == 1)
-            {
-                dict = (NSDictionary *)[[self.postsArray objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-            }
-            else
-            {
-                dict = (NSDictionary *)[self.postsArray objectAtIndex:indexPath.row];
-            }
-            
-            postId = [NSNumber numberWithInt:[[[dict allKeys] objectAtIndex:0] intValue]];
-        }
-        else
-            postId = sender;
         
         int ServerPostId = 0;
         
@@ -249,6 +260,12 @@
         issuesVc.isFiltered = isFiltered;
         issuesVc.delegateModal = self;
         issuesVc.ServerPostId = ServerPostId;
+    }
+    else if ([segue.identifier isEqualToString:@"push_issues_list_per_po"])
+    {
+        IssueListPerPoViewController *isLpp = [segue destinationViewController];
+        
+        isLpp.poDict = dict;
     }
 }
 
@@ -289,7 +306,7 @@
                         self.postsArray = [[NSMutableArray alloc] initWithArray:[post fetchIssuesWithParamsForPM:params forPostId:nil filterByBlock:YES newIssuesFirst:NO onlyOverDue:NO]];
                     
                     // group the post
-                    [self groupPost];
+                    [self groupPostForGroupType:@"under_by"];
                 }
             }
             
@@ -301,6 +318,8 @@
                         self.postsArray = [[NSMutableArray alloc] initWithArray:[post fetchIssuesWithParams:params forPostId:nil filterByBlock:NO newIssuesFirst:YES onlyOverDue:NO]];
                     else
                         self.postsArray = [[NSMutableArray alloc] initWithArray:[post fetchIssuesWithParams:params forPostId:nil filterByBlock:NO newIssuesFirst:NO onlyOverDue:NO]];
+                    
+                    [self groupPostForGroupType:@"under_by"];
                 }
                 else if (PMisLoggedIn)
                 {
@@ -308,11 +327,11 @@
                         self.postsArray = [[NSMutableArray alloc] initWithArray:[post fetchIssuesWithParamsForPM:params forPostId:nil filterByBlock:NO newIssuesFirst:YES onlyOverDue:NO]];
                     else
                         self.postsArray = [[NSMutableArray alloc] initWithArray:[post fetchIssuesWithParamsForPM:params forPostId:nil filterByBlock:NO newIssuesFirst:NO onlyOverDue:NO]];
+                    
+                    // group the post
+                    [self groupPostForPM];
                 }
                 
-                
-                // group the post
-                [self groupPost];
             }
             else
             {
@@ -355,7 +374,7 @@
 }
 
 #pragma mark - grouping of post
-- (void)groupPost
+- (void)groupPostForGroupType:(NSString *)groupType
 {
     NSMutableArray *sectionHeaders = [[NSMutableArray alloc] init];
     
@@ -364,7 +383,8 @@
         NSDictionary *top = (NSDictionary *)[self.postsArray objectAtIndex:i];
         NSString *topKey = [[top allKeys] objectAtIndex:0];
         
-        NSString *post_by = [[[top objectForKey:topKey] objectForKey:@"post"] valueForKey:@"under_by"];
+        
+        NSString *post_by = [[[top objectForKey:topKey] objectForKey:@"post"] valueForKey:groupType];
         
         [sectionHeaders addObject:post_by];
     }
@@ -386,7 +406,7 @@
             
             NSDictionary *top = (NSDictionary *)[self.postsArray objectAtIndex:j];
             NSString *topKey = [[top allKeys] objectAtIndex:0];
-            NSString *post_by = [[[top objectForKey:topKey] objectForKey:@"post"] valueForKey:@"under_by"];
+            NSString *post_by = [[[top objectForKey:topKey] objectForKey:@"post"] valueForKey:groupType];
             
             if([post_by isEqualToString:section])
             {
@@ -395,6 +415,51 @@
         }
         
         
+        [groupedPost addObject:row];
+    }
+    
+    self.postsArray = groupedPost;
+}
+
+#pragma mark - grouping for PM
+- (void)groupPostForPM
+{
+    NSMutableArray *sectionHeaders = [[NSMutableArray alloc] init];
+    
+    //reconstruct array to create headers
+    for (int i = 0; i < self.postsArray.count; i++) {
+        NSDictionary *top = (NSDictionary *)[self.postsArray objectAtIndex:i];
+        
+        NSString *division = [top valueForKey:@"division"];
+        
+        [sectionHeaders addObject:division];
+    }
+    
+    //remove dupes of sections
+    NSArray *cleanSectionHeadersArray = [[NSOrderedSet orderedSetWithArray:sectionHeaders] array];
+    self.sectionHeaders = nil;
+    self.sectionHeaders = cleanSectionHeadersArray;
+    
+    NSMutableArray *groupedPost = [[NSMutableArray alloc] init];
+    
+    for (int i = 0; i < cleanSectionHeadersArray.count; i++) {
+        
+        NSString *section = [cleanSectionHeadersArray objectAtIndex:i];
+        
+        NSMutableArray *row = [[NSMutableArray alloc] init];
+        
+        for (int j = 0; j < self.postsArray.count; j++) {
+            
+            NSDictionary *top = (NSDictionary *)[self.postsArray objectAtIndex:j];
+            
+            NSString *division = [top valueForKey:@"division"];
+            
+            if([division isEqualToString:section])
+            {
+                if([row containsObject:top] == NO)
+                    [row addObject:top];
+            }
+        }
         [groupedPost addObject:row];
     }
     
@@ -448,7 +513,9 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 
     @try {
-        IssuesTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
+        
+        static NSString *nonPmCellIdentifier = @"cell";
+        static NSString *pmCellIdentifier = @"PMcell";
         
         NSDictionary *dict;
         
@@ -465,9 +532,26 @@
         else
             dict = (NSDictionary *)[self.postsArray objectAtIndex:indexPath.row];
         
-        [cell initCellWithResultSet:dict forSegment:self.segment.selectedSegmentIndex];
         
-        return cell;
+        if(PMisLoggedIn && self.segment.selectedSegmentIndex == 1) //PM and inside Others segment
+        {
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:pmCellIdentifier];
+            
+            if(cell == nil)
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:pmCellIdentifier];
+            
+            cell.textLabel.text = [NSString stringWithFormat:@"%@ (%d)",[dict valueForKey:@"po"],[[dict valueForKey:@"count"] intValue]];
+            
+            return cell;
+        }
+        else
+        {
+            IssuesTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:nonPmCellIdentifier forIndexPath:indexPath];
+            
+            [cell initCellWithResultSet:dict forSegment:self.segment.selectedSegmentIndex];
+            
+            return cell;
+        }
     }
     @catch (NSException *exception) {
         DDLogVerbose(@"cellForRowAtIndexPath exception: %@ [%@-%@]",exception,THIS_FILE,THIS_METHOD);
@@ -499,7 +583,10 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [self performSegueWithIdentifier:@"push_chat_issues" sender:indexPath];
+    if(self.segment.selectedSegmentIndex == 1 && PMisLoggedIn)
+        [self performSegueWithIdentifier:@"push_issues_list_per_po" sender:indexPath];
+    else
+        [self performSegueWithIdentifier:@"push_chat_issues" sender:indexPath];
 }
 
 

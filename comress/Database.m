@@ -175,6 +175,13 @@ static const int newDatabaseVersion = 5; //this database version is incremented 
                                     
                                     //21-may-2014 add division for block mapping
                                     @"ALTER TABLE block_user_mapping add division VARCHAR (30)"
+                                    
+                                    
+                                    /*
+                                     update post last request date to re-download existing posts so the overdue date will take effect on existing post.
+                                     REMOVE THIS SCRIPT AFTER NEXT UPDATE!!!!!
+                                     */
+                                    
                                     ];
         
         

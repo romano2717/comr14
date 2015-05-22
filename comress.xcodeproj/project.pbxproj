@@ -238,6 +238,7 @@
 		4DA7E48A1ACEF5F400C994E3 /* my@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DA7E4861ACEF5F400C994E3 /* my@2x.png */; };
 		4DA7E48B1ACEF5F400C994E3 /* hi@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DA7E4871ACEF5F400C994E3 /* hi@2x.png */; };
 		4DA7E48C1ACEF5F400C994E3 /* zh@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DA7E4881ACEF5F400C994E3 /* zh@2x.png */; };
+		4DAC166A1B0F1878009EC12B /* IssueListPerPoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DAC16691B0F1878009EC12B /* IssueListPerPoViewController.m */; };
 		4DAC7D821AA69C74001A0317 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DAC7D811AA69C74001A0317 /* MBProgressHUD.m */; };
 		4DAC7D841AA69C8D001A0317 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DAC7D831AA69C8D001A0317 /* CoreGraphics.framework */; };
 		4DACAF531A8C59C8005973E3 /* Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DACAF521A8C59C8005973E3 /* Blocks.m */; };
@@ -703,6 +704,8 @@
 		4DA7E4861ACEF5F400C994E3 /* my@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "my@2x.png"; sourceTree = "<group>"; };
 		4DA7E4871ACEF5F400C994E3 /* hi@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "hi@2x.png"; sourceTree = "<group>"; };
 		4DA7E4881ACEF5F400C994E3 /* zh@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "zh@2x.png"; sourceTree = "<group>"; };
+		4DAC16681B0F1878009EC12B /* IssueListPerPoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IssueListPerPoViewController.h; sourceTree = "<group>"; };
+		4DAC16691B0F1878009EC12B /* IssueListPerPoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IssueListPerPoViewController.m; sourceTree = "<group>"; };
 		4DAC7D801AA69C74001A0317 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		4DAC7D811AA69C74001A0317 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		4DAC7D831AA69C8D001A0317 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -1035,6 +1038,7 @@
 		4D4CB5251A89D703008AFD00 /* Listing */ = {
 			isa = PBXGroup;
 			children = (
+				4DAC16661B0F184C009EC12B /* PM-LIST-PER-PO-ISSUE */,
 				4D07179F1AB1707E0055191A /* BadgeLabel.h */,
 				4D0717A01AB1707E0055191A /* BadgeLabel.m */,
 				4DA41DF11A80804600184A18 /* IssuesViewController.h */,
@@ -1742,6 +1746,15 @@
 			name = questions;
 			sourceTree = "<group>";
 		};
+		4DAC16661B0F184C009EC12B /* PM-LIST-PER-PO-ISSUE */ = {
+			isa = PBXGroup;
+			children = (
+				4DAC16681B0F1878009EC12B /* IssueListPerPoViewController.h */,
+				4DAC16691B0F1878009EC12B /* IssueListPerPoViewController.m */,
+			);
+			name = "PM-LIST-PER-PO-ISSUE";
+			sourceTree = "<group>";
+		};
 		4DAC7D7F1AA69C66001A0317 /* hud */ = {
 			isa = PBXGroup;
 			children = (
@@ -2266,6 +2279,7 @@
 				4DD6FEA11A884CFF00CBBE1D /* SDWebImageCompat.m in Sources */,
 				4DA209501A7A379B00C7E5C7 /* ActivationViewController.m in Sources */,
 				4DA207EA1A79DA0A00C7E5C7 /* JSQMessagesCollectionViewFlowLayout.m in Sources */,
+				4DAC166A1B0F1878009EC12B /* IssueListPerPoViewController.m in Sources */,
 				4D0C2F891A7B4C88009E5E53 /* Comment_noti.m in Sources */,
 				4DA204141A79CC5B00C7E5C7 /* AFNetworkReachabilityManager.m in Sources */,
 				4DE265F91A847066009C566F /* ActionSheetStringPicker.m in Sources */,

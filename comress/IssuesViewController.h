@@ -19,7 +19,7 @@
 #import "MZCustomTransition.h"
 #import "MZFormSheetSegue.h"
 #import "Synchronize.h"
-
+#import "IssueListPerPoViewController.h"
 
 @interface IssuesViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,IssuesChatViewControllerDelegate,MZFormSheetBackgroundWindowDelegate>
 {

@@ -170,7 +170,6 @@ contract_type;
                     //q = [[NSMutableString alloc] initWithString:@"select * from post where post_type = 1 " ]; //post_type = 1 is ISSUES
                     q = [[NSMutableString alloc] initWithString:@"select * from post where post_type = 1 and block_id NOT IN (select block_id from blocks_user) "];
                 }
-                
             }
             
             else //OVERDUE TAB!
@@ -179,7 +178,7 @@ contract_type;
             }
         }
         
-        else //for chat
+        else //for chat or by PM
         {
             if(onlyOverDue == NO)
             {
@@ -200,7 +199,7 @@ contract_type;
 
         
         [myDatabase.databaseQ inTransaction:^(FMDatabase *db, BOOL *rollback) {
-            db.traceExecution = YES;
+            db.traceExecution = NO;
             FMResultSet *rsPost = [db executeQuery:q];
             
             while ([rsPost next]) {
@@ -407,11 +406,11 @@ contract_type;
         {
             if(filter == YES) //ME
             {
-                q = [[NSMutableString alloc] initWithString:[NSString stringWithFormat:@"select p.post_id,client_post_id from post p left join block_user_mapping bum on bum.block_id = p.block_id where p.block_id in (select block_id from block_user_mapping where supervisor_id = '%@') ",[myDatabase.userDictionary valueForKey:@"user_id"]]];
+                q = [[NSMutableString alloc] initWithString:[NSString stringWithFormat:@"select p.post_id,client_post_id,bum.user_id from post p left join block_user_mapping bum on bum.block_id = p.block_id where p.block_id in (select block_id from block_user_mapping where supervisor_id = '%@') ",[myDatabase.userDictionary valueForKey:@"user_id"]]];
             }
             else //Others
             {
-                q = [[NSMutableString alloc] initWithString:[NSString stringWithFormat:@"select p.post_id,client_post_id from post p left join block_user_mapping bum on bum.block_id = p.block_id where p.block_id not in (select block_id from block_user_mapping where supervisor_id != '%@') ",[myDatabase.userDictionary valueForKey:@"user_id"]]];
+                q = [[NSMutableString alloc] initWithString:[NSString stringWithFormat:@"select p.post_id,client_post_id,bum.user_id from post p left join block_user_mapping bum on bum.block_id = p.block_id where p.block_id not in (select block_id from blocks_user) and bum.supervisor_id != '%@' ",[myDatabase.userDictionary valueForKey:@"user_id"]]];
             }
         }
     }
@@ -424,15 +423,16 @@ contract_type;
     NSMutableArray *postIdArray = [[NSMutableArray alloc] init];
 
     [myDatabase.databaseQ inTransaction:^(FMDatabase *db, BOOL *rollback) {
-        db.traceExecution = YES;
+        db.traceExecution = NO;
         FMResultSet *rs = [db executeQuery:q];
         
         while ([rs next]) {
             
             NSNumber *theClientPostId = [NSNumber numberWithInt:[rs intForColumn:@"client_post_id"]];
             NSNumber *thePostId = [NSNumber numberWithInt:[rs intForColumn:@"post_id"]];
+            NSString *POId = [rs stringForColumn:@"user_id"];
             
-            [postIdArray addObject:@{@"clientPostId":theClientPostId,@"postId":thePostId}];
+            [postIdArray addObject:@{@"clientPostId":theClientPostId,@"postId":thePostId,@"POId":POId}];
         }
     }];
     
@@ -443,6 +443,7 @@ contract_type;
         NSDictionary *dict = [postIdArray objectAtIndex:i];
         
         NSNumber *clientPostId = [dict valueForKey:@"clientPostId"];
+        NSString *POId = [dict valueForKey:@"POId"];
 
         NSArray *post = [self fetchIssuesWithParams:params forPostId:clientPostId filterByBlock:filter newIssuesFirst:NO onlyOverDue:onlyOverDue];
 
@@ -450,7 +451,17 @@ contract_type;
             [postArray addObject:[post firstObject]];
         else
         {
-            NSMutableDictionary *mutablePostDict = [[NSMutableDictionary alloc] initWithDictionary:[post firstObject]];
+            
+            //get the count of posts of this po
+            [myDatabase.databaseQ inTransaction:^(FMDatabase *db, BOOL *rollback) {
+                FMResultSet *rsPostCount = [db executeQuery:@"select count(*)as count,bum.division from post p left join block_user_mapping bum on p.block_id=bum.block_id where bum.user_id = ?",POId];
+                
+                while ([rsPostCount next]) {
+                    NSDictionary *dict = @{@"po":POId,@"count":[NSNumber numberWithInt:[rsPostCount intForColumn:@"count"]],@"division":[rsPostCount stringForColumn:@"division"]};
+                    
+                    [postArray addObject:dict];
+                }
+            }];
         }
     }
     
