@@ -22,6 +22,9 @@
     
     self.title = [poDict valueForKey:@"po"];
     
+    self.pOIssuesTableView.estimatedRowHeight = 115.0;
+    self.pOIssuesTableView.rowHeight = UITableViewAutomaticDimension;
+    
     post = [[Post alloc] init];
 }
 
@@ -43,10 +46,15 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
     
     self.postsArray = [post fetchIssuesForPO:[poDict valueForKey:@"po"]];
     
-    [self.issuesTableView reloadData];
+    [self.pOIssuesTableView reloadData];
 }
 
 

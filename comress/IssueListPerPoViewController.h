@@ -15,7 +15,7 @@
     Post *post;
 }
 
-@property (nonatomic, weak) IBOutlet UITableView *issuesTableView;
+@property (nonatomic, weak) IBOutlet UITableView *pOIssuesTableView;
 @property (nonatomic, strong) NSDictionary *poDict;
 @property (nonatomic, strong) NSArray *postsArray;
 @end

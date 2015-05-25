@@ -122,16 +122,7 @@
     MESegmentedControl *segment = (MESegmentedControl *)sender;
     self.segment = segment;
     
-    if(PMisLoggedIn && segment.selectedSegmentIndex == 1)
-    {
-        self.issuesTable.estimatedRowHeight = 38.0;
-        self.issuesTable.rowHeight = UITableViewAutomaticDimension;
-    }
-    else
-    {
-        self.issuesTable.estimatedRowHeight = 115.0;
-        self.issuesTable.rowHeight = UITableViewAutomaticDimension;
-    }
+    [self adjustTableRowHeightForPM];
     
     [self fetchPostsWithNewIssuesUp:NO];
 }
@@ -154,6 +145,8 @@
     self.tabBarController.tabBar.hidden = NO;
     //self.navigationController.navigationBar.hidden = YES;
     self.hidesBottomBarWhenPushed = NO;
+    
+    [self adjustTableRowHeightForPM];
     
     if(myDatabase.initializingComplete == 1)
     {
@@ -194,12 +187,12 @@
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark - Navigation
-
 - (void)didDismissJSQMessageComposerViewController:(IssuesChatViewController *)vc
 {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
+
+#pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -467,6 +460,20 @@
 }
 
 #pragma mark - Table view data source
+-(void)adjustTableRowHeightForPM
+{
+    if(PMisLoggedIn && self.segment.selectedSegmentIndex == 1)
+    {
+        self.issuesTable.estimatedRowHeight = 38.0;
+        self.issuesTable.rowHeight = UITableViewAutomaticDimension;
+    }
+    else
+    {
+        self.issuesTable.estimatedRowHeight = 115.0;
+        self.issuesTable.rowHeight = UITableViewAutomaticDimension;
+    }
+}
+
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     // Return the number of sections.
