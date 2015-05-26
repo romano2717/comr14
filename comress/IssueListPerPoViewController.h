@@ -9,8 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "Post.h"
 #import "IssuesTableViewCell.h"
+#import "IssuesChatViewController.h"
+#import "MZFormSheetController.h"
+#import "NavigationBarTitleWithSubtitleView.h"
 
-@interface IssueListPerPoViewController : UIViewController
+@interface IssueListPerPoViewController : UIViewController<MZFormSheetBackgroundWindowDelegate,IssuesChatViewControllerDelegate,UITableViewDataSource,UITableViewDelegate>
 {
     Post *post;
 }

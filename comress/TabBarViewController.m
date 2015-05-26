@@ -28,8 +28,8 @@
     [tabbarViewControllers removeObjectAtIndex:1]; //temp hide routine
     
     
-    //hide svc. ambass, and statistics for CT_NU
-    if([[myDatabase.userDictionary valueForKey:@"group_name"] isEqualToString:@"CT_NU"] == YES)
+    //hide svc. ambass, and statistics for contractor and contractor_sa
+    if([[myDatabase.userDictionary valueForKey:@"group_name"] isEqualToString:@"CT_NU"] == YES ||[[myDatabase.userDictionary valueForKey:@"group_name"] isEqualToString:@"CT_SA"] == YES)
     {
         [tabbarViewControllers removeObjectAtIndex: 1]; // svc amabassador
         [tabbarViewControllers removeObjectAtIndex: 1]; // statistics

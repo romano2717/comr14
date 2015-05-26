@@ -108,7 +108,7 @@ static NSString *api_survey_report_total_survey_pm = @"Survey/Report.svc/GetTota
 
 static NSString *api_survey_report_total_issue_pm = @"Survey/Report.svc/GetTotalIssueWithStatusByPM";
 
-static NSString *api_survey_report_average_sentiment_pm = @"Survey/Report.svc/GetAverageSentimentByPrecinct";
+static NSString *api_survey_report_average_sentiment = @"Survey/Report.svc/GetAverageSentiment";
 
 static NSString *api_survey_report_total_issue_po = @"Survey/Report.svc/GetTotalIssueWithStatusByPO";
 

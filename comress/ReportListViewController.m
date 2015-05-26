@@ -20,16 +20,20 @@
     // Do any additional setup after loading the view.
     
     myDatabase = [Database sharedMyDbManager];
+    
     if([[myDatabase.userDictionary valueForKey:@"group_name"] isEqualToString:@"PM"] == YES)
         PMisLoggedIn = YES;
     else if ([[myDatabase.userDictionary valueForKey:@"group_name"] isEqualToString:@"PO"] == YES)
         POisLoggedIn = YES;
+    
+    self.headersArray = [NSArray arrayWithObjects:@"Service Ambassador", nil];
         
     //default by PO
-    self.reportsArray = [NSArray arrayWithObjects:@"Survey",@"Feedback Issues", nil];
+    self.reportsArray = [NSArray arrayWithObjects:[NSArray arrayWithObjects:@"Survey",@"Feedback Issues",@"Average Sentiment", nil], nil];
+
     
     if(PMisLoggedIn)
-        self.reportsArray = [NSArray arrayWithObjects:@"Survey",@"Feedback Issues",@"Average Sentiment", nil];
+        self.reportsArray = [NSArray arrayWithObjects:[NSArray arrayWithObjects:@"Survey",@"Feedback Issues",@"Average Sentiment", nil], nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -55,7 +59,7 @@
         NSIndexPath *indexPath = (NSIndexPath *)sender;
         
         ReportDetailViewController *rdvc = [segue destinationViewController];
-        rdvc.reportType = [self.reportsArray objectAtIndex:indexPath.row];
+        rdvc.reportType = [[self.reportsArray objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
         rdvc.PMisLoggedIn = PMisLoggedIn;
         rdvc.POisLoggedIn = POisLoggedIn;
     }
@@ -64,26 +68,18 @@
 #pragma mark - table view data source and delegate
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    if(self.segment.selectedSegmentIndex == 0)
-        return 1;
-    else
-        return self.headerssArray.count;
+    return self.headersArray.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if(self.segment.selectedSegmentIndex == 0)
-        return self.reportsArray.count;
-    else
-        return [[self.reportsArray objectAtIndex:section] count];
+    return [[self.reportsArray objectAtIndex:section] count];
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    if(self.segment.selectedSegmentIndex == 1)
-        return [self.headerssArray objectAtIndex:section];
-    else
-        return nil;
+
+    return [self.headersArray objectAtIndex:section];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -95,11 +91,8 @@
     if(cell == nil)
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
     
-    if(self.segment.selectedSegmentIndex == 0)
-        cell.textLabel.text = [self.reportsArray objectAtIndex:indexPath.row];
-    else
-        cell.textLabel.text = [[self.reportsArray objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-    
+    cell.textLabel.text = [[self.reportsArray objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+
     return cell;
 }
 

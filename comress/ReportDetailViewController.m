@@ -41,7 +41,6 @@
     self.filterLabel.attributedText = [[NSAttributedString alloc] initWithString:@"Filters: None"
                                                              attributes:underlineAttribute];
     
-    
     [self setDefaultDateRange];
     
     self.title = reportType;
@@ -51,6 +50,18 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(filterReports:) name:@"filterReports" object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(closeReportsFilter) name:@"closeReportsFilter" object:nil];
+    
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    CGRect f = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+    f.size.height = self.theWebView.frame.size.height - 5;
+    f.origin.y = self.theWebView.frame.origin.y;
+    
+    webViewinitialFrame = f;
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -60,6 +71,29 @@
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     
     [self loadWebView];
+}
+
+- (void)viewDidLayoutSubviews {
+
+    UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
+
+    if(orientation == 4 || orientation == 3)
+    {
+        self.navigationController.navigationBar.hidden = YES;
+        self.tabBarController.tabBar.hidden = YES;
+        
+        self.theWebView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+
+    }
+    
+    else
+    {
+        self.navigationController.navigationBar.hidden = NO;
+        self.tabBarController.tabBar.hidden = NO;
+        
+        self.theWebView.frame = webViewinitialFrame;
+    }
+    
 }
 
 - (void)filterReports:(NSNotification *)notif
@@ -146,10 +180,10 @@
         
         if([reportType isEqualToString:@"Feedback Issues"])
         {
-//            NSNumber *value = [NSNumber numberWithInt:UIInterfaceOrientationLandscapeLeft];
-//            [[UIDevice currentDevice] setValue:value forKey:@"orientation"];
             htmlFile = [[NSBundle mainBundle] pathForResource:@"TIWSBPO" ofType:@"html"];
         }
+        else if ([reportType isEqualToString:@"Average Sentiment"])
+            htmlFile = [[NSBundle mainBundle] pathForResource:@"ASBPO" ofType:@"html"];
         
     }
     else if (PMisLoggedIn)
@@ -163,7 +197,7 @@
     }
     
     NSString* htmlString = [NSString stringWithContentsOfFile:htmlFile encoding:NSUTF8StringEncoding error:nil];
-    [self.webView loadHTMLString:htmlString baseURL:baseURL];
+    [self.theWebView loadHTMLString:htmlString baseURL:baseURL];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -271,9 +305,9 @@
 {
     [self requestReportData];
     
-    CGRect newBounds = webView.bounds;
-    newBounds.size.height = webView.scrollView.contentSize.height;
-    webView.bounds = newBounds;
+    //auto fit uiwebview
+    UIScrollView *sv = [[self.theWebView subviews] objectAtIndex:0];
+    [sv zoomToRect:CGRectMake(0, 0, sv.contentSize.width, sv.contentSize.height) animated:YES];
 }
 
 #pragma  - mark data request
@@ -293,7 +327,10 @@
         if([reportType isEqualToString:@"Survey"])
             urlString = [NSString stringWithFormat:@"%@%@",myDatabase.api_url,api_survey_report_total_survey_po];
         
-        params = [myDatabase toJsonString:@{@"startDate":wcfDateFrom,@"endDate":wcfDateTo,@"url":urlString,@"session":[myDatabase.userDictionary valueForKey:@"guid"]}];
+        else if ([reportType isEqualToString:@"Average Sentiment"])
+            urlString = [NSString stringWithFormat:@"%@%@",myDatabase.api_url,api_survey_report_average_sentiment];
+        
+        params = [myDatabase toJsonString:@{@"startDate":wcfDateFrom,@"endDate":wcfDateTo,@"url":urlString,@"session":[myDatabase.userDictionary valueForKey:@"guid"],@"layer":[NSNumber numberWithInt:1]}];
     }
     else if (PMisLoggedIn)
     {
@@ -304,7 +341,7 @@
         else if ([reportType isEqualToString:@"Feedback Issues"])
             urlString = [NSString stringWithFormat:@"%@%@",myDatabase.api_url,api_survey_report_total_issue_pm];
         else
-            urlString = [NSString stringWithFormat:@"%@%@",myDatabase.api_url,api_survey_report_average_sentiment_pm];
+            urlString = [NSString stringWithFormat:@"%@%@",myDatabase.api_url,api_survey_report_average_sentiment];
         
         params = [myDatabase toJsonString:@{@"startDate":wcfDateFrom,@"endDate":wcfDateTo,@"url":urlString,@"session":[myDatabase.userDictionary valueForKey:@"guid"],@"divId":self.selectedDivisionId,@"zoneId":self.selectedZoneId}];
     }
@@ -324,7 +361,7 @@
     
     // Evaluate your JavaScript function with the encoded string as input
     NSString *jsCall = [NSString stringWithFormat:@"%@(\"%@\")",methodName, encodedString];
-    [self.webView stringByEvaluatingJavaScriptFromString:jsCall];
+    [self.theWebView stringByEvaluatingJavaScriptFromString:jsCall];
 }
 
 #pragma - mark helper

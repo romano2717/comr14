@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <meta charset="utf-8">
+                <style>
+                    html, body, #map-canvas
+                    {
+                        height:100%;
+                        margin: 0px;
+                        padding: 0px;
+                    }
+                </style>
+                <title></title>
+                
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+                        <link href="css/bootstrap-responsive.min.css" rel="stylesheet">
+                            <link href="css/custom.css" rel="stylesheet" media="screen">
+                                
+                                <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+                                
+                                <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA6F22nJ8GPblxA23i1mwoIIyiAkirsG8k"></script>
+                                
+                                <script src="js/lib.js"></script>
+                                <script src="js/marker.js"></script>
+                                
+                                
+                                <script>
+                                    
+                                    
+                                                      var map;
+                                                      var jsonObject;
+                                                      var marker = []
+                                                      var initialZoom = 11
+                                                      
+                                                      var defaultCenter = new google.maps.LatLng(1.364842, 103.807187)
+                                                      
+                                                      function requestData(encodedJson) {
+                                                          jsonObject = jSonise(encodedJson);
+                                                          
+                                                          $.ajaxSetup({
+                                                                      beforeSend: function(xhr) {
+                                                                      xhr.setRequestHeader('ComSessionId', jsonObject.session);
+                                                                      }
+                                                                      });
+                                                                      $.ajax({
+                                                                             type: "POST",
+                                                                             url: jsonObject.url,
+                                                                             data: JSON.stringify({
+                                                                                                  "startDate": "" + jsonObject.startDate + "",
+                                                                                                  "endDate": "" + jsonObject.endDate + "",
+                                                                                                  "layer":""+jsonObject.layer+""
+                                                                                                  }),
+                                                                             dataType: "json",
+                                                                             contentType: "application/json; charset=utf-8",
+                                                                             crossDomain: true,
+                                                                             success: function(result) {
+                                                                             redrawMapWithObj(result)
+                                                                             },
+                                                                             error: function(request, status, error) {
+                                                                             alert("request error " + error);
+                                                                             }
+                                                                             });
+                                                      }
+                                
+                                
+                                function initialize() {
+                                    var mapOptions = {
+                                        zoom: initialZoom, //layer = 1
+                                        center: defaultCenter
+                                    };
+                                    
+                                    map = new google.maps.Map(document.getElementById('map-canvas'),mapOptions);
+                                    
+                                    google.maps.event.addListener(map, 'zoom_changed', function () {
+                                                                  var zoomLevel = map.getZoom();
+                                                                  
+                                                                  theLayer = 1
+                                                                  
+                                                                  console.log(zoomLevel)
+                                                                  
+                                                                  //14 layer 2
+                                                                  //16 layer 3
+                                                                  //18 layer 4
+                                                                  zoomLevelIsValid = false;
+                                                                  
+                                                                  if(zoomLevel == 14)
+                                                                  {
+                                                                  zoomLevelIsValid = true;
+                                                                  theLayer = 2
+                                                                  }
+                                                                  else if(zoomLevel == 16)
+                                                                  {
+                                                                  zoomLevelIsValid = true
+                                                                  theLayer = 3
+                                                                  }
+                                                                  else if(zoomLevel == 18)
+                                                                  {
+                                                                  zoomLevelIsValid = true
+                                                                  theLayer = 4
+                                                                  }
+                                                                  else if(zoomLevel <= initialZoom)
+                                                                  {
+                                                                  zoomLevelIsValid = true
+                                                                  theLayer = 1
+                                                                  }
+                                                                  
+                                                                  if(zoomLevelIsValid)
+                                                                  {
+                                                                  
+                                                                  removeMarkers()
+                                                                  
+                                                                  marker = [];
+                                                                  
+                                                                  jsonObjectCopy = jsonObject
+                                                                  jsonObjectCopy.layer = theLayer
+                                                                  console.log(jsonObjectCopy)
+                                                                  requestData(encodeDictionary(jsonObjectCopy))
+                                                                  }
+                                                                  
+                                                                  })
+                                }
+                                
+                                function redrawMapWithObj(obj)
+                                {
+                                    AverageSentiment = obj.AverageSentiment
+                                    
+                                    pinsLocationArray = []
+                                    
+                                    removeMarkers()
+                                    
+                                    var latLngPin
+                                    
+                                    for(i = 0; i < AverageSentiment.length; i++)
+                                    {
+                                        AverageSentimentObj = AverageSentiment[i]
+                                        
+                                        AreaName = AverageSentimentObj['AreaName']
+                                        AverageRating = AverageSentimentObj['AverageRating']
+                                        Latitude = AverageSentimentObj['Latitude']
+                                        Longitude = AverageSentimentObj['Longitude']
+                                        
+                                        latLngPin = new google.maps.LatLng(Latitude,Longitude);
+                                        
+                                        cssClass = "mapLabelYes"
+                                        
+                                        if(AverageRating >= 0 && AverageRating < 50)
+                                        cssClass = "mapLabelNo"
+                                        else if(AverageRating >= 50 && AverageRating < 80)
+                                        cssClass = "mapLabelNeutral"
+                                        console.log(cssClass)
+                                        
+                                        var customMarker = new MarkerWithLabel({
+                                                                               position: latLngPin,
+                                                                               map: map,
+                                                                               draggable: false,
+                                                                               raiseOnDrag: false,
+                                                                               labelContent: AreaName+": "+AverageRating+"%",
+                                                                               labelAnchor: new google.maps.Point(-10, 38),
+                                                                               labelInBackground: false,
+                                                                               labelClass: cssClass
+                                                                               });
+                                                                               
+                                                                               marker.push(customMarker)
+                                    }
+                                    
+                                    //center the map based on the last latLngPin
+                                    //map.setCenter(latLngPin);
+                                }
+                                
+                                function removeMarkers()
+                                {
+                                    for (var i = 0; i < marker.length; i++) {
+                                        marker[i].setMap(null);
+                                    }
+                                    
+                                    marker = [];
+                                }
+                                
+                                google.maps.event.addDomListener(window, 'load', initialize);
+                                
+                                    </script>
+    </head>
+    <body>
+        <div id="map-canvas">
+        </div>
+    </body>
+</html>

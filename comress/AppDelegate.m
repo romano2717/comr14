@@ -234,6 +234,7 @@
     [myDatabase.AfManager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         DDLogVerbose(@"responseObject %@",responseObject);
         int versionNumber = [[responseObject objectForKey:@"result"] intValue];
+        NSString *releaseNotes = [responseObject valueForKey:@"updateNotes"] ? [responseObject valueForKey:@"updateNotes"] : @"";
         
         if(versionNumber == -1)
         {
@@ -244,7 +245,7 @@
             
             self.updateAppUrl = [responseObject objectForKey:@"updateURL"];
             
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Update" message:@"A new version is available for update." delegate:self cancelButtonTitle:nil otherButtonTitles:@"Update!", nil];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"A new version is available for update" message:releaseNotes delegate:self cancelButtonTitle:nil otherButtonTitles:@"Update!", nil];
             alert.tag = 222;
             
             [alert show];

@@ -159,6 +159,15 @@
                     return;
                 }
                 
+                //update the survey to isMine=NO. when user logged in, init will run and download/update the survey table
+                BOOL q2 = [db executeUpdate:@"update su_survey set isMine = ?", [NSNumber numberWithBool:NO]];
+
+                if(!q2)
+                {
+                    *rollback = YES;
+                    return;
+                }
+                
                 //stop sync
                 Synchronize *sync = [Synchronize sharedManager];
                 sync.stop = YES;

@@ -20,7 +20,10 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.title = [poDict valueForKey:@"po"];
+    NavigationBarTitleWithSubtitleView *navigationBarTitleView = [[NavigationBarTitleWithSubtitleView alloc] init];
+    [self.navigationItem setTitleView: navigationBarTitleView];
+    [navigationBarTitleView setTitleText:[poDict valueForKey:@"po"]];
+    [navigationBarTitleView setDetailText:[poDict valueForKey:@"division"]];
     
     self.pOIssuesTableView.estimatedRowHeight = 115.0;
     self.pOIssuesTableView.rowHeight = UITableViewAutomaticDimension;
@@ -33,19 +36,58 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
+- (void)didDismissJSQMessageComposerViewController:(IssuesChatViewController *)vc
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    
+    NSNumber *postId;
+    NSDictionary *dict;
+    
+    if([sender isKindOfClass:[NSIndexPath class]])
+    {
+        NSIndexPath *indexPath = (NSIndexPath *)sender;
+        
+        NSDictionary *dict = (NSDictionary *)[self.postsArray objectAtIndex:indexPath.row];
+
+        postId = [NSNumber numberWithInt:[[[dict allKeys] objectAtIndex:0] intValue]];
+    }
+
+    if([segue.identifier isEqualToString:@"push_chat_issues"])
+    {
+        self.tabBarController.tabBar.hidden = YES;
+        self.hidesBottomBarWhenPushed = YES;
+        self.navigationController.navigationBar.hidden = NO;
+        
+        int ServerPostId = 0;
+        
+        if([[[dict objectForKey:postId] objectForKey:@"post"] valueForKey:@"post_id"] != [NSNull null])
+            ServerPostId = [[[[dict objectForKey:postId] objectForKey:@"post"] valueForKey:@"post_id"] intValue];
+        
+        
+        BOOL isFiltered = NO;
+        
+        IssuesChatViewController *issuesVc = [segue destinationViewController];
+        issuesVc.postId = [postId intValue];
+        issuesVc.isFiltered = isFiltered;
+        issuesVc.delegateModal = self;
+        issuesVc.ServerPostId = ServerPostId;
+        issuesVc.hideActionStatusBtn = YES;
+    }
 }
-*/
+
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    
+    [self.pOIssuesTableView reloadData];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -53,8 +95,6 @@
     [super viewWillAppear:animated];
     
     self.postsArray = [post fetchIssuesForPO:[poDict valueForKey:@"po"]];
-    
-    [self.pOIssuesTableView reloadData];
 }
 
 
@@ -79,7 +119,7 @@
         NSDictionary *dict = (NSDictionary *)[self.postsArray objectAtIndex:indexPath.row];
         IssuesTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:nonPmCellIdentifier forIndexPath:indexPath];
     
-        [cell initCellWithResultSet:dict forSegment:0];
+        [cell initCellWithResultSet:dict forSegment:1];
     
         return cell;
 

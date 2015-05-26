@@ -32,7 +32,7 @@
     user = [[Users alloc] init];
     
     //check what kind of account is logged in
-    POisLoggedIn = YES; //CT_NU uses the same logic as PO
+    POisLoggedIn = YES; //CT_NU and CT_SA uses the same logic as PO
     
     if([[myDatabase.userDictionary valueForKey:@"group_name"] isEqualToString:@"PM"])
     {
@@ -72,7 +72,9 @@
 - (void)thereAreOVerDueIssues:(NSNotification *)notif
 {
     int badge = [[[notif userInfo] valueForKey:@"count"] intValue];
-    [self.segment setBadgeNumber:badge forSegmentAtIndex:2];
+    
+    if(badge > 0)
+        [self.segment setBadgeNumber:badge forSegmentAtIndex:2];
 }
 
 - (void)toggleBulbIcon:(NSNotification *)notif
@@ -121,8 +123,6 @@
 {
     MESegmentedControl *segment = (MESegmentedControl *)sender;
     self.segment = segment;
-    
-    [self adjustTableRowHeightForPM];
     
     [self fetchPostsWithNewIssuesUp:NO];
 }
@@ -218,7 +218,10 @@
         }
         else
         {
-            dict = (NSDictionary *)[self.postsArray objectAtIndex:indexPath.row];
+            if(POisLoggedIn)
+                dict = (NSDictionary *)[self.postsArray objectAtIndex:indexPath.row];
+            else
+                dict = (NSDictionary *)[[self.postsArray objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
         }
         
         postId = [NSNumber numberWithInt:[[[dict allKeys] objectAtIndex:0] intValue]];
@@ -328,10 +331,24 @@
             }
             else
             {
-                if(newIssuesUp)
-                    self.postsArray = [[NSMutableArray alloc] initWithArray:[post fetchIssuesWithParams:params forPostId:nil filterByBlock:YES newIssuesFirst:YES onlyOverDue:YES]];
-                else
-                    self.postsArray = [[NSMutableArray alloc] initWithArray:[post fetchIssuesWithParams:params forPostId:nil filterByBlock:YES newIssuesFirst:NO onlyOverDue:YES]];
+                if(POisLoggedIn)
+                {
+                    if(newIssuesUp)
+                        self.postsArray = [[NSMutableArray alloc] initWithArray:[post fetchIssuesWithParams:params forPostId:nil filterByBlock:YES newIssuesFirst:YES onlyOverDue:YES]];
+                    else
+                        self.postsArray = [[NSMutableArray alloc] initWithArray:[post fetchIssuesWithParams:params forPostId:nil filterByBlock:YES newIssuesFirst:NO onlyOverDue:YES]];
+                }
+                else if (PMisLoggedIn)
+                {
+                    if(newIssuesUp)
+                        self.postsArray = [[NSMutableArray alloc] initWithArray:[post fetchIssuesWithParamsForPM:params forPostId:nil filterByBlock:YES newIssuesFirst:YES onlyOverDue:YES]];
+                    else
+                        self.postsArray = [[NSMutableArray alloc] initWithArray:[post fetchIssuesWithParamsForPM:params forPostId:nil filterByBlock:YES newIssuesFirst:NO onlyOverDue:YES]];
+                    
+                    // group the post
+                    [self groupPostForGroupType:@"under_by"];
+                }
+                
             }
             
             
@@ -353,6 +370,23 @@
                         [[NSNotificationCenter defaultCenter] postNotificationName:@"toggleBulbIcon" object:nil userInfo:@{@"toggle":@"off"}];
                     });
                 }
+                
+                
+                //update overdue counter for PM
+                if(PMisLoggedIn && self.segment.selectedSegmentIndex == 2)
+                {
+                    int sections = (int)[self.issuesTable numberOfSections];
+                    
+                    int rows = 0;
+                    
+                    for(int i = 0; i < sections; i++)
+                    {
+                        rows += (int)[self.issuesTable numberOfRowsInSection:i];
+                    }
+                    
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"thereAreOVerDueIssues" object:nil userInfo:@{@"count":[NSNumber numberWithInt:rows]}];
+                }
+                
             });
         }
         @catch (NSException *exception) {
@@ -490,7 +524,13 @@
     else if(self.segment.selectedSegmentIndex == 1)
         count = self.sectionHeaders.count;
     else
-        count = 1;
+    {
+        if(POisLoggedIn)
+            count = 1;
+        else
+            count = self.sectionHeaders.count;
+    }
+    
     
     
     return count;
@@ -512,7 +552,13 @@
     else if(self.segment.selectedSegmentIndex == 1)
         count = [[self.postsArray objectAtIndex:section] count];
     else
-        count = self.postsArray.count;
+    {
+        if(POisLoggedIn)
+            count = self.postsArray.count;
+        else
+            count = [[self.postsArray objectAtIndex:section] count];
+    }
+    
 
     return count;
 }
@@ -537,7 +583,13 @@
         else if(self.segment.selectedSegmentIndex == 1)
             dict = (NSDictionary *)[[self.postsArray objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
         else
-            dict = (NSDictionary *)[self.postsArray objectAtIndex:indexPath.row];
+        {
+            if(POisLoggedIn)
+                dict = (NSDictionary *)[self.postsArray objectAtIndex:indexPath.row];
+            else
+                dict = (NSDictionary *)[[self.postsArray objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+        }
+        
         
         
         if(PMisLoggedIn && self.segment.selectedSegmentIndex == 1) //PM and inside Others segment
@@ -584,6 +636,13 @@
     }
     if(self.segment.selectedSegmentIndex == 1)
         return [self.sectionHeaders objectAtIndex:section];
+    else
+    {
+        if(POisLoggedIn)
+            return nil;
+        else
+            return [self.sectionHeaders objectAtIndex:section];
+    }
     
     return nil;
 }
@@ -618,7 +677,13 @@
     else if(self.segment.selectedSegmentIndex == 1)
         dict = (NSDictionary *)[[self.postsArray objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
     else
-        dict = (NSDictionary *)[self.postsArray objectAtIndex:indexPath.row];
+    {
+        if(POisLoggedIn)
+            dict = (NSDictionary *)[self.postsArray objectAtIndex:indexPath.row];
+        else
+            dict = (NSDictionary *)[[self.postsArray objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+    }
+    
     
     NSDictionary *topDict = (NSDictionary *)[[dict allValues] firstObject];
     NSDictionary *postDict = [topDict valueForKey:@"post"];
@@ -758,7 +823,13 @@
     else if(self.segment.selectedSegmentIndex == 1)
         dict = (NSDictionary *)[[self.postsArray objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
     else
-        dict = (NSDictionary *)[self.postsArray objectAtIndex:indexPath.row];
+    {
+        if(POisLoggedIn)
+            dict = (NSDictionary *)[self.postsArray objectAtIndex:indexPath.row];
+        else
+            dict = (NSDictionary *)[[self.postsArray objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+    }
+    
     
     //save PO action
     NSString *key = [[dict allKeys] objectAtIndex:0];
@@ -814,8 +885,16 @@
     }
     else
     {
-        dict = (NSDictionary *)[self.postsArray objectAtIndex:indexPath.row];
-        clickedPostId = [NSNumber numberWithInt:[[[dict allKeys] objectAtIndex:0] intValue]];
+        if(POisLoggedIn)
+        {
+            dict = (NSDictionary *)[self.postsArray objectAtIndex:indexPath.row];
+            clickedPostId = [NSNumber numberWithInt:[[[dict allKeys] objectAtIndex:0] intValue]];
+        }
+        else
+        {
+            dict = (NSDictionary *)[[self.postsArray objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+            clickedPostId = [NSNumber numberWithInt:[[[dict allKeys] objectAtIndex:0] intValue]];
+        }
     }
     
 

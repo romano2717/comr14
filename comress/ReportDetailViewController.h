@@ -19,11 +19,13 @@
 @interface ReportDetailViewController : UIViewController<UIWebViewDelegate, UITextFieldDelegate,MZFormSheetBackgroundWindowDelegate>
 {
     Database *myDatabase;
+    
+    CGRect webViewinitialFrame;
 }
 
 @property (nonatomic, weak) IBOutlet UITextField *fromDateTextFied;
 @property (nonatomic, weak) IBOutlet UITextField *toDateTextField;
-@property (nonatomic, weak) IBOutlet UIWebView *webView;
+@property (nonatomic, weak) IBOutlet UIWebView *theWebView;
 @property (nonatomic, weak) IBOutlet UILabel *filterLabel;
 
 @property (nonatomic, strong) AbstractActionSheetPicker *actionSheetPicker;
@@ -36,5 +38,7 @@
 @property (nonatomic, strong) NSString *reportType;
 @property (nonatomic) BOOL PMisLoggedIn;
 @property (nonatomic) BOOL POisLoggedIn;
+
+
 
 @end

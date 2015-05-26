@@ -188,8 +188,6 @@
                 myDatabase.userBlocksInitComplete = 1;
                 
                 [self downloadBlockUserMappingCount];
-                
-                
             }
             
             
@@ -310,10 +308,11 @@
                 }
             }];
             
-            if(needToDownload)
+            //FORCE DOWNLOAD!!!
+//            if(needToDownload)
                 [self startDownloadPostForPage:1 totalPage:0 requestDate:nil withUi:YES];
-            else
-                [self checkCommentCount];
+//            else
+//                [self checkCommentCount];
             
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             DDLogVerbose(@"%@ [%@-%@]",error.localizedDescription,THIS_FILE,THIS_METHOD);
@@ -896,6 +895,16 @@
                         return;
                     }
                 }
+                else
+                {
+                    BOOL ups = [theDb executeUpdate:@"update post set status = ?, block_id = ?, level = ?, address = ?, post_by = ?, post_topic = ?, post_type = ?, postal_code = ?, severity = ?, post_date = ?, contract_type = ? where post_id = ?",ActionStatus,BlkId,Level,Location,PostBy,PostTopic,PostType,PostalCode,Severity,PostDate,contractType,PostId];
+                    
+                    if(!ups)
+                    {
+                        *rollback = YES;
+                        return;
+                    }
+                }
             }];
         }
         
@@ -1073,7 +1082,7 @@
             
             myDatabase.userBlocksInitComplete = 1;
             
-            [self checkPostCount];
+            [self downloadBlockUserMappingCount];
         }
         
         
@@ -1375,10 +1384,9 @@
                 
                 self.processLabel.text = @"Download complete";
                 
-                [self checkSurveyCount];
             }
             
-            
+            [self checkSurveyCount];
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -1434,12 +1442,13 @@
                 }
             }];
             
-            if(needToDownloadBlocks)
+            //FORCE DOWNLOAD!!!
+            //if(needToDownloadBlocks)
                 [self startDownloadSurveyPage:1 totalPage:0 requestDate:nil withUi:YES];
-            else
-            {
-                [self initializingCompleteWithUi:YES];
-            }
+            //else
+            //{
+              //  [self initializingCompleteWithUi:YES];
+            //}
             
             
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -1624,6 +1633,15 @@
                     BOOL insAdd = [db executeUpdate:@"insert into su_survey(average_rating,resident_address_id,resident_age_range,resident_gender,resident_name,resident_race,survey_address_id,survey_date,survey_id,resident_contact,resident_email,data_protection, other_contact, created_by, isMine) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",AverageRating,ResidentAddressId,ResidentAgeRange,ResidentGender,ResidentName,ResidentRace,SurveyAddressId,SurveyDate,SurveyId,ResidentContact,ResidentEmail,DataProtection, Resident2ndContact, CreatedBy, IsMine];
                     
                     if(!insAdd)
+                    {
+                        *rollback = YES;
+                        return;
+                    }
+                }
+                else
+                {
+                    BOOL upSur = [db executeUpdate:@"update su_survey set average_rating = ?, resident_address_id = ?, resident_age_range = ?, resident_gender = ?, resident_name = ?, resident_race = ?, survey_address_id = ?, survey_date = ?, resident_contact = ?, resident_email = ?, data_protection = ?,  other_contact = ?,  created_by = ?,  isMine = ? where survey_id = ?",AverageRating,ResidentAddressId,ResidentAgeRange,ResidentGender,ResidentName,ResidentRace,SurveyAddressId,SurveyDate,ResidentContact,ResidentEmail,DataProtection,Resident2ndContact,CreatedBy,IsMine,SurveyId];
+                    if(!upSur)
                     {
                         *rollback = YES;
                         return;

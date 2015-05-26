@@ -399,6 +399,11 @@ contract_type;
 - (NSArray *)fetchIssuesWithParamsForPM:(NSDictionary *)params forPostId:(NSNumber *)postId filterByBlock:(BOOL)filter newIssuesFirst:(BOOL)newIssuesFirst onlyOverDue:(BOOL)onlyOverDue
 {
     NSMutableString *q;
+    NSDate *now = [NSDate date];
+    NSDate *daysAgo = [now dateByAddingTimeInterval:-overDueDays*24*60*60];
+    double timestampDaysAgo = [daysAgo timeIntervalSince1970];
+    
+    NSNumber *finishedStatus = [NSNumber numberWithInt:4];
     
     if(postId == nil)
     {
@@ -406,12 +411,16 @@ contract_type;
         {
             if(filter == YES) //ME
             {
-                q = [[NSMutableString alloc] initWithString:[NSString stringWithFormat:@"select p.post_id,client_post_id,bum.user_id from post p left join block_user_mapping bum on bum.block_id = p.block_id where p.block_id in (select block_id from block_user_mapping where supervisor_id = '%@') ",[myDatabase.userDictionary valueForKey:@"user_id"]]];
+                q = [[NSMutableString alloc] initWithString:[NSString stringWithFormat:@"select p.post_id,client_post_id,bum.user_id from post p left join block_user_mapping bum on bum.block_id = p.block_id where p.block_id in (select block_id from block_user_mapping where supervisor_id = '%@') and (post_date >= %f or post_date <= %f) ",[myDatabase.userDictionary valueForKey:@"user_id"], timestampDaysAgo, timestampDaysAgo]];
             }
             else //Others
             {
                 q = [[NSMutableString alloc] initWithString:[NSString stringWithFormat:@"select p.post_id,client_post_id,bum.user_id from post p left join block_user_mapping bum on bum.block_id = p.block_id where p.block_id not in (select block_id from blocks_user) and bum.supervisor_id != '%@' ",[myDatabase.userDictionary valueForKey:@"user_id"]]];
             }
+        }
+        else //overdue
+        {
+             q = [[NSMutableString alloc] initWithString:[NSString stringWithFormat:@"select p.post_id,client_post_id,bum.user_id from post p left join block_user_mapping bum on bum.block_id = p.block_id where p.block_id in (select block_id from block_user_mapping where supervisor_id = '%@') and post_date <= '%f' and status != %@  ",[myDatabase.userDictionary valueForKey:@"user_id"], timestampDaysAgo, finishedStatus]];
         }
     }
     

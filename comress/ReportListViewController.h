@@ -18,9 +18,8 @@
 }
 
 @property (nonatomic, weak) IBOutlet UITableView *tableView;
-@property (nonatomic, weak) IBOutlet UISegmentedControl *segment;
 
 @property (nonatomic, strong) NSArray *reportsArray;
-@property (nonatomic, strong) NSArray *headerssArray;
+@property (nonatomic, strong) NSArray *headersArray;
 
 @end

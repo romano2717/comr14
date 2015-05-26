@@ -58,6 +58,8 @@
 @property (nonatomic, strong) NSNumber *theNewSelectedStatus;
 @property (nonatomic, strong) NSNumber *theNewSelectedStatusCopy;
 @property (nonatomic) BOOL isFiltered;
+@property (nonatomic) BOOL hideActionStatusBtn; //hide this for PM when viewing under Others tab
+@property (nonatomic, strong) UITapGestureRecognizer *tapNavBarTapGesture;
 
 - (void)selectedTableRow:(NSNotification *)notif; //when user select a status from the pop-up
 

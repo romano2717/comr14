@@ -76,6 +76,8 @@
 		4D337D651ACCED6300F9C7AA /* Questions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D337D641ACCED6300F9C7AA /* Questions.m */; };
 		4D37BDB81A9C2271006B414A /* back.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D37BDB71A9C2271006B414A /* back.png */; };
 		4D39FEFC1ACFE3940074A217 /* FeedBackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D39FEFB1ACFE3940074A217 /* FeedBackViewController.m */; };
+		4D3CFD4B1B12D94300D01D13 /* combLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D3CFD4A1B12D94300D01D13 /* combLogo.png */; };
+		4D3CFD4E1B1448CB00D01D13 /* ASBPO.html in Resources */ = {isa = PBXBuildFile; fileRef = 4D3CFD4D1B1448CB00D01D13 /* ASBPO.html */; };
 		4D4CB52A1A89D76F008AFD00 /* IssuesChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D4CB5291A89D76F008AFD00 /* IssuesChatViewController.m */; };
 		4D4CB52D1A89D7DA008AFD00 /* MessageData.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D4CB52C1A89D7DA008AFD00 /* MessageData.m */; };
 		4D6424BE1AD3B4B900B6B974 /* ResidentPopInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D6424BD1AD3B4B900B6B974 /* ResidentPopInfoViewController.m */; };
@@ -417,6 +419,8 @@
 		4D37BDB71A9C2271006B414A /* back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = back.png; sourceTree = "<group>"; };
 		4D39FEFA1ACFE3940074A217 /* FeedBackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedBackViewController.h; sourceTree = "<group>"; };
 		4D39FEFB1ACFE3940074A217 /* FeedBackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedBackViewController.m; sourceTree = "<group>"; };
+		4D3CFD4A1B12D94300D01D13 /* combLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = combLogo.png; sourceTree = "<group>"; };
+		4D3CFD4D1B1448CB00D01D13 /* ASBPO.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = ASBPO.html; sourceTree = "<group>"; };
 		4D4CB5281A89D76F008AFD00 /* IssuesChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IssuesChatViewController.h; sourceTree = "<group>"; };
 		4D4CB5291A89D76F008AFD00 /* IssuesChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IssuesChatViewController.m; sourceTree = "<group>"; };
 		4D4CB52B1A89D7DA008AFD00 /* MessageData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageData.h; sourceTree = "<group>"; };
@@ -1035,6 +1039,14 @@
 			name = feedback;
 			sourceTree = "<group>";
 		};
+		4D3CFD4C1B1448B300D01D13 /* Average Sentiment */ = {
+			isa = PBXGroup;
+			children = (
+				4D3CFD4D1B1448CB00D01D13 /* ASBPO.html */,
+			);
+			name = "Average Sentiment";
+			sourceTree = "<group>";
+		};
 		4D4CB5251A89D703008AFD00 /* Listing */ = {
 			isa = PBXGroup;
 			children = (
@@ -1399,6 +1411,7 @@
 		4DA2041A1A79CF7400C7E5C7 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				4D3CFD4A1B12D94300D01D13 /* combLogo.png */,
 				4D1265C71AE2C7A100D9A512 /* from design */,
 				4D1FCE1A1ADB9D18005381FA /* user@2x.png */,
 				4D1FCE181ADB9C1E005381FA /* residentInfo.png */,
@@ -1844,6 +1857,7 @@
 		4DD99F241B059196005E5F3E /* PO */ = {
 			isa = PBXGroup;
 			children = (
+				4D3CFD4C1B1448B300D01D13 /* Average Sentiment */,
 				4DD99F211B048700005E5F3E /* TotalIssuesWithStatusByPo */,
 				4D68564D1B035891008D2A74 /* TotalSurveyAndFeedbackByPo */,
 			);
@@ -2087,7 +2101,9 @@
 				4DE801B11AD2753A008B0236 /* user168.png in Resources */,
 				4D85E6B11AD7930100170D66 /* twoOfThreeStars@2x.png in Resources */,
 				4DA204201A79CF8800C7E5C7 /* arrow.png in Resources */,
+				4D3CFD4E1B1448CB00D01D13 /* ASBPO.html in Resources */,
 				4D337D5E1ACCDE1300F9C7AA /* excellent_sel@2x.png in Resources */,
+				4D3CFD4B1B12D94300D01D13 /* combLogo.png in Resources */,
 				4D6424CA1AD3CF3800B6B974 /* mosquito@2x.png in Resources */,
 				4D0AA0081AC3EF9900DC2886 /* checkedDisabled@2x.png in Resources */,
 				4D8AC95E1AAD8AE3008F7652 /* issue.png in Resources */,

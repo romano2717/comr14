@@ -19,7 +19,7 @@
 
 @implementation IssuesChatViewController
 
-@synthesize postId,postDict,commentsArray,theNewSelectedStatus,isFiltered,ServerPostId,theNewSelectedStatusCopy;
+@synthesize postId,postDict,commentsArray,theNewSelectedStatus,isFiltered,ServerPostId,theNewSelectedStatusCopy,hideActionStatusBtn;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -63,6 +63,9 @@
     //when PO close the issue
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(closeIssueActionSubmitFromChat:) name:@"closeIssueActionSubmitFromChat" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(closeCloseIssueActionSubmitFromChat) name:@"closeCloseIssueActionSubmitFromChat" object:nil];
+    
+    if(hideActionStatusBtn)
+        self.navigationItem.rightBarButtonItem = nil;
 }
 
 - (void)fetchComments
@@ -155,10 +158,20 @@
     
     
     //add tap gestuer to the navbar for the pop-over post info
-    UITapGestureRecognizer *tapNavBar = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(popPostInformation)];
-    tapNavBar.numberOfTapsRequired = 1;
-    [self.navigationController.navigationBar addGestureRecognizer:tapNavBar];
+    self.tapNavBarTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(popPostInformation)];
+    self.tapNavBarTapGesture.numberOfTapsRequired = 1;
+
+    [self.navigationController.navigationBar addGestureRecognizer:self.tapNavBarTapGesture];
 }
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    [self.navigationController.navigationBar removeGestureRecognizer:self.tapNavBarTapGesture];
+}
+
+
 
 #pragma mark - status post update
 -(void)selectedTableRow:(NSNotification *)notif
