@@ -454,15 +454,18 @@ contract_type;
         NSNumber *clientPostId = [dict valueForKey:@"clientPostId"];
         NSString *POId = [dict valueForKey:@"POId"];
 
-        NSArray *post = [self fetchIssuesWithParams:params forPostId:clientPostId filterByBlock:filter newIssuesFirst:NO onlyOverDue:onlyOverDue];
-
         if(filter == YES)
+        {
+            NSArray *post = [self fetchIssuesWithParams:params forPostId:clientPostId filterByBlock:filter newIssuesFirst:NO onlyOverDue:onlyOverDue];
             [postArray addObject:[post firstObject]];
+        }
+        
         else
         {
             
             //get the count of posts of this po
             [myDatabase.databaseQ inTransaction:^(FMDatabase *db, BOOL *rollback) {
+                db.traceExecution = NO;
                 FMResultSet *rsPostCount = [db executeQuery:@"select count(*)as count,bum.division from post p left join block_user_mapping bum on p.block_id=bum.block_id where bum.user_id = ?",POId];
                 
                 while ([rsPostCount next]) {
