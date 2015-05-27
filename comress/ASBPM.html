@@ -1,199 +1,189 @@
 <!DOCTYPE html>
-
 <html>
-    
     <head>
-        <meta charset="utf-8">
-            
-            <title></title>
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
-                    <link href="css/bootstrap-responsive.min.css" rel="stylesheet">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <meta charset="utf-8">
+                <style>
+                    html, body, #map-canvas
+                    {
+                        height:100%;
+                        margin: 0px;
+                        padding: 0px;
+                    }
+                </style>
+                <title></title>
+                
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+                        <link href="css/bootstrap-responsive.min.css" rel="stylesheet">
+                            <link href="css/custom.css" rel="stylesheet" media="screen">
+                                
+                                <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+                                
+                                <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA6F22nJ8GPblxA23i1mwoIIyiAkirsG8k"></script>
+                                
+                                <script src="js/lib.js"></script>
+                                <script src="js/marker.js"></script>
+                                
+                                
+                                <script>
+                                    
+                                    
+                                                      var map;
+                                                      var jsonObject;
+                                                      var marker = []
+                                                      var initialZoom = 11
+                                                      
+                                                      var defaultCenter = new google.maps.LatLng(1.364842, 103.807187)
+                                                      
+                                                      function requestData(encodedJson) {
+                                                          jsonObject = jSonise(encodedJson);
+                                                          
+                                                          $.ajaxSetup({
+                                                                      beforeSend: function(xhr) {
+                                                                      xhr.setRequestHeader('ComSessionId', jsonObject.session);
+                                                                      }
+                                                                      });
+                                                                      $.ajax({
+                                                                             type: "POST",
+                                                                             url: jsonObject.url,
+                                                                             data: JSON.stringify({
+                                                                                                  "startDate": "" + jsonObject.startDate + "",
+                                                                                                  "endDate": "" + jsonObject.endDate + "",
+                                                                                                  "layer":""+jsonObject.layer+""
+                                                                                                  }),
+                                                                             dataType: "json",
+                                                                             contentType: "application/json; charset=utf-8",
+                                                                             crossDomain: true,
+                                                                             success: function(result) {
+                                                                             redrawMapWithObj(result)
+                                                                             },
+                                                                             error: function(request, status, error) {
+                                                                             alert("request error " + error);
+                                                                             }
+                                                                             });
+                                                      }
+                                
+                                
+                                function initialize() {
+                                    var mapOptions = {
+                                        zoom: initialZoom, //layer = 1
+                                        center: defaultCenter
+                                    };
+                                    
+                                    map = new google.maps.Map(document.getElementById('map-canvas'),mapOptions);
+                                    
+                                    google.maps.event.addListener(map, 'zoom_changed', function () {
+                                                                  var zoomLevel = map.getZoom();
+                                                                  
+                                                                  theLayer = 1
+                                                                  
+                                                                  console.log(zoomLevel)
+                                                                  
+                                                                  //14 layer 2
+                                                                  //16 layer 3
+                                                                  //18 layer 4
+                                                                  zoomLevelIsValid = false;
+                                                                  
+                                                                  if(zoomLevel == 14)
+                                                                  {
+                                                                  zoomLevelIsValid = true;
+                                                                  theLayer = 2
+                                                                  }
+                                                                  else if(zoomLevel == 16)
+                                                                  {
+                                                                  zoomLevelIsValid = true
+                                                                  theLayer = 3
+                                                                  }
+                                                                  else if(zoomLevel == 18)
+                                                                  {
+                                                                  zoomLevelIsValid = true
+                                                                  theLayer = 4
+                                                                  }
+                                                                  else if(zoomLevel <= initialZoom)
+                                                                  {
+                                                                  zoomLevelIsValid = true
+                                                                  theLayer = 1
+                                                                  }
+                                                                  
+                                                                  if(zoomLevelIsValid)
+                                                                  {
+                                                                  
+                                                                  removeMarkers()
+                                                                  
+                                                                  marker = [];
+                                                                  
+                                                                  jsonObjectCopy = jsonObject
+                                                                  jsonObjectCopy.layer = theLayer
+                                                                  console.log(jsonObjectCopy)
+                                                                  requestData(encodeDictionary(jsonObjectCopy))
+                                                                  }
+                                                                  
+                                                                  })
+                                }
+                                
+                                function redrawMapWithObj(obj)
+                                {
+                                    AverageSentiment = obj.AverageSentiment
+                                    
+                                    pinsLocationArray = []
+                                    
+                                    removeMarkers()
+                                    
+                                    var latLngPin
+                                    
+                                    for(i = 0; i < AverageSentiment.length; i++)
+                                    {
+                                        AverageSentimentObj = AverageSentiment[i]
+                                        
+                                        AreaName = AverageSentimentObj['AreaName']
+                                        AverageRating = AverageSentimentObj['AverageRating']
+                                        Latitude = AverageSentimentObj['Latitude']
+                                        Longitude = AverageSentimentObj['Longitude']
+                                        
+                                        latLngPin = new google.maps.LatLng(Latitude,Longitude);
+                                        
+                                        cssClass = "mapLabelYes"
+                                        
+                                        if(AverageRating >= 0 && AverageRating < 50)
+                                        cssClass = "mapLabelNo"
+                                        else if(AverageRating >= 50 && AverageRating < 80)
+                                        cssClass = "mapLabelNeutral"
+                                        console.log(cssClass)
+                                        
+                                        var customMarker = new MarkerWithLabel({
+                                                                               position: latLngPin,
+                                                                               map: map,
+                                                                               draggable: false,
+                                                                               raiseOnDrag: false,
+                                                                               labelContent: AreaName+": "+AverageRating+"%",
+                                                                               labelAnchor: new google.maps.Point(-10, 38),
+                                                                               labelInBackground: false,
+                                                                               labelClass: cssClass
+                                                                               });
+                                                                               
+                                                                               marker.push(customMarker)
+                                    }
+                                    
+                                    //center the map based on the last latLngPin
+                                    //map.setCenter(latLngPin);
+                                }
+                                
+                                function removeMarkers()
+                                {
+                                    for (var i = 0; i < marker.length; i++) {
+                                        marker[i].setMap(null);
+                                    }
+                                    
+                                    marker = [];
+                                }
+                                
+                                google.maps.event.addDomListener(window, 'load', initialize);
+                                
+                                    </script>
     </head>
-    
     <body>
-        <!-- Add your site or application content here -->
-        
-        <script src="js/vendor/jquery-2.1.0.min.js"></script>
-        <script src="js/lib.js"></script>
-        <script src='https://www.google.com/jsapi' type='text/javascript'></script>
-            <script type="text/javascript">
-            var jsonChartOBject;
-            
-            google.load("visualization", "1", {
-            packages: ["corechart"]
-            });
-            
-            $(document).ready(function(){
-            requestData("ewogICJkaXZJZCIgOiAwLAogICJ6b25lSWQiIDogMCwKICAic3RhcnREYXRlIiA6ICJcL0RhdGUoMTQyOTQ1OTIwMDAwMCswODAwKVwvIiwKICAiZW5kRGF0ZSIgOiAiXC9EYXRlKDE0MzIwNTEyMDAwMDArMDgwMClcLyIsCiAgInVybCIgOiAiaHR0cDpcL1wvY29tcmVzc3Rlc3QuZm1pdC5zZ1wvQ29tcmVzc01XQ0ZcL3YxLjAyXC9TdXJ2ZXlcL1JlcG9ydC5zdmNcL0dldEF2ZXJhZ2VTZW50aW1lbnRCeVByZWNpbmN0IiwKICAic2Vzc2lvbiIgOiAiYTQyOTZjOTctODQyZS00ZDY4LTk5OTktNTI3MjZlZmIyZjBkIgp9")
-            })
-            
-            function requestData(encodedJson) {
-            var jsonObject = jSonise(encodedJson);
-            
-            $.ajaxSetup({
-            beforeSend: function(xhr) {
-            xhr.setRequestHeader('ComSessionId', jsonObject.session);
-            }
-            });
-            $.ajax({
-            type: "POST",
-            url: jsonObject.url,
-            data: JSON.stringify({
-            "startDate": "" + jsonObject.startDate + "",
-            "endDate": "" + jsonObject.endDate + "",
-            "divId":""+jsonObject.divId+""
-            }),
-            dataType: "json",
-            contentType: "application/json; charset=utf-8",
-            crossDomain: true,
-            success: function(result) {
-            jsonChartOBject = result;
-            
-            if(jsonChartOBject.AverageSentimentOfPrecinct.length > 0)
-            drawChart();
-            else
-            $("#columnchart_values").html("No results.")
-            },
-            error: function(request, status, error) {
-            alert("request error " + error);
-            }
-            });
-            }
-            
-            Object.size = function(obj) {
-            var size = 0, key;
-            for (key in obj) {
-            if (obj.hasOwnProperty(key)) size++;
-            }
-            return size;
-            };
-            
-            function drawChart() {
-            var AverageSentimentOfPrecinctObj = jsonChartOBject.AverageSentimentOfPrecinct;
-            
-            var data = new google.visualization.DataTable();
-            
-            data.addColumn('string','Precinct')
-            
-            var zoneDict = {}
-            
-            for(i = 0; i < AverageSentimentOfPrecinctObj.length; i++)
-            {
-            var AverageSentimentOfPrecinct = AverageSentimentOfPrecinctObj[i];
-            
-            ZoneName = AverageSentimentOfPrecinct['ZoneName']
-            PrecinctName = AverageSentimentOfPrecinct['PrecinctName']
-            
-            console.log("PrecinctName " + PrecinctName)
-            
-            if(zoneDict[ZoneName] == null)
-            zoneDict[ZoneName] = 1
-            else
-            zoneDict[ZoneName] = zoneDict[ZoneName] + 1
-            
-            data.addColumn('number',PrecinctName)
-            }
-            console.log("data " + data)
-            
-            countsArr = []
-            zonesArr = []
-            
-            for(var zoneKey in zoneDict)
-            {
-            countsArr.push(zoneDict[zoneKey]);
-            zonesArr.push(zoneKey)
-            }
-            
-            console.log("zones " + zonesArr)
-            
-            for(i = 0; i < zonesArr.length; i++)
-            {
-            zName = zonesArr[i]
-            
-            rowsArr = []
-            rowsViewSet = [];
-            rowsArr.push(zName)
-            for(x = 0; x < AverageSentimentOfPrecinctObj.length; x++)
-            {
-            var AverageSentimentOfPrecinct = AverageSentimentOfPrecinctObj[x];
-            
-            AverageRating = AverageSentimentOfPrecinct['AverageRating']
-            DivName = AverageSentimentOfPrecinct['DivName']
-            PrecinctName = AverageSentimentOfPrecinct['PrecinctName']
-            ZoneName = AverageSentimentOfPrecinct['ZoneName']
-            
-            
-            if(zName == ZoneName)
-            {
-            console.log(zName+ "==" +ZoneName)
-            console.log("push("+AverageRating+")")
-            rowsArr.push(AverageRating)
-            
-            }
-            else
-            {
-            rowsArr.push(0)
-            }
-            }
-            console.log(rowsArr)
-            data.addRows([rowsArr])
-            }
-            
-            
-            viewSetArr = []
-            for(i = 0; i <= AverageSentimentOfPrecinctObj.length; i++)
-            {
-            if(i == 0)
-            {
-            viewSetArr.push(0)
-            }
-            
-            else
-            {
-            viewSetArr.push(i)
-            viewSetArr.push(
-            {
-            calc: "stringify",
-            sourceColumn: i,
-            type: "string",
-            role: "annotation"
-            
-            }
-            )
-            }
-            }
-            var view = new google.visualization.DataView(data);
-            view.setColumns(viewSetArr)
-            
-            
-            var options = {
-            width: "100%",
-            height: 500,
-            legend: {
-            position: 'right',
-            maxLines: 10
-            },
-            bar: {
-            groupWidth: '95%'
-            },
-            isStacked: true,
-            vAxis: {
-            title: "Percentage",
-            viewWindowMode:'explicit',
-            textPosition: 'none'
-            }
-            };
-            
-            var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values"));
-            chart.draw(view, options);
-            }
-            </script>
-            <div class="fluid">
-            <div class="span12">
-            <div id="columnchart_values" style="width: 650px; height: 500px;"></div>
-            </div>
-            </div>
-            </body>
-            
-            </html>
+        <div id="map-canvas">
+        </div>
+    </body>
+</html>

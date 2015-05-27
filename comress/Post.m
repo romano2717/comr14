@@ -162,7 +162,7 @@ contract_type;
             {
                 if(filter == YES) //ME, don't display overdue
                 {
-                    q = [[NSMutableString alloc] initWithString:[NSString stringWithFormat:@"select * from post where post_type = 1 and (post_date >= %f or post_date <= %f) and status <= %@ and block_id in (select block_id from blocks_user)",timestampDaysAgo,timestampDaysAgo, finishedStatus] ]; //post_type = 1 is ISSUES
+                    q = [[NSMutableString alloc] initWithString:[NSString stringWithFormat:@"select * from post where post_type = 1 and (dueDate >= %f or dueDate <= %f) and status <= %@ and block_id in (select block_id from blocks_user)",timestampDaysAgo,timestampDaysAgo, finishedStatus] ]; //post_type = 1 is ISSUES
                 }
                 
                 else // Others
@@ -174,7 +174,7 @@ contract_type;
             
             else //OVERDUE TAB!
             {
-                q = [[NSMutableString alloc] initWithString:[NSString stringWithFormat:@"select * from post where post_type = 1 and post_date <= '%f' and status != %@ and block_id in (select block_id from blocks_user) ",timestampDaysAgo, finishedStatus]]; //post_type = 1 is ISSUES
+                q = [[NSMutableString alloc] initWithString:[NSString stringWithFormat:@"select * from post where post_type = 1 and dueDate <= '%f' and status != %@ and block_id in (select block_id from blocks_user) ",timestampDaysAgo, finishedStatus]]; //post_type = 1 is ISSUES
             }
         }
         
@@ -186,7 +186,7 @@ contract_type;
             }
             else
             {
-                q = [[NSMutableString alloc] initWithString:[NSString stringWithFormat:@"select * from post where client_post_id = %@ and post_date <= '%f' and status != %@ ",postId,timestampDaysAgo,finishedStatus]];
+                q = [[NSMutableString alloc] initWithString:[NSString stringWithFormat:@"select * from post where client_post_id = %@ and dueDate <= '%f' and status != %@ ",postId,timestampDaysAgo,finishedStatus]];
             }
         }
         
@@ -411,7 +411,7 @@ contract_type;
         {
             if(filter == YES) //ME
             {
-                q = [[NSMutableString alloc] initWithString:[NSString stringWithFormat:@"select p.post_id,client_post_id,bum.user_id from post p left join block_user_mapping bum on bum.block_id = p.block_id where p.block_id in (select block_id from block_user_mapping where supervisor_id = '%@') and (post_date >= %f or post_date <= %f) ",[myDatabase.userDictionary valueForKey:@"user_id"], timestampDaysAgo, timestampDaysAgo]];
+                q = [[NSMutableString alloc] initWithString:[NSString stringWithFormat:@"select p.post_id,client_post_id,bum.user_id from post p left join block_user_mapping bum on bum.block_id = p.block_id where p.block_id in (select block_id from block_user_mapping where supervisor_id = '%@') and (dueDate >= %f or dueDate <= %f) ",[myDatabase.userDictionary valueForKey:@"user_id"], timestampDaysAgo, timestampDaysAgo]];
             }
             else //Others
             {
@@ -420,7 +420,7 @@ contract_type;
         }
         else //overdue
         {
-             q = [[NSMutableString alloc] initWithString:[NSString stringWithFormat:@"select p.post_id,client_post_id,bum.user_id from post p left join block_user_mapping bum on bum.block_id = p.block_id where p.block_id in (select block_id from block_user_mapping where supervisor_id = '%@') and post_date <= '%f' and status != %@  ",[myDatabase.userDictionary valueForKey:@"user_id"], timestampDaysAgo, finishedStatus]];
+             q = [[NSMutableString alloc] initWithString:[NSString stringWithFormat:@"select p.post_id,client_post_id,bum.user_id from post p left join block_user_mapping bum on bum.block_id = p.block_id where p.block_id in (select block_id from block_user_mapping where supervisor_id = '%@') and dueDate <= '%f' and status != %@  ",[myDatabase.userDictionary valueForKey:@"user_id"], timestampDaysAgo, finishedStatus]];
         }
     }
     

@@ -49,9 +49,9 @@
     //[self uploadPostFromSelf:YES];
     syncKickstartTimerOutgoing = [NSTimer scheduledTimerWithTimeInterval:3.0 target:self selector:@selector(uploadPost) userInfo:nil repeats:YES];
 
-    //[self startDownload];
-    //downloadIsTriggeredBySelf = YES;
-    //syncKickstartTimerIncoming = [NSTimer scheduledTimerWithTimeInterval:3.0 target:self selector:@selector(startDownload) userInfo:nil repeats:YES];
+    [self startDownload];
+    downloadIsTriggeredBySelf = YES;
+    syncKickstartTimerIncoming = [NSTimer scheduledTimerWithTimeInterval:3.0 target:self selector:@selector(startDownload) userInfo:nil repeats:YES];
 }
 
 
@@ -245,9 +245,7 @@
         }
         
         [postListDict setObject:postListArray forKey:@"postList"];
-        DDLogVerbose(@"%@",[myDatabase toJsonString:postListDict]);
-        DDLogVerbose(@"%@",[myDatabase.userDictionary valueForKey:@"guid"]);
-        DDLogVerbose(@"%@",[NSString stringWithFormat:@"%@%@",myDatabase.api_url,api_post_send]);
+
         
         if(postListArray.count == 0)
         {
@@ -275,10 +273,11 @@
                 
                 NSNumber *clientPostId = [dict valueForKey:@"ClientPostId"];
                 NSNumber *postId = [dict valueForKey:@"PostId"];
+                NSDate *DueDate = [myDatabase createNSDateWithWcfDateString:[dict valueForKey:@"DueDate"]];
                 
                 [myDatabase.databaseQ inTransaction:^(FMDatabase *theDb, BOOL *rollback) {
                     
-                    [theDb  executeUpdate:@"update post set post_id = ? where client_post_id = ?",postId, clientPostId];
+                    [theDb  executeUpdate:@"update post set post_id = ?, dueDate = ? where client_post_id = ?",postId, DueDate, clientPostId];
                     
                     BOOL qPostImage = [theDb executeUpdate:@"update post_image set post_id = ? where client_post_id = ?",postId, clientPostId];
                     
@@ -1167,7 +1166,6 @@
             
             surveyContainer = @{@"surveyContainer":surveyDict};
             
-            DDLogVerbose(@"%@",[myDatabase toJsonString:surveyContainer]);
 
         } //end of while ([rsSurvey next])
         
@@ -2161,6 +2159,7 @@
             NSString *PostalCode = [dictPost valueForKey:@"PostalCode"];
             NSNumber *Severity = [NSNumber numberWithInt:[[dictPost valueForKey:@"Severity"] intValue]];
             NSDate *PostDate = [myDatabase createNSDateWithWcfDateString:[dictPost valueForKey:@"PostDate"]];
+            NSDate *DueDate = [myDatabase createNSDateWithWcfDateString:[dictPost valueForKey:@"DueDate"]];
             NSNumber *contractType = [NSNumber numberWithInt:[[dictPost valueForKey:@"PostGroup"] intValue]];
             
             fromUser = PostBy;
@@ -2171,7 +2170,7 @@
                 FMResultSet *rsPost = [theDb executeQuery:@"select post_id from post where post_id = ?",PostId];
                 if([rsPost next] == NO) //does not exist. insert
                 {
-                    BOOL qIns = [theDb executeUpdate:@"insert into post (status, block_id, level, address, post_by, post_id, post_topic, post_type, postal_code, severity, post_date, updated_on,seen,contract_type) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?)",ActionStatus, BlkId, Level, Location, PostBy, PostId, PostTopic, PostType, PostalCode, Severity, PostDate,PostDate,[NSNumber numberWithBool:NO],contractType];
+                    BOOL qIns = [theDb executeUpdate:@"insert into post (status, block_id, level, address, post_by, post_id, post_topic, post_type, postal_code, severity, post_date, updated_on,seen,contract_type, dueDate) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",ActionStatus, BlkId, Level, Location, PostBy, PostId, PostTopic, PostType, PostalCode, Severity, PostDate,PostDate,[NSNumber numberWithBool:NO],contractType,DueDate];
                     
                     if(!qIns)
                     {
@@ -2187,7 +2186,7 @@
                 {
                     if([PostId intValue] > 0)
                     {
-                        BOOL qUps = [theDb executeUpdate:@"update post set status = ?, block_id = ?, level = ?, address = ?, post_by = ?, post_topic = ?, post_type = ?, postal_code = ?, severity = ?, post_date = ? ,contract_type where post_id = ?",ActionStatus,BlkId,Level,Location,PostBy,PostTopic,PostType,PostalCode,Severity,PostDate,contractType,PostId];
+                        BOOL qUps = [theDb executeUpdate:@"update post set status = ?, block_id = ?, level = ?, address = ?, post_by = ?, post_topic = ?, post_type = ?, postal_code = ?, severity = ?, post_date = ? ,contract_type = ?, dueDate = ? where post_id = ?",ActionStatus,BlkId,Level,Location,PostBy,PostTopic,PostType,PostalCode,Severity,PostDate,contractType,PostId,DueDate];
                         
                         if(!qUps)
                         {

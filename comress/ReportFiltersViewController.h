@@ -32,4 +32,5 @@
 
 @property (nonatomic) BOOL hideZoneFilter; //when PM view the average sentiment, no nee for zone filtering
 
+@property (nonatomic, strong) NSNumber *defaultDivision;
 @end

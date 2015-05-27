@@ -41,6 +41,17 @@
     self.navigationController.navigationBar.hidden = NO;
     self.hidesBottomBarWhenPushed = NO;
     
+    //PR group cannot create survey
+    if([[myDatabase.userDictionary valueForKey:@"group_name"] isEqualToString:@"PR"])
+    {
+        self.navigationItem.rightBarButtonItem = nil;
+        [segment setSelectedSegmentIndex:1];
+        
+        [segment removeFromSuperview];
+        
+        self.title = @"Service Ambassador Survey";
+    }
+    
     [self fetchSurvey];
 }
 

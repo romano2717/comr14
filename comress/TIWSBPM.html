@@ -18,15 +18,14 @@
         <script src="js/lib.js"></script>
         <script src='https://www.google.com/jsapi' type='text/javascript'></script>
             <script type="text/javascript">
+            
+            
             var jsonChartOBject;
             
             google.load("visualization", "1", {
             packages: ["corechart"]
             });
             
-            $(window).resize(function() {
-            drawChart();
-            });
             
             function requestData(encodedJson) {
             var jsonObject = jSonise(encodedJson);
@@ -49,6 +48,7 @@
             contentType: "application/json; charset=utf-8",
             crossDomain: true,
             success: function(result) {
+            console.log(result)
             jsonChartOBject = result;
             drawChart();
             },
@@ -60,61 +60,42 @@
             
             function drawChart() {
             var IssueReportContainer = jsonChartOBject.IssueReportContainer;
+            var IssueReport = IssueReportContainer.IssueReport
+            var IssueReportOfOthers = IssueReportContainer.IssueReportOfOthers
+            
             
             var data = new google.visualization.DataTable();
             
-            var headersArray = ['Contract type', 'Pending', 'Start', 'Stop', 'Completed', 'Close', 'Pending Overdue', 'Start Overdue', 'Stop Overdue', 'Completed Overdue', 'Close Overdue', 'Oustanding Overdue']
+            var headersArray = ['Contract type', 'Pending', 'In-Progress', 'Close', 'Overdue']
             
             data.addColumn('string', headersArray[0])
             data.addColumn('number', headersArray[1])
             data.addColumn('number', headersArray[2])
             data.addColumn('number', headersArray[3])
             data.addColumn('number', headersArray[4])
-            data.addColumn('number', headersArray[5])
             
-            data.addColumn('number', headersArray[6])
-            data.addColumn('number', headersArray[7])
-            data.addColumn('number', headersArray[8])
-            data.addColumn('number', headersArray[9])
-            data.addColumn('number', headersArray[10])
-            data.addColumn('number', headersArray[11])
+            
             
             //create rows
             var rows = [];
-            for (i = 0; i < IssueReportContainer.length; i++) {
-            var IssueReportContainerObj = IssueReportContainer[i];
+            for (i = 0; i < IssueReport.length; i++) {
+            var IssueReportContainerObj = IssueReport[i];
             
             ContractTypeDes = IssueReportContainerObj['ContractTypeDes'];
             
             TotalComressPending = parseInt(IssueReportContainerObj['TotalComressPending'])
-            TotalComressStart = parseInt(IssueReportContainerObj['TotalComressStart'])
-            TotalComressStop = parseInt(IssueReportContainerObj['TotalComressStop'])
-            TotalComressCompleted = parseInt(IssueReportContainerObj['TotalComressCompleted'])
+            TotalComressInProcess = parseInt(IssueReportContainerObj['TotalComressInProcess'])
             TotalComressClose = parseInt(IssueReportContainerObj['TotalComressClose'])
-            
-            TotalComressPendingOverdue = parseInt(IssueReportContainerObj['TotalComressPendingOverdue'])
-            TotalComressStartOverdue = parseInt(IssueReportContainerObj['TotalComressStartOverdue'])
-            TotalComressStopOverdue = parseInt(IssueReportContainerObj['TotalComressStopOverdue'])
-            TotalComressCompletedOverdue = parseInt(IssueReportContainerObj['TotalComressCompletedOverdue'])
-            TotalComressCloseOverdue = parseInt(IssueReportContainerObj['TotalComressCloseOverdue'])
-            
             TotalComressOutstandingOverdue = parseInt(IssueReportContainerObj['TotalComressOutstandingOverdue'])
+            
             
             data.addRows([
             [
             ContractTypeDes,
             TotalComressPending,
-            TotalComressStart,
-            TotalComressStop,
-            TotalComressCompleted,
+            TotalComressInProcess,
             TotalComressClose,
-            TotalComressPendingOverdue,
-            TotalComressStartOverdue,
-            TotalComressStopOverdue,
-            TotalComressCompletedOverdue,
-            TotalComressCloseOverdue,
             TotalComressOutstandingOverdue
-            
             ]
             ])
             
@@ -170,90 +151,10 @@
             sourceColumn: 4,
             type: "string",
             role: "annotation"
-            },
-            
-            5, {
-            calc: function(dt, row) {
-            if (dt.getFormattedValue(row, 5) > 0)
-            return dt.getFormattedValue(row, 5);
-            else
-            return null
-            },
-            sourceColumn: 5,
-            type: "string",
-            role: "annotation"
-            },
-            
-            6, {
-            calc: function(dt, row) {
-            if (dt.getFormattedValue(row, 6) > 0)
-            return dt.getFormattedValue(row, 6);
-            else
-            return null
-            },
-            sourceColumn: 6,
-            type: "string",
-            role: "annotation"
-            },
-            
-            7, {
-            calc: function(dt, row) {
-            if (dt.getFormattedValue(row, 7) > 0)
-            return dt.getFormattedValue(row, 7);
-            else
-            return null
-            },
-            sourceColumn: 7,
-            type: "string",
-            role: "annotation"
-            },
-            8, {
-            calc: function(dt, row) {
-            if (dt.getFormattedValue(row, 8) > 0)
-            return dt.getFormattedValue(row, 8);
-            else
-            return null
-            },
-            sourceColumn: 8,
-            type: "string",
-            role: "annotation"
-            },
-            9, {
-            calc: function(dt, row) {
-            if (dt.getFormattedValue(row, 9) > 0)
-            return dt.getFormattedValue(row, 9);
-            else
-            return null
-            },
-            sourceColumn: 9,
-            type: "string",
-            role: "annotation"
-            },
-            10, {
-            calc: function(dt, row) {
-            if (dt.getFormattedValue(row, 10) > 0)
-            return dt.getFormattedValue(row, 10);
-            else
-            return null
-            },
-            sourceColumn: 10,
-            type: "string",
-            role: "annotation"
-            },
-            11, {
-            calc: function(dt, row) {
-            if (dt.getFormattedValue(row, 11) > 0)
-            return dt.getFormattedValue(row, 11);
-            else
-            return null
-            },
-            sourceColumn: 11,
-            type: "string",
-            role: "annotation"
             }
             ])
             
-            var colorsArray = ["#ffc600", "#c6ff00", "#ff00de", "#06ff00", "#c2c2c2", "#8b6e0b", "#85a80c", "#9b0a88", "#097f06", "#746f6f", "#fb6892", "#7b7474"];
+            var colorsArray = ["#ffc600", "#c6ff00", "#ff00de", "#06ff00", "#c2c2c2", "#8b6e0b", "#85a80c", "#9b0a88"];
             
             var options = {
             width: "100%",
@@ -281,27 +182,6 @@
             },
             4: {
             color: colorsArray[4]
-            },
-            5: {
-            color: colorsArray[5]
-            },
-            6: {
-            color: colorsArray[6]
-            },
-            7: {
-            color: colorsArray[7]
-            },
-            8: {
-            color: colorsArray[8]
-            },
-            9: {
-            color: colorsArray[9]
-            },
-            10: {
-            color: colorsArray[10]
-            },
-            11: {
-            color: colorsArray[11]
             }
             }
             };
@@ -310,23 +190,36 @@
             chart.draw(view, options);
             
             
-            //draw legend
+            for(i = 0; i < IssueReportOfOthers.length; i++)
+            {
+            IssueReportOfOthersObj = IssueReportOfOthers[i]
             
-            // for(i = 0; i < headersArray.length; i++)
-            // {
-            //     if(i > 0)
-            //     {
-            //         var li = "<li>"+headersArray[i]+"<span style='color:"+colorsArray[i-1]+";padding:5px'>&#9608;</span> <li/>"
-            //         $("ul").append(li)
-            //     }
+            UserId = IssueReportOfOthersObj['UserId']
+            ContractTypeDes = IssueReportOfOthersObj['ContractTypeDes']
+            TotalComressPending = IssueReportOfOthersObj['TotalComressPending']
+            TotalComressInProcess = IssueReportOfOthersObj['TotalComressInProcess']
+            TotalComressClose = IssueReportOfOthersObj['TotalComressClose']
+            TotalComressOutstandingOverdue = IssueReportOfOthersObj['TotalComressOutstandingOverdue']
             
-            // }
+            $("#row").append("<tr> <td>"+UserId+"</td>  <td>"+ContractTypeDes+"</td>  <td>"+TotalComressPending+"</td>  <td>"+TotalComressInProcess+"</td> <td>"+TotalComressClose+"</td> <td>"+TotalComressOutstandingOverdue+"</td> </tr>")
+            }
             }
             </script>
-            <div class="fluid">
-            <div class="span12">
             <div id="columnchart_values" style="width: 650px; height: 500px;"></div>
-            </div>
+            <div class="table-responsive" style="width:450px;margin-left:100px">
+            <table class="table">
+            <tr>
+            <th>User</th>
+            <th>Contract type</th>
+            <th>Pending</th>
+            <th>In-Progress</th>
+            <th>Close</th>
+            <th>Overdue</th>
+            </tr>
+            <tbody id='row'>
+            
+            </tbody>
+            </table>
             </div>
             </body>
             

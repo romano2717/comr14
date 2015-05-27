@@ -39,8 +39,8 @@
         NSString *dateStringForm = [date stringWithHumanizedTimeDifference:0 withFullString:NO];
         
         //post_date
-        double timeStamp2 = [[postDict valueForKeyPath:@"post_date"] doubleValue];
-        NSDate *post_date = [NSDate dateWithTimeIntervalSince1970:timeStamp2];
+        double timeStamp2 = [[postDict valueForKeyPath:@"dueDate"] doubleValue];
+        NSDate *dueDate = [NSDate dateWithTimeIntervalSince1970:timeStamp2];
         
         //post main image
         NSDictionary *imageDict = (NSDictionary *)[postImages firstObject];
@@ -153,10 +153,10 @@
             commentsCount.hidden = YES;
         
         
-        if(segment == 0)
+        if(segment == 0) //check if the issue is 1 day before the overdue
         {
             NSDate *now = [NSDate date];
-            int diff = [self daysBetween:post_date and:now];
+            int diff = [self daysBetween:dueDate and:now];
             
             if(diff >= 2 && status != 4)
             {

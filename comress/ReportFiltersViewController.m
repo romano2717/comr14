@@ -14,7 +14,7 @@
 
 @implementation ReportFiltersViewController
 
-@synthesize hideZoneFilter;
+@synthesize hideZoneFilter,defaultDivision;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -58,6 +58,18 @@
             
             [self.divisionArray addObject:divisionName];
             [self.divisionArrayObj addObject:dict];
+            
+            if([defaultDivision intValue] == [[dict valueForKey:@"DivId"] intValue])
+            {
+                self.divisionTextField.text = divisionName;
+                self.selectedDivisionDict = dict;
+                
+                //default zone : All
+                [self.zoneArray addObject:@"All"];
+                [self.zoneArrayObj addObject:@{@"DivId":[NSNumber numberWithInt:0],@"ZoneId":[NSNumber numberWithInt:0],@"ZoneName":@""}];
+                self.zoneTextField.text = @"All";
+                self.selectedZoneDict = [self.zoneArrayObj firstObject];
+            }
         }
         
         [MBProgressHUD hideAllHUDsForView:self.view animated:YES];

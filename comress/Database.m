@@ -8,7 +8,7 @@
 
 #import "Database.h"
 
-static const int newDatabaseVersion = 5; //this database version is incremented everytime the database version is updated
+static const int newDatabaseVersion = 6; //this database version is incremented everytime the database version is updated
 
 @implementation Database
 
@@ -173,14 +173,12 @@ static const int newDatabaseVersion = 5; //this database version is incremented 
                                     //20-may-2015 block mapping for revised issue grouping
                                     @"CREATE TABLE IF NOT EXISTS block_user_mapping (id INTEGER PRIMARY KEY AUTOINCREMENT, block_id INTEGER DEFAULT (0), supervisor_id VARCHAR (50), user_id VARCHAR (50));",
                                     
-                                    //21-may-2014 add division for block mapping
-                                    @"ALTER TABLE block_user_mapping add division VARCHAR (30)"
+                                    //21-may-2015 add division for block mapping
+                                    @"ALTER TABLE block_user_mapping add division VARCHAR (30)",
                                     
                                     
-                                    /*
-                                     update post last request date to re-download existing posts so the overdue date will take effect on existing post.
-                                     REMOVE THIS SCRIPT AFTER NEXT UPDATE!!!!!
-                                     */
+                                    //21-may-2015 add dueDate for post
+                                    @"ALTER TABLE post add dueDate DATE"
                                     
                                     ];
         

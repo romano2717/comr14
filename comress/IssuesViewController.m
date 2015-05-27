@@ -34,7 +34,9 @@
     //check what kind of account is logged in
     POisLoggedIn = YES; //CT_NU and CT_SA uses the same logic as PO
     
-    if([[myDatabase.userDictionary valueForKey:@"group_name"] isEqualToString:@"PM"])
+    
+    //PM and CT_SUP have the same function, structure and grouping logic
+    if([[myDatabase.userDictionary valueForKey:@"group_name"] isEqualToString:@"PM"] || [[myDatabase.userDictionary valueForKey:@"group_name"] isEqualToString:@"CT_SUP"])
     {
         PMisLoggedIn = YES;
         POisLoggedIn = NO;

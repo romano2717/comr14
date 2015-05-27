@@ -21,7 +21,6 @@
 }
 @property (nonatomic, weak) IBOutlet UITableView *surveyTableView;
 @property (nonatomic, weak) IBOutlet MESegmentedControl *segment;
-
 @property (nonatomic, strong) NSArray *surveyArray;
 
 @property (nonatomic) int clientSurveyIdIncompleteSurvey;

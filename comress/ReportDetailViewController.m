@@ -29,7 +29,11 @@
     if(POisLoggedIn)
         self.filterLabel.hidden = YES;
     else if (PMisLoggedIn)
+    {
         self.filterLabel.hidden = NO;
+        [self getDivision]; //purpose is only to get the default division of this PM
+    }
+    
     
     //add tap gesture to filter to toggle filter view
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(toggleFilter)];
@@ -50,7 +54,36 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(filterReports:) name:@"filterReports" object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(closeReportsFilter) name:@"closeReportsFilter" object:nil];
-    
+}
+
+- (void)getDivision
+{
+    [myDatabase.AfManager POST:[NSString stringWithFormat:@"%@%@",myDatabase.api_url,api_survey_report_get_divisions] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSDictionary *top = (NSDictionary *)responseObject;
+        
+        NSArray *DivistionList = [top objectForKey:@"DivistionList"];
+        
+        for (int i = 0; i < DivistionList.count; i++) {
+            NSDictionary *dict = [DivistionList objectAtIndex:i];
+            
+            NSNumber *IsOwnDiv = [NSNumber numberWithBool:[[dict valueForKey:@"IsOwnDiv"] boolValue]];
+            
+            if([IsOwnDiv intValue] == 1)
+            {
+                self.defaultDivisionId = [NSNumber numberWithInt:[[dict valueForKey:@"DivId"] intValue]];
+                self.filterLabel.text = [NSString stringWithFormat:@"Filters: %@, All",[dict valueForKey:@"DivName"]];
+                break;
+            }
+        }
+        
+        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+        
+        [self getDivision];
+    }];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -75,25 +108,27 @@
 
 - (void)viewDidLayoutSubviews {
 
-    UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
-
-    if(orientation == 4 || orientation == 3)
+    if([reportType isEqualToString:@"Average Sentiment"] && PMisLoggedIn)
     {
-        self.navigationController.navigationBar.hidden = YES;
-        self.tabBarController.tabBar.hidden = YES;
+        UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
         
-        self.theWebView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
-
-    }
-    
-    else
-    {
-        self.navigationController.navigationBar.hidden = NO;
-        self.tabBarController.tabBar.hidden = NO;
+        if(orientation == 4 || orientation == 3)
+        {
+            self.navigationController.navigationBar.hidden = YES;
+            self.tabBarController.tabBar.hidden = YES;
+            
+            self.theWebView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+            
+        }
         
-        self.theWebView.frame = webViewinitialFrame;
+        else
+        {
+            self.navigationController.navigationBar.hidden = NO;
+            self.tabBarController.tabBar.hidden = NO;
+            
+            self.theWebView.frame = webViewinitialFrame;
+        }
     }
-    
 }
 
 - (void)filterReports:(NSNotification *)notif
@@ -136,6 +171,8 @@
         reportsFilterVc.hideZoneFilter = YES;
     else
         reportsFilterVc.hideZoneFilter = NO;
+    
+    reportsFilterVc.defaultDivision = self.defaultDivisionId;
     
     MZFormSheetController *formSheet = [[MZFormSheetController alloc] initWithViewController:reportsFilterVc];
     
@@ -343,7 +380,12 @@
         else
             urlString = [NSString stringWithFormat:@"%@%@",myDatabase.api_url,api_survey_report_average_sentiment];
         
-        params = [myDatabase toJsonString:@{@"startDate":wcfDateFrom,@"endDate":wcfDateTo,@"url":urlString,@"session":[myDatabase.userDictionary valueForKey:@"guid"],@"divId":self.selectedDivisionId,@"zoneId":self.selectedZoneId}];
+        NSNumber *theDivisionId = self.selectedDivisionId;
+        
+        if([self.defaultDivisionId intValue] > 0 && [self.selectedDivisionId intValue] == 0)
+            theDivisionId = self.defaultDivisionId;
+        
+        params = [myDatabase toJsonString:@{@"startDate":wcfDateFrom,@"endDate":wcfDateTo,@"url":urlString,@"session":[myDatabase.userDictionary valueForKey:@"guid"],@"divId":theDivisionId,@"zoneId":self.selectedZoneId,@"layer":[NSNumber numberWithInt:1]}];
     }
 
     

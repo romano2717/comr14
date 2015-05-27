@@ -39,6 +39,8 @@
 @property (nonatomic) BOOL PMisLoggedIn;
 @property (nonatomic) BOOL POisLoggedIn;
 
+@property (nonatomic, strong) NSNumber *defaultDivisionId;
+
 
 
 @end

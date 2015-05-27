@@ -123,7 +123,7 @@
                     if([rsUser next])
                     {
                         //returning user
-                        user_q = [db executeUpdate:@"update users set is_active = ?, guid = ? where user_id = ?",is_active,res_SessionId,res_UserId];
+                        user_q = [db executeUpdate:@"update users set company_id = ?, user_id = ?, company_name = ?, group_id = ?, group_name = ?, full_name = ?, guid = ?, device_id = ?, is_active = ?, contract_type = ? where user_id = ?",res_CompanyId, res_UserId, res_CompanyName, res_GroupId, res_GroupName, res_UserName, res_SessionId, res_deviceId, is_active, contract_type, res_UserId];
                         
                         if(!user_q)
                         {
