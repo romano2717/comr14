@@ -223,14 +223,13 @@
                     [myDatabase alertMessageWithMessage:@"Invalid login. Please try again."];
                 }
                 
+                [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
                 
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                 [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
                 DDLogVerbose(@"%@ [%@-%@]",error.localizedDescription,THIS_FILE,THIS_METHOD);
                 
             }];
-            
-            [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
         }];
     }
 }

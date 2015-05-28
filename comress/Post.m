@@ -411,7 +411,7 @@ contract_type;
         {
             if(filter == YES) //ME
             {
-                q = [[NSMutableString alloc] initWithString:[NSString stringWithFormat:@"select p.post_id,client_post_id,bum.user_id from post p left join block_user_mapping bum on bum.block_id = p.block_id where p.block_id in (select block_id from block_user_mapping where supervisor_id = '%@') and (dueDate >= %f or dueDate <= %f) ",[myDatabase.userDictionary valueForKey:@"user_id"], timestampDaysAgo, timestampDaysAgo]];
+                q = [[NSMutableString alloc] initWithString:[NSString stringWithFormat:@"select p.post_id,client_post_id,bum.user_id from post p left join block_user_mapping bum on bum.block_id = p.block_id where p.block_id in (select block_id from block_user_mapping where supervisor_id = '%@') and dueDate >= %f ",[myDatabase.userDictionary valueForKey:@"user_id"], timestampDaysAgo]];
             }
             else //Others
             {
@@ -432,7 +432,7 @@ contract_type;
     NSMutableArray *postIdArray = [[NSMutableArray alloc] init];
 
     [myDatabase.databaseQ inTransaction:^(FMDatabase *db, BOOL *rollback) {
-        db.traceExecution = NO;
+        db.traceExecution = YES;
         FMResultSet *rs = [db executeQuery:q];
         
         while ([rs next]) {
@@ -489,7 +489,7 @@ contract_type;
     
     
     [myDatabase.databaseQ inTransaction:^(FMDatabase *db, BOOL *rollback) {
-        FMResultSet *rs = [db executeQuery:@"select p.client_post_id from post p left join block_user_mapping bum on p.block_id = bum.block_id where bum.user_id = ?",poID];
+        FMResultSet *rs = [db executeQuery:@"select p.client_post_id from post p left join block_user_mapping bum on p.block_id = bum.block_id where bum.user_id = ? order by p.updated_on desc",poID];
         
        
         while ([rs next]) {

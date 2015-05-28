@@ -111,6 +111,7 @@
                 @"blocks_user_last_request_date",
                 @"comment_last_request_date",
                 @"comment_noti_last_request_date",
+                @"comment_noti",
                 @"post_last_request_date",
                 @"post_image_last_request_date",
                 @"ro_checkarea_last_req_date",
