@@ -74,6 +74,7 @@
 		4D337D601ACCDE1300F9C7AA /* poor_sel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D337D5B1ACCDE1200F9C7AA /* poor_sel@2x.png */; };
 		4D337D611ACCDE1300F9C7AA /* very_poor_sel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D337D5C1ACCDE1200F9C7AA /* very_poor_sel@2x.png */; };
 		4D337D651ACCED6300F9C7AA /* Questions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D337D641ACCED6300F9C7AA /* Questions.m */; };
+		4D36D4431B16E5B500773F94 /* GenericWebviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D36D4421B16E5B500773F94 /* GenericWebviewViewController.m */; };
 		4D37BDB81A9C2271006B414A /* back.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D37BDB71A9C2271006B414A /* back.png */; };
 		4D39FEFC1ACFE3940074A217 /* FeedBackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D39FEFB1ACFE3940074A217 /* FeedBackViewController.m */; };
 		4D3CFD4B1B12D94300D01D13 /* combLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D3CFD4A1B12D94300D01D13 /* combLogo.png */; };
@@ -417,6 +418,8 @@
 		4D337D5C1ACCDE1200F9C7AA /* very_poor_sel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "very_poor_sel@2x.png"; sourceTree = "<group>"; };
 		4D337D631ACCED6300F9C7AA /* Questions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Questions.h; sourceTree = "<group>"; };
 		4D337D641ACCED6300F9C7AA /* Questions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Questions.m; sourceTree = "<group>"; };
+		4D36D4411B16E5B500773F94 /* GenericWebviewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GenericWebviewViewController.h; sourceTree = "<group>"; };
+		4D36D4421B16E5B500773F94 /* GenericWebviewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GenericWebviewViewController.m; sourceTree = "<group>"; };
 		4D37BDB71A9C2271006B414A /* back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = back.png; sourceTree = "<group>"; };
 		4D39FEFA1ACFE3940074A217 /* FeedBackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedBackViewController.h; sourceTree = "<group>"; };
 		4D39FEFB1ACFE3940074A217 /* FeedBackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedBackViewController.m; sourceTree = "<group>"; };
@@ -1727,6 +1730,8 @@
 			children = (
 				4DA22FB31A7F332D00A7AAEC /* SettingsViewController.h */,
 				4DA22FB41A7F332D00A7AAEC /* SettingsViewController.m */,
+				4D36D4411B16E5B500773F94 /* GenericWebviewViewController.h */,
+				4D36D4421B16E5B500773F94 /* GenericWebviewViewController.m */,
 			);
 			name = SETTINGS;
 			sourceTree = "<group>";
@@ -2271,6 +2276,7 @@
 				4D68561C1B0057BF008D2A74 /* CloseIssueActionViewController.m in Sources */,
 				4DA207E21A79DA0A00C7E5C7 /* JSQMessagesKeyboardController.m in Sources */,
 				4D81D4481AB6CAF200A403C9 /* Check_area.m in Sources */,
+				4D36D4431B16E5B500773F94 /* GenericWebviewViewController.m in Sources */,
 				4DA207DF1A79DA0A00C7E5C7 /* UIDevice+JSQMessages.m in Sources */,
 				4DA203FC1A79CC5200C7E5C7 /* FMDatabaseQueue.m in Sources */,
 				4DD6FEB91A88954800CBBE1D /* Synchronize.m in Sources */,

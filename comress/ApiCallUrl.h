@@ -119,6 +119,10 @@ static NSString *api_survey_report_get_divisions = @"Job/Block.svc/GetDivistions
 static NSString *api_survey_report_get_zones = @"Job/Block.svc/GetZones";
 
 
+//generic webview
+static NSString *user_manual = @"http://comress.fmit.sg/ComressMWCF/doc/UserGuide.pdf";
+
+
 #endif
 
 

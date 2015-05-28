@@ -432,7 +432,7 @@ contract_type;
     NSMutableArray *postIdArray = [[NSMutableArray alloc] init];
 
     [myDatabase.databaseQ inTransaction:^(FMDatabase *db, BOOL *rollback) {
-        db.traceExecution = YES;
+        db.traceExecution = NO;
         FMResultSet *rs = [db executeQuery:q];
         
         while ([rs next]) {
