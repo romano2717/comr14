@@ -75,6 +75,7 @@
 		4D337D611ACCDE1300F9C7AA /* very_poor_sel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D337D5C1ACCDE1200F9C7AA /* very_poor_sel@2x.png */; };
 		4D337D651ACCED6300F9C7AA /* Questions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D337D641ACCED6300F9C7AA /* Questions.m */; };
 		4D36D4431B16E5B500773F94 /* GenericWebviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D36D4421B16E5B500773F94 /* GenericWebviewViewController.m */; };
+		4D36D4451B183B7700773F94 /* jointlogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D36D4441B183B7700773F94 /* jointlogo.png */; };
 		4D37BDB81A9C2271006B414A /* back.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D37BDB71A9C2271006B414A /* back.png */; };
 		4D39FEFC1ACFE3940074A217 /* FeedBackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D39FEFB1ACFE3940074A217 /* FeedBackViewController.m */; };
 		4D3CFD4B1B12D94300D01D13 /* combLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D3CFD4A1B12D94300D01D13 /* combLogo.png */; };
@@ -125,7 +126,6 @@
 		4D85E6B31AD7930100170D66 /* noThreeStars@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D85E6AF1AD7930100170D66 /* noThreeStars@2x.png */; };
 		4D878D271AD4FBD1000CC3FC /* logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D878D261AD4FBD1000CC3FC /* logo@2x.png */; };
 		4D878D291AD4FDC8000CC3FC /* top_tptclogo_new1.gif in Resources */ = {isa = PBXBuildFile; fileRef = 4D878D281AD4FDC8000CC3FC /* top_tptclogo_new1.gif */; };
-		4D878D2B1AD50252000CC3FC /* jointlogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D878D2A1AD50252000CC3FC /* jointlogo.png */; };
 		4D8AC95A1AAD8AB3008F7652 /* settings.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D8AC9591AAD8AB3008F7652 /* settings.png */; };
 		4D8AC95E1AAD8AE3008F7652 /* issue.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D8AC95B1AAD8AE3008F7652 /* issue.png */; };
 		4D8AC95F1AAD8AE3008F7652 /* crm.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D8AC95C1AAD8AE3008F7652 /* crm.png */; };
@@ -420,6 +420,7 @@
 		4D337D641ACCED6300F9C7AA /* Questions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Questions.m; sourceTree = "<group>"; };
 		4D36D4411B16E5B500773F94 /* GenericWebviewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GenericWebviewViewController.h; sourceTree = "<group>"; };
 		4D36D4421B16E5B500773F94 /* GenericWebviewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GenericWebviewViewController.m; sourceTree = "<group>"; };
+		4D36D4441B183B7700773F94 /* jointlogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = jointlogo.png; sourceTree = "<group>"; };
 		4D37BDB71A9C2271006B414A /* back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = back.png; sourceTree = "<group>"; };
 		4D39FEFA1ACFE3940074A217 /* FeedBackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedBackViewController.h; sourceTree = "<group>"; };
 		4D39FEFB1ACFE3940074A217 /* FeedBackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedBackViewController.m; sourceTree = "<group>"; };
@@ -491,7 +492,6 @@
 		4D85E6AF1AD7930100170D66 /* noThreeStars@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "noThreeStars@2x.png"; sourceTree = "<group>"; };
 		4D878D261AD4FBD1000CC3FC /* logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo@2x.png"; sourceTree = "<group>"; };
 		4D878D281AD4FDC8000CC3FC /* top_tptclogo_new1.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = top_tptclogo_new1.gif; sourceTree = "<group>"; };
-		4D878D2A1AD50252000CC3FC /* jointlogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = jointlogo.png; sourceTree = "<group>"; };
 		4D8AC9591AAD8AB3008F7652 /* settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settings.png; sourceTree = "<group>"; };
 		4D8AC95B1AAD8AE3008F7652 /* issue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = issue.png; sourceTree = "<group>"; };
 		4D8AC95C1AAD8AE3008F7652 /* crm.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = crm.png; sourceTree = "<group>"; };
@@ -938,6 +938,7 @@
 		4D1265C71AE2C7A100D9A512 /* from design */ = {
 			isa = PBXGroup;
 			children = (
+				4D36D4441B183B7700773F94 /* jointlogo.png */,
 				4D1265CC1AE2C83400D9A512 /* 1_13@2x.png */,
 				4D1265CD1AE2C83400D9A512 /* Routine_05@2x.png */,
 				4D1265C81AE2C7AF00D9A512 /* 1_03@2x.png */,
@@ -1424,7 +1425,6 @@
 				4D85E6AD1AD7930100170D66 /* twoOfThreeStars@2x.png */,
 				4D85E6AE1AD7930100170D66 /* oneOfThreeStars@2x.png */,
 				4D85E6AF1AD7930100170D66 /* noThreeStars@2x.png */,
-				4D878D2A1AD50252000CC3FC /* jointlogo.png */,
 				4D878D281AD4FDC8000CC3FC /* top_tptclogo_new1.gif */,
 				4D878D261AD4FBD1000CC3FC /* logo@2x.png */,
 				4D6424C51AD3CF3800B6B974 /* industry@2x.png */,
@@ -2122,6 +2122,7 @@
 				4D6424CB1AD3CF3800B6B974 /* tree@2x.png in Resources */,
 				4DA207FF1A79DA0A00C7E5C7 /* JSQMessagesLoadEarlierHeaderView.xib in Resources */,
 				4D8AC96A1AAD8CD4008F7652 /* settings@2x.png in Resources */,
+				4D36D4451B183B7700773F94 /* jointlogo.png in Resources */,
 				4DA207FA1A79DA0A00C7E5C7 /* JSQMessagesCollectionViewCellOutgoing.xib in Resources */,
 				4D337D611ACCDE1300F9C7AA /* very_poor_sel@2x.png in Resources */,
 				4DAEA6B81A83505E00A6EFBE /* Localizable_full.strings in Resources */,
@@ -2139,7 +2140,6 @@
 				4DD99F291B059B99005E5F3E /* TSAFBPM.html in Resources */,
 				4D3CFD501B1589F600D01D13 /* settingsLogo@2x.png in Resources */,
 				4DD99F231B0487C3005E5F3E /* TIWSBPO.html in Resources */,
-				4D878D2B1AD50252000CC3FC /* jointlogo.png in Resources */,
 				4D337D5F1ACCDE1300F9C7AA /* good_sel@2x.png in Resources */,
 				4DA207DB1A79DA0A00C7E5C7 /* JSQMessages.strings in Resources */,
 				4D81D4691AB8352300A403C9 /* unlocked@2x.png in Resources */,

@@ -376,13 +376,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Pb1-Lh-wSj">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pb1-Lh-wSj">
                                 <rect key="frame" x="0.0" y="72" width="600" height="472"/>
                                 <subviews>
                                     <view contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="lLE-Xm-gk1">
                                         <rect key="frame" x="0.0" y="0.0" width="608" height="700"/>
                                         <subviews>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="jointlogo.png" translatesAutoresizingMaskIntoConstraints="NO" id="Ven-Jb-8iy">
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="jointlogo.png" translatesAutoresizingMaskIntoConstraints="NO" id="Ven-Jb-8iy">
                                                 <rect key="frame" x="20" y="0.0" width="568" height="60"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="60" id="7Lp-yl-OLq"/>
@@ -544,7 +544,7 @@
                             <constraint firstItem="Pb1-Lh-wSj" firstAttribute="centerX" secondItem="JHg-vO-pWJ" secondAttribute="centerX" id="HS3-0S-eSW"/>
                             <constraint firstItem="Pb1-Lh-wSj" firstAttribute="leading" secondItem="JHg-vO-pWJ" secondAttribute="leadingMargin" constant="-16" id="QpJ-8T-MKk"/>
                             <constraint firstItem="QCg-to-Icz" firstAttribute="top" secondItem="Pb1-Lh-wSj" secondAttribute="bottom" constant="56" id="T0U-Wa-Euz"/>
-                            <constraint firstItem="Pb1-Lh-wSj" firstAttribute="top" secondItem="cT8-cz-swq" secondAttribute="bottom" constant="8" id="mfg-GG-dJD"/>
+                            <constraint firstItem="Pb1-Lh-wSj" firstAttribute="top" secondItem="cT8-cz-swq" secondAttribute="bottom" constant="52" id="mfg-GG-dJD"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Login" id="J09-dA-pR2"/>
@@ -6587,7 +6587,7 @@ Please note that, by using the Town Council’s services, you signify that you h
         <image name="crm.png" width="27" height="27"/>
         <image name="crm_sel" width="545" height="89"/>
         <image name="excellent.png" width="50" height="50"/>
-        <image name="jointlogo.png" width="545" height="89"/>
+        <image name="jointlogo.png" width="640" height="89"/>
         <image name="list.png" width="22" height="22"/>
         <image name="locked.png" width="15" height="20"/>
         <image name="pin2.png" width="75" height="75"/>

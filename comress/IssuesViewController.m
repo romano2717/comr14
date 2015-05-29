@@ -73,10 +73,19 @@
 
 - (void)thereAreOVerDueIssues:(NSNotification *)notif
 {
-    int badge = [[[notif userInfo] valueForKey:@"count"] intValue];
     
-    if(badge > 0)
-        [self.segment setBadgeNumber:badge forSegmentAtIndex:2];
+    //int currentOverdueBadge = (int)[self.segment getBadgeNumberForSegmentAtIndex:2];
+    //if(currentOverdueBadge == 0)
+    //{
+        int badge = [[[notif userInfo] valueForKey:@"count"] intValue];
+        
+        if(badge > 0)
+        {
+            DDLogVerbose(@"badge %d",badge);
+            
+            [self.segment setBadgeNumber:badge forSegmentAtIndex:2];
+        }
+    //}
 }
 
 - (void)toggleBulbIcon:(NSNotification *)notif
@@ -143,6 +152,18 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    
+    [self.segment clearBadges];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
     
     self.tabBarController.tabBar.hidden = NO;
     //self.navigationController.navigationBar.hidden = YES;
@@ -155,11 +176,7 @@
         [self fetchPostsWithNewIssuesUp:NO];
         [self updateBadgeCount];
     }
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
+    
     
     [self.issuesTable reloadData];
 }

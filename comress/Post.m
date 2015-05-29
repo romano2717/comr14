@@ -149,6 +149,7 @@ contract_type;
          change query to also get all the images for the post
          */
         NSMutableString *q;
+        NSMutableString *qOverDue;
         
         NSDate *now = [NSDate date];
         NSDate *daysAgo = [now dateByAddingTimeInterval:-overDueDays*24*60*60];
@@ -163,6 +164,8 @@ contract_type;
                 if(filter == YES) //ME, don't display overdue
                 {
                     q = [[NSMutableString alloc] initWithString:[NSString stringWithFormat:@"select * from post where post_type = 1 and (dueDate >= %f or dueDate <= %f) and status <= %@ and block_id in (select block_id from blocks_user)",timestampDaysAgo,timestampDaysAgo, finishedStatus] ]; //post_type = 1 is ISSUES
+                    
+                    qOverDue = [[NSMutableString alloc] initWithString:[NSString stringWithFormat:@"select * from post where post_type = 1 and dueDate <= '%f' and status != %@ and block_id in (select block_id from blocks_user) ",timestampDaysAgo, finishedStatus]]; //post_type = 1 is ISSUES
                 }
                 
                 else // Others
@@ -183,6 +186,8 @@ contract_type;
             if(onlyOverDue == NO)
             {
                 q = [[NSMutableString alloc] initWithString:[NSString stringWithFormat:@"select * from post where client_post_id = %@ ",postId]];
+                
+                qOverDue = [[NSMutableString alloc] initWithString:[NSString stringWithFormat:@"select * from post where client_post_id = %@ and dueDate <= '%f' and status != %@ ",postId,timestampDaysAgo,finishedStatus]];
             }
             else
             {
@@ -325,6 +330,24 @@ contract_type;
                 
                 [arr addObject:postDict];
             }
+            
+            //get the overdue while we are inside ME to toggle overdue bubble
+            if(POisLoggedIn && postId == nil)
+            {
+                int overdueCtr = 0;
+                
+                if(onlyOverDue == NO && filter == YES)
+                {
+                    FMResultSet *qOverdueRs = [db executeQuery:qOverDue];
+                    
+                    while ([qOverdueRs next]) {
+                        overdueCtr++;
+                    }
+                    DDLogVerbose(@"PO overdue %d",overdueCtr);
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"thereAreOVerDueIssues" object:nil userInfo:@{@"count":[NSNumber numberWithInt:overdueCtr]}];
+                }
+            }
+            
         }];
         
         NSMutableArray *mutArr = [[NSMutableArray alloc] initWithArray:arr];
@@ -370,13 +393,16 @@ contract_type;
             }
         }
         
-
-        if(overDueIssues > 0)
+        if(postId == nil)
         {
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"thereAreOVerDueIssues" object:nil userInfo:@{@"count":[NSNumber numberWithInt:overDueIssues]}];
+            if(overDueIssues > 0)
+            {
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"thereAreOVerDueIssues" object:nil userInfo:@{@"count":[NSNumber numberWithInt:overDueIssues]}];
+            }
+            else
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"thereAreOVerDueIssues" object:nil userInfo:@{@"count":[NSNumber numberWithInt:0]}];
         }
-        else
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"thereAreOVerDueIssues" object:nil userInfo:@{@"count":[NSNumber numberWithInt:0]}];
+    
         
         if(mutArr.count == arr.count)
             return mutArr;
@@ -399,6 +425,8 @@ contract_type;
 - (NSArray *)fetchIssuesWithParamsForPM:(NSDictionary *)params forPostId:(NSNumber *)postId filterByBlock:(BOOL)filter newIssuesFirst:(BOOL)newIssuesFirst onlyOverDue:(BOOL)onlyOverDue
 {
     NSMutableString *q;
+    NSMutableString *qOverdue;
+    
     NSDate *now = [NSDate date];
     NSDate *daysAgo = [now dateByAddingTimeInterval:-overDueDays*24*60*60];
     double timestampDaysAgo = [daysAgo timeIntervalSince1970];
@@ -411,7 +439,10 @@ contract_type;
         {
             if(filter == YES) //ME
             {
-                q = [[NSMutableString alloc] initWithString:[NSString stringWithFormat:@"select p.post_id,client_post_id,bum.user_id from post p left join block_user_mapping bum on bum.block_id = p.block_id where p.block_id in (select block_id from block_user_mapping where supervisor_id = '%@') and dueDate >= %f ",[myDatabase.userDictionary valueForKey:@"user_id"], timestampDaysAgo]];
+                //where supervisor_id = '%@ OR user_id = '%@' : some contractor is also the supervisor
+                q = [[NSMutableString alloc] initWithString:[NSString stringWithFormat:@"select p.post_id,client_post_id,bum.user_id from post p left join block_user_mapping bum on bum.block_id = p.block_id where p.block_id in (select block_id from block_user_mapping where supervisor_id = '%@' or user_id = '%@') and dueDate >= %f ",[myDatabase.userDictionary valueForKey:@"user_id"],[myDatabase.userDictionary valueForKey:@"user_id"], timestampDaysAgo]];
+                
+                qOverdue = [[NSMutableString alloc] initWithString:[NSString stringWithFormat:@"select p.post_id,client_post_id,bum.user_id from post p left join block_user_mapping bum on bum.block_id = p.block_id where p.block_id in (select block_id from block_user_mapping where supervisor_id = '%@') and dueDate <= '%f' and status != %@  ",[myDatabase.userDictionary valueForKey:@"user_id"], timestampDaysAgo, finishedStatus]];
             }
             else //Others
             {
@@ -442,6 +473,19 @@ contract_type;
             NSString *POId = [rs stringForColumn:@"user_id"];
             
             [postIdArray addObject:@{@"clientPostId":theClientPostId,@"postId":thePostId,@"POId":POId}];
+        }
+        
+        //get the overdue while we are inside ME to toggle overdue bubble
+        int overdueCtr = 0;
+        if(onlyOverDue == NO && filter == YES)
+        {
+            FMResultSet *qOverdueRs = [db executeQuery:qOverdue];
+            
+            while ([qOverdueRs next]) {
+                overdueCtr++;
+            }
+            DDLogVerbose(@"PM overdue %d",overdueCtr);
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"thereAreOVerDueIssues" object:nil userInfo:@{@"count":[NSNumber numberWithInt:overdueCtr]}];
         }
     }];
     

@@ -25,6 +25,15 @@
             packages: ["corechart"]
             });
             
+            $(document).ready(function() {
+            requestData("ewogICJzdGFydERhdGUiIDogIlwvRGF0ZSgxNDI5OTc3NjAwMDAwKzA4MDApXC8iLAogICJlbmREYXRlIiA6ICJcL0RhdGUoMTQzMjU2OTYwMDAwMCswODAwKVwvIiwKICAidXJsIiA6ICJodHRwOlwvXC9jb21yZXNzdGVzdC5mbWl0LnNnXC9Db21yZXNzTVdDRlwvdjEuMDJcL1N1cnZleVwvUmVwb3J0LnN2Y1wvR2V0VG90YWxJc3N1ZVdpdGhTdGF0dXNCeVBPIiwKICAic2Vzc2lvbiIgOiAiZmY5N2NjM2UtODkxYy00YzQ5LWE4YTYtYmQ5OTcyMjQzNTQwIgp9");
+            })
+            
+            $(window).resize(function(){
+            console.log("redraw")
+            drawChart();
+            });
+            
             function requestData(encodedJson) {
             var jsonObject = jSonise(encodedJson);
             
@@ -82,8 +91,6 @@
             TotalComressInProcess = parseInt(IssueReportContainerObj['TotalComressInProcess'])
             TotalComressClose = parseInt(IssueReportContainerObj['TotalComressClose'])
             TotalComressOutstandingOverdue = parseInt(IssueReportContainerObj['TotalComressOutstandingOverdue'])
-            
-            
             
             
             data.addRows([
@@ -179,15 +186,6 @@
             },
             4: {
             color: colorsArray[4]
-            },
-            5: {
-            color: colorsArray[5]
-            },
-            6: {
-            color: colorsArray[6]
-            },
-            7: {
-            color: colorsArray[7]
             }
             }
             };
@@ -196,6 +194,12 @@
             chart.draw(view, options);
             
             $("#row").html("")
+            $("#row").nextAll().remove()
+            total_pending = 0
+            total_inProgress = 0
+            total_close = 0
+            total_overdue = 0;
+            
             for(i = 0; i < IssueReportOfOthers.length; i++)
             {
             IssueReportOfOthersObj = IssueReportOfOthers[i]
@@ -207,8 +211,15 @@
             TotalComressClose = IssueReportOfOthersObj['TotalComressClose']
             TotalComressOutstandingOverdue = IssueReportOfOthersObj['TotalComressOutstandingOverdue']
             
+            total_pending += TotalComressPending
+            total_inProgress += TotalComressInProcess
+            total_close += TotalComressClose
+            total_overdue += TotalComressOutstandingOverdue
+            
             $("#row").append("<tr> <td>"+UserId+"</td>  <td>"+ContractTypeDes+"</td>  <td>"+TotalComressPending+"</td>  <td>"+TotalComressInProcess+"</td> <td>"+TotalComressClose+"</td> <td>"+TotalComressOutstandingOverdue+"</td> </tr>")
             }
+            
+            $("#row").after("<tfoot><tr> <td colspan='2'><b>Total</b></td> <td><b>"+total_pending+"</b></td> <td><b>"+total_inProgress+"</b></td> <td><b>"+total_close+"</b></td> <td><b>"+total_overdue+"</b></td></tr></tfoot>")
             }
             </script>
             <div id="columnchart_values" style="width: 650px; height: 500px;"></div>

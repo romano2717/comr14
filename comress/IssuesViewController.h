@@ -20,6 +20,7 @@
 #import "MZFormSheetSegue.h"
 #import "Synchronize.h"
 #import "IssueListPerPoViewController.h"
+#import "CustomBadge.h"
 
 @interface IssuesViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,IssuesChatViewControllerDelegate,MZFormSheetBackgroundWindowDelegate>
 {
@@ -34,7 +35,7 @@
 }
 
 @property (nonatomic, weak) IBOutlet UITableView *issuesTable;
-@property (nonatomic, weak) IBOutlet MESegmentedControl *segment;
+@property (nonatomic, strong) IBOutlet MESegmentedControl *segment;
 @property (nonatomic, weak) IBOutlet UIButton *bulbButton;
 
 

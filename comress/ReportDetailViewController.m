@@ -108,7 +108,7 @@
 
 - (void)viewDidLayoutSubviews {
 
-    if([reportType isEqualToString:@"Average Sentiment"] && PMisLoggedIn)
+    if([reportType isEqualToString:@"Average Sentiment"])
     {
         UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
         

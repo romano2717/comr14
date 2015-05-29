@@ -26,7 +26,6 @@
             packages: ["corechart"]
             });
             
-            
             function requestData(encodedJson) {
             var jsonObject = jSonise(encodedJson);
             
@@ -190,6 +189,12 @@
             chart.draw(view, options);
             
             $("#row").html("")
+            $("#row").nextAll().remove()
+            total_pending = 0
+            total_inProgress = 0
+            total_close = 0
+            total_overdue = 0;
+            
             for(i = 0; i < IssueReportOfOthers.length; i++)
             {
             IssueReportOfOthersObj = IssueReportOfOthers[i]
@@ -201,8 +206,16 @@
             TotalComressClose = IssueReportOfOthersObj['TotalComressClose']
             TotalComressOutstandingOverdue = IssueReportOfOthersObj['TotalComressOutstandingOverdue']
             
+            total_pending += TotalComressPending
+            total_inProgress += TotalComressInProcess
+            total_close += TotalComressClose
+            total_overdue += TotalComressOutstandingOverdue
+            
+            
             $("#row").append("<tr> <td>"+UserId+"</td>  <td>"+ContractTypeDes+"</td>  <td>"+TotalComressPending+"</td>  <td>"+TotalComressInProcess+"</td> <td>"+TotalComressClose+"</td> <td>"+TotalComressOutstandingOverdue+"</td> </tr>")
             }
+            
+            $("#row").after("<tfoot><tr> <td colspan='2'><b>Total</b></td> <td><b>"+total_pending+"</b></td> <td><b>"+total_inProgress+"</b></td> <td><b>"+total_close+"</b></td> <td><b>"+total_overdue+"</b></td></tr></tfoot>")
             }
             </script>
             <div id="columnchart_values" style="width: 650px; height: 500px;"></div>

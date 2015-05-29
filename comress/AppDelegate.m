@@ -232,7 +232,7 @@
     
     //call wcf
     [myDatabase.AfManager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        DDLogVerbose(@"responseObject %@",responseObject);
+
         int versionNumber = [[responseObject objectForKey:@"result"] intValue];
         NSString *releaseNotes_temp = [responseObject valueForKey:@"updateNotes"] ? [responseObject valueForKey:@"updateNotes"] : @"";
         NSString *releaseNotes = [releaseNotes_temp stringByReplacingOccurrencesOfString:@"%br%" withString:@"\n"];
