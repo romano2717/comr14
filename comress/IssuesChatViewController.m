@@ -214,7 +214,7 @@
         
         NSDictionary *dict = @{@"client_post_id":[NSNumber numberWithInt:self.postId], @"text":statusString,@"senderId":user.user_id,@"date":date,@"messageType":@"text",@"comment_type":[NSNumber numberWithInt:2]};
         
-        [self continueClosingTheIssueWithDict:dict statusRowNum:rowNum];
+        [self continueClosingTheIssueWithDict:dict statusRowNum:rowNum withActionsDict:nil];
     }
     else
     {
@@ -229,11 +229,26 @@
     }
 }
 
-- (void)continueClosingTheIssueWithDict:(NSDictionary *)dict statusRowNum:(int)rowNum
+- (void)continueClosingTheIssueWithDict:(NSDictionary *)dict statusRowNum:(int)rowNum withActionsDict:(NSDictionary *)actionsDict
 {
     [JSQSystemSoundPlayer jsq_playMessageSentSound];
     
-    [self saveCommentForMessage:dict];
+    if(rowNum != 4)
+        [self saveCommentForMessage:dict];
+    else
+    {
+        NSMutableDictionary *newDict = [[NSMutableDictionary alloc] initWithDictionary:dict];
+        
+        NSString *actions = [[actionsDict objectForKey:@"actions"] valueForKey:@"actionsTaken"];
+        NSString *remarks = [[actionsDict objectForKey:@"actions"] valueForKey:@"remarks"];
+        
+        NSString *combinedIssueStatusAndActionsTaken = [NSString stringWithFormat:@"%@\n\nClosed by: %@\nRemarks: %@",[newDict valueForKey:@"text"],actions,remarks];
+        
+        [newDict setObject:combinedIssueStatusAndActionsTaken forKey:@"text"];
+        
+        [self saveCommentForMessage:newDict];
+        
+    }
     
     [post updatePostStatusForClientPostId:[NSNumber numberWithInt:self.postId] withStatus:[NSNumber numberWithInteger:rowNum]];
     
@@ -304,7 +319,7 @@
     }
     
     //close the issue
-    [self continueClosingTheIssueWithDict:[notifDict objectForKey:@"dict"] statusRowNum:[[notifDict valueForKey:@"rowNum"] intValue]];
+    [self continueClosingTheIssueWithDict:[notifDict objectForKey:@"dict"] statusRowNum:[[notifDict valueForKey:@"rowNum"] intValue] withActionsDict:actionsDict];
 }
 
 - (void)closeCloseIssueActionSubmitFromChat

@@ -2133,7 +2133,7 @@
         if(stop)return;
         
         NSDictionary *dict = [responseObject objectForKey:@"PostContainer"];
-
+        DDLogVerbose(@"%@",dict);
         int totalPage = [[dict valueForKey:@"TotalPages"] intValue];
             
         NSDate *LastRequestDate = [myDatabase createNSDateWithWcfDateString:[dict valueForKey:@"LastRequestDate"]];

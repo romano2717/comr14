@@ -190,6 +190,10 @@
             }
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Logout Failed" message:[NSString stringWithFormat:@"%@",error] delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
+        [alert show];
+        
         DDLogVerbose(@"%@ [%@-%@]",error.localizedDescription,THIS_FILE,THIS_METHOD);
     }];
 }

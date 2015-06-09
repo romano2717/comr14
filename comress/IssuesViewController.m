@@ -32,11 +32,11 @@
     user = [[Users alloc] init];
     
     //check what kind of account is logged in
-    POisLoggedIn = YES; //CT_NU and CT_SA uses the same logic as PO
+    POisLoggedIn = YES; //CT_NU uses the same logic as PO
     
     
     //PM and CT_SUP have the same function, structure and grouping logic
-    if([[myDatabase.userDictionary valueForKey:@"group_name"] isEqualToString:@"PM"] || [[myDatabase.userDictionary valueForKey:@"group_name"] isEqualToString:@"CT_SUP"])
+    if([[myDatabase.userDictionary valueForKey:@"group_name"] isEqualToString:@"PM"] || [[myDatabase.userDictionary valueForKey:@"group_name"] isEqualToString:@"CT_SUP"] || [[myDatabase.userDictionary valueForKey:@"group_name"] isEqualToString:@"CT_SA"])
     {
         PMisLoggedIn = YES;
         POisLoggedIn = NO;
@@ -81,8 +81,6 @@
         
         if(badge > 0)
         {
-            DDLogVerbose(@"badge %d",badge);
-            
             [self.segment setBadgeNumber:badge forSegmentAtIndex:2];
         }
     //}
@@ -152,18 +150,6 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-}
-
-- (void)viewDidDisappear:(BOOL)animated
-{
-    [super viewDidDisappear:animated];
-    
-    [self.segment clearBadges];
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
     
     self.tabBarController.tabBar.hidden = NO;
     //self.navigationController.navigationBar.hidden = YES;
@@ -176,7 +162,18 @@
         [self fetchPostsWithNewIssuesUp:NO];
         [self updateBadgeCount];
     }
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
     
+    [self.segment clearBadges];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
     
     [self.issuesTable reloadData];
 }
@@ -732,7 +729,7 @@
         
         //NSDictionary *dict = (NSDictionary *)[self.postsArray objectAtIndex:indexPath.row];
         
-        [self setPostStatusAtIndexPath:indexPath withStatus:[NSNumber numberWithInt:3] withPostDict:dict];
+        [self setPostStatusAtIndexPath:indexPath withStatus:[NSNumber numberWithInt:3] withPostDict:dict withActionsDict:nil];
         [self fetchPostsWithNewIssuesUp:NO];
     }];
     completed.backgroundColor = [UIColor greenColor];
@@ -741,7 +738,7 @@
         
         //NSDictionary *dict = (NSDictionary *)[self.postsArray objectAtIndex:indexPath.row];
         
-        [self setPostStatusAtIndexPath:indexPath withStatus:[NSNumber numberWithInt:1] withPostDict:dict];
+        [self setPostStatusAtIndexPath:indexPath withStatus:[NSNumber numberWithInt:1] withPostDict:dict withActionsDict:nil];
         [self fetchPostsWithNewIssuesUp:NO];
     }];
     start.backgroundColor = [UIColor orangeColor];
@@ -750,7 +747,7 @@
         
         //NSDictionary *dict = (NSDictionary *)[self.postsArray objectAtIndex:indexPath.row];
         
-        [self setPostStatusAtIndexPath:indexPath withStatus:[NSNumber numberWithInt:2] withPostDict:dict];
+        [self setPostStatusAtIndexPath:indexPath withStatus:[NSNumber numberWithInt:2] withPostDict:dict withActionsDict:nil];
         [self fetchPostsWithNewIssuesUp:NO];
     }];
     stop.backgroundColor = [UIColor redColor];
@@ -870,7 +867,7 @@
     }
     
     //close the issue
-    [self setPostStatusAtIndexPath:indexPath withStatus:[NSNumber numberWithInt:4] withPostDict:dict];
+    [self setPostStatusAtIndexPath:indexPath withStatus:[NSNumber numberWithInt:4] withPostDict:dict withActionsDict:actionsDict];
     [self fetchPostsWithNewIssuesUp:NO];
 }
 
@@ -879,7 +876,7 @@
     [self mz_dismissFormSheetControllerAnimated:YES completionHandler:nil];
 }
 
-- (void)setPostStatusAtIndexPath:(NSIndexPath *)indexPath withStatus:(NSNumber *)clickedStatus withPostDict:(NSDictionary *)dict
+- (void)setPostStatusAtIndexPath:(NSIndexPath *)indexPath withStatus:(NSNumber *)clickedStatus withPostDict:(NSDictionary *)dict withActionsDict:(NSDictionary *)actionsDict
 {
     NSNumber *clickedPostId;
     
@@ -921,6 +918,7 @@
     [post updatePostStatusForClientPostId:clickedPostId withStatus:clickedStatus];
     
     NSString *statusString;
+    NSString *closeActionString;
     
     switch ([clickedStatus intValue]) {
         case 1:
@@ -936,8 +934,15 @@
             break;
             
         case 4:
+        {
             statusString = @"Issue set status Close";
+            
+            NSString *actions = [[actionsDict objectForKey:@"actions"] valueForKey:@"actionsTaken"];
+            NSString *remarks = [[actionsDict objectForKey:@"actions"] valueForKey:@"remarks"];
+            closeActionString = [NSString stringWithFormat:@"\n\nClosed by: %@\nRemarks: %@",actions,remarks];
             break;
+        }
+            
             
         default:
             statusString = @"Issue set status Pending";
@@ -948,7 +953,7 @@
     //create a comment about this post update
     NSDate *date = [NSDate date];
     
-    NSDictionary *dictCommentStatus = @{@"client_post_id":clickedPostId, @"text":statusString,@"senderId":user.user_id,@"date":date,@"messageType":@"text",@"comment_type":[NSNumber numberWithInt:2]};
+    NSDictionary *dictCommentStatus = @{@"client_post_id":clickedPostId, @"text":[NSString stringWithFormat:@"%@ %@",statusString,closeActionString],@"senderId":user.user_id,@"date":date,@"messageType":@"text",@"comment_type":[NSNumber numberWithInt:2]};
     
     [comment saveCommentWithDict:dictCommentStatus];
 }

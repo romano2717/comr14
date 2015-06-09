@@ -34,13 +34,21 @@
         NSString *postTopic = [postDict valueForKey:@"post_topic"] ? [postDict valueForKey:@"post_topic"] : @"Untitled";
         
         //update on
-        double timeStamp = [[postDict valueForKeyPath:@"updated_on"] doubleValue];
+        double timeStamp = [[postDict valueForKey:@"updated_on"] doubleValue];
         NSDate *date = [NSDate dateWithTimeIntervalSince1970:timeStamp];
         NSString *dateStringForm = [date stringWithHumanizedTimeDifference:0 withFullString:NO];
         
-        //post_date
-        double timeStamp2 = [[postDict valueForKeyPath:@"dueDate"] doubleValue];
-        NSDate *dueDate = [NSDate dateWithTimeIntervalSince1970:timeStamp2];
+        //due date
+        NSDate *now = [NSDate date];
+        NSDateComponents* comps = [[NSCalendar currentCalendar] components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay fromDate:now];
+        NSDate *dueDate = [[[NSCalendar currentCalendar] dateFromComponents:comps] dateByAddingTimeInterval:3*24*60*60]; //add 3 days
+        
+        if([postDict valueForKey:@"dueDate"] != [NSNull null])
+        {
+            double timeStamp2 = [[postDict valueForKeyPath:@"dueDate"] doubleValue];
+            dueDate = [NSDate dateWithTimeIntervalSince1970:timeStamp2];
+        }
+        
         
         //post main image
         NSDictionary *imageDict = (NSDictionary *)[postImages firstObject];

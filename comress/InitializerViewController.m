@@ -366,7 +366,7 @@
                 }
             }];
             
-            if(needToDownload)
+            if([[dict objectForKey:@"CommentList"] count] > 0)
                 [self startDownloadCommentsForPage:1 totalPage:0 requestDate:nil withUi:YES];
             else
                 [self checkPostImagesCount];
@@ -1444,15 +1444,20 @@
                 }
             }];
             
-            //FORCE DOWNLOAD!!!
-            //if(needToDownloadBlocks)
-                [self startDownloadSurveyPage:1 totalPage:0 requestDate:nil withUi:YES];
-            //else
-            //{
-              //  [self initializingCompleteWithUi:YES];
-            //}
+            NSArray *surveyListArr = [dict objectForKey:@"SurveyList"];
+            if(surveyListArr.count > 0)
+            {
+                NSRange range = [[myDatabase.userDictionary valueForKey:@"group_name"] rangeOfString:@"CT"];
+                
+                if(range.location == NSNotFound) //current user does not belong to contractor group
+                    [self startDownloadSurveyPage:1 totalPage:0 requestDate:nil withUi:YES];
+                else
+                    [self initializingCompleteWithUi:YES];
+            }
+            else
+                [self initializingCompleteWithUi:YES];
             
-            
+
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             DDLogVerbose(@"%@ [%@-%@]",error.localizedDescription,THIS_FILE,THIS_METHOD);
             

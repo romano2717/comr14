@@ -753,19 +753,31 @@
                             </button>
                             <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         </barButtonItem>
-                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="bCK-I6-U8R" customClass="MESegmentedControl">
-                            <rect key="frame" x="180" y="7" width="240" height="30"/>
+                        <view key="titleView" contentMode="scaleToFill" id="FtT-Ce-zml">
+                            <rect key="frame" x="194" y="6" width="213" height="33"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <segments>
-                                <segment title="Me"/>
-                                <segment title="Others"/>
-                                <segment title="Overdue"/>
-                            </segments>
-                            <color key="tintColor" red="0.0" green="0.48627450979999998" blue="0.69019607839999997" alpha="1" colorSpace="calibratedRGB"/>
-                            <connections>
-                                <action selector="segmentControlChange:" destination="9pv-A4-QxB" eventType="valueChanged" id="xkt-gA-MVx"/>
-                            </connections>
-                        </segmentedControl>
+                            <subviews>
+                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="7BC-nV-1bB" customClass="MESegmentedControl">
+                                    <rect key="frame" x="8" y="3" width="197" height="29"/>
+                                    <segments>
+                                        <segment title="Me"/>
+                                        <segment title="Others"/>
+                                        <segment title="Overdue"/>
+                                    </segments>
+                                    <color key="tintColor" red="0.0" green="0.48627450979999998" blue="0.69019607839999997" alpha="1" colorSpace="calibratedRGB"/>
+                                    <connections>
+                                        <action selector="segmentControlChange:" destination="9pv-A4-QxB" eventType="valueChanged" id="TEW-ro-UeC"/>
+                                    </connections>
+                                </segmentedControl>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstItem="7BC-nV-1bB" firstAttribute="top" secondItem="FtT-Ce-zml" secondAttribute="top" constant="3" id="4em-6o-p2i"/>
+                                <constraint firstAttribute="bottom" secondItem="7BC-nV-1bB" secondAttribute="bottom" constant="2" id="6d9-3B-eo8"/>
+                                <constraint firstItem="7BC-nV-1bB" firstAttribute="leading" secondItem="FtT-Ce-zml" secondAttribute="leading" constant="8" id="jYX-M3-uJa"/>
+                                <constraint firstAttribute="trailing" secondItem="7BC-nV-1bB" secondAttribute="trailing" constant="8" id="vbs-OC-oux"/>
+                            </constraints>
+                        </view>
                         <barButtonItem key="rightBarButtonItem" title="New" id="2GM-G1-x4m">
                             <connections>
                                 <segue destination="6gh-XX-19Q" kind="presentation" identifier="modal_create_new_issue" id="NQQ-8h-7d0"/>
@@ -777,7 +789,7 @@
                     <connections>
                         <outlet property="bulbButton" destination="2Gd-gO-xhN" id="Bff-8A-IMa"/>
                         <outlet property="issuesTable" destination="vQs-6T-WvI" id="4ov-i5-q6w"/>
-                        <outlet property="segment" destination="bCK-I6-U8R" id="9Mp-TY-qvG"/>
+                        <outlet property="segment" destination="7BC-nV-1bB" id="6qa-G1-2nV"/>
                         <segue destination="hU5-Vl-PAR" kind="show" identifier="push_chat_issues" id="q2U-TG-uMs"/>
                         <segue destination="ECZ-M9-J0z" kind="show" identifier="push_issues_list_per_po" id="TOe-M7-ue6"/>
                     </connections>
@@ -6527,7 +6539,7 @@ Please note that, by using the Town Council’s services, you signify that you h
                             <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         </barButtonItem>
                         <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="qPJ-L9-cfR" customClass="MESegmentedControl">
-                            <rect key="frame" x="180" y="7" width="240" height="30"/>
+                            <rect key="frame" x="202" y="7" width="197" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <segments>
                                 <segment title="Me"/>
@@ -6603,10 +6615,10 @@ Please note that, by using the Town Council’s services, you signify that you h
         <image name="user168.png" width="64" height="64"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="SMc-XH-H8D"/>
         <segue reference="Pdc-0J-hiS"/>
-        <segue reference="Xuv-qH-m2P"/>
+        <segue reference="SMc-XH-H8D"/>
+        <segue reference="q2U-TG-uMs"/>
         <segue reference="wel-of-2Aw"/>
-        <segue reference="MQK-FA-cms"/>
+        <segue reference="Xuv-qH-m2P"/>
     </inferredMetricsTieBreakers>
 </document>
