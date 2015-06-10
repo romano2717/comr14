@@ -15,7 +15,7 @@
 
 @implementation SettingsViewController
 
-@synthesize userFullNameLabel;
+@synthesize userFullNameLabel,slider;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -48,6 +48,36 @@
         
         userFullNameLabel.text = users.full_name;
     }];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+}
+
+- (IBAction)changeFontSize:(id)sender
+{
+    [slider setValue:((int)((slider.value + 2.5) / 5) * 5) animated:NO];
+    
+    int slideValue = (int)slider.value;
+    
+    switch (slideValue) {
+        case 5:
+            [[UILabel appearance] setFont:[UIFont systemFontOfSize:20.0f]];
+            break;
+            
+        case 10:
+            [[UILabel appearance] setFont:[UIFont systemFontOfSize:35.0f]];
+            
+        default:
+            [[UILabel appearance] setFont:[UIFont systemFontOfSize:12.0f]];
+            break;
+    }
+    
+    
+//    ;
+    
+    [self.view setNeedsLayout];
 }
 
 - (void)didReceiveMemoryWarning {

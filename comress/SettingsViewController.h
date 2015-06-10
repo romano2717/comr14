@@ -20,4 +20,6 @@
 }
 @property (nonatomic, weak) IBOutlet UILabel *userFullNameLabel;
 @property (nonatomic, weak) IBOutlet UILabel *versionLabel;
+
+@property (nonatomic, weak) IBOutlet UISlider *slider;
 @end

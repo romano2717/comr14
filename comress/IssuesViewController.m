@@ -182,19 +182,37 @@
 {
     [myDatabase.databaseQ inTransaction:^(FMDatabase *db, BOOL *rollback) {
         
-        FMResultSet *rs = [db executeQuery:@"select count(*) as count from comment_noti where status = ? and post_id in (select post_id from post)",[NSNumber numberWithInt:1]];
-        if([rs next])
+//        FMResultSet *rs = [db executeQuery:@"select count(*) as count from comment_noti where status = ? and post_id in (select post_id from post)",[NSNumber numberWithInt:1]];
+        int meBadge = 0;
+        int othersBadge = 0;
+        
+        //set badge for each segment (me and others)
+        
+        FMResultSet *meUnReadCommentsRs = [db executeQuery:@"select count(*) as count from comment_noti where status = ? and post_id in (select p.post_id from post p, blocks_user bu where p.block_id = bu.block_id)",[NSNumber numberWithInt:1]];
+        
+        if([meUnReadCommentsRs next])
         {
-            int badge = [rs intForColumn:@"count"];
-            
-            if(badge > 0)
-                [[self.tabBarController.tabBar.items objectAtIndex:0] setBadgeValue:[NSString stringWithFormat:@"%d",badge]];
-            else
-                [[self.tabBarController.tabBar.items objectAtIndex:0] setBadgeValue:0];
+            meBadge = [meUnReadCommentsRs intForColumn:@"count"];
+            [self.segment setBadgeNumber:meBadge forSegmentAtIndex:0];
             
         }
+        
+        FMResultSet *othersUnReadCommentsRs = [db executeQuery:@"select count(*) as count from comment_noti where status = ? and post_id not in (select p.post_id from post p, blocks_user bu where p.block_id = bu.block_id)",[NSNumber numberWithInt:1]];
+        
+        if([othersUnReadCommentsRs next])
+        {
+            othersBadge = [othersUnReadCommentsRs intForColumn:@"count"];
+            [self.segment setBadgeNumber:othersBadge forSegmentAtIndex:1];
+        }
+        
+        //set badge for tabbar
+        int totalUnReadIssuesMessagesBadge = meBadge + othersBadge;
+        
+        if(totalUnReadIssuesMessagesBadge > 0)
+            [[self.tabBarController.tabBar.items objectAtIndex:0] setBadgeValue:[NSString stringWithFormat:@"%d",totalUnReadIssuesMessagesBadge]];
         else
             [[self.tabBarController.tabBar.items objectAtIndex:0] setBadgeValue:0];
+        
     }];
 }
 
@@ -513,15 +531,11 @@
 -(void)adjustTableRowHeightForPM
 {
     if(PMisLoggedIn && self.segment.selectedSegmentIndex == 1)
-    {
         self.issuesTable.estimatedRowHeight = 38.0;
-        self.issuesTable.rowHeight = UITableViewAutomaticDimension;
-    }
     else
-    {
         self.issuesTable.estimatedRowHeight = 115.0;
-        self.issuesTable.rowHeight = UITableViewAutomaticDimension;
-    }
+    
+    self.issuesTable.rowHeight = UITableViewAutomaticDimension;
 }
 
 

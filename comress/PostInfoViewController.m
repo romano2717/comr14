@@ -24,7 +24,7 @@
     
     self.issueLabel.text = [[postInfoDict objectForKey:@"post"] valueForKey:@"post_topic"];
     
-    self.issueByLabel.text = [NSString stringWithFormat:@"Issue by: %@",[[postInfoDict objectForKey:@"post"] valueForKey:@"post_by"]];
+    self.issueByLabel.text = [NSString stringWithFormat:@"Created by: %@",[[postInfoDict objectForKey:@"post"] valueForKey:@"post_by"]];
     
     double timeStamp = [[[postInfoDict objectForKey:@"post"] valueForKey:@"post_date"] doubleValue];
     NSDate *date = [NSDate dateWithTimeIntervalSince1970:timeStamp];
@@ -32,7 +32,7 @@
     formatter.dateFormat = @"dd-MMM-YYYY HH:mm:ss";
     NSString *dateString = [formatter stringFromDate:date];
     
-    self.dateLabel.text = dateString;
+    self.dateLabel.text = [NSString stringWithFormat:@"Created on: %@",dateString];
     
     NSString *contract = [contract_type contractDescriptionForId:[NSNumber numberWithInt:[[[postInfoDict objectForKey:@"post"] valueForKey:@"contract_type"] intValue]]];
     self.contractTypeLabel.text = contract;

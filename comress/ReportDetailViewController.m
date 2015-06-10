@@ -294,6 +294,8 @@
 }
 
 - (void)dateWasSelected:(NSDate *)selectedDate element:(id)element {
+    
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
 
     NSDateComponents *components = [[NSCalendar currentCalendar]
                                     components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay
@@ -322,6 +324,57 @@
         NSString *datestring = [format stringFromDate:self.selectedToDate];
         textField.text = datestring;
     }
+    
+    [self requestReportData];
+}
+- (IBAction)dateFilterToggle:(id)sender
+{
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    
+    UIButton *btn = (UIButton *)sender;
+    NSInteger tag = btn.tag;
+    
+    NSDate *now = [NSDate date];
+    
+    NSDateComponents *components = [[NSCalendar currentCalendar]
+                                    components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay
+                                    fromDate:now];
+    NSDate *cleanDateWithoutTime = [[NSCalendar currentCalendar]
+                                    dateFromComponents:components];
+    
+    switch (tag) {
+        case 2://this week
+        {
+            self.selectedFromDate = [cleanDateWithoutTime dateByAddingTimeInterval:-7*24*60*60];
+            self.selectedToDate = cleanDateWithoutTime;
+            
+            break;
+        }
+            
+        case 3://this month
+        {
+            self.selectedFromDate = [cleanDateWithoutTime dateByAddingTimeInterval:-2592000];
+            self.selectedToDate = cleanDateWithoutTime;
+            
+            break;
+        }
+            
+            
+            
+        default://today
+            self.selectedFromDate = cleanDateWithoutTime;
+            self.selectedToDate = cleanDateWithoutTime;
+            break;
+    }
+    
+    NSDateFormatter *format = [[NSDateFormatter alloc] init];
+    [format setDateFormat:@"dd-MMM-YYYY"];
+    
+    NSString *datestringFrom = [format stringFromDate:self.selectedFromDate];
+    self.fromDateTextFied.text = datestringFrom;
+    
+    NSString *datestringTo = [format stringFromDate:self.selectedToDate];
+    self.toDateTextField.text = datestringTo;
     
     [self requestReportData];
 }
@@ -388,7 +441,6 @@
         params = [myDatabase toJsonString:@{@"startDate":wcfDateFrom,@"endDate":wcfDateTo,@"url":urlString,@"session":[myDatabase.userDictionary valueForKey:@"guid"],@"divId":theDivisionId,@"zoneId":self.selectedZoneId,@"layer":[NSNumber numberWithInt:1]}];
     }
 
-    
     [self executeJavascript:@"requestData" withJsonObject:params];
     
     [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
