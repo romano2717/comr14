@@ -2864,6 +2864,12 @@
                                             <outlet property="satisfactionRatingLabel" destination="fyH-Ar-Hin" id="mfx-3G-0zR"/>
                                         </connections>
                                     </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="pmCell" rowHeight="46" id="vfZ-uS-zJh">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="vfZ-uS-zJh" id="GqD-8B-7sr">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
                                 </prototypes>
                                 <connections>
                                     <outlet property="dataSource" destination="kaZ-dK-GZq" id="NCw-ta-Tty"/>

@@ -17,6 +17,10 @@
 
 - (NSArray *)fetchSurveyForSegment:(int) segment;
 
+- (NSArray *)fetchSurveyForSegment2:(int) segment;
+
+- (NSArray *)fetchSurveyForSegmentForPM:(int)segment;
+
 - (NSArray *)surveyDetailForSegment:(NSInteger)segment forSurveyId:(NSNumber *)surveyId forClientSurveyId:(NSNumber *)clientSurveyId;
 
 - (NSDictionary *)surveyForId:(NSNumber *)surveyId forAddressType:(NSString *)addressType;

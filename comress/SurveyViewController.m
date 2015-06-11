@@ -126,6 +126,8 @@
         }
         
     }];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"fetchSurveyNewSurveyNotification" object:nil];
 }
 
 

@@ -722,6 +722,8 @@
         didAddFeedBack = NO;
     }];
     
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"fetchSurveyNewSurveyNotification" object:nil];
+    
     [self performSegueWithIdentifier:@"push_survey_detail" sender:self];
 }
 
@@ -849,6 +851,8 @@
             });
             
             didAddFeedBack = NO;
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"fetchSurveyNewSurveyNotification" object:nil];
         }
         
         if(goToFeedback)

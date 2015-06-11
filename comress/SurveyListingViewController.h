@@ -18,6 +18,11 @@
 {
     Database *myDatabase;
     Survey *survey;
+    
+    BOOL PMisLoggedIn;
+    BOOL POisLoggedIn;
+    
+    BOOL reloadSurveyList;
 }
 @property (nonatomic, weak) IBOutlet UITableView *surveyTableView;
 @property (nonatomic, weak) IBOutlet MESegmentedControl *segment;
