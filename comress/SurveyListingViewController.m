@@ -8,6 +8,7 @@
 
 #import "SurveyListingViewController.h"
 #import "SurveyViewController.h"
+#import "SurveyListPerPoViewController.h"
 
 @interface SurveyListingViewController ()
 
@@ -140,12 +141,12 @@
     }
     else if(PMisLoggedIn)
     {
+        NSIndexPath *indexPath = (NSIndexPath *)sender;
+        
         if([segue.identifier isEqualToString:@"push_survey_detail_from_list"])
         {
             clientSurveyIdIncompleteSurvey = -1;
             resumeSurveyAtQuestionIndex = -2;
-            
-            NSIndexPath *indexPath = (NSIndexPath *)sender;
             
             int clientSurveyId = 0;
             int surveyId = 0;
@@ -174,6 +175,15 @@
             SurveyViewController *svc = [segue destinationViewController];
             svc.clientSurveyIdIncompleteSurvey = clientSurveyIdIncompleteSurvey;
             svc.resumeSurveyAtQuestionIndex = resumeSurveyAtQuestionIndex;
+        }
+        else if ([segue.identifier isEqualToString:@"push_survey_per_po"])
+        {
+            SurveyListPerPoViewController *svPo = [segue destinationViewController];
+            
+            NSDictionary *dict = [[surveyArray objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+            
+            svPo.user_id = [dict valueForKey:@"createdBy"];
+            svPo.division = [dict valueForKey:@"division"];
         }
     }
     
@@ -222,7 +232,7 @@
         if(segment.selectedSegmentIndex == 0)
             return [[[surveyArray firstObject] allKeys] objectAtIndex:section];
         else if(segment.selectedSegmentIndex == 1)
-            return [[[surveyArray firstObject] allKeys] objectAtIndex:section];
+            return [[[surveyArray objectAtIndex:section] firstObject] valueForKey:@"division"];
             
     }
 
@@ -254,9 +264,7 @@
         }
         else if (segment.selectedSegmentIndex == 1)
         {
-            NSString *key = [[[surveyArray firstObject] allKeys] objectAtIndex:section];
-            NSArray *arr = [[surveyArray firstObject] objectForKey:key];
-            return arr.count;
+            return [[surveyArray objectAtIndex:section] count];
         }
         
     }
@@ -281,7 +289,7 @@
         if(segment.selectedSegmentIndex == 0)
             return [[[surveyArray firstObject] allKeys] count];
         else if (segment.selectedSegmentIndex == 1)
-            return [[[surveyArray firstObject] allKeys] count];
+            return surveyArray.count;
     }
     return 0;
 }
@@ -317,9 +325,8 @@
         }
         else if (segment.selectedSegmentIndex == 1)
         {
-            NSString *key = [[[surveyArray firstObject] allKeys] objectAtIndex:indexPath.section];
-            dict = [[[surveyArray firstObject] objectForKey:key] objectAtIndex:indexPath.row];
-            
+            dict = [[surveyArray objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+
             UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:pmCellIdentifier];
             
             if(cell == nil)
@@ -385,8 +392,8 @@
                 [self performSegueWithIdentifier:@"push_survey_detail_from_list" sender:indexPath];
             }
         }
-        else
-            [self performSegueWithIdentifier:@"push_survey_detail_from_list" sender:indexPath];
+        else if (segment.selectedSegmentIndex == 1)
+            [self performSegueWithIdentifier:@"push_survey_per_po" sender:indexPath];
     }
 
 }

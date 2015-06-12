@@ -81,6 +81,7 @@
 		4D3CFD4B1B12D94300D01D13 /* combLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D3CFD4A1B12D94300D01D13 /* combLogo.png */; };
 		4D3CFD4E1B1448CB00D01D13 /* ASBPO.html in Resources */ = {isa = PBXBuildFile; fileRef = 4D3CFD4D1B1448CB00D01D13 /* ASBPO.html */; };
 		4D3CFD501B1589F600D01D13 /* settingsLogo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D3CFD4F1B1589F600D01D13 /* settingsLogo@2x.png */; };
+		4D4108181B2A7CE000D4DA65 /* SurveyListPerPoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D4108171B2A7CE000D4DA65 /* SurveyListPerPoViewController.m */; };
 		4D4CB52A1A89D76F008AFD00 /* IssuesChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D4CB5291A89D76F008AFD00 /* IssuesChatViewController.m */; };
 		4D4CB52D1A89D7DA008AFD00 /* MessageData.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D4CB52C1A89D7DA008AFD00 /* MessageData.m */; };
 		4D6424BE1AD3B4B900B6B974 /* ResidentPopInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D6424BD1AD3B4B900B6B974 /* ResidentPopInfoViewController.m */; };
@@ -427,6 +428,8 @@
 		4D3CFD4A1B12D94300D01D13 /* combLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = combLogo.png; sourceTree = "<group>"; };
 		4D3CFD4D1B1448CB00D01D13 /* ASBPO.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = ASBPO.html; sourceTree = "<group>"; };
 		4D3CFD4F1B1589F600D01D13 /* settingsLogo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "settingsLogo@2x.png"; sourceTree = "<group>"; };
+		4D4108161B2A7CE000D4DA65 /* SurveyListPerPoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SurveyListPerPoViewController.h; sourceTree = "<group>"; };
+		4D4108171B2A7CE000D4DA65 /* SurveyListPerPoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurveyListPerPoViewController.m; sourceTree = "<group>"; };
 		4D4CB5281A89D76F008AFD00 /* IssuesChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IssuesChatViewController.h; sourceTree = "<group>"; };
 		4D4CB5291A89D76F008AFD00 /* IssuesChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IssuesChatViewController.m; sourceTree = "<group>"; };
 		4D4CB52B1A89D7DA008AFD00 /* MessageData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageData.h; sourceTree = "<group>"; };
@@ -994,6 +997,7 @@
 		4D337D421ACBF99D00F9C7AA /* Listing */ = {
 			isa = PBXGroup;
 			children = (
+				4D4108151B2A7CC300D4DA65 /* Survey Per PO */,
 				4DE8018D1AD2505C008B0236 /* SurveyListingViewController.h */,
 				4DE8018E1AD2505C008B0236 /* SurveyListingViewController.m */,
 				4DE801931AD253E3008B0236 /* SurveyTableViewCell.h */,
@@ -1051,6 +1055,15 @@
 				4D3CFD4D1B1448CB00D01D13 /* ASBPO.html */,
 			);
 			name = "Average Sentiment";
+			sourceTree = "<group>";
+		};
+		4D4108151B2A7CC300D4DA65 /* Survey Per PO */ = {
+			isa = PBXGroup;
+			children = (
+				4D4108161B2A7CE000D4DA65 /* SurveyListPerPoViewController.h */,
+				4D4108171B2A7CE000D4DA65 /* SurveyListPerPoViewController.m */,
+			);
+			name = "Survey Per PO";
 			sourceTree = "<group>";
 		};
 		4D4CB5251A89D703008AFD00 /* Listing */ = {
@@ -2261,6 +2274,7 @@
 				4DA207F51A79DA0A00C7E5C7 /* JSQMessagesCollectionView.m in Sources */,
 				4D07178D1AB00D420055191A /* MTBBarcodeScanner.m in Sources */,
 				4DD6FEA91A884CFF00CBBE1D /* UIImage+MultiFormat.m in Sources */,
+				4D4108181B2A7CE000D4DA65 /* SurveyListPerPoViewController.m in Sources */,
 				4DA207FB1A79DA0A00C7E5C7 /* JSQMessagesComposerTextView.m in Sources */,
 				4D99E7E51A80C430005EDDAE /* ImageOptions.m in Sources */,
 				4DAEA6AC1A8337DE00A6EFBE /* IssuesTableViewCell.m in Sources */,

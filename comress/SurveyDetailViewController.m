@@ -58,13 +58,16 @@
 
 -(void) viewWillDisappear:(BOOL)animated
 {
-    if ([self.navigationController.viewControllers indexOfObject:self]==NSNotFound)
+    if(self.pushFromSurveyListGroupByPo == NO)
     {
-        [self backButtonPressed];
-        [self.navigationController popViewControllerAnimated:NO];
-        
+        if ([self.navigationController.viewControllers indexOfObject:self]==NSNotFound)
+        {
+            [self backButtonPressed];
+            [self.navigationController popViewControllerAnimated:NO];
+            
+        }
+        [super viewWillDisappear:animated];
     }
-    [super viewWillDisappear:animated];
 }
 
 -(void)backButtonPressed

@@ -347,13 +347,10 @@
     }
     else if (segment == 1)
     {
-        NSMutableArray *surveyPerDivArray = [[NSMutableArray alloc] init];
-        NSMutableDictionary *rowDict = [[NSMutableDictionary alloc] init];
-        
+        NSMutableArray *surveyPerDivArrayTemp = [[NSMutableArray alloc] init];
+
         [myDatabase.databaseQ inTransaction:^(FMDatabase *db, BOOL *rollback) {
-            FMResultSet *rs = [db executeQuery:@"select * from su_survey su left join block_user_mapping bum on su.created_by = bum.user_id where created_by in (select user_id from block_user_mapping where supervisor_id != ?) group by su.survey_id order by survey_date desc",currentUser];
-            
-            NSMutableArray *row = [[NSMutableArray alloc] init];
+            FMResultSet *rs = [db executeQuery:@"select * from su_survey su left join block_user_mapping bum on lower(su.created_by) = lower(bum.user_id) where created_by in (select lower(user_id) from block_user_mapping where supervisor_id != ? group by user_id) group by su.created_by order by survey_date desc;",currentUser];
             
             while ([rs next]) {
                 
@@ -367,24 +364,113 @@
                     count = [rsCount intForColumn:@"count"];
                 }
                 
-                NSDictionary *rowDictUsers = @{@"createdBy":createdBy,@"count":[NSNumber numberWithInt:count]};
+                NSDictionary *rowDictUsers = @{@"createdBy":createdBy,@"count":[NSNumber numberWithInt:count],@"division":division};
                 
-                if([row containsObject:rowDictUsers] == NO)
-                    [row addObject:rowDictUsers];
-                
-                [rowDict setObject:row forKey:division];
-                
-                if([surveyPerDivArray containsObject:rowDict] == NO)
-                    [surveyPerDivArray addObject:rowDict];
+                [surveyPerDivArrayTemp addObject:rowDictUsers];
             }
         }];
         
-        DDLogVerbose(@"%@",surveyPerDivArray);
+        //group result
         
-        return surveyPerDivArray;
+        NSMutableArray *sectionHeadersMut = [[NSMutableArray alloc] init];
+        NSArray *sectionHeaders;
+        
+        for (int i = 0; i < surveyPerDivArrayTemp.count; i++) {
+            NSDictionary *top = (NSDictionary *)[surveyPerDivArrayTemp objectAtIndex:i];
+            
+            NSString *division = [top valueForKey:@"division"];
+            
+            [sectionHeadersMut addObject:division];
+        }
+
+        //remove dupes of sections
+        NSArray *cleanSectionHeadersArray = [[NSOrderedSet orderedSetWithArray:sectionHeadersMut] array];
+        
+        sectionHeaders = nil;
+        sectionHeaders = cleanSectionHeadersArray;
+        
+        NSMutableArray *groupedPost = [[NSMutableArray alloc] init];
+        
+        for (int i = 0; i < cleanSectionHeadersArray.count; i++) {
+            
+            NSString *section = [cleanSectionHeadersArray objectAtIndex:i];
+            
+            NSMutableArray *row = [[NSMutableArray alloc] init];
+            
+            for (int j = 0; j < surveyPerDivArrayTemp.count; j++) {
+                
+                NSDictionary *top = (NSDictionary *)[surveyPerDivArrayTemp objectAtIndex:j];
+                
+                NSString *division = [top valueForKey:@"division"];
+                
+                if([division isEqualToString:section])
+                {
+                    if([row containsObject:top] == NO)
+                        [row addObject:top];
+                }
+            }
+            [groupedPost addObject:row];
+        }
+        
+        return groupedPost;
     }
     
     return nil;
+}
+
+- (NSArray *)surveyForPo:(NSString *)userId
+{
+    NSMutableArray *surveyArrRow = [[NSMutableArray alloc] init];
+    
+    [myDatabase.databaseQ inTransaction:^(FMDatabase *db, BOOL *rollback) {
+        db.traceExecution = NO;
+        
+        FMResultSet *rsGetSurvey = [db executeQuery:@"select * from su_survey where created_by = ?",userId];
+        
+        while ([rsGetSurvey next]) {
+            
+            //check if this survey got atleast 1 answer, if not, don't add this survery
+            FMResultSet *check = [db executeQuery:@"select * from su_answers where client_survey_id = ? or survey_id = ?",[NSNumber numberWithInt:[rsGetSurvey intForColumn:@"client_survey_id"]],[NSNumber numberWithInt:[rsGetSurvey intForColumn:@"survey_id"]]];
+            
+            BOOL checkBool = NO;
+            
+            NSMutableArray *answers = [[NSMutableArray alloc] init];
+            while ([check next]) {
+                checkBool = YES;
+                [answers addObject:[check resultDictionary]];
+            }
+            
+            if(checkBool == YES)
+            {
+                
+                NSMutableDictionary *row = [[NSMutableDictionary alloc] init];
+                
+                [row setObject:answers forKey:@"answers"];
+                
+                [row setObject:[rsGetSurvey resultDictionary] forKey:@"survey"];
+                
+                //get address details
+                NSNumber *clientAddressId = [NSNumber numberWithInt:[rsGetSurvey intForColumn:@"client_survey_address_id"]];
+                NSNumber *addressId = [NSNumber numberWithInt:[rsGetSurvey intForColumn:@"survey_address_id"]];
+                
+                //if([clientAddressId intValue] == 0 && [addressId intValue] == 0)
+                //  continue;
+                
+                FMResultSet *rsAdd = [db executeQuery:@"select * from su_address where (client_address_id = ? or address_id = ?) and (client_address_id <> ? or address_id <> ?)",clientAddressId,addressId,[NSNumber numberWithInt:0],[NSNumber numberWithInt:0]];
+                
+                BOOL thereIsAnAddress = NO;
+                
+                while ([rsAdd next]) {
+                    thereIsAnAddress = YES;
+                    [row setObject:[rsAdd resultDictionary] forKey:@"address"];
+                }
+                
+                [surveyArrRow addObject:row];
+            }
+        }
+    }];
+
+    return surveyArrRow;
 }
 
 - (NSArray *)surveyDetailForSegment:(NSInteger)segment forSurveyId:(NSNumber *)surveyId forClientSurveyId:(NSNumber *)clientSurveyId

@@ -111,7 +111,8 @@
 
 - (void)reloadIssuesList
 {
-    [self fetchPostsWithNewIssuesUp:NO];
+    if(self.isViewLoaded && self.view.window) //only reload the list if this VC is active
+        [self fetchPostsWithNewIssuesUp:NO];
 }
 
 - (void)autoOpenChatViewForPostMe:(NSNotification *)notif
@@ -630,6 +631,27 @@
                 cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:pmCellIdentifier];
             
             cell.textLabel.text = [NSString stringWithFormat:@"%@ (%d)",[dict valueForKey:@"po"],[[dict valueForKey:@"count"] intValue]];
+            
+            int unreadMessage = [[dict valueForKey:@"unreadPost"] intValue];
+            
+            if(unreadMessage > 0)
+            {
+                CustomBadge *customBadge = [CustomBadge customBadgeWithString:[NSString stringWithFormat:@"%d", unreadMessage]];
+                customBadge.tag = 900;
+                
+                CGRect contentViewFrame = cell.contentView.frame;
+                
+                CGRect customBadgeFrame = CGRectMake(0, 0, 30,30);
+                customBadgeFrame.origin.x = contentViewFrame.size.width - 30;
+                customBadgeFrame.origin.y = (contentViewFrame.size.height / 2) - 15;
+                
+                [customBadge setFrame:customBadgeFrame];
+                
+                [cell.contentView addSubview:customBadge];
+            }
+            else
+                [[cell.contentView viewWithTag:900] removeFromSuperview];
+            
             
             return cell;
         }

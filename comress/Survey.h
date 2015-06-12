@@ -26,5 +26,7 @@
 - (NSDictionary *)surveyForId:(NSNumber *)surveyId forAddressType:(NSString *)addressType;
 
 - (NSDictionary *)surveDetailForId:(NSNumber *)surveyId forClientSurveyId:(NSNumber *)clientSurveyId;
+
+- (NSArray *)surveyForPo:(NSString *)userId;
 @end
 

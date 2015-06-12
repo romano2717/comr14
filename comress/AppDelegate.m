@@ -384,9 +384,10 @@
 //    POST= "11";
 //    COMMENT= "12";
 //    IMAGE = "13";
+    return;
     
     int silentRemoteNotifValue = [[userInfo valueForKeyPath:@"aps.content-available"] intValue];
-    
+    DDLogVerbose(@"silentRemoteNotifValue %d",silentRemoteNotifValue);
     __block NSDate *jsonDate = [self deserializeJsonDateString:@"/Date(1388505600000+0800)/"];
     
     switch (silentRemoteNotifValue) {
