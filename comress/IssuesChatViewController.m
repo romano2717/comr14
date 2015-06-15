@@ -54,7 +54,7 @@
     
     theNewSelectedStatus = nil;
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fetchComments) name:@"reloadChatView" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadChatView) name:@"reloadChatView" object:nil];
     
     
     //add watcher when user tapped a cell on this pop-up window
@@ -66,6 +66,12 @@
     
     if(hideActionStatusBtn)
         self.navigationItem.rightBarButtonItem = nil;
+}
+
+- (void)reloadChatView
+{
+    if(self.isViewLoaded && self.view.window) //only reload the list if this VC is active
+        [self fetchComments];
 }
 
 - (void)fetchComments

@@ -224,8 +224,6 @@
     [application endBackgroundTask:bgTask];
     bgTask = UIBackgroundTaskInvalid;
     
-    
-    
     //version check
     NSString *appVersion = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
     NSString *url = [NSString stringWithFormat:@"http://fmit.com.sg/comressmainservice/MobileDeviceInfo.svc/json/getDeviceVersion/?devicetype=%@&ver=%@",appName,appVersion];
@@ -255,6 +253,21 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         DDLogVerbose(@"auto update call failed: %@",error);
     }];
+    
+    
+    //check if app text size was set
+    float appTextSize = [[[NSUserDefaults standardUserDefaults] objectForKey:@"appTextSize"] floatValue];
+    DDLogVerbose(@"appTextSize %f",appTextSize);
+    if(appTextSize == 18.0f)
+    {
+        [[UILabel appearance] setFont:[UIFont systemFontOfSize:18.0f]];
+    }
+    else if (appTextSize == 23.0f)
+    {
+        [[UILabel appearance] setFont:[UIFont systemFontOfSize:23.0f]];
+    }
+    else
+        DDLogVerbose(@"meh font!");
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
@@ -384,8 +397,7 @@
 //    POST= "11";
 //    COMMENT= "12";
 //    IMAGE = "13";
-    return;
-    
+
     int silentRemoteNotifValue = [[userInfo valueForKeyPath:@"aps.content-available"] intValue];
     DDLogVerbose(@"silentRemoteNotifValue %d",silentRemoteNotifValue);
     __block NSDate *jsonDate = [self deserializeJsonDateString:@"/Date(1388505600000+0800)/"];

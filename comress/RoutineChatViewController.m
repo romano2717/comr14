@@ -87,6 +87,9 @@
 
 - (void)fetchComments
 {
+    if(!self.isViewLoaded || !self.view.window) //only reload the list if this VC is active
+        return;
+     
     //clear messages
     [self.messageData.messages removeAllObjects];
     postDict = nil;

@@ -2486,6 +2486,7 @@
         NSDate *LastRequestDate = [myDatabase createNSDateWithWcfDateString:[dict valueForKey:@"LastRequestDate"]];
 
         NSArray *dictArray = [dict objectForKey:@"CommentList"];
+        DDLogVerbose(@"new comments %@",dictArray);
         
         for (int i = 0; i < dictArray.count; i++) {
             NSDictionary *dictComment = [dictArray objectAtIndex:i];

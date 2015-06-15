@@ -22,4 +22,6 @@
 @property (nonatomic, weak) IBOutlet UILabel *versionLabel;
 
 @property (nonatomic, weak) IBOutlet UISlider *slider;
+@property (nonatomic, weak) IBOutlet UISwitch *sliderSwitch;
+@property (nonatomic, weak) IBOutlet UILabel *textSizeSample;
 @end

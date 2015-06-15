@@ -15,7 +15,7 @@
 
 @implementation SettingsViewController
 
-@synthesize userFullNameLabel,slider;
+@synthesize userFullNameLabel,slider,sliderSwitch;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -48,11 +48,51 @@
         
         userFullNameLabel.text = users.full_name;
     }];
+    
+    
+    //check if appTextSize was set
+    
+    slider.enabled = NO;
+    [sliderSwitch setOn:NO];
+    
+    float appTextSize = [[[NSUserDefaults standardUserDefaults] objectForKey:@"appTextSize"] floatValue];
+    if(appTextSize > 0)
+    {
+        slider.enabled = YES;
+        [sliderSwitch setOn:YES];
+        
+        if(appTextSize == 12.0f)
+            [slider setValue:0];
+        else if (appTextSize == 18.0f)
+            [slider setValue:5];
+        else
+            [slider setValue:10.0f];
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+}
+
+- (IBAction)ToggleTextSizeAdjustment:(id)sender
+{
+    UISwitch *switchVal = (UISwitch *)sender;
+    
+    if(switchVal.on)
+        slider.enabled = YES;
+    else
+    {
+        CGFloat appTextSize = [[[NSUserDefaults standardUserDefaults] objectForKey:@"appTextSize"] floatValue];
+        
+        if(appTextSize > 0)
+        {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Comress Text size" message:@"Turning off text size adjustments when previously set, will require app restart. App will EXIT now. Run the app again MANUALLY to apply the default text size/style." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Okay", nil];
+            alert.tag = 2;
+            
+            [alert show];
+        }
+    }
 }
 
 - (IBAction)changeFontSize:(id)sender
@@ -63,21 +103,47 @@
     
     switch (slideValue) {
         case 5:
-            [[UILabel appearance] setFont:[UIFont systemFontOfSize:20.0f]];
+        {
+            [[UILabel appearance] setFont:[UIFont systemFontOfSize:18.0f]];
+            [self.textSizeSample setFont:[UIFont systemFontOfSize:18.0f]];
+            
+            [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithFloat:18.0f] forKey:@"appTextSize"];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.view setNeedsDisplay];
+            });
+            
             break;
+        }
+            
             
         case 10:
-            [[UILabel appearance] setFont:[UIFont systemFontOfSize:35.0f]];
+        {
+            [[UILabel appearance] setFont:[UIFont systemFontOfSize:23.0f]];
+            [self.textSizeSample setFont:[UIFont systemFontOfSize:23.0f]];
             
-        default:
-            [[UILabel appearance] setFont:[UIFont systemFontOfSize:12.0f]];
+            [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithFloat:23.0f] forKey:@"appTextSize"];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.view setNeedsDisplay];
+            });
             break;
+        }
+            
+        case 0:
+        {
+            [[UILabel appearance] setFont:[UIFont systemFontOfSize:12.0f]];
+            [self.textSizeSample setFont:[UIFont systemFontOfSize:12.0f]];
+            
+            [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithFloat:12.0f] forKey:@"appTextSize"];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.view setNeedsDisplay];
+            });
+            break;
+        }
+            
     }
-    
-    
-//    ;
-    
-    [self.view setNeedsLayout];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -113,6 +179,17 @@
         {
             [self logoutWithRelogin:YES];
         }
+    }
+    else if (alertView.tag == 2)
+    {
+        if(buttonIndex == 1)
+        {
+            [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithFloat:0.0f] forKey:@"appTextSize"];
+            sleep(2);
+            exit(1);
+        }
+        else
+            [sliderSwitch setOn:YES animated:YES];
     }
 }
 

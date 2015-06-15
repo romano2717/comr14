@@ -543,25 +543,27 @@ contract_type;
                 db.traceExecution = NO;
                 FMResultSet *rsPostCount = [db executeQuery:@"select count(*)as count,bum.division,p.post_id from post p left join block_user_mapping bum on p.block_id=bum.block_id where bum.user_id = ?",POId];
                 
+                //count how many unread post under this po
+                int unreadPostCount = 0;
+                
+                NSPredicate *filter = [NSPredicate predicateWithFormat:@"POId = %@", POId];
+                NSArray *filteredDict = [postIdArray filteredArrayUsingPredicate:filter];
+                NSArray *filterPostIdArr = [filteredDict valueForKeyPath:@"postId"];
+                
+                NSMutableArray *postIdNsNumberArr = [[NSMutableArray alloc] init];
+                for (int x = 0; x < filterPostIdArr.count; x++) {
+                    [postIdNsNumberArr addObject:[NSNumber numberWithInt:[[filterPostIdArr objectAtIndex:x] intValue]]];
+                }
+                
+                NSString *stringPostIdArray = [filterPostIdArr componentsJoinedByString:@","];
+                
+                FMResultSet *unreadPostRs = [db executeQuery:@"select count(*) as unreadPostCount from comment_noti where post_id in (?) and status = ?",stringPostIdArray,[NSNumber numberWithInt:1]];
+                
+                while ([unreadPostRs next]) {
+                    unreadPostCount = [unreadPostRs intForColumn:@"unreadPostCount"];
+                }
+                
                 while ([rsPostCount next]) {
-                    //count how many unread post under this po
-                    int unreadPostCount = 0;
-
-                    NSPredicate *filter = [NSPredicate predicateWithFormat:@"POId = %@", POId];
-                    NSArray *filteredDict = [postIdArray filteredArrayUsingPredicate:filter];
-                    NSArray *filterPostIdArr = [filteredDict valueForKeyPath:@"postId"];
-                    NSString *stringPostIdArray = [filterPostIdArr componentsJoinedByString:@","];
-                    
-                    if([POId isEqualToString:@"Anh"] || [POId isEqualToString:@"Chandra"])
-                        db.traceExecution = YES;
-                    else
-                        db.traceExecution = NO;
-                    FMResultSet *unreadPostRs = [db executeQuery:@"select count(*) as unreadPostCount from comment_noti where post_id in (?) and status = ?",stringPostIdArray,[NSNumber numberWithInt:1]];
-                    
-                    while ([unreadPostRs next]) {
-                        unreadPostCount = [unreadPostRs intForColumn:@"unreadPostCount"];
-                    }
-                        
                     NSDictionary *dict = @{@"po":POId,@"count":[NSNumber numberWithInt:[rsPostCount intForColumn:@"count"]],@"division":[rsPostCount stringForColumn:@"division"],@"unreadPost":[NSNumber numberWithInt:unreadPostCount]};
                     
                     [postArray addObject:dict];
