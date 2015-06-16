@@ -89,8 +89,8 @@
 - (void)toggleBulbIcon:(NSNotification *)notif
 {
     NSString *toggle = [[notif userInfo] valueForKey:@"toggle"];
-    
-    [self.bulbButton setImage:[UIImage imageNamed:[NSString stringWithFormat:@"bulb_%@@2x.png",toggle]] forState:UIControlStateNormal];
+    UIImage *bulbImg = [UIImage imageNamed:[NSString stringWithFormat:@"bulb_%@@2x.png",toggle]];
+    [self.bulbButton setImage:bulbImg forState:UIControlStateNormal];
 }
 
 
@@ -389,6 +389,7 @@
             
             //update ui
             dispatch_async(dispatch_get_main_queue(), ^{
+                
                 [self.issuesTable reloadData];
                 
                 //bulb icon toggle
@@ -445,10 +446,12 @@
         NSDictionary *top = (NSDictionary *)[self.postsArray objectAtIndex:i];
         NSString *topKey = [[top allKeys] objectAtIndex:0];
         
-        
         NSString *post_by = [[[top objectForKey:topKey] objectForKey:@"post"] valueForKey:groupType];
-        
-        [sectionHeaders addObject:post_by];
+
+        if([[[top objectForKey:topKey] objectForKey:@"post"] valueForKey:[NSString stringWithFormat:@"under_by%d",i+1]] != nil)
+            [sectionHeaders addObject:[[[top objectForKey:topKey] objectForKey:@"post"] valueForKey:[NSString stringWithFormat:@"under_by%d",i+1]]];
+        else
+            [sectionHeaders addObject:post_by];
     }
     
     //remove dupes of sections
@@ -469,14 +472,24 @@
             NSDictionary *top = (NSDictionary *)[self.postsArray objectAtIndex:j];
             NSString *topKey = [[top allKeys] objectAtIndex:0];
             NSString *post_by = [[[top objectForKey:topKey] objectForKey:@"post"] valueForKey:groupType];
+            NSString *post_byIncremental = [[[top objectForKey:topKey] objectForKey:@"post"] valueForKey:[NSString stringWithFormat:@"under_by%d",j+1]];
             
-            if([post_by isEqualToString:section])
+            if([[[top objectForKey:topKey] objectForKey:@"post"] valueForKey:[NSString stringWithFormat:@"under_by%d",i+1]] != nil)
             {
-                [row addObject:top];
+                
+                NSString *post_bySamePo = [[[top objectForKey:topKey] objectForKey:@"post"] valueForKey:[NSString stringWithFormat:@"under_by%d",i+1]];
+
+                if([post_byIncremental isEqualToString:post_bySamePo] && [row containsObject:top] == NO)
+                    [row addObject:top];
+            }
+            else
+            {
+                if([post_by isEqualToString:section] && [row containsObject:top] == NO)
+                {
+                    [row addObject:top];
+                }
             }
         }
-        
-        
         [groupedPost addObject:row];
     }
     

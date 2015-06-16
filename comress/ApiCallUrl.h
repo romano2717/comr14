@@ -110,6 +110,8 @@ static NSString *api_survey_report_total_issue_pm = @"Survey/Report.svc/GetTotal
 
 static NSString *api_survey_report_average_sentiment = @"Survey/Report.svc/GetAverageSentiment";
 
+static NSString *api_survey_report_average_sentiment_border = @"Job/Block.svc/GetBorder";
+
 static NSString *api_survey_report_total_issue_po = @"Survey/Report.svc/GetTotalIssueWithStatusByPO";
 
 static NSString *api_survey_report_total_survey_po = @"Survey/Report.svc/GetTotalSurveyAndFeedbackByPO";
@@ -120,7 +122,9 @@ static NSString *api_survey_report_get_zones = @"Job/Block.svc/GetZones";
 
 
 //generic webview
-static NSString *user_manual = @"http://comress.fmit.sg/ComressMWCF/doc/UserGuide.pdf";
+static NSString *user_manual_po = @"http://comress.fmit.sg/ComressMWCF/doc/UserGuide.pdf";
+
+static NSString *user_manual_ct = @"http://comress.fmit.sg/ComressMWCF/doc/UserGuide.pdf";
 
 
 #endif

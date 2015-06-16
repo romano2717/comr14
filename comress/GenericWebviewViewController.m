@@ -18,8 +18,16 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    myDatabase = [Database sharedMyDbManager];
+    
     // Build the url and loadRequest
-    [self.theWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:user_manual]]];
+    
+    NSRange range = [[myDatabase.userDictionary valueForKey:@"group_name"] rangeOfString:@"CT"];
+
+    if(range.location == NSNotFound)
+        [self.theWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:user_manual_po]]];
+    else
+        [self.theWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:user_manual_ct]]];
 }
 
 - (void)didReceiveMemoryWarning {

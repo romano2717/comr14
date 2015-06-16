@@ -779,21 +779,21 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="4ug-Mw-9AY" firstAttribute="top" secondItem="vQs-6T-WvI" secondAttribute="bottom" constant="8" id="2Qc-En-eUm"/>
+                            <constraint firstItem="vQs-6T-WvI" firstAttribute="top" secondItem="Ia1-K6-d13" secondAttribute="bottom" constant="2" id="Rhk-gG-Ccc"/>
                             <constraint firstItem="vQs-6T-WvI" firstAttribute="leading" secondItem="tsR-hK-woN" secondAttribute="leadingMargin" constant="-16" id="gLM-Hy-mjf"/>
                             <constraint firstItem="vQs-6T-WvI" firstAttribute="trailing" secondItem="tsR-hK-woN" secondAttribute="trailingMargin" constant="16" id="iMp-GF-jzJ"/>
-                            <constraint firstItem="vQs-6T-WvI" firstAttribute="top" secondItem="Ia1-K6-d13" secondAttribute="bottom" constant="2" id="oaz-31-IN6"/>
+                            <constraint firstItem="4ug-Mw-9AY" firstAttribute="top" secondItem="vQs-6T-WvI" secondAttribute="bottom" constant="8" id="lxn-0Z-LIo"/>
                         </constraints>
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="oEw-iF-WPp">
                         <nil key="title"/>
                         <barButtonItem key="leftBarButtonItem" style="plain" id="xRO-1C-HbN">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="2Gd-gO-xhN">
-                                <rect key="frame" x="16" y="7" width="20" height="30"/>
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="2Gd-gO-xhN">
+                                <rect key="frame" x="16" y="7" width="22" height="33"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <state key="normal" backgroundImage="bulb_off.png">
+                                <state key="normal" image="bulb_off.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>

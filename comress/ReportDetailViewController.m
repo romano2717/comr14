@@ -435,10 +435,12 @@
         
         NSNumber *theDivisionId = self.selectedDivisionId;
         
+        NSString *borderUrl = [NSString stringWithFormat:@"%@%@",myDatabase.api_url,api_survey_report_average_sentiment_border];
+        
         if([self.defaultDivisionId intValue] > 0 && [self.selectedDivisionId intValue] == 0)
             theDivisionId = self.defaultDivisionId;
         
-        params = [myDatabase toJsonString:@{@"startDate":wcfDateFrom,@"endDate":wcfDateTo,@"url":urlString,@"session":[myDatabase.userDictionary valueForKey:@"guid"],@"divId":theDivisionId,@"zoneId":self.selectedZoneId,@"layer":[NSNumber numberWithInt:1]}];
+        params = [myDatabase toJsonString:@{@"startDate":wcfDateFrom,@"endDate":wcfDateTo,@"url":urlString,@"session":[myDatabase.userDictionary valueForKey:@"guid"],@"divId":theDivisionId,@"zoneId":self.selectedZoneId,@"layer":[NSNumber numberWithInt:1],@"borderUrl":borderUrl}];
     }
 
     [self executeJavascript:@"requestData" withJsonObject:params];

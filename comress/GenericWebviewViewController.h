@@ -8,9 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "ApiCallUrl.h"
+#import "Database.h"
 
 @interface GenericWebviewViewController : UIViewController
-
+{
+    Database *myDatabase;
+}
 @property (nonatomic, weak) IBOutlet UIWebView *theWebView;
 
 @end

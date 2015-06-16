@@ -33,3 +33,5 @@ static const int overDueDays = 0; //used to be 3 days but changed to zero(today)
 
 static const int goingOverDueDays = 3;
 
+static const int noActivityDays = 3;
+

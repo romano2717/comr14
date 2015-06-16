@@ -130,8 +130,6 @@ contract_type;
 //    @try {
         int __block overDueIssues = 0;
         
-        myDatabase.allPostWasSeen = YES;
-        
         NSMutableArray *arr = [[NSMutableArray alloc] init];
         
         client_post_id      = [[params valueForKey:@"client_post_id"] intValue];
@@ -153,12 +151,16 @@ contract_type;
         
         NSDate *now = [NSDate date];
         NSDateComponents* comps = [[NSCalendar currentCalendar] components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay fromDate:now];
-    
         NSDate *daysAgo = [[[NSCalendar currentCalendar] dateFromComponents:comps] dateByAddingTimeInterval:-overDueDays*24*60*60];
-    
         double timestampDaysAgo = [daysAgo timeIntervalSince1970];
-        
         NSNumber *finishedStatus = [NSNumber numberWithInt:4];
+    
+    
+        //3 days no activity
+        NSDate *threeDaysAgo = [[[NSCalendar currentCalendar] dateFromComponents:comps] dateByAddingTimeInterval:-noActivityDays*24*60*60];
+        double timestampThreeDaysAgo = [daysAgo timeIntervalSince1970];
+    
+    
         
         if(postId == nil) //for listing
         {
@@ -211,10 +213,16 @@ contract_type;
             FMResultSet *rsPost = [db executeQuery:q];
             
             while ([rsPost next]) {
-                
                 NSNumber *clientPostId = [NSNumber numberWithInt:[rsPost intForColumn:@"client_post_id"]];
                 NSNumber *serverPostId = [NSNumber numberWithInt:[rsPost intForColumn:@"post_id"]];
                 
+                //if the post is Closed and updated_on is more than 3 days ago, skip it
+                int thePostStatus = [rsPost intForColumn:@"status"];
+                NSDate *theLastUpdatedDate = [rsPost dateForColumn:@"updated_on"];
+                
+                int lastUpdatedDateDiff = [self daysBetween:theLastUpdatedDate and:[NSDate date]];
+                if(thePostStatus == 4 && lastUpdatedDateDiff >= 3)
+                    continue;
                 
                 if(onlyOverDue == NO && filter == YES && postId == nil)
                 {
@@ -237,18 +245,23 @@ contract_type;
                 NSMutableDictionary *postDict = [[NSMutableDictionary alloc] init];
                 NSMutableDictionary *postChild = [[NSMutableDictionary alloc] init];
                 
-                if([rsPost boolForColumn:@"seen"] == NO && onlyOverDue == YES) //if we found at least one we flag it to no
-                    myDatabase.allPostWasSeen = NO;
-                
                 
                 [postChild setObject:[rsPost resultDictionary] forKey:@"post"];
                 
+                
                 //change the post_by of this post based on who's PO this block belongs to
                 NSMutableDictionary *mutablePostDict = [[NSMutableDictionary alloc] initWithDictionary:[rsPost resultDictionary]];
-                
+
                 FMResultSet *rsGetPoOfThisBlock = [db executeQuery:@"select user_id from block_user_mapping where block_id = ?",[NSNumber numberWithInt:[[mutablePostDict valueForKey:@"block_id"] intValue]]];
+                
+                int multiBlockAssignmentCtr = 0;
                 while ([rsGetPoOfThisBlock next]) {
-                    [mutablePostDict setObject:[rsGetPoOfThisBlock stringForColumn:@"user_id"] forKey:@"under_by"];
+                    if(multiBlockAssignmentCtr == 0)
+                        [mutablePostDict setObject:[rsGetPoOfThisBlock stringForColumn:@"user_id"] forKey:@"under_by"];
+                    else
+                        [mutablePostDict setObject:[rsGetPoOfThisBlock stringForColumn:@"user_id"] forKey:[NSString stringWithFormat:@"under_by%d",multiBlockAssignmentCtr]];
+                    
+                    multiBlockAssignmentCtr++;
                 }
                 
                 //OTHERS: check if this block is owned by a PO/contractor under the current user's pm/supervisor
@@ -276,6 +289,12 @@ contract_type;
 
                 else
                     [postChild setObject:mutablePostDict forKey:@"post"];
+                
+                if([rsPost boolForColumn:@"seen"] == NO) //if we found at least one we flag it to no
+                {
+                    DDLogVerbose(@"seen postChild %@",postChild);
+                    myDatabase.allPostWasSeen = NO;
+                }
                 
                 
                 if(onlyOverDue == YES)
@@ -354,7 +373,7 @@ contract_type;
                     while ([qOverdueRs next]) {
                         overdueCtr++;
                     }
-                    DDLogVerbose(@"PO overdue %d",overdueCtr);
+                    
                     [[NSNotificationCenter defaultCenter] postNotificationName:@"thereAreOVerDueIssues" object:nil userInfo:@{@"count":[NSNumber numberWithInt:overdueCtr]}];
                 }
             }
@@ -414,7 +433,6 @@ contract_type;
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"thereAreOVerDueIssues" object:nil userInfo:@{@"count":[NSNumber numberWithInt:0]}];
         }
     
-        
         if(mutArr.count == arr.count)
             return mutArr;
         
@@ -521,7 +539,6 @@ contract_type;
     }];
     
     NSMutableArray *postArray = [[NSMutableArray alloc] init];
-    
     for(int i = 0; i < postIdArray.count; i++)
     {
         NSDictionary *dict = [postIdArray objectAtIndex:i];
@@ -532,7 +549,9 @@ contract_type;
         if(filter == YES)
         {
             NSArray *post = [self fetchIssuesWithParams:params forPostId:clientPostId filterByBlock:filter newIssuesFirst:NO onlyOverDue:onlyOverDue];
-            [postArray addObject:[post firstObject]];
+
+            if(post.count > 0)
+                [postArray addObject:[post firstObject]];
         }
         
         else
@@ -571,7 +590,7 @@ contract_type;
             }];
         }
     }
-    
+
     return postArray;
 }
 
