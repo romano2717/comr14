@@ -2503,8 +2503,6 @@
                 
                 FMResultSet *rsComment = [theDb executeQuery:@"select comment_id from comment where comment_id = ?",CommentId];
                 
-                
-                
                 if([rsComment next] == NO) //does not exist, insert
                 {
                     BOOL qIns = [theDb executeUpdate:@"insert into comment (comment_by, comment_id, comment, comment_type, post_id, comment_on) values (?,?,?,?,?,?)",CommentBy,CommentId,CommentString,CommentType,PostId,CommentDate];
@@ -2531,6 +2529,8 @@
                 if([UIApplication sharedApplication].applicationState == UIApplicationStateActive)
                 {
                     [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadChatView" object:nil];
+                    
+                    [self reloadIssuesList];
                 }
             }
             //we move this inside valid insert

@@ -223,24 +223,52 @@ contract_type;
                 int lastUpdatedDateDiff = [self daysBetween:theLastUpdatedDate and:[NSDate date]];
                 if(thePostStatus == 4 && lastUpdatedDateDiff >= 3)
                     continue;
-                
-                if(onlyOverDue == NO && filter == YES && postId == nil)
+                if(postId == nil)
                 {
-                    //due date
-                    NSDate *now = [NSDate date];
-                    NSDateComponents* comps = [[NSCalendar currentCalendar] components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay fromDate:now];
-                    NSDate *dueDate = [[[NSCalendar currentCalendar] dateFromComponents:comps] dateByAddingTimeInterval:3*24*60*60]; //add 3 days
-                    
-                    if([rsPost dateForColumn:@"dueDate"] != nil)
-                        dueDate = [rsPost dateForColumn:@"dueDate"];
-
-                    int the_status = [rsPost intForColumn:@"status"];
-                    
-                    int daysBetween = [self daysBetween:dueDate and:[NSDate date]];
-                    
-                    if(daysBetween > 3 && the_status != 4) //overdue and not closed, don't add to ME
-                        continue;
+                    if(onlyOverDue == NO && filter == YES && postId == nil)
+                    {
+                        //due date
+                        NSDate *now = [NSDate date];
+                        NSDateComponents* comps = [[NSCalendar currentCalendar] components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay fromDate:now];
+                        NSDate *dueDate = [[[NSCalendar currentCalendar] dateFromComponents:comps] dateByAddingTimeInterval:3*23*59*59]; //add 3 days, default calculation in-case the post don't have a duedate(offline) mode
+                        
+                         NSDate *nowAtZeroHour = [[NSCalendar currentCalendar] dateFromComponents:comps];
+                        
+                        if([rsPost dateForColumn:@"dueDate"] != nil)
+                            dueDate = [rsPost dateForColumn:@"dueDate"];
+                        
+                        int the_status = [rsPost intForColumn:@"status"];
+                        
+                        int daysBetween = [self daysBetween:dueDate and:nowAtZeroHour];
+                        
+                        if(daysBetween > 3 && the_status != 4) //overdue and not closed, don't add to ME
+                            continue;
+                    }
                 }
+                else
+                {
+                    if(onlyOverDue == NO && filter == YES) //post per PO: when pm is logged in
+                    {
+
+                        //due date
+                        NSDate *now = [NSDate date];
+                        NSDateComponents* comps = [[NSCalendar currentCalendar] components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay fromDate:now];
+                        NSDate *dueDate = [[[NSCalendar currentCalendar] dateFromComponents:comps] dateByAddingTimeInterval:3*23*59*59]; //add 3 days, default calculation in-case the post don't have a duedate(offline) mode
+                        NSDate *nowAtZeroHour = [[NSCalendar currentCalendar] dateFromComponents:comps];
+                        
+                        if([rsPost dateForColumn:@"dueDate"] != nil)
+                            dueDate = [rsPost dateForColumn:@"dueDate"];
+                        
+                        int the_status = [rsPost intForColumn:@"status"];
+                        
+                        int daysBetween = [self daysBetween:dueDate and:nowAtZeroHour];
+                        
+                        if(daysBetween > 3 && the_status != 4) //overdue and not closed, don't add to ME
+                            continue;
+                    }
+                }
+                
+
                 
                 NSMutableDictionary *postDict = [[NSMutableDictionary alloc] init];
                 NSMutableDictionary *postChild = [[NSMutableDictionary alloc] init];
@@ -292,7 +320,7 @@ contract_type;
                 
                 if([rsPost boolForColumn:@"seen"] == NO) //if we found at least one we flag it to no
                 {
-                    DDLogVerbose(@"seen postChild %@",postChild);
+
                     myDatabase.allPostWasSeen = NO;
                 }
                 

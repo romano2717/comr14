@@ -229,13 +229,6 @@
                                 <color key="textColor" red="0.0064558116310000002" green="0.00090609822590000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <webView contentMode="scaleToFill" scalesPageToFit="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OND-CQ-US5">
-                                <rect key="frame" x="0.0" y="172" width="600" height="371"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <connections>
-                                    <outlet property="delegate" destination="snk-Tc-hS7" id="Hlo-5M-JzJ"/>
-                                </connections>
-                            </webView>
                             <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MKj-5I-yNJ">
                                 <rect key="frame" x="144" y="110" width="99" height="22"/>
                                 <constraints>
@@ -272,6 +265,13 @@
                                     <action selector="dateFilterToggle:" destination="snk-Tc-hS7" eventType="touchUpInside" id="8eU-aF-eA5"/>
                                 </connections>
                             </button>
+                            <webView contentMode="scaleToFill" scalesPageToFit="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OND-CQ-US5">
+                                <rect key="frame" x="0.0" y="172" width="600" height="371"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="delegate" destination="snk-Tc-hS7" id="Hlo-5M-JzJ"/>
+                                </connections>
+                            </webView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>

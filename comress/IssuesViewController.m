@@ -142,8 +142,6 @@
 {
     [[NSNotificationCenter defaultCenter] postNotificationName:@"downloadNewItems" object:nil];
     
-    [self fetchPostsWithNewIssuesUp:NO];
-    
     [(UIRefreshControl *)sender endRefreshing];
 }
 
@@ -177,13 +175,18 @@
     [super viewDidAppear:animated];
     
     [self.issuesTable reloadData];
+    
+    [self setSegmentBadge];
 }
 
 - (void)updateBadgeCount
 {
+    [self setSegmentBadge];
+    
+    return;
+    
     [myDatabase.databaseQ inTransaction:^(FMDatabase *db, BOOL *rollback) {
         
-//        FMResultSet *rs = [db executeQuery:@"select count(*) as count from comment_noti where status = ? and post_id in (select post_id from post)",[NSNumber numberWithInt:1]];
         int meBadge = 0;
         int othersBadge = 0;
         
@@ -215,6 +218,78 @@
             [[self.tabBarController.tabBar.items objectAtIndex:0] setBadgeValue:0];
         
     }];
+}
+
+
+- (void)setSegmentBadge
+{
+    __block int meCtr = 0;
+    
+    if(self.segment.selectedSegmentIndex == 0)
+    {
+        if(self.postsArray.count == 0)
+            [self.segment setBadgeNumber:0 forSegmentAtIndex:0];
+        else
+        {
+            if(POisLoggedIn)
+            {
+                for (int i = 0; i < self.postsArray.count; i++) {
+                    NSString *key = [[[self.postsArray objectAtIndex:i] allKeys] firstObject];
+                    NSNumber *thisPostId = [NSNumber numberWithInt:[[[[[self.postsArray objectAtIndex:i] objectForKey:key] valueForKey:@"post"] valueForKey:@"post_id"] intValue]];
+
+                    [myDatabase.databaseQ inTransaction:^(FMDatabase *db, BOOL *rollback) {
+                        db.traceExecution = NO;
+                        FMResultSet *rs = [db executeQuery:@"select * from comment_noti where status = ? and post_id = ?",[NSNumber numberWithInt:1],thisPostId];
+                        
+                        while ([rs next]) {
+                            if([rs intForColumn:@"post_id"] > 0)
+                                meCtr++;
+                        }
+                    }];
+                    
+                }
+                
+                [self.segment setBadgeNumber:meCtr forSegmentAtIndex:0];
+            }
+            else if (PMisLoggedIn)
+            {
+
+                if(self.postsArray.count > 0)
+                {
+                    if([[self.postsArray firstObject] count] == 0)
+                        [self.segment setBadgeNumber:0 forSegmentAtIndex:0];
+                    else
+                    {
+                        NSArray *list = [self.postsArray firstObject];
+                        
+                        for (int i = 0; i < list.count; i++) {
+                            NSString *key = [[[list objectAtIndex:i] allKeys] firstObject];
+                            NSNumber *thisPostId = [NSNumber numberWithInt:[[[[[list objectAtIndex:i] objectForKey:key] valueForKey:@"post"] valueForKey:@"post_id"] intValue]];
+                            DDLogVerbose(@"%@",thisPostId);
+                            
+                            [myDatabase.databaseQ inTransaction:^(FMDatabase *db, BOOL *rollback) {
+                                db.traceExecution = NO;
+                                FMResultSet *rs = [db executeQuery:@"select * from comment_noti where status = ? and post_id = ?",[NSNumber numberWithInt:1],thisPostId];
+                                
+                                while ([rs next]) {
+                                    if([rs intForColumn:@"post_id"] > 0)
+                                        meCtr++;
+                                }
+                            }];
+                            
+                        }
+                        
+                        [self.segment setBadgeNumber:meCtr forSegmentAtIndex:0];
+                    }
+                }
+                    
+            }
+        }
+    }
+    else if (self.segment.selectedSegmentIndex == 1)
+    {
+        DDLogVerbose(@"segment 1: %@",self.postsArray);
+    }
 }
 
 - (void)didReceiveMemoryWarning {

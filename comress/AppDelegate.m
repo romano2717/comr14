@@ -268,6 +268,8 @@
     }
     else
         DDLogVerbose(@"meh font!");
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"downloadNewItems" object:nil];
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
@@ -341,6 +343,8 @@
 {
     if(myDatabase.initializingComplete == 0)
         return;
+    
+    DDLogVerbose(@"download new items");
     
     __block NSDate *jsonDate = [self deserializeJsonDateString:@"/Date(1388505600000+0800)/"];
     
