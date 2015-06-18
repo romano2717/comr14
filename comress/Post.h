@@ -52,4 +52,6 @@
 
 - (BOOL)setIssueCloseActionRemarks:(NSDictionary *)dict;
 
+- (NSArray *)searchPostWithKeyword:(NSString *)keyword;
+
 @end

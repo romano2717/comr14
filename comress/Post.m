@@ -921,6 +921,11 @@ contract_type;
     }
 }
 
+- (NSArray *)searchPostWithKeyword:(NSString *)keyword
+{
+    return nil;
+}
+
 - (BOOL)setIssueCloseActionRemarks:(NSDictionary *)dict
 {
     __block BOOL flag = NO;

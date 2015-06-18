@@ -124,7 +124,7 @@ static NSString *api_survey_report_get_zones = @"Job/Block.svc/GetZones";
 //generic webview
 static NSString *user_manual_po = @"http://comress.fmit.sg/ComressMWCF/doc/UserGuide.pdf";
 
-static NSString *user_manual_ct = @"http://comress.fmit.sg/ComressMWCF/doc/UserGuide.pdf";
+static NSString *user_manual_ct = @"http://comress.fmit.sg/ComressMWCF/doc/UserGuideForContractor.pdf";
 
 
 #endif
