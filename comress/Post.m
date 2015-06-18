@@ -263,7 +263,7 @@ contract_type;
                         
                         int daysBetween = [self daysBetween:dueDate and:nowAtZeroHour];
                         
-                        if(daysBetween > 3 && the_status != 4) //overdue and not closed, don't add to ME
+                        if(daysBetween > 3 && the_status != 4 && postId == nil) //overdue and not closed, don't add to ME
                             continue;
                     }
                 }
@@ -647,7 +647,8 @@ contract_type;
         
         NSArray *post = [self fetchIssuesWithParams:params forPostId:thePostId filterByBlock:NO newIssuesFirst:YES onlyOverDue:NO];
         
-        [postArray addObject:[post firstObject]];
+        if(post.count > 0)
+            [postArray addObject:[post firstObject]];
     }
     
     return postArray;

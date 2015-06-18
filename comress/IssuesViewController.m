@@ -159,7 +159,7 @@
     if(myDatabase.initializingComplete == 1)
     {
         [self fetchPostsWithNewIssuesUp:NO];
-        [self updateBadgeCount];
+        [self setSegmentBadge];
     }
 }
 
@@ -175,121 +175,96 @@
     [super viewDidAppear:animated];
     
     [self.issuesTable reloadData];
-    
-    [self setSegmentBadge];
 }
-
-- (void)updateBadgeCount
-{
-    [self setSegmentBadge];
-    
-    return;
-    
-    [myDatabase.databaseQ inTransaction:^(FMDatabase *db, BOOL *rollback) {
-        
-        int meBadge = 0;
-        int othersBadge = 0;
-        
-        //set badge for each segment (me and others)
-        
-        FMResultSet *meUnReadCommentsRs = [db executeQuery:@"select count(*) as count from comment_noti where status = ? and post_id in (select p.post_id from post p, blocks_user bu where p.block_id = bu.block_id)",[NSNumber numberWithInt:1]];
-        
-        if([meUnReadCommentsRs next])
-        {
-            meBadge = [meUnReadCommentsRs intForColumn:@"count"];
-            [self.segment setBadgeNumber:meBadge forSegmentAtIndex:0];
-            
-        }
-        
-        FMResultSet *othersUnReadCommentsRs = [db executeQuery:@"select count(*) as count from comment_noti where status = ? and post_id not in (select p.post_id from post p, blocks_user bu where p.block_id = bu.block_id)",[NSNumber numberWithInt:1]];
-        
-        if([othersUnReadCommentsRs next])
-        {
-            othersBadge = [othersUnReadCommentsRs intForColumn:@"count"];
-            [self.segment setBadgeNumber:othersBadge forSegmentAtIndex:1];
-        }
-        
-        //set badge for tabbar
-        int totalUnReadIssuesMessagesBadge = meBadge + othersBadge;
-        
-        if(totalUnReadIssuesMessagesBadge > 0)
-            [[self.tabBarController.tabBar.items objectAtIndex:0] setBadgeValue:[NSString stringWithFormat:@"%d",totalUnReadIssuesMessagesBadge]];
-        else
-            [[self.tabBarController.tabBar.items objectAtIndex:0] setBadgeValue:0];
-        
-    }];
-}
-
 
 - (void)setSegmentBadge
 {
     __block int meCtr = 0;
+    __block int othersBadge = 0;
     
-    if(self.segment.selectedSegmentIndex == 0)
+    if(POisLoggedIn)
     {
-        if(self.postsArray.count == 0)
-            [self.segment setBadgeNumber:0 forSegmentAtIndex:0];
-        else
+        //ME
+        if(self.segment.selectedSegmentIndex == 0) //just count how many post in the list found in comment noti
         {
-            if(POisLoggedIn)
-            {
-                for (int i = 0; i < self.postsArray.count; i++) {
-                    NSString *key = [[[self.postsArray objectAtIndex:i] allKeys] firstObject];
-                    NSNumber *thisPostId = [NSNumber numberWithInt:[[[[[self.postsArray objectAtIndex:i] objectForKey:key] valueForKey:@"post"] valueForKey:@"post_id"] intValue]];
-
-                    [myDatabase.databaseQ inTransaction:^(FMDatabase *db, BOOL *rollback) {
-                        db.traceExecution = NO;
-                        FMResultSet *rs = [db executeQuery:@"select * from comment_noti where status = ? and post_id = ?",[NSNumber numberWithInt:1],thisPostId];
-                        
-                        while ([rs next]) {
-                            if([rs intForColumn:@"post_id"] > 0)
-                                meCtr++;
-                        }
-                    }];
-                    
-                }
+            for (int i = 0; i < self.postsArray.count; i++) {
+                NSString *key = [[[self.postsArray objectAtIndex:i] allKeys] firstObject];
+                NSNumber *thisPostId = [NSNumber numberWithInt:[[[[[self.postsArray objectAtIndex:i] objectForKey:key] valueForKey:@"post"] valueForKey:@"post_id"] intValue]];
                 
-                [self.segment setBadgeNumber:meCtr forSegmentAtIndex:0];
-            }
-            else if (PMisLoggedIn)
-            {
-
-                if(self.postsArray.count > 0)
-                {
-                    if([[self.postsArray firstObject] count] == 0)
-                        [self.segment setBadgeNumber:0 forSegmentAtIndex:0];
-                    else
-                    {
-                        NSArray *list = [self.postsArray firstObject];
-                        
-                        for (int i = 0; i < list.count; i++) {
-                            NSString *key = [[[list objectAtIndex:i] allKeys] firstObject];
-                            NSNumber *thisPostId = [NSNumber numberWithInt:[[[[[list objectAtIndex:i] objectForKey:key] valueForKey:@"post"] valueForKey:@"post_id"] intValue]];
-                            DDLogVerbose(@"%@",thisPostId);
-                            
-                            [myDatabase.databaseQ inTransaction:^(FMDatabase *db, BOOL *rollback) {
-                                db.traceExecution = NO;
-                                FMResultSet *rs = [db executeQuery:@"select * from comment_noti where status = ? and post_id = ?",[NSNumber numberWithInt:1],thisPostId];
-                                
-                                while ([rs next]) {
-                                    if([rs intForColumn:@"post_id"] > 0)
-                                        meCtr++;
-                                }
-                            }];
-                            
-                        }
-                        
-                        [self.segment setBadgeNumber:meCtr forSegmentAtIndex:0];
-                    }
-                }
+                [myDatabase.databaseQ inTransaction:^(FMDatabase *db, BOOL *rollback) {
+                    db.traceExecution = NO;
+                    FMResultSet *rs = [db executeQuery:@"select * from comment_noti where status = ? and post_id = ?",[NSNumber numberWithInt:1],thisPostId];
                     
+                    while ([rs next]) {
+                        if([rs intForColumn:@"post_id"] > 0)
+                            meCtr++;
+                    }
+                }];
+                
             }
+            
+            [self.segment setBadgeNumber:meCtr forSegmentAtIndex:0];
         }
+        
+        //OTHERS
+        [myDatabase.databaseQ inTransaction:^(FMDatabase *db, BOOL *rollback) {
+            FMResultSet *othersUnReadCommentsRs = [db executeQuery:@"select count(*) as count from comment_noti where status = ? and post_id not in (select p.post_id from post p, blocks_user bu where p.block_id = bu.block_id)",[NSNumber numberWithInt:1]];
+            
+            if([othersUnReadCommentsRs next])
+            {
+                othersBadge = [othersUnReadCommentsRs intForColumn:@"count"];
+                [self.segment setBadgeNumber:othersBadge forSegmentAtIndex:1];
+            }
+        }];
+        
     }
-    else if (self.segment.selectedSegmentIndex == 1)
+    else if (PMisLoggedIn)
     {
-        DDLogVerbose(@"segment 1: %@",self.postsArray);
+        //ME
+        if(self.segment.selectedSegmentIndex == 0)
+        {
+            NSArray *list = [self.postsArray firstObject];
+            
+            for (int i = 0; i < list.count; i++) {
+                NSString *key = [[[list objectAtIndex:i] allKeys] firstObject];
+                NSNumber *thisPostId = [NSNumber numberWithInt:[[[[[list objectAtIndex:i] objectForKey:key] valueForKey:@"post"] valueForKey:@"post_id"] intValue]];
+                
+                
+                [myDatabase.databaseQ inTransaction:^(FMDatabase *db, BOOL *rollback) {
+                    db.traceExecution = NO;
+                    FMResultSet *rs = [db executeQuery:@"select * from comment_noti where status = ? and post_id = ?",[NSNumber numberWithInt:1],thisPostId];
+                    
+                    while ([rs next]) {
+                        if([rs intForColumn:@"post_id"] > 0)
+                            meCtr++;
+                    }
+                }];
+                
+            }
+            
+            [self.segment setBadgeNumber:meCtr forSegmentAtIndex:0];
+        }
+        
+        
+        //OTHERS
+        [myDatabase.databaseQ inTransaction:^(FMDatabase *db, BOOL *rollback) {
+            FMResultSet *othersUnReadCommentsRs = [db executeQuery:@"select count(*) as count from comment_noti where status = ? and post_id not in (select p.post_id from post p, blocks_user bu where p.block_id = bu.block_id)",[NSNumber numberWithInt:1]];
+            
+            if([othersUnReadCommentsRs next])
+            {
+                othersBadge = [othersUnReadCommentsRs intForColumn:@"count"];
+                [self.segment setBadgeNumber:othersBadge forSegmentAtIndex:1];
+            }
+        }];
     }
+    
+    //set badge for tabbar
+    int totalUnReadIssuesMessagesBadge = meCtr + othersBadge;
+    
+    if(totalUnReadIssuesMessagesBadge > 0)
+        [[self.tabBarController.tabBar.items objectAtIndex:0] setBadgeValue:[NSString stringWithFormat:@"%d",totalUnReadIssuesMessagesBadge]];
+    else
+        [[self.tabBarController.tabBar.items objectAtIndex:0] setBadgeValue:0];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -507,7 +482,7 @@
             
         }
     
-        [self updateBadgeCount];
+        [self setSegmentBadge];
 //    });
 }
 
