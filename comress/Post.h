@@ -54,4 +54,6 @@
 
 - (NSArray *)searchPostWithKeyword:(NSString *)keyword;
 
+- (NSArray *)postLIstForSegment:(NSString *)segment forUserType:(NSString *)userType;
+
 @end

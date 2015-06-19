@@ -88,6 +88,8 @@
 
 - (void)toggleBulbIcon:(NSNotification *)notif
 {
+    return; //update this code later
+    
     NSString *toggle = [[notif userInfo] valueForKey:@"toggle"];
     UIImage *bulbImg = [UIImage imageNamed:[NSString stringWithFormat:@"bulb_%@@2x.png",toggle]];
     [self.bulbButton setImage:bulbImg forState:UIControlStateNormal];
@@ -175,6 +177,8 @@
     [super viewDidAppear:animated];
     
     [self.issuesTable reloadData];
+    
+    [post postLIstForSegment:@"OVERDUE" forUserType:@"PO"];
 }
 
 - (void)setSegmentBadge

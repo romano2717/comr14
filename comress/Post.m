@@ -151,7 +151,7 @@ contract_type;
         
         NSDate *now = [NSDate date];
         NSDateComponents* comps = [[NSCalendar currentCalendar] components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay fromDate:now];
-        NSDate *daysAgo = [[[NSCalendar currentCalendar] dateFromComponents:comps] dateByAddingTimeInterval:-overDueDays*24*60*60];
+        NSDate *daysAgo = [[[NSCalendar currentCalendar] dateFromComponents:comps] dateByAddingTimeInterval:-overDueDays*23*59*59];
         double timestampDaysAgo = [daysAgo timeIntervalSince1970];
         NSNumber *finishedStatus = [NSNumber numberWithInt:4];
     
@@ -182,22 +182,17 @@ contract_type;
             
             else //OVERDUE TAB!
             {
-                q = [[NSMutableString alloc] initWithString:[NSString stringWithFormat:@"select * from post where post_type = 1 and dueDate <= '%f' and status != %@ and block_id in (select block_id from blocks_user) ",timestampDaysAgo, finishedStatus]]; //post_type = 1 is ISSUES
+                q = [[NSMutableString alloc] initWithString:@"select * from post where post_type = 1 and block_id in (select block_id from blocks_user)"]; //post_type = 1 is ISSUES
             }
         }
         
         else //for chat or by PM
         {
-            if(onlyOverDue == NO)
-            {
-                q = [[NSMutableString alloc] initWithString:[NSString stringWithFormat:@"select * from post where client_post_id = %@ ",postId]];
+
+            q = [[NSMutableString alloc] initWithString:[NSString stringWithFormat:@"select * from post where client_post_id = %@ ",postId]];
                 
-                qOverDue = [[NSMutableString alloc] initWithString:[NSString stringWithFormat:@"select * from post where client_post_id = %@ and dueDate <= '%f' and status != %@ ",postId,timestampDaysAgo,finishedStatus]];
-            }
-            else
-            {
-                q = [[NSMutableString alloc] initWithString:[NSString stringWithFormat:@"select * from post where client_post_id = %@ and dueDate <= '%f' and status != %@ ",postId,timestampDaysAgo,finishedStatus]];
-            }
+            qOverDue = [[NSMutableString alloc] initWithString:[NSString stringWithFormat:@"select * from post where client_post_id = %@ and dueDate <= '%f' and status != %@ ",postId,timestampDaysAgo,finishedStatus]];
+            
         }
         
         
@@ -223,9 +218,10 @@ contract_type;
                 int lastUpdatedDateDiff = [self daysBetween:theLastUpdatedDate and:[NSDate date]];
                 if(thePostStatus == 4 && lastUpdatedDateDiff >= 3)
                     continue;
+                
                 if(postId == nil)
                 {
-                    if(onlyOverDue == NO && filter == YES && postId == nil)
+                    if(onlyOverDue == NO && filter == YES && postId == nil) //ME
                     {
                         //due date
                         NSDate *now = [NSDate date];
@@ -238,16 +234,14 @@ contract_type;
                             dueDate = [rsPost dateForColumn:@"dueDate"];
                         
                         int the_status = [rsPost intForColumn:@"status"];
-                        
+
                         int daysBetween = [self daysBetween:dueDate and:nowAtZeroHour];
                         
-                        if(daysBetween > 3 && the_status != 4) //overdue and not closed, don't add to ME
+                        if(daysBetween >= 1 && the_status != 4) //overdue and not closed, don't add to ME
                             continue;
                     }
-                }
-                else
-                {
-                    if(onlyOverDue == NO && filter == YES) //post per PO: when pm is logged in
+                    
+                    else //OVERDUE
                     {
 
                         //due date
@@ -263,7 +257,33 @@ contract_type;
                         
                         int daysBetween = [self daysBetween:dueDate and:nowAtZeroHour];
                         
-                        if(daysBetween > 3 && the_status != 4 && postId == nil) //overdue and not closed, don't add to ME
+                        if(the_status == 4)//closed, don't add to overdue
+                            continue;
+                        else
+                        {
+                            if(daysBetween < 0 && the_status != 4) //not overdue and closed, don't add to OVERDUE
+                                continue;
+                        }
+                    }
+                }
+                else
+                {
+                    if(onlyOverDue == NO && filter == YES && postId != nil) //post per PO: when pm is logged in
+                    {
+                        //due date
+                        NSDate *now = [NSDate date];
+                        NSDateComponents* comps = [[NSCalendar currentCalendar] components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay fromDate:now];
+                        NSDate *dueDate = [[[NSCalendar currentCalendar] dateFromComponents:comps] dateByAddingTimeInterval:3*23*59*59]; //add 3 days, default calculation in-case the post don't have a duedate(offline) mode
+                        NSDate *nowAtZeroHour = [[NSCalendar currentCalendar] dateFromComponents:comps];
+                        
+                        if([rsPost dateForColumn:@"dueDate"] != nil)
+                            dueDate = [rsPost dateForColumn:@"dueDate"];
+                        
+                        int the_status = [rsPost intForColumn:@"status"];
+                        
+                        int daysBetween = [self daysBetween:dueDate and:nowAtZeroHour];
+                        
+                        if(daysBetween >= 1 && the_status != 4) //overdue and not closed, don't add to ME
                             continue;
                     }
                 }
@@ -460,7 +480,7 @@ contract_type;
             else
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"thereAreOVerDueIssues" object:nil userInfo:@{@"count":[NSNumber numberWithInt:0]}];
         }
-    
+        DDLogVerbose(@"fetch: %lu",(unsigned long)mutArr.count);
         if(mutArr.count == arr.count)
             return mutArr;
         
@@ -468,7 +488,7 @@ contract_type;
         {
             [[NSNotificationCenter defaultCenter] postNotificationName:@"allPostWasSeen" object:nil];
         }
-       
+
         return arr;
 //    }
 //    @catch (NSException *exception) {
@@ -505,7 +525,7 @@ contract_type;
             }
             else //Others
             {
-                q = [[NSMutableString alloc] initWithString:[NSString stringWithFormat:@"select p.post_id,client_post_id,bum.user_id from post p left join block_user_mapping bum on bum.block_id = p.block_id where p.block_id not in (select block_id from blocks_user) and bum.supervisor_id != '%@' ",[myDatabase.userDictionary valueForKey:@"user_id"]]];
+                q = [[NSMutableString alloc] initWithString:[NSString stringWithFormat:@"select p.post_id,client_post_id,p.status, p.updated_on, bum.user_id from post p left join block_user_mapping bum on bum.block_id = p.block_id where p.block_id not in (select block_id from blocks_user) and bum.supervisor_id != '%@' ",[myDatabase.userDictionary valueForKey:@"user_id"]]];
             }
         }
         else //overdue
@@ -549,6 +569,14 @@ contract_type;
                     continue;
             }
             
+            //if the post is Closed and updated_on is more than 3 days ago, skip it
+            int thePostStatus = [rs intForColumn:@"status"];
+            NSDate *theLastUpdatedDate = [rs dateForColumn:@"updated_on"];
+            
+            int lastUpdatedDateDiff = [self daysBetween:theLastUpdatedDate and:[NSDate date]];
+            if(thePostStatus == 4 && lastUpdatedDateDiff >= 3)
+                continue;
+            
             [postIdArray addObject:@{@"clientPostId":theClientPostId,@"postId":thePostId,@"POId":POId}];
         }
         
@@ -567,11 +595,13 @@ contract_type;
     }];
     
     NSMutableArray *postArray = [[NSMutableArray alloc] init];
+
     for(int i = 0; i < postIdArray.count; i++)
     {
         NSDictionary *dict = [postIdArray objectAtIndex:i];
         
         NSNumber *clientPostId = [dict valueForKey:@"clientPostId"];
+        NSNumber *serverPostId = [dict valueForKey:@"post_id"];
         NSString *POId = [dict valueForKey:@"POId"];
 
         if(filter == YES)
@@ -902,7 +932,6 @@ contract_type;
             }
         }];
         
-        
         if(mutArr.count == arr.count)
             return mutArr;
         
@@ -923,6 +952,18 @@ contract_type;
 
 - (NSArray *)searchPostWithKeyword:(NSString *)keyword
 {
+    NSMutableArray *arr = [[NSMutableArray alloc] init];
+    
+    [myDatabase.databaseQ inTransaction:^(FMDatabase *db, BOOL *rollback) {
+        FMResultSet *rs = [db executeQuery:@"select p.post_id, p.client_post_id, p.post_topic, p.address, p.postal_code, p.post_by, c.comment from post p left join comment c on (p.post_id = c.post_id or p.client_post_id = c.client_post_id) where p.post_topic like '%?%' or p.address like '%?%' or p.postal_code like '%?%' or p.post_by like '%?%' or c.comment like '%?%' group by p.post_id",keyword,keyword,keyword,keyword,keyword];
+        
+        while ([rs next]) {
+            [arr addObject:[rs resultDictionary]];
+        }
+    }];
+    
+
+    
     return nil;
 }
 
@@ -955,5 +996,313 @@ contract_type;
     NSDateComponents *components = [calendar components:unitFlags fromDate:dt1 toDate:dt2 options:0];
     return (int)[components day]+1;
 }
+
+
+- (NSArray *)postLIstForSegment:(NSString *)segment forUserType:(NSString *)userType
+{
+    //this code block only apply for PO and similar PO functionality
+    
+    NSMutableArray *postArray = [[NSMutableArray alloc] init];
+    NSString *query;
+    
+    //date mgmt
+    NSDate *now = [NSDate date];
+    NSDateComponents* comps = [[NSCalendar currentCalendar] components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay fromDate:now];
+
+    NSDate *nowAtZeroHour = [[NSCalendar currentCalendar] dateFromComponents:comps];
+    double timestampnowAtZeroHour = [nowAtZeroHour timeIntervalSince1970];
+    
+    NSNumber *closedStatus = [NSNumber numberWithInt:4];
+    
+    NSNumber *zero = [NSNumber numberWithInt:0];
+    
+    if([segment isEqualToString:@"ME"])
+    {
+        
+        query = [NSString stringWithFormat:@"select p.*, \
+                 bum.user_id as under_by\
+                 from \
+                 post p \
+                 left join block_user_mapping bum \
+                 on p.block_id = bum.block_id \
+                 where \
+                 p.post_type = 1  and \
+                 p.block_id in (select block_id from blocks_user) \
+                 order by p.updated_on desc"];
+        
+    }
+    
+    else if ([segment isEqualToString:@"OTHERS"])
+    {
+        query = [NSString stringWithFormat:@"select p.*, \
+                 bum.user_id as under_by\
+                 from \
+                 post p \
+                 left join block_user_mapping bum \
+                 on p.block_id = bum.block_id \
+                 where \
+                 p.post_type = 1 and \
+                 p.block_id not in (select block_id from blocks_user) \
+                 order by p.updated_on desc"];
+    }
+    
+    else if([segment isEqualToString:@"OVERDUE"])
+    {
+        
+        query = [NSString stringWithFormat:@"\
+                 select p.*, bum.user_id \
+                 from post p \
+                 left join block_user_mapping bum \
+                 on bum.block_id = p.block_id \
+                 where p.post_type = 1 and \
+                 p.block_id in (select block_id from blocks_user) and \
+                 p.dueDate <= %f and \
+                 p.status != %@",timestampnowAtZeroHour,closedStatus];
+        
+    }
+    
+    
+    [myDatabase.databaseQ inTransaction:^(FMDatabase *db, BOOL *rollback) {
+        FMResultSet *rs = [db executeQuery:query];
+        
+        while ([rs next]) {
+            
+            //skip post that is closed and no activities for 3 days
+            if([segment isEqualToString:@"ME"] || [segment isEqualToString:@"OTHERS"]) //purge only under ME and OTHERS
+            {
+                int thePostStatus = [rs intForColumn:@"status"];
+                NSDate *theLastUpdatedDate = [rs dateForColumn:@"updated_on"];
+                
+                int lastUpdatedDateDiff = [self daysBetween:theLastUpdatedDate and:[NSDate date]];
+                if(thePostStatus == 4 && lastUpdatedDateDiff >= 3)
+                    continue;
+            }
+            
+            NSNumber *clientPostId = [NSNumber numberWithInt:[rs intForColumn:@"client_post_id"]];
+            NSNumber *serverPostId = [NSNumber numberWithInt:[rs intForColumn:@"post_id"]];
+            
+            NSMutableDictionary *postChild = [[NSMutableDictionary alloc] init];
+            
+            
+            //get post
+            [postChild setObject:[rs resultDictionary] forKey:@"post"];
+            
+            
+            //get all comments for this post including comment image if there's any
+            FMResultSet *rsPostComment = [db executeQuery:@"select * from comment where (client_post_id = ? or post_id = ?) and post_id != ?  order by comment_on asc",clientPostId,serverPostId,zero];
+            NSMutableArray *commentsArray = [[NSMutableArray alloc] init];
+            
+            while ([rsPostComment next]) {
+                
+                NSMutableDictionary *commentsDict = [[NSMutableDictionary alloc] initWithDictionary:[rsPostComment resultDictionary]];
+                
+                if([[rsPostComment stringForColumn:@"comment"] isEqualToString:@"<image>"])
+                {
+                    //get the image path
+                    FMResultSet *rsImagePath = [db executeQuery:@"select image_path from post_image where client_comment_id = ? or comment_id = ? and comment_id != ?",[NSNumber numberWithInt:[rsPostComment intForColumn:@"client_comment_id"]],[NSNumber numberWithInt:[rsPostComment intForColumn:@"comment_id"]],zero];
+                    
+                    while ([rsImagePath next]) {
+                        [commentsDict setObject:[rsImagePath stringForColumn:@"image_path"] forKey:@"image"];
+                    }
+                }
+                
+                [commentsArray addObject:commentsDict];
+                
+            }
+            [postChild setObject:commentsArray forKey:@"postComments"];
+            
+            
+            
+            //add all images of this post
+            FMResultSet *rsPostImage = [db executeQuery:@"select * from post_image where (client_post_id = ? or post_id = ?) and post_id != ? order by client_post_image_id",clientPostId,serverPostId,zero];
+            
+            NSMutableArray *imagesArray = [[NSMutableArray alloc] init];
+            
+            while ([rsPostImage next]) {
+                [imagesArray addObject:[rsPostImage resultDictionary]];
+            }
+            
+            [postChild setObject:imagesArray forKey:@"postImages"];
+            
+            
+            
+            //check if this post is not yet read by the user
+            NSNumber *newCommentsCount = [NSNumber numberWithInt:0];
+            FMResultSet *rsRead = [db executeQuery:@"select count(*) as count from comment_noti where post_id = ? and status = ? group by post_id",serverPostId,[NSNumber numberWithInt:1]];
+            if([rsRead next] == YES)
+                newCommentsCount = [NSNumber numberWithInt:[rsRead intForColumn:@"count"]];
+            
+            [postChild setObject:newCommentsCount forKey:@"newCommentsCount"];
+            
+            
+            
+            
+            
+            
+            
+            //save post dictionary !
+            [postArray addObject:postChild];
+        }
+    }];
+    
+    DDLogVerbose(@"postLIstForSegment %lu:",(unsigned long)postArray.count);
+    
+    return postArray;
+}
+
+
+- (NSArray *)postListForPMForSegment:(NSString *)segment
+{
+    NSMutableArray *postArray = [[NSMutableArray alloc] init];
+    NSString *query;
+    
+    //date mgmt
+    NSDate *now = [NSDate date];
+    NSDateComponents* comps = [[NSCalendar currentCalendar] components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay fromDate:now];
+    
+    NSDate *nowAtZeroHour = [[NSCalendar currentCalendar] dateFromComponents:comps];
+    double timestampnowAtZeroHour = [nowAtZeroHour timeIntervalSince1970];
+    
+    NSNumber *closedStatus = [NSNumber numberWithInt:4];
+    
+    
+    if([segment isEqualToString:@"ME"])
+    {
+        query = [NSString stringWithFormat:@"select p.post_id,client_post_id,p.dueDate,p.status, bum.user_id from post p left join block_user_mapping bum on bum.block_id = p.block_id where p.block_id in (select block_id from block_user_mapping where supervisor_id = '%@' or user_id = '%@')",[myDatabase.userDictionary valueForKey:@"user_id"],[myDatabase.userDictionary valueForKey:@"user_id"]];
+    }
+    else if ([segment isEqualToString:@"OTHERS"])
+    {
+        query = [NSString stringWithFormat:@"select p.post_id,client_post_id,p.status, p.updated_on, bum.user_id from post p left join block_user_mapping bum on bum.block_id = p.block_id where p.block_id not in (select block_id from blocks_user) and bum.supervisor_id != '%@' ",[myDatabase.userDictionary valueForKey:@"user_id"]];
+    }
+    else if([segment isEqualToString:@"OVERDUE"])
+    {
+        query = [NSString stringWithFormat:@"select p.post_id,client_post_id,bum.user_id from post p left join block_user_mapping bum on bum.block_id = p.block_id where p.block_id in (select block_id from block_user_mapping where supervisor_id = '%@' or user_id = '%@') and dueDate <= '%f' and status != %@  ",[myDatabase.userDictionary valueForKey:@"user_id"],[myDatabase.userDictionary valueForKey:@"user_id"], timestampnowAtZeroHour, closedStatus];
+    }
+    
+    NSMutableArray *foundPostIdArray = [[NSMutableArray alloc] init];
+    
+    [myDatabase.databaseQ inTransaction:^(FMDatabase *db, BOOL *rollback) {
+        FMResultSet *rs = [db executeQuery:query];
+        
+        while ([rs next]) {
+            NSNumber *theClientPostId = [NSNumber numberWithInt:[rs intForColumn:@"client_post_id"]];
+            NSNumber *thePostId = [NSNumber numberWithInt:[rs intForColumn:@"post_id"]];
+            NSString *POId = [rs stringForColumn:@"user_id"];
+            
+            
+            if([segment isEqualToString:@"ME"]) //don't display overdue
+            {
+                //if the post is Closed and updated_on is more than 3 days ago, skip it
+                int thePostStatus = [rs intForColumn:@"status"];
+                NSDate *theLastUpdatedDate = [rs dateForColumn:@"updated_on"];
+                
+                int lastUpdatedDateDiff = [self daysBetween:theLastUpdatedDate and:[NSDate date]];
+                if(thePostStatus == 4 && lastUpdatedDateDiff >= 3)
+                    continue;
+                
+                
+                //due date
+                NSDate *now = [NSDate date];
+                NSDateComponents* comps = [[NSCalendar currentCalendar] components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay fromDate:now];
+                NSDate *dueDate = [[[NSCalendar currentCalendar] dateFromComponents:comps] dateByAddingTimeInterval:3*24*60*60]; //add 3 days
+                
+                if([rs dateForColumn:@"dueDate"] != nil)
+                    dueDate = [rs dateForColumn:@"dueDate"];
+                
+                int the_status = [rs intForColumn:@"status"];
+                
+                int daysBetween = [self daysBetween:dueDate and:[NSDate date]];
+                
+                if(daysBetween > 3 && the_status != 4) //overdue and not closed, don't add to ME
+                    continue;
+                
+                //finally add the post id
+                [foundPostIdArray addObject:@{@"clientPostId":theClientPostId,@"postId":thePostId,@"POId":POId}];
+            }
+        }
+    }];
+    
+    
+    //now get the post informatio using foundPostIdArray
+    for (int i = 0; i < foundPostIdArray.count; i++) {
+        NSDictionary *dict = [foundPostIdArray objectAtIndex:i];
+        
+        NSNumber *clientPostId = [dict valueForKey:@"clientPostId"];
+        NSNumber *serverPostId = [dict valueForKey:@"post_id"];
+        NSString *POId = [dict valueForKey:@"POId"];
+        
+        if([segment isEqualToString:@"ME"])
+        {
+            NSDictionary *dict = [self postInfoForPostId:serverPostId clientPostId:clientPostId];
+            
+            if(dict != nil)
+                [postArray addObject:dict];
+        }
+    }
+    
+    
+    return postArray;
+}
+
+- (NSDictionary *)postInfoForPostId:(NSNumber *)serverPostId clientPostId:(NSNumber *)clientPostId
+{
+    NSMutableDictionary *postChild = [[NSMutableDictionary alloc] init];
+    
+    
+    [myDatabase.databaseQ inTransaction:^(FMDatabase *db, BOOL *rollback) {
+        FMResultSet *rs = [db executeQuery:@"select * from post where post_id = ? or client_post_id = ?",serverPostId,clientPostId];
+        
+        while ([rs next]) {
+            //get post
+            [postChild setObject:[rs resultDictionary] forKey:@"post"];
+            
+            
+            //get all comments for this post including comment image if there's any
+            FMResultSet *rsPostComment = [db executeQuery:@"select * from comment where (client_post_id = ? or post_id = ?)  order by comment_on asc",clientPostId,serverPostId];
+            NSMutableArray *commentsArray = [[NSMutableArray alloc] init];
+            
+            while ([rsPostComment next]) {
+                
+                NSMutableDictionary *commentsDict = [[NSMutableDictionary alloc] initWithDictionary:[rsPostComment resultDictionary]];
+                
+                if([[rsPostComment stringForColumn:@"comment"] isEqualToString:@"<image>"])
+                {
+                    //get the image path
+                    FMResultSet *rsImagePath = [db executeQuery:@"select image_path from post_image where client_comment_id = ? or comment_id = ?",[NSNumber numberWithInt:[rsPostComment intForColumn:@"client_comment_id"]],[NSNumber numberWithInt:[rsPostComment intForColumn:@"comment_id"]]];
+                    
+                    while ([rsImagePath next]) {
+                        [commentsDict setObject:[rsImagePath stringForColumn:@"image_path"] forKey:@"image"];
+                    }
+                }
+                
+                [commentsArray addObject:commentsDict];
+                
+            }
+            [postChild setObject:commentsArray forKey:@"postComments"];
+            
+            
+            
+            //add all images of this post
+            FMResultSet *rsPostImage = [db executeQuery:@"select * from post_image where (client_post_id = ? or post_id = ?) order by client_post_image_id",clientPostId,serverPostId];
+            
+            NSMutableArray *imagesArray = [[NSMutableArray alloc] init];
+            
+            while ([rsPostImage next]) {
+                [imagesArray addObject:[rsPostImage resultDictionary]];
+            }
+            
+            [postChild setObject:imagesArray forKey:@"postImages"];
+        }
+    }];
+    
+    return postChild;
+}
+
+
+
+
+
+
+
 
 @end

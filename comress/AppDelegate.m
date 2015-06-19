@@ -409,90 +409,99 @@
     switch (silentRemoteNotifValue) {
         case 12:
         {
-            [myDatabase.databaseQ inTransaction:^(FMDatabase *db, BOOL *rollback) {
-                //download comments
-                FMResultSet *rs3 = [db executeQuery:@"select date from comment_last_request_date"];
-                
-                if([rs3 next])
-                {
-                    jsonDate = (NSDate *)[rs3 dateForColumn:@"date"];
-                }
-                [sync startDownloadCommentsForPage:1 totalPage:0 requestDate:jsonDate];
-                
-                
-                //download comment noti
-                FMResultSet *rs4 = [db executeQuery:@"select date from comment_noti_last_request_date"];
-                
-                if([rs4 next])
-                {
-                    jsonDate = (NSDate *)[rs4 dateForColumn:@"date"];
-                }
-                [sync startDownloadCommentNotiForPage:1 totalPage:0 requestDate:jsonDate];
-            }];
             
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(7 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [myDatabase.databaseQ inTransaction:^(FMDatabase *db, BOOL *rollback) {
+                    //download comments
+                    FMResultSet *rs3 = [db executeQuery:@"select date from comment_last_request_date"];
+                    
+                    if([rs3 next])
+                    {
+                        jsonDate = (NSDate *)[rs3 dateForColumn:@"date"];
+                    }
+                    [sync startDownloadCommentsForPage:1 totalPage:0 requestDate:jsonDate];
+                    
+                    
+                    //download comment noti
+                    FMResultSet *rs4 = [db executeQuery:@"select date from comment_noti_last_request_date"];
+                    
+                    if([rs4 next])
+                    {
+                        jsonDate = (NSDate *)[rs4 dateForColumn:@"date"];
+                    }
+                    [sync startDownloadCommentNotiForPage:1 totalPage:0 requestDate:jsonDate];
+                }];
+            });
             
-
             break;
+            
         }
         
         case 13:
         {
-            [myDatabase.databaseQ inTransaction:^(FMDatabase *db, BOOL *rollback) {
-                //download post image
-                FMResultSet *rs2 = [db executeQuery:@"select date from post_image_last_request_date"];
-                
-                if([rs2 next])
-                {
-                    jsonDate = (NSDate *)[rs2 dateForColumn:@"date"];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(7 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [myDatabase.databaseQ inTransaction:^(FMDatabase *db, BOOL *rollback) {
+                    //download post image
+                    FMResultSet *rs2 = [db executeQuery:@"select date from post_image_last_request_date"];
                     
-                }
-                [sync startDownloadPostImagesForPage:1 totalPage:0 requestDate:jsonDate];
-            }];
-            
-            
+                    if([rs2 next])
+                    {
+                        jsonDate = (NSDate *)[rs2 dateForColumn:@"date"];
+                        
+                    }
+                    [sync startDownloadPostImagesForPage:1 totalPage:0 requestDate:jsonDate];
+                }];
+            });
+
             break;
         }
             
         case 14:
         {
-            //download survey
-            [myDatabase.databaseQ inTransaction:^(FMDatabase *db, BOOL *rollback) {
-                FMResultSet *rs5 = [db executeQuery:@"select date from su_survey_last_req_date"];
-                
-                if([rs5 next])
-                {
-                    jsonDate = (NSDate *)[rs5 dateForColumn:@"date"];
-                }
-                [sync startDownloadSurveyPage:1 totalPage:0 requestDate:jsonDate];
-                
-                
-                
-                //download feedback issues list
-                FMResultSet *rs6 = [db executeQuery:@"select date from su_feedback_issues_last_req_date"];
-                
-                if([rs6 next])
-                {
-                    jsonDate = (NSDate *)[rs6 dateForColumn:@"date"];
-                }
-                [sync startDownloadFeedBackIssuesForPage:1 totalPage:0 requestDate:jsonDate];
-            }];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(7 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                //download survey
+                [myDatabase.databaseQ inTransaction:^(FMDatabase *db, BOOL *rollback) {
+                    FMResultSet *rs5 = [db executeQuery:@"select date from su_survey_last_req_date"];
+                    
+                    if([rs5 next])
+                    {
+                        jsonDate = (NSDate *)[rs5 dateForColumn:@"date"];
+                    }
+                    [sync startDownloadSurveyPage:1 totalPage:0 requestDate:jsonDate];
+                    
+                    
+                    
+                    //download feedback issues list
+                    FMResultSet *rs6 = [db executeQuery:@"select date from su_feedback_issues_last_req_date"];
+                    
+                    if([rs6 next])
+                    {
+                        jsonDate = (NSDate *)[rs6 dateForColumn:@"date"];
+                    }
+                    [sync startDownloadFeedBackIssuesForPage:1 totalPage:0 requestDate:jsonDate];
+                }];
+            });
+            
+            
             break;
         }
         
             
         default: //11
         {
-            [myDatabase.databaseQ inTransaction:^(FMDatabase *db, BOOL *rollback) {
-                FMResultSet *rs = [db executeQuery:@"select date from post_last_request_date"];
-                
-                if([rs next])
-                {
-                    jsonDate = (NSDate *)[rs dateForColumn:@"date"];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(7 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [myDatabase.databaseQ inTransaction:^(FMDatabase *db, BOOL *rollback) {
+                    FMResultSet *rs = [db executeQuery:@"select date from post_last_request_date"];
                     
-                }
-                [sync startDownloadPostForPage:1 totalPage:0 requestDate:jsonDate];
-            }];
-            
+                    if([rs next])
+                    {
+                        jsonDate = (NSDate *)[rs dateForColumn:@"date"];
+                        
+                    }
+                    [sync startDownloadPostForPage:1 totalPage:0 requestDate:jsonDate];
+                }];
+            });
+
             break;
         }
         
