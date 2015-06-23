@@ -45,6 +45,10 @@
     self.filterLabel.attributedText = [[NSAttributedString alloc] initWithString:@"Filters: None"
                                                              attributes:underlineAttribute];
     
+    //average sentiment division filter is no need
+    if(PMisLoggedIn && [reportType isEqualToString:@"Average Sentiment"])
+        self.filterLabel.hidden = YES;
+    
     [self setDefaultDateRange];
     
     self.title = reportType;

@@ -152,6 +152,8 @@ NSArray *data;
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"DisplayText BEGINSWITH[cd] %@", filter];
     NSArray *filteredGoods = [NSArray arrayWithArray:[data filteredArrayUsingPredicate:predicate]];
     return filteredGoods;
+
+    return nil;
 }
 
 #pragma mark Popover Method(s)

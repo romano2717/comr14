@@ -56,4 +56,6 @@
 
 - (NSArray *)postLIstForSegment:(NSString *)segment forUserType:(NSString *)userType;
 
+- (NSDictionary *)postInfoForPostId:(NSNumber *)serverPostId clientPostId:(NSNumber *)clientPostId;
+
 @end

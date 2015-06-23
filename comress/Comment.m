@@ -34,6 +34,7 @@ comment_type
 - (BOOL)saveCommentWithDict:(NSDictionary *)dict
 {
     __block BOOL ok = YES;
+    __block NSDate *now = [NSDate date];
     
     if([[dict valueForKey:@"messageType"] isEqualToString:@"text"])
     {
@@ -45,6 +46,14 @@ comment_type
                 BOOL qComment = [theDb executeUpdate:@"insert into comment (client_post_id, comment, comment_on, comment_by, comment_type) values (?,?,?,?,?)",[NSNumber numberWithInt:[[dict valueForKey:@"client_post_id"] intValue]], [dict valueForKey:@"text"], [dict valueForKey:@"date"], [dict valueForKey:@"senderId"], [dict valueForKey:@"comment_type"]];
                 
                 if(!qComment)
+                {
+                    ok = NO;
+                    *rollback = YES;
+                    return;
+                }
+                
+                BOOL qPost = [theDb executeUpdate:@"update post set updated_on = ? where client_post_id = ?",now,[NSNumber numberWithInt:[[dict valueForKey:@"client_post_id"] intValue]]];
+                if(!qPost)
                 {
                     ok = NO;
                     *rollback = YES;
@@ -107,6 +116,14 @@ comment_type
                     *rollback = YES;
                     return;
                 }
+            }
+            
+            BOOL qPost = [theDb executeUpdate:@"update post set updated_on = ? where client_post_id = ?",now,[NSNumber numberWithInt:[[dict valueForKey:@"client_post_id"] intValue]]];
+            if(!qPost)
+            {
+                ok = NO;
+                *rollback = YES;
+                return;
             }
         }];
         
