@@ -73,17 +73,8 @@
 
 - (void)thereAreOVerDueIssues:(NSNotification *)notif
 {
-    
-    //int currentOverdueBadge = (int)[self.segment getBadgeNumberForSegmentAtIndex:2];
-    //if(currentOverdueBadge == 0)
-    //{
-        int badge = [[[notif userInfo] valueForKey:@"count"] intValue];
-        
-        if(badge > 0)
-        {
-            [self.segment setBadgeNumber:badge forSegmentAtIndex:2];
-        }
-    //}
+    return;
+    //not used
 }
 
 - (void)toggleBulbIcon:(NSNotification *)notif
@@ -133,8 +124,8 @@
 
 - (IBAction)segmentControlChange:(id)sender
 {
-    MESegmentedControl *segment = (MESegmentedControl *)sender;
-    self.segment = segment;
+    //MESegmentedControl *segment = (MESegmentedControl *)sender;
+    //self.segment = segment;
     
     [self fetchPostsWithNewIssuesUp:NO];
 }
@@ -178,14 +169,24 @@
     
     [self.issuesTable reloadData];
     
-    [post postLIstForSegment:@"OVERDUE" forUserType:@"PO"];
+    //test code
+    //[post postLIstForSegment:@"OVERDUE" forUserType:@"PO"];
 }
 
 - (void)setSegmentBadge
 {
     @try {
-        __block int meCtr = 0;
-        __block int othersBadge = 0;
+        __block int meNewCommentsCtr = 0;
+        __block int othersNewCommentsBadge = 0;
+        __block int overDueNewCommentsDueCtr = 0;
+        
+        NSDate *now = [NSDate date];
+        NSDateComponents* comps = [[NSCalendar currentCalendar] components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay fromDate:now];
+        
+        NSDate *daysAgo = [[[NSCalendar currentCalendar] dateFromComponents:comps] dateByAddingTimeInterval:-overDueDays*24*60*60];
+        double timestampDaysAgo = [daysAgo timeIntervalSince1970];
+        
+        NSNumber *finishedStatus = [NSNumber numberWithInt:4];
         
         if(POisLoggedIn)
         {
@@ -202,13 +203,13 @@
                         
                         while ([rs next]) {
                             if([rs intForColumn:@"post_id"] > 0)
-                                meCtr++;
+                                meNewCommentsCtr++;
                         }
                     }];
                     
                 }
                 
-                [self.segment setBadgeNumber:meCtr forSegmentAtIndex:0];
+                [self.segment setBadgeNumber:meNewCommentsCtr forSegmentAtIndex:0];
             }
             
             //OTHERS
@@ -217,10 +218,53 @@
                 
                 if([othersUnReadCommentsRs next])
                 {
-                    othersBadge = [othersUnReadCommentsRs intForColumn:@"count"];
-                    [self.segment setBadgeNumber:othersBadge forSegmentAtIndex:1];
+                    othersNewCommentsBadge = [othersUnReadCommentsRs intForColumn:@"count"];
+                    [self.segment setBadgeNumber:othersNewCommentsBadge forSegmentAtIndex:1];
                 }
             }];
+            
+            
+            //OVERDUE
+            [myDatabase.databaseQ inTransaction:^(FMDatabase *db, BOOL *rollback) {
+                FMResultSet *rs = [db executeQuery:@"select * from post where post_type = 1 and block_id in (select block_id from blocks_user)"];
+                
+                while ([rs next]) {
+                    //due date
+                    NSDate *now = [NSDate date];
+                    NSDateComponents* comps = [[NSCalendar currentCalendar] components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay fromDate:now];
+                    NSDate *dueDate = [[[NSCalendar currentCalendar] dateFromComponents:comps] dateByAddingTimeInterval:3*23*59*59]; //add 3 days, default calculation in-case the post don't have a duedate(offline) mode
+                    NSDate *nowAtZeroHour = [[NSCalendar currentCalendar] dateFromComponents:comps];
+                    
+                    NSNumber *thePostId = [NSNumber numberWithInt:[rs intForColumn:@"post_id"]];
+                    
+                    if([rs dateForColumn:@"dueDate"] != nil)
+                        dueDate = [rs dateForColumn:@"dueDate"];
+                    
+                    int the_status = [rs intForColumn:@"status"];
+                    
+                    int daysBetween = [self daysBetween:dueDate and:nowAtZeroHour];
+                    
+                    if(the_status == 4)//closed, don't add to overdue
+                        continue;
+                    else
+                    {
+                        if(daysBetween < 0 && the_status != 4) //not overdue and closed, don't add to OVERDUE
+                            continue;
+                    }
+
+                    FMResultSet *rsCommentNoti = [db executeQuery:@"select post_id from comment_noti where status = ? and post_id = ?",[NSNumber numberWithInt:1], thePostId];
+                    
+                    while ([rsCommentNoti next]) {
+                        if([rsCommentNoti intForColumn:@"post_id"] > 0)
+                            overDueNewCommentsDueCtr++;
+                    }
+                }
+            }];
+            
+            if(overDueNewCommentsDueCtr > 0)
+            {
+                [self.segment setBadgeNumber:overDueNewCommentsDueCtr forSegmentAtIndex:2];
+            }
             
         }
         else if (PMisLoggedIn)
@@ -241,13 +285,13 @@
                         
                         while ([rs next]) {
                             if([rs intForColumn:@"post_id"] > 0)
-                                meCtr++;
+                                meNewCommentsCtr++;
                         }
                     }];
                     
                 }
                 
-                [self.segment setBadgeNumber:meCtr forSegmentAtIndex:0];
+                [self.segment setBadgeNumber:meNewCommentsCtr forSegmentAtIndex:0];
             }
             
             
@@ -257,19 +301,47 @@
                 
                 if([othersUnReadCommentsRs next])
                 {
-                    othersBadge = [othersUnReadCommentsRs intForColumn:@"count"];
-                    [self.segment setBadgeNumber:othersBadge forSegmentAtIndex:1];
+                    othersNewCommentsBadge = [othersUnReadCommentsRs intForColumn:@"count"];
+                    [self.segment setBadgeNumber:othersNewCommentsBadge forSegmentAtIndex:1];
                 }
             }];
+            
+            //OVERDUE
+            [myDatabase.databaseQ inTransaction:^(FMDatabase *db, BOOL *rollback) {
+                NSString *q = [NSString stringWithFormat:@"select p.post_id,client_post_id,p.updated_on,p.status,bum.user_id from post p left join block_user_mapping bum on bum.block_id = p.block_id where p.block_id in (select block_id from block_user_mapping where supervisor_id = '%@' or user_id = '%@') and dueDate <= '%f' and status != %@  ",[myDatabase.userDictionary valueForKey:@"user_id"],[myDatabase.userDictionary valueForKey:@"user_id"], timestampDaysAgo, finishedStatus];
+                
+                FMResultSet *rs = [db executeQuery:q];
+
+                while ([rs next]) {
+                    NSNumber *thePostId = [NSNumber numberWithInt:[rs intForColumn:@"post_id"]];
+                    
+                    FMResultSet *rsCommentNoti = [db executeQuery:@"select post_id from comment_noti where status = ? and post_id = ?",[NSNumber numberWithInt:1], thePostId];
+
+                    while ([rsCommentNoti next]) {
+                        if([rsCommentNoti intForColumn:@"post_id"] > 0)
+                            overDueNewCommentsDueCtr++;
+                    }
+                }
+            }];
+            
+            if(overDueNewCommentsDueCtr > 0)
+            {
+                [self.segment setBadgeNumber:overDueNewCommentsDueCtr forSegmentAtIndex:2];
+            }
         }
         
         //set badge for tabbar
-        int totalUnReadIssuesMessagesBadge = meCtr + othersBadge;
+        int totalUnReadIssuesMessagesBadge = meNewCommentsCtr + othersNewCommentsBadge + overDueNewCommentsDueCtr;
         
         if(totalUnReadIssuesMessagesBadge > 0)
             [[self.tabBarController.tabBar.items objectAtIndex:0] setBadgeValue:[NSString stringWithFormat:@"%d",totalUnReadIssuesMessagesBadge]];
         else
             [[self.tabBarController.tabBar.items objectAtIndex:0] setBadgeValue:0];
+        
+        if(overDueNewCommentsDueCtr > 0)
+        {
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"thereAreOVerDueIssues" object:nil userInfo:@{@"count":[NSNumber numberWithInt:overDueNewCommentsDueCtr]}];
+        }
     }
     @catch (NSException *exception) {
         DDLogVerbose(@"Segment excp : %@",exception);
@@ -474,23 +546,6 @@
                         [[NSNotificationCenter defaultCenter] postNotificationName:@"toggleBulbIcon" object:nil userInfo:@{@"toggle":@"off"}];
                     });
                 }
-                
-                
-                //update overdue counter for PM
-                if(PMisLoggedIn && self.segment.selectedSegmentIndex == 2)
-                {
-                    int sections = (int)[self.issuesTable numberOfSections];
-                    
-                    int rows = 0;
-                    
-                    for(int i = 0; i < sections; i++)
-                    {
-                        rows += (int)[self.issuesTable numberOfRowsInSection:i];
-                    }
-                    
-                    [[NSNotificationCenter defaultCenter] postNotificationName:@"thereAreOVerDueIssues" object:nil userInfo:@{@"count":[NSNumber numberWithInt:rows]}];
-                }
-                
             });
         }
         @catch (NSException *exception) {
@@ -709,11 +764,11 @@
             UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:pmCellIdentifier];
             
             if(cell == nil)
-                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:pmCellIdentifier];
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:pmCellIdentifier];
+
+            int unreadMessage = [[dict valueForKey:@"unreadPost"] intValue];
             
             cell.textLabel.text = [NSString stringWithFormat:@"%@ (%d)",[dict valueForKey:@"po"],[[dict valueForKey:@"count"] intValue]];
-            
-            int unreadMessage = [[dict valueForKey:@"unreadPost"] intValue];
             
             if(unreadMessage > 0)
             {
@@ -730,9 +785,6 @@
                 
                 [cell.contentView addSubview:customBadge];
             }
-            else
-                [[cell.contentView viewWithTag:900] removeFromSuperview];
-            
             
             return cell;
         }
@@ -1110,5 +1162,12 @@
  }
  */
 
+
+- (int)daysBetween:(NSDate *)dt1 and:(NSDate *)dt2 {
+    NSUInteger unitFlags = NSCalendarUnitDay;
+    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+    NSDateComponents *components = [calendar components:unitFlags fromDate:dt1 toDate:dt2 options:0];
+    return (int)[components day]+1;
+}
 
 @end

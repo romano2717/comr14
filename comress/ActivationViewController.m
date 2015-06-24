@@ -54,7 +54,7 @@
                     FMResultSet *rs = [db executeQuery:@"select activation_code from client"];
                     if([rs next])
                     {
-                        q = [db executeUpdate:@"update client set activation_code = ?, api_url = ?",activateCode,[dict valueForKey:@"url"]];
+                        q = [db executeUpdate:@"update client set activation_code = ?, api_url = ?, environment = ?",activateCode,[dict valueForKey:@"url"],[dict valueForKey:@"environment"]];
                         if(!q)
                         {
                             *rollback = YES;
@@ -63,7 +63,7 @@
                     }
                     else
                     {
-                        q = [db executeUpdate:@"insert into client(activation_code, api_url) values(?,?)",activateCode,[dict valueForKey:@"url"]];
+                        q = [db executeUpdate:@"insert into client(activation_code, api_url, environment) values(?,?,?)",activateCode,[dict valueForKey:@"url"],[dict valueForKey:@"environment"]];
                         if(!q)
                         {
                             *rollback = YES;

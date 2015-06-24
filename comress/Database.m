@@ -8,7 +8,7 @@
 
 #import "Database.h"
 
-static const int newDatabaseVersion = 6; //this database version is incremented everytime the database version is updated
+static const int newDatabaseVersion = 7; //this database version is incremented everytime the database version is updated
 
 @implementation Database
 
@@ -178,14 +178,17 @@ static const int newDatabaseVersion = 6; //this database version is incremented 
                                     
                                     
                                     //21-may-2015 add dueDate for post
-                                    @"ALTER TABLE post add dueDate DATE"
+                                    @"ALTER TABLE post add dueDate DATE",
+                                    
+                                    //24-june-2015 add environment in client table
+                                    @"ALTER TABLE client add environment VARCHAR (30) DEFAULT ('DEV')"
                                     
                                     ];
         
         
         [_databaseQ inTransaction:^(FMDatabase *db, BOOL *rollback) {
             
-            db.traceExecution = YES;
+            db.traceExecution = NO;
             
             for (int i = 0; i < tablesToCreate.count; i++) {
                 BOOL create = [db executeUpdate:[tablesToCreate objectAtIndex:i]];

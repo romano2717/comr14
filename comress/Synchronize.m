@@ -2160,6 +2160,7 @@
             NSNumber *Severity = [NSNumber numberWithInt:[[dictPost valueForKey:@"Severity"] intValue]];
             NSDate *PostDate = [myDatabase createNSDateWithWcfDateString:[dictPost valueForKey:@"PostDate"]];
             NSDate *DueDate = [myDatabase createNSDateWithWcfDateString:[dictPost valueForKey:@"DueDate"]];
+            NSDate *LastUpdatedDate = [myDatabase createNSDateWithWcfDateString:[dictPost valueForKey:@"LastUpdatedDate"]];
             NSNumber *contractType = [NSNumber numberWithInt:[[dictPost valueForKey:@"PostGroup"] intValue]];
             
             fromUser = PostBy;
@@ -2170,7 +2171,7 @@
                 FMResultSet *rsPost = [theDb executeQuery:@"select post_id from post where post_id = ?",PostId];
                 if([rsPost next] == NO) //does not exist. insert
                 {
-                    BOOL qIns = [theDb executeUpdate:@"insert into post (status, block_id, level, address, post_by, post_id, post_topic, post_type, postal_code, severity, post_date, updated_on,seen,contract_type, dueDate) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",ActionStatus, BlkId, Level, Location, PostBy, PostId, PostTopic, PostType, PostalCode, Severity, PostDate,PostDate,[NSNumber numberWithBool:NO],contractType,DueDate];
+                    BOOL qIns = [theDb executeUpdate:@"insert into post (status, block_id, level, address, post_by, post_id, post_topic, post_type, postal_code, severity, post_date, updated_on,seen,contract_type, dueDate) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",ActionStatus, BlkId, Level, Location, PostBy, PostId, PostTopic, PostType, PostalCode, Severity, PostDate,LastUpdatedDate,[NSNumber numberWithBool:NO],contractType,DueDate];
                     
                     if(!qIns)
                     {
@@ -2186,7 +2187,7 @@
                 {
                     if([PostId intValue] > 0)
                     {
-                        BOOL qUps = [theDb executeUpdate:@"update post set status = ?, block_id = ?, level = ?, address = ?, post_by = ?, post_topic = ?, post_type = ?, postal_code = ?, severity = ?, post_date = ? ,contract_type = ?, dueDate = ? where post_id = ?",ActionStatus,BlkId,Level,Location,PostBy,PostTopic,PostType,PostalCode,Severity,PostDate,contractType,PostId,DueDate];
+                        BOOL qUps = [theDb executeUpdate:@"update post set status = ?, block_id = ?, level = ?, address = ?, post_by = ?, post_topic = ?, post_type = ?, postal_code = ?, severity = ?, post_date = ? ,contract_type = ?, dueDate = ?, updated_on = ? where post_id = ?",ActionStatus,BlkId,Level,Location,PostBy,PostTopic,PostType,PostalCode,Severity,PostDate,contractType,DueDate,LastUpdatedDate,PostId];
                         
                         if(!qUps)
                         {
@@ -2513,7 +2514,19 @@
                         return;
                     }
                     else
+                    {
+                        NSDate *now = [NSDate date];
+                        
+                        BOOL upPostUpdatedOn = [theDb executeUpdate:@"update post set updated_on = ? where post_id = ?",PostId];
+                        
+                        if(!upPostUpdatedOn)
+                        {
+                            *rollback = YES;
+                            return;
+                        }
                         newCommentSaved = YES;
+                    }
+                    
                     
                     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                         if([CommentType intValue] == 2)
@@ -2526,6 +2539,7 @@
             
             if(newCommentSaved == YES)
             {
+                
                 if([UIApplication sharedApplication].applicationState == UIApplicationStateActive)
                 {
                     [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadChatView" object:nil];

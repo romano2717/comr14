@@ -86,6 +86,11 @@
     }
 }
 
+- (void)setSegmentTintColorForIndex:(int)index withColor:(UIColor *)color
+{
+    [[_segmentBadges objectAtIndex:index] setTintColor:color];
+}
+
 - (void)clearBadges
 {
     // Remove the badge view

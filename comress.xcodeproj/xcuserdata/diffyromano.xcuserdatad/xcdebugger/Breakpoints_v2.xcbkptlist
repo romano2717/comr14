@@ -122,11 +122,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/IssuesViewController.m"
-            timestampString = "456745357.867253"
+            timestampString = "456831064.866934"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "682"
-            endingLineNumber = "682"
+            startingLineNumber = "737"
+            endingLineNumber = "737"
             landmarkName = "-tableView:cellForRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -138,11 +138,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/IssuesViewController.m"
-            timestampString = "456745357.867253"
+            timestampString = "456831064.866934"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "678"
-            endingLineNumber = "678"
+            startingLineNumber = "733"
+            endingLineNumber = "733"
             landmarkName = "-tableView:cellForRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -154,11 +154,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/IssuesViewController.m"
-            timestampString = "456745357.867253"
+            timestampString = "456831064.866934"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "655"
-            endingLineNumber = "655"
+            startingLineNumber = "710"
+            endingLineNumber = "710"
             landmarkName = "-tableView:numberOfRowsInSection:"
             landmarkType = "5">
          </BreakpointContent>
@@ -292,11 +292,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/LoginViewController.m"
-            timestampString = "452067940.658188"
+            timestampString = "456828316.955587"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "59"
-            endingLineNumber = "59"
+            startingLineNumber = "72"
+            endingLineNumber = "72"
             landmarkName = "-doLogin:"
             landmarkType = "5">
          </BreakpointContent>
@@ -308,11 +308,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/LoginViewController.m"
-            timestampString = "452067940.658188"
+            timestampString = "456828316.955587"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "62"
-            endingLineNumber = "62"
+            startingLineNumber = "75"
+            endingLineNumber = "75"
             landmarkName = "-doLogin:"
             landmarkType = "5">
          </BreakpointContent>
@@ -356,11 +356,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/SettingsViewController.m"
-            timestampString = "456053279.306339"
+            timestampString = "456827853.407264"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "343"
-            endingLineNumber = "343"
+            startingLineNumber = "355"
+            endingLineNumber = "355"
             landmarkName = "-reset:"
             landmarkType = "5">
          </BreakpointContent>
@@ -468,11 +468,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/LoginViewController.m"
-            timestampString = "452067940.658188"
+            timestampString = "456828316.955587"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "37"
-            endingLineNumber = "37"
+            startingLineNumber = "50"
+            endingLineNumber = "50"
             landmarkName = "-viewDidAppear:"
             landmarkType = "5">
          </BreakpointContent>
@@ -580,7 +580,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/InitializerViewController.m"
-            timestampString = "454401736.949368"
+            timestampString = "456807407.908712"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "923"
@@ -596,7 +596,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/InitializerViewController.m"
-            timestampString = "454401736.949368"
+            timestampString = "456807407.908712"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "990"
@@ -612,7 +612,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/InitializerViewController.m"
-            timestampString = "454401736.949368"
+            timestampString = "456807407.908712"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "939"
@@ -628,7 +628,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/InitializerViewController.m"
-            timestampString = "454401736.949368"
+            timestampString = "456807407.908712"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "933"
@@ -804,11 +804,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/Post.m"
-            timestampString = "456746613.307623"
+            timestampString = "456834903.847208"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "731"
-            endingLineNumber = "731"
+            startingLineNumber = "692"
+            endingLineNumber = "692"
             landmarkName = "-postsToSend"
             landmarkType = "5">
             <Locations>
@@ -852,11 +852,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/Post.m"
-            timestampString = "456746613.307623"
+            timestampString = "456834903.847208"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "732"
-            endingLineNumber = "732"
+            startingLineNumber = "693"
+            endingLineNumber = "693"
             landmarkName = "-postsToSend"
             landmarkType = "5">
          </BreakpointContent>
@@ -1156,7 +1156,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/InitializerViewController.m"
-            timestampString = "454402366.923895"
+            timestampString = "456807407.908712"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "861"
@@ -1204,7 +1204,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/InitializerViewController.m"
-            timestampString = "454401736.949368"
+            timestampString = "456807407.908712"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "947"
@@ -1300,11 +1300,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/IssuesViewController.m"
-            timestampString = "456745357.867253"
+            timestampString = "456831064.866934"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "667"
-            endingLineNumber = "667"
+            startingLineNumber = "722"
+            endingLineNumber = "722"
             landmarkName = "-tableView:numberOfRowsInSection:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1316,11 +1316,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/IssuesViewController.m"
-            timestampString = "456745357.867253"
+            timestampString = "456831064.866934"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "676"
-            endingLineNumber = "676"
+            startingLineNumber = "731"
+            endingLineNumber = "731"
             landmarkName = "-tableView:numberOfRowsInSection:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1332,11 +1332,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/IssuesViewController.m"
-            timestampString = "456745357.867253"
+            timestampString = "456831064.866934"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "628"
-            endingLineNumber = "628"
+            startingLineNumber = "683"
+            endingLineNumber = "683"
             landmarkName = "-numberOfSectionsInTableView:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1364,7 +1364,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/InitializerViewController.m"
-            timestampString = "454401736.949368"
+            timestampString = "456807407.908712"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "938"
@@ -1412,7 +1412,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/InitializerViewController.m"
-            timestampString = "454402366.923895"
+            timestampString = "456807407.908712"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "871"
@@ -1428,11 +1428,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/Database.m"
-            timestampString = "454402366.923895"
+            timestampString = "456827853.407264"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "237"
-            endingLineNumber = "237"
+            startingLineNumber = "240"
+            endingLineNumber = "240"
             landmarkName = "-createNSDateWithWcfDateString:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1444,7 +1444,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/InitializerViewController.m"
-            timestampString = "454402366.923895"
+            timestampString = "456807407.908712"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "870"
@@ -1492,11 +1492,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/Post.m"
-            timestampString = "456746613.307623"
+            timestampString = "456834903.847208"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "751"
-            endingLineNumber = "751"
+            startingLineNumber = "712"
+            endingLineNumber = "712"
             landmarkName = "-updatePostStatusForClientPostId:withStatus:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1696,7 +1696,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/ActivationViewController.m"
@@ -1876,11 +1876,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/Database.m"
-            timestampString = "454402366.923895"
+            timestampString = "456827853.407264"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "271"
-            endingLineNumber = "271"
+            startingLineNumber = "274"
+            endingLineNumber = "274"
             landmarkName = "-toJsonString:"
             landmarkType = "5">
          </BreakpointContent>
@@ -2404,11 +2404,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/Synchronize.m"
-            timestampString = "454403663.265629"
+            timestampString = "456806432.181979"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2216"
-            endingLineNumber = "2216"
+            startingLineNumber = "2217"
+            endingLineNumber = "2217"
             landmarkName = "-startDownloadPostForPage:totalPage:requestDate:"
             landmarkType = "5">
          </BreakpointContent>
@@ -2420,11 +2420,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/Synchronize.m"
-            timestampString = "454403663.265629"
+            timestampString = "456806432.181979"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2286"
-            endingLineNumber = "2286"
+            startingLineNumber = "2287"
+            endingLineNumber = "2287"
             landmarkName = "-startDownloadPostImagesForPage:totalPage:requestDate:"
             landmarkType = "5">
             <Locations>
@@ -2468,11 +2468,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/Synchronize.m"
-            timestampString = "454403663.265629"
+            timestampString = "456806432.181979"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2174"
-            endingLineNumber = "2174"
+            startingLineNumber = "2175"
+            endingLineNumber = "2175"
             landmarkName = "-startDownloadPostForPage:totalPage:requestDate:"
             landmarkType = "5">
          </BreakpointContent>
@@ -2580,11 +2580,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/Synchronize.m"
-            timestampString = "454403663.265629"
+            timestampString = "456806432.181979"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2284"
-            endingLineNumber = "2284"
+            startingLineNumber = "2285"
+            endingLineNumber = "2285"
             landmarkName = "-startDownloadPostImagesForPage:totalPage:requestDate:"
             landmarkType = "5">
             <Locations>
@@ -2628,11 +2628,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/Synchronize.m"
-            timestampString = "454403663.265629"
+            timestampString = "456806432.181979"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2253"
-            endingLineNumber = "2253"
+            startingLineNumber = "2254"
+            endingLineNumber = "2254"
             landmarkName = "-startDownloadPostImagesForPage:totalPage:requestDate:"
             landmarkType = "5">
          </BreakpointContent>
@@ -2644,11 +2644,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/Synchronize.m"
-            timestampString = "454403663.265629"
+            timestampString = "456806432.181979"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2343"
-            endingLineNumber = "2343"
+            startingLineNumber = "2344"
+            endingLineNumber = "2344"
             landmarkName = "-SavePostImagesToDb"
             landmarkType = "5">
          </BreakpointContent>
@@ -2660,11 +2660,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/Synchronize.m"
-            timestampString = "454403663.265629"
+            timestampString = "456806432.181979"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2229"
-            endingLineNumber = "2229"
+            startingLineNumber = "2230"
+            endingLineNumber = "2230"
             landmarkName = "-startDownloadPostForPage:totalPage:requestDate:"
             landmarkType = "5">
          </BreakpointContent>
@@ -2772,11 +2772,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/Synchronize.m"
-            timestampString = "454403663.265629"
+            timestampString = "456806432.181979"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2449"
-            endingLineNumber = "2449"
+            startingLineNumber = "2450"
+            endingLineNumber = "2450"
             landmarkName = "-SavePostImagesToDb"
             landmarkType = "5">
          </BreakpointContent>
@@ -2788,11 +2788,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/Synchronize.m"
-            timestampString = "454403663.265629"
+            timestampString = "456806432.181979"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2470"
-            endingLineNumber = "2470"
+            startingLineNumber = "2471"
+            endingLineNumber = "2471"
             landmarkName = "-startDownloadCommentsForPage:totalPage:requestDate:"
             landmarkType = "5">
          </BreakpointContent>
@@ -2916,11 +2916,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/Synchronize.m"
-            timestampString = "454403663.265629"
+            timestampString = "456806432.181979"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2452"
-            endingLineNumber = "2452"
+            startingLineNumber = "2453"
+            endingLineNumber = "2453"
             landmarkName = "-SavePostImagesToDb"
             landmarkType = "5">
          </BreakpointContent>
@@ -2932,11 +2932,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/Synchronize.m"
-            timestampString = "454403663.265629"
+            timestampString = "456806432.181979"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2266"
-            endingLineNumber = "2266"
+            startingLineNumber = "2267"
+            endingLineNumber = "2267"
             landmarkName = "-startDownloadPostImagesForPage:totalPage:requestDate:"
             landmarkType = "5">
          </BreakpointContent>
@@ -2948,11 +2948,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/Synchronize.m"
-            timestampString = "454403663.265629"
+            timestampString = "456806432.181979"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2440"
-            endingLineNumber = "2440"
+            startingLineNumber = "2441"
+            endingLineNumber = "2441"
             landmarkName = "-SavePostImagesToDb"
             landmarkType = "5">
          </BreakpointContent>
@@ -3108,11 +3108,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/Synchronize.m"
-            timestampString = "454403663.265629"
+            timestampString = "456806432.181979"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2332"
-            endingLineNumber = "2332"
+            startingLineNumber = "2333"
+            endingLineNumber = "2333"
             landmarkName = "-SavePostImagesToDb"
             landmarkType = "5">
          </BreakpointContent>
@@ -3124,11 +3124,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/Synchronize.m"
-            timestampString = "456115006.712379"
+            timestampString = "456832356.39466"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2552"
-            endingLineNumber = "2552"
+            startingLineNumber = "2566"
+            endingLineNumber = "2566"
             landmarkName = "-startDownloadCommentsForPage:totalPage:requestDate:"
             landmarkType = "5">
          </BreakpointContent>
@@ -3140,11 +3140,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/Synchronize.m"
-            timestampString = "454403663.265629"
+            timestampString = "456806432.181979"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2419"
-            endingLineNumber = "2419"
+            startingLineNumber = "2420"
+            endingLineNumber = "2420"
             landmarkName = "-SavePostImagesToDb"
             landmarkType = "5">
          </BreakpointContent>
@@ -3156,11 +3156,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/Synchronize.m"
-            timestampString = "454403663.265629"
+            timestampString = "456806432.181979"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2348"
-            endingLineNumber = "2348"
+            startingLineNumber = "2349"
+            endingLineNumber = "2349"
             landmarkName = "-SavePostImagesToDb"
             landmarkType = "5">
          </BreakpointContent>
@@ -3252,7 +3252,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/InitializerViewController.m"
-            timestampString = "454401736.949368"
+            timestampString = "456807407.908712"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1020"
@@ -3268,7 +3268,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/InitializerViewController.m"
-            timestampString = "454401736.949368"
+            timestampString = "456807407.908712"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1034"
@@ -3284,7 +3284,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/InitializerViewController.m"
-            timestampString = "454401736.949368"
+            timestampString = "456807407.908712"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1044"
@@ -3300,7 +3300,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/InitializerViewController.m"
-            timestampString = "454401736.949368"
+            timestampString = "456807407.908712"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1048"
@@ -3316,7 +3316,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/InitializerViewController.m"
-            timestampString = "454401736.949368"
+            timestampString = "456807407.908712"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1058"
@@ -3332,7 +3332,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/InitializerViewController.m"
-            timestampString = "454401736.949368"
+            timestampString = "456807407.908712"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1065"
@@ -3396,7 +3396,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/InitializerViewController.m"
-            timestampString = "454401736.949368"
+            timestampString = "456807407.908712"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1070"
@@ -3444,11 +3444,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/LoginViewController.m"
-            timestampString = "452067940.658188"
+            timestampString = "456828316.955587"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "103"
-            endingLineNumber = "103"
+            startingLineNumber = "116"
+            endingLineNumber = "116"
             landmarkName = "-doLogin:"
             landmarkType = "5">
          </BreakpointContent>
@@ -3460,11 +3460,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/LoginViewController.m"
-            timestampString = "452067940.658188"
+            timestampString = "456828316.955587"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "125"
-            endingLineNumber = "125"
+            startingLineNumber = "138"
+            endingLineNumber = "138"
             landmarkName = "-doLogin:"
             landmarkType = "5">
          </BreakpointContent>
@@ -3476,11 +3476,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/LoginViewController.m"
-            timestampString = "453797613.059822"
+            timestampString = "456828316.955587"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "180"
-            endingLineNumber = "180"
+            startingLineNumber = "193"
+            endingLineNumber = "193"
             landmarkName = "-doLogin:"
             landmarkType = "5">
          </BreakpointContent>
@@ -3492,11 +3492,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/LoginViewController.m"
-            timestampString = "453797613.059822"
+            timestampString = "456828316.955587"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "214"
-            endingLineNumber = "214"
+            startingLineNumber = "227"
+            endingLineNumber = "227"
             landmarkName = "-doLogin:"
             landmarkType = "5">
          </BreakpointContent>
@@ -3524,7 +3524,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/InitializerViewController.m"
-            timestampString = "454401736.949368"
+            timestampString = "456807407.908712"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "998"
@@ -3716,11 +3716,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/Synchronize.m"
-            timestampString = "454403663.265629"
+            timestampString = "456806432.181979"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2288"
-            endingLineNumber = "2288"
+            startingLineNumber = "2289"
+            endingLineNumber = "2289"
             landmarkName = "-startDownloadPostImagesForPage:totalPage:requestDate:"
             landmarkType = "5">
          </BreakpointContent>
@@ -3828,11 +3828,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/Synchronize.m"
-            timestampString = "454403663.265629"
+            timestampString = "456806432.181979"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2444"
-            endingLineNumber = "2444"
+            startingLineNumber = "2445"
+            endingLineNumber = "2445"
             landmarkName = "-SavePostImagesToDb"
             landmarkType = "5">
          </BreakpointContent>
@@ -3844,11 +3844,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/Synchronize.m"
-            timestampString = "454403663.265629"
+            timestampString = "456806432.181979"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2454"
-            endingLineNumber = "2454"
+            startingLineNumber = "2455"
+            endingLineNumber = "2455"
             landmarkName = "-SavePostImagesToDb"
             landmarkType = "5">
          </BreakpointContent>
@@ -3860,11 +3860,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/Synchronize.m"
-            timestampString = "456115006.712379"
+            timestampString = "456806432.181979"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2490"
-            endingLineNumber = "2490"
+            startingLineNumber = "2491"
+            endingLineNumber = "2491"
             landmarkName = "-startDownloadCommentsForPage:totalPage:requestDate:"
             landmarkType = "5">
          </BreakpointContent>
@@ -3876,11 +3876,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/Post.m"
-            timestampString = "456736320.871544"
+            timestampString = "456831193.400116"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "479"
-            endingLineNumber = "479"
+            startingLineNumber = "462"
+            endingLineNumber = "462"
             landmarkName = "-fetchIssuesWithParams:forPostId:filterByBlock:newIssuesFirst:onlyOverDue:"
             landmarkType = "5">
          </BreakpointContent>
@@ -5764,11 +5764,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/SettingsViewController.m"
-            timestampString = "456053279.306339"
+            timestampString = "456827853.407264"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "237"
-            endingLineNumber = "237"
+            startingLineNumber = "249"
+            endingLineNumber = "249"
             landmarkName = "-logoutWithRelogin:"
             landmarkType = "5">
          </BreakpointContent>
@@ -7604,11 +7604,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/LoginViewController.m"
-            timestampString = "452067940.658188"
+            timestampString = "456828316.955587"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "90"
-            endingLineNumber = "90"
+            startingLineNumber = "103"
+            endingLineNumber = "103"
             landmarkName = "-doLogin:"
             landmarkType = "5">
          </BreakpointContent>
@@ -9028,7 +9028,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/InitializerViewController.m"
-            timestampString = "454402366.923895"
+            timestampString = "456807407.908712"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "876"
@@ -9076,7 +9076,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/InitializerViewController.m"
-            timestampString = "454401736.949368"
+            timestampString = "456807407.908712"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1041"
@@ -9332,7 +9332,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/InitializerViewController.m"
-            timestampString = "454401736.949368"
+            timestampString = "456807407.908712"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "962"
@@ -9508,11 +9508,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/Post.m"
-            timestampString = "456736320.871544"
+            timestampString = "456831193.400116"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "484"
-            endingLineNumber = "484"
+            startingLineNumber = "467"
+            endingLineNumber = "467"
             landmarkName = "-fetchIssuesWithParams:forPostId:filterByBlock:newIssuesFirst:onlyOverDue:"
             landmarkType = "5">
          </BreakpointContent>
@@ -9524,27 +9524,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/Post.m"
-            timestampString = "456736320.871544"
+            timestampString = "456831193.400116"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "484"
-            endingLineNumber = "484"
-            landmarkName = "-fetchIssuesWithParams:forPostId:filterByBlock:newIssuesFirst:onlyOverDue:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "comress/Post.m"
-            timestampString = "456736320.871544"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "494"
-            endingLineNumber = "494"
+            startingLineNumber = "467"
+            endingLineNumber = "467"
             landmarkName = "-fetchIssuesWithParams:forPostId:filterByBlock:newIssuesFirst:onlyOverDue:"
             landmarkType = "5">
          </BreakpointContent>
@@ -10052,7 +10036,23 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/Synchronize.m"
-            timestampString = "454403663.265629"
+            timestampString = "456806432.181979"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "2183"
+            endingLineNumber = "2183"
+            landmarkName = "-startDownloadPostForPage:totalPage:requestDate:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "comress/Synchronize.m"
+            timestampString = "456806432.181979"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "2182"
@@ -10068,11 +10068,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/Synchronize.m"
-            timestampString = "454403663.265629"
+            timestampString = "456806432.181979"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2181"
-            endingLineNumber = "2181"
+            startingLineNumber = "2245"
+            endingLineNumber = "2245"
             landmarkName = "-startDownloadPostForPage:totalPage:requestDate:"
             landmarkType = "5">
          </BreakpointContent>
@@ -10084,27 +10084,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/Synchronize.m"
-            timestampString = "454403663.265629"
+            timestampString = "456806432.181979"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2244"
-            endingLineNumber = "2244"
-            landmarkName = "-startDownloadPostForPage:totalPage:requestDate:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "comress/Synchronize.m"
-            timestampString = "454403663.265629"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2410"
-            endingLineNumber = "2410"
+            startingLineNumber = "2411"
+            endingLineNumber = "2411"
             landmarkName = "-SavePostImagesToDb"
             landmarkType = "5">
          </BreakpointContent>
@@ -10116,11 +10100,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/Synchronize.m"
-            timestampString = "456217609.32342"
+            timestampString = "456832356.39466"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2527"
-            endingLineNumber = "2527"
+            startingLineNumber = "2540"
+            endingLineNumber = "2540"
             landmarkName = "-startDownloadCommentsForPage:totalPage:requestDate:"
             landmarkType = "5">
          </BreakpointContent>
@@ -10627,11 +10611,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/Post.m"
-            timestampString = "456746613.307623"
+            timestampString = "456834903.847208"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "799"
-            endingLineNumber = "799"
+            startingLineNumber = "760"
+            endingLineNumber = "760"
             landmarkName = "-updatePostAsSeen:serverPostId:"
             landmarkType = "5">
          </BreakpointContent>
@@ -11698,11 +11682,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/SettingsViewController.m"
-            timestampString = "456053279.306339"
+            timestampString = "456827853.407264"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "241"
-            endingLineNumber = "241"
+            startingLineNumber = "253"
+            endingLineNumber = "253"
             landmarkName = "-logoutWithRelogin:"
             landmarkType = "5">
          </BreakpointContent>
@@ -11778,11 +11762,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/Synchronize.m"
-            timestampString = "454403663.265629"
+            timestampString = "456806432.181979"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2163"
-            endingLineNumber = "2163"
+            startingLineNumber = "2164"
+            endingLineNumber = "2164"
             landmarkName = "-startDownloadPostForPage:totalPage:requestDate:"
             landmarkType = "5">
             <Locations>
@@ -11841,11 +11825,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/Synchronize.m"
-            timestampString = "454403663.265629"
+            timestampString = "456806432.181979"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2225"
-            endingLineNumber = "2225"
+            startingLineNumber = "2226"
+            endingLineNumber = "2226"
             landmarkName = "-startDownloadPostForPage:totalPage:requestDate:"
             landmarkType = "5">
          </BreakpointContent>
@@ -11857,11 +11841,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/Synchronize.m"
-            timestampString = "456217609.32342"
+            timestampString = "456806432.181979"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2510"
-            endingLineNumber = "2510"
+            startingLineNumber = "2511"
+            endingLineNumber = "2511"
             landmarkName = "-startDownloadCommentsForPage:totalPage:requestDate:"
             landmarkType = "5">
             <Locations>
@@ -11920,11 +11904,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/Synchronize.m"
-            timestampString = "456115006.712379"
+            timestampString = "456832356.39466"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2597"
-            endingLineNumber = "2597"
+            startingLineNumber = "2611"
+            endingLineNumber = "2611"
             landmarkName = "-startDownloadCommentNotiForPage:totalPage:requestDate:"
             landmarkType = "5">
          </BreakpointContent>
@@ -12192,11 +12176,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/Synchronize.m"
-            timestampString = "454403663.265629"
+            timestampString = "456806432.181979"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2203"
-            endingLineNumber = "2203"
+            startingLineNumber = "2204"
+            endingLineNumber = "2204"
             landmarkName = "-startDownloadPostForPage:totalPage:requestDate:"
             landmarkType = "5">
          </BreakpointContent>
@@ -12639,7 +12623,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/InitializerViewController.m"
-            timestampString = "454401736.949368"
+            timestampString = "456807407.908712"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1184"
@@ -12655,7 +12639,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/InitializerViewController.m"
-            timestampString = "454401736.949368"
+            timestampString = "456807407.908712"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1089"
@@ -12703,7 +12687,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/InitializerViewController.m"
-            timestampString = "454401736.949368"
+            timestampString = "456807407.908712"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1129"
@@ -12863,11 +12847,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/LoginViewController.m"
-            timestampString = "455438380.731173"
+            timestampString = "456828316.955587"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "267"
-            endingLineNumber = "267"
+            startingLineNumber = "280"
+            endingLineNumber = "280"
             landmarkName = "-resetTables"
             landmarkType = "5">
          </BreakpointContent>
@@ -12879,11 +12863,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/LoginViewController.m"
-            timestampString = "455438380.731173"
+            timestampString = "456828316.955587"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "268"
-            endingLineNumber = "268"
+            startingLineNumber = "281"
+            endingLineNumber = "281"
             landmarkName = "-resetTables"
             landmarkType = "5">
          </BreakpointContent>
@@ -13039,7 +13023,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/InitializerViewController.m"
-            timestampString = "454401736.949368"
+            timestampString = "456807407.908712"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1196"
@@ -13055,7 +13039,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/InitializerViewController.m"
-            timestampString = "454401736.949368"
+            timestampString = "456807407.908712"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1225"
@@ -13071,7 +13055,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/InitializerViewController.m"
-            timestampString = "454401736.949368"
+            timestampString = "456807407.908712"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1247"
@@ -13087,7 +13071,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/InitializerViewController.m"
-            timestampString = "454401736.949368"
+            timestampString = "456807407.908712"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1255"
@@ -13103,7 +13087,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/InitializerViewController.m"
-            timestampString = "454401736.949368"
+            timestampString = "456807407.908712"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1285"
@@ -13119,7 +13103,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/InitializerViewController.m"
-            timestampString = "454401736.949368"
+            timestampString = "456807407.908712"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1300"
@@ -13135,7 +13119,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/InitializerViewController.m"
-            timestampString = "454401736.949368"
+            timestampString = "456807407.908712"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1317"
@@ -13151,7 +13135,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/InitializerViewController.m"
-            timestampString = "454401736.949368"
+            timestampString = "456807407.908712"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1332"
@@ -13167,7 +13151,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/InitializerViewController.m"
-            timestampString = "454401736.949368"
+            timestampString = "456807407.908712"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1350"
@@ -13183,7 +13167,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/InitializerViewController.m"
-            timestampString = "454401736.949368"
+            timestampString = "456807407.908712"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1393"
@@ -13246,7 +13230,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/InitializerViewController.m"
-            timestampString = "454401736.949368"
+            timestampString = "456807407.908712"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1415"
@@ -13262,7 +13246,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/InitializerViewController.m"
-            timestampString = "454401736.949368"
+            timestampString = "456807407.908712"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1421"
@@ -13278,7 +13262,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/InitializerViewController.m"
-            timestampString = "455521298.337839"
+            timestampString = "456808239.150318"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1475"
@@ -13294,7 +13278,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/InitializerViewController.m"
-            timestampString = "455521298.337839"
+            timestampString = "456808239.150318"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1513"
@@ -13310,7 +13294,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/InitializerViewController.m"
-            timestampString = "455521298.337839"
+            timestampString = "456808239.150318"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1503"
@@ -13326,7 +13310,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/InitializerViewController.m"
-            timestampString = "455521298.337839"
+            timestampString = "456808239.150318"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1529"
@@ -13342,7 +13326,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/InitializerViewController.m"
-            timestampString = "455521298.337839"
+            timestampString = "456808239.150318"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1540"
@@ -13358,7 +13342,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/InitializerViewController.m"
-            timestampString = "455521298.337839"
+            timestampString = "456808239.150318"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1560"
@@ -13374,7 +13358,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/InitializerViewController.m"
-            timestampString = "455521298.337839"
+            timestampString = "456808239.150318"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1581"
@@ -13390,7 +13374,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/InitializerViewController.m"
-            timestampString = "455521298.337839"
+            timestampString = "456808239.150318"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1598"
@@ -13406,7 +13390,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/InitializerViewController.m"
-            timestampString = "455521298.337839"
+            timestampString = "456808239.150318"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1618"
@@ -13422,7 +13406,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/InitializerViewController.m"
-            timestampString = "455521298.337839"
+            timestampString = "456808239.150318"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1633"
@@ -13438,7 +13422,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/InitializerViewController.m"
-            timestampString = "455521298.337839"
+            timestampString = "456808239.150318"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1662"
@@ -13454,7 +13438,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/InitializerViewController.m"
-            timestampString = "454401736.949368"
+            timestampString = "456807407.908712"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1264"
@@ -13470,7 +13454,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/InitializerViewController.m"
-            timestampString = "454401736.949368"
+            timestampString = "456808239.150318"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1432"
@@ -13486,7 +13470,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/InitializerViewController.m"
-            timestampString = "455521298.337839"
+            timestampString = "456808239.150318"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1491"
@@ -13502,7 +13486,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/InitializerViewController.m"
-            timestampString = "455521298.337839"
+            timestampString = "456808239.150318"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1517"
@@ -13518,7 +13502,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/InitializerViewController.m"
-            timestampString = "455521298.337839"
+            timestampString = "456808239.150318"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1544"
@@ -14078,7 +14062,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/InitializerViewController.m"
-            timestampString = "455521298.337839"
+            timestampString = "456808239.150318"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1468"
@@ -14094,7 +14078,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/InitializerViewController.m"
-            timestampString = "455521298.337839"
+            timestampString = "456808239.150318"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1635"
@@ -14142,7 +14126,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/InitializerViewController.m"
-            timestampString = "454401736.949368"
+            timestampString = "456807407.908712"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "888"
@@ -14190,7 +14174,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/InitializerViewController.m"
-            timestampString = "455521298.337839"
+            timestampString = "456808239.150318"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1473"
@@ -14206,7 +14190,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/InitializerViewController.m"
-            timestampString = "455521298.337839"
+            timestampString = "456808239.150318"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1486"
@@ -14222,7 +14206,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/InitializerViewController.m"
-            timestampString = "455521298.337839"
+            timestampString = "456808239.150318"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1502"
@@ -14238,7 +14222,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/InitializerViewController.m"
-            timestampString = "455521298.337839"
+            timestampString = "456808239.150318"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1528"
@@ -14254,7 +14238,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/InitializerViewController.m"
-            timestampString = "455521298.337839"
+            timestampString = "456808239.150318"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1596"
@@ -14270,7 +14254,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/InitializerViewController.m"
-            timestampString = "455521298.337839"
+            timestampString = "456808239.150318"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1639"
@@ -14538,7 +14522,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/AppDelegate.m"
@@ -14638,7 +14622,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/InitializerViewController.m"
-            timestampString = "455521298.337839"
+            timestampString = "456808239.150318"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1617"
@@ -14654,11 +14638,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/IssuesViewController.m"
-            timestampString = "456745357.867253"
+            timestampString = "456831064.866934"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "629"
-            endingLineNumber = "629"
+            startingLineNumber = "684"
+            endingLineNumber = "684"
             landmarkName = "-numberOfSectionsInTableView:"
             landmarkType = "5">
          </BreakpointContent>
@@ -14702,11 +14686,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/IssuesViewController.m"
-            timestampString = "456745357.867253"
+            timestampString = "456831064.866934"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "650"
-            endingLineNumber = "650"
+            startingLineNumber = "705"
+            endingLineNumber = "705"
             landmarkName = "-tableView:numberOfRowsInSection:"
             landmarkType = "5">
          </BreakpointContent>
@@ -14718,11 +14702,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/IssuesViewController.m"
-            timestampString = "456745357.867253"
+            timestampString = "456831064.866934"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "677"
-            endingLineNumber = "677"
+            startingLineNumber = "732"
+            endingLineNumber = "732"
             landmarkName = "-tableView:cellForRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -14734,11 +14718,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/Post.m"
-            timestampString = "456736320.871544"
+            timestampString = "456831193.400116"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "496"
-            endingLineNumber = "496"
+            startingLineNumber = "469"
+            endingLineNumber = "469"
             landmarkName = "-fetchIssuesWithParams:forPostId:filterByBlock:newIssuesFirst:onlyOverDue:"
             landmarkType = "5">
          </BreakpointContent>
@@ -14782,11 +14766,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/Post.m"
-            timestampString = "456736320.871544"
+            timestampString = "456831193.400116"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "446"
-            endingLineNumber = "446"
+            startingLineNumber = "429"
+            endingLineNumber = "429"
             landmarkName = "-fetchIssuesWithParams:forPostId:filterByBlock:newIssuesFirst:onlyOverDue:"
             landmarkType = "5">
          </BreakpointContent>
@@ -14814,7 +14798,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/InitializerViewController.m"
-            timestampString = "454401736.949368"
+            timestampString = "456807407.908712"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "989"
@@ -14846,7 +14830,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/InitializerViewController.m"
-            timestampString = "454401736.949368"
+            timestampString = "456807407.908712"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1035"
@@ -14862,11 +14846,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/Post.m"
-            timestampString = "456736320.871544"
+            timestampString = "456831193.400116"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "442"
-            endingLineNumber = "442"
+            startingLineNumber = "425"
+            endingLineNumber = "425"
             landmarkName = "-fetchIssuesWithParams:forPostId:filterByBlock:newIssuesFirst:onlyOverDue:"
             landmarkType = "5">
          </BreakpointContent>
@@ -14878,11 +14862,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/Post.m"
-            timestampString = "456736320.871544"
+            timestampString = "456831193.400116"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "469"
-            endingLineNumber = "469"
+            startingLineNumber = "452"
+            endingLineNumber = "452"
             landmarkName = "-fetchIssuesWithParams:forPostId:filterByBlock:newIssuesFirst:onlyOverDue:"
             landmarkType = "5">
          </BreakpointContent>
@@ -14942,11 +14926,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/SettingsViewController.m"
-            timestampString = "456053279.306339"
+            timestampString = "456827853.407264"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "310"
-            endingLineNumber = "310"
+            startingLineNumber = "322"
+            endingLineNumber = "322"
             landmarkName = "-checkIfSomethingWasNotSync"
             landmarkType = "5">
          </BreakpointContent>
@@ -14958,11 +14942,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/SettingsViewController.m"
-            timestampString = "456053279.306339"
+            timestampString = "456827853.407264"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "316"
-            endingLineNumber = "316"
+            startingLineNumber = "328"
+            endingLineNumber = "328"
             landmarkName = "-checkIfSomethingWasNotSync"
             landmarkType = "5">
          </BreakpointContent>
@@ -14974,11 +14958,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/Post.m"
-            timestampString = "456736320.871544"
+            timestampString = "456831193.400116"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "453"
-            endingLineNumber = "453"
+            startingLineNumber = "436"
+            endingLineNumber = "436"
             landmarkName = "-fetchIssuesWithParams:forPostId:filterByBlock:newIssuesFirst:onlyOverDue:"
             landmarkType = "5">
          </BreakpointContent>
@@ -15006,23 +14990,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/Synchronize.m"
-            timestampString = "454403663.265629"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2377"
-            endingLineNumber = "2377"
-            landmarkName = "-SavePostImagesToDb"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "comress/Synchronize.m"
-            timestampString = "454403663.265629"
+            timestampString = "456806432.181979"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "2378"
@@ -15038,11 +15006,27 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/Synchronize.m"
-            timestampString = "456115006.712379"
+            timestampString = "456806432.181979"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2496"
-            endingLineNumber = "2496"
+            startingLineNumber = "2379"
+            endingLineNumber = "2379"
+            landmarkName = "-SavePostImagesToDb"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "comress/Synchronize.m"
+            timestampString = "456806432.181979"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "2497"
+            endingLineNumber = "2497"
             landmarkName = "-startDownloadCommentsForPage:totalPage:requestDate:"
             landmarkType = "5">
          </BreakpointContent>
@@ -15054,11 +15038,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/Synchronize.m"
-            timestampString = "456115006.712379"
+            timestampString = "456806432.181979"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2494"
-            endingLineNumber = "2494"
+            startingLineNumber = "2495"
+            endingLineNumber = "2495"
             landmarkName = "-startDownloadCommentsForPage:totalPage:requestDate:"
             landmarkType = "5">
          </BreakpointContent>
@@ -15102,11 +15086,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/IssuesViewController.m"
-            timestampString = "456745357.867253"
+            timestampString = "456831064.866934"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "708"
-            endingLineNumber = "708"
+            startingLineNumber = "763"
+            endingLineNumber = "763"
             landmarkName = "-tableView:cellForRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -15406,7 +15390,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/InitializerViewController.m"
-            timestampString = "455521298.337839"
+            timestampString = "456808239.150318"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1506"
@@ -15598,7 +15582,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/InitializerViewController.m"
-            timestampString = "454401736.949368"
+            timestampString = "456807407.908712"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1408"
@@ -15614,7 +15598,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/InitializerViewController.m"
-            timestampString = "454401736.949368"
+            timestampString = "456807407.908712"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1425"
@@ -15630,7 +15614,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/InitializerViewController.m"
-            timestampString = "454401736.949368"
+            timestampString = "456808239.150318"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1429"
@@ -15774,7 +15758,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/InitializerViewController.m"
-            timestampString = "455521298.337839"
+            timestampString = "456808239.150318"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1561"
@@ -15790,7 +15774,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/InitializerViewController.m"
-            timestampString = "455521298.337839"
+            timestampString = "456808239.150318"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1545"
@@ -15806,7 +15790,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/InitializerViewController.m"
-            timestampString = "455521298.337839"
+            timestampString = "456808239.150318"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1557"
@@ -15822,7 +15806,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/InitializerViewController.m"
-            timestampString = "455521298.337839"
+            timestampString = "456808239.150318"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1573"
@@ -15838,7 +15822,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/InitializerViewController.m"
-            timestampString = "455521298.337839"
+            timestampString = "456808239.150318"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1563"
@@ -16766,11 +16750,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/SettingsViewController.m"
-            timestampString = "456053279.306339"
+            timestampString = "456827853.407264"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "207"
-            endingLineNumber = "207"
+            startingLineNumber = "219"
+            endingLineNumber = "219"
             landmarkName = "-logoutWithRelogin:"
             landmarkType = "5">
          </BreakpointContent>
@@ -16782,11 +16766,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/SettingsViewController.m"
-            timestampString = "456053279.306339"
+            timestampString = "456827853.407264"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "213"
-            endingLineNumber = "213"
+            startingLineNumber = "225"
+            endingLineNumber = "225"
             landmarkName = "-logoutWithRelogin:"
             landmarkType = "5">
          </BreakpointContent>
@@ -16798,11 +16782,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/SettingsViewController.m"
-            timestampString = "456053279.306339"
+            timestampString = "456827853.407264"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "248"
-            endingLineNumber = "248"
+            startingLineNumber = "260"
+            endingLineNumber = "260"
             landmarkName = "-logoutWithRelogin:"
             landmarkType = "5">
          </BreakpointContent>
@@ -16814,11 +16798,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/SettingsViewController.m"
-            timestampString = "456053279.306339"
+            timestampString = "456827853.407264"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "256"
-            endingLineNumber = "256"
+            startingLineNumber = "268"
+            endingLineNumber = "268"
             landmarkName = "-logoutWithRelogin:"
             landmarkType = "5">
          </BreakpointContent>
@@ -16830,11 +16814,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/LoginViewController.m"
-            timestampString = "452340917.000925"
+            timestampString = "456828316.955587"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "36"
-            endingLineNumber = "36"
+            startingLineNumber = "49"
+            endingLineNumber = "49"
             landmarkName = "-viewDidAppear:"
             landmarkType = "5">
          </BreakpointContent>
@@ -16846,11 +16830,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/LoginViewController.m"
-            timestampString = "452340961.817229"
+            timestampString = "456828316.955587"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "26"
-            endingLineNumber = "26"
+            startingLineNumber = "28"
+            endingLineNumber = "28"
             landmarkName = "-viewDidLoad"
             landmarkType = "5">
          </BreakpointContent>
@@ -17182,11 +17166,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/Synchronize.m"
-            timestampString = "454403663.265629"
+            timestampString = "456806432.181979"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2164"
-            endingLineNumber = "2164"
+            startingLineNumber = "2165"
+            endingLineNumber = "2165"
             landmarkName = "-startDownloadPostForPage:totalPage:requestDate:"
             landmarkType = "5">
          </BreakpointContent>
@@ -17230,7 +17214,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/InitializerViewController.m"
-            timestampString = "454402366.923895"
+            timestampString = "456807407.908712"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "862"
@@ -17246,7 +17230,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/InitializerViewController.m"
-            timestampString = "454401736.949368"
+            timestampString = "456807407.908712"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "892"
@@ -18782,11 +18766,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/IssuesViewController.m"
-            timestampString = "456745357.867253"
+            timestampString = "456836254.689093"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "968"
-            endingLineNumber = "968"
+            startingLineNumber = "1020"
+            endingLineNumber = "1020"
             landmarkName = "-closeIssueActionSubmitFromList:"
             landmarkType = "5">
          </BreakpointContent>
@@ -18814,11 +18798,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/Post.m"
-            timestampString = "456746613.307623"
+            timestampString = "456834903.847208"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "989"
-            endingLineNumber = "989"
+            startingLineNumber = "950"
+            endingLineNumber = "950"
             landmarkName = "-setIssueCloseActionRemarks:"
             landmarkType = "5">
          </BreakpointContent>
@@ -18830,11 +18814,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/IssuesViewController.m"
-            timestampString = "456745357.867253"
+            timestampString = "456836254.689093"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "944"
-            endingLineNumber = "944"
+            startingLineNumber = "996"
+            endingLineNumber = "996"
             landmarkName = "-closeIssueActionSubmitFromList:"
             landmarkType = "5">
          </BreakpointContent>
@@ -18846,11 +18830,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/Database.m"
-            timestampString = "454402366.923895"
+            timestampString = "456827853.407264"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "191"
-            endingLineNumber = "191"
+            startingLineNumber = "194"
+            endingLineNumber = "194"
             landmarkName = "-migrateDatabase"
             landmarkType = "5">
          </BreakpointContent>
@@ -18894,11 +18878,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/IssuesViewController.m"
-            timestampString = "456745357.867253"
+            timestampString = "456836254.689093"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "977"
-            endingLineNumber = "977"
+            startingLineNumber = "1029"
+            endingLineNumber = "1029"
             landmarkName = "-closeIssueActionSubmitFromList:"
             landmarkType = "5">
          </BreakpointContent>
@@ -19054,11 +19038,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/IssuesViewController.m"
-            timestampString = "456745357.867253"
+            timestampString = "456836254.689093"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "970"
-            endingLineNumber = "970"
+            startingLineNumber = "1022"
+            endingLineNumber = "1022"
             landmarkName = "-closeIssueActionSubmitFromList:"
             landmarkType = "5">
          </BreakpointContent>
@@ -19086,11 +19070,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/IssuesViewController.m"
-            timestampString = "456745357.867253"
+            timestampString = "456836254.689093"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "976"
-            endingLineNumber = "976"
+            startingLineNumber = "1028"
+            endingLineNumber = "1028"
             landmarkName = "-closeIssueActionSubmitFromList:"
             landmarkType = "5">
          </BreakpointContent>
@@ -19198,23 +19182,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/Database.m"
-            timestampString = "454402366.923895"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "279"
-            endingLineNumber = "279"
-            landmarkName = "-saveImageToComressAlbum:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "comress/Database.m"
-            timestampString = "454402366.923895"
+            timestampString = "456827853.407264"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "282"
@@ -19230,11 +19198,27 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/Database.m"
-            timestampString = "454402366.923895"
+            timestampString = "456827853.407264"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "284"
-            endingLineNumber = "284"
+            startingLineNumber = "285"
+            endingLineNumber = "285"
+            landmarkName = "-saveImageToComressAlbum:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "comress/Database.m"
+            timestampString = "456827853.407264"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "287"
+            endingLineNumber = "287"
             landmarkName = "-saveImageToComressAlbum:"
             landmarkType = "5">
          </BreakpointContent>
@@ -19742,7 +19726,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/Post.m"
-            timestampString = "456736320.871544"
+            timestampString = "456831193.400116"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "310"
@@ -19758,7 +19742,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/Post.m"
-            timestampString = "456736320.871544"
+            timestampString = "456831193.400116"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "339"
@@ -19790,11 +19774,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/Post.m"
-            timestampString = "456736320.871544"
+            timestampString = "456831193.400116"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "556"
-            endingLineNumber = "556"
+            startingLineNumber = "529"
+            endingLineNumber = "529"
             landmarkName = "-fetchIssuesWithParamsForPM:forPostId:filterByBlock:newIssuesFirst:onlyOverDue:"
             landmarkType = "5">
          </BreakpointContent>
@@ -19806,11 +19790,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/IssuesViewController.m"
-            timestampString = "456745357.867253"
+            timestampString = "456831064.866934"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "404"
-            endingLineNumber = "404"
+            startingLineNumber = "476"
+            endingLineNumber = "476"
             landmarkName = "-fetchPostsWithNewIssuesUp:"
             landmarkType = "5">
          </BreakpointContent>
@@ -19822,11 +19806,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/IssuesViewController.m"
-            timestampString = "456745357.867253"
+            timestampString = "456831064.866934"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "397"
-            endingLineNumber = "397"
+            startingLineNumber = "469"
+            endingLineNumber = "469"
             landmarkName = "-fetchPostsWithNewIssuesUp:"
             landmarkType = "5">
          </BreakpointContent>
@@ -19838,11 +19822,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/IssuesViewController.m"
-            timestampString = "456745357.867253"
+            timestampString = "456831064.866934"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "512"
-            endingLineNumber = "512"
+            startingLineNumber = "567"
+            endingLineNumber = "567"
             landmarkName = "-groupPostForGroupType:"
             landmarkType = "5">
          </BreakpointContent>
@@ -19854,11 +19838,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/Post.m"
-            timestampString = "456736320.871544"
+            timestampString = "456831193.400116"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "553"
-            endingLineNumber = "553"
+            startingLineNumber = "526"
+            endingLineNumber = "526"
             landmarkName = "-fetchIssuesWithParamsForPM:forPostId:filterByBlock:newIssuesFirst:onlyOverDue:"
             landmarkType = "5">
          </BreakpointContent>
@@ -19870,11 +19854,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/Post.m"
-            timestampString = "456736320.871544"
+            timestampString = "456831193.400116"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "526"
-            endingLineNumber = "526"
+            startingLineNumber = "499"
+            endingLineNumber = "499"
             landmarkName = "-fetchIssuesWithParamsForPM:forPostId:filterByBlock:newIssuesFirst:onlyOverDue:"
             landmarkType = "5">
          </BreakpointContent>
@@ -19934,11 +19918,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/Post.m"
-            timestampString = "456736320.871544"
+            timestampString = "456832959.224778"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "622"
-            endingLineNumber = "622"
+            startingLineNumber = "579"
+            endingLineNumber = "579"
             landmarkName = "-fetchIssuesWithParamsForPM:forPostId:filterByBlock:newIssuesFirst:onlyOverDue:"
             landmarkType = "5">
          </BreakpointContent>
@@ -19950,23 +19934,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/Post.m"
-            timestampString = "456736320.871544"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "613"
-            endingLineNumber = "613"
-            landmarkName = "-fetchIssuesWithParamsForPM:forPostId:filterByBlock:newIssuesFirst:onlyOverDue:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "comress/Post.m"
-            timestampString = "456736320.871544"
+            timestampString = "456831193.400116"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "315"
@@ -19982,11 +19950,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/Database.m"
-            timestampString = "454402366.923895"
+            timestampString = "456827853.407264"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "205"
-            endingLineNumber = "205"
+            startingLineNumber = "208"
+            endingLineNumber = "208"
             landmarkName = "-migrateDatabase"
             landmarkType = "5">
          </BreakpointContent>
@@ -19998,7 +19966,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/Post.m"
-            timestampString = "456736320.871544"
+            timestampString = "456831193.400116"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "344"
@@ -20014,7 +19982,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/Post.m"
-            timestampString = "456736320.871544"
+            timestampString = "456831193.400116"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "340"
@@ -20030,7 +19998,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/Post.m"
-            timestampString = "456736320.871544"
+            timestampString = "456831193.400116"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "343"
@@ -20062,11 +20030,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/Post.m"
-            timestampString = "456736320.871544"
+            timestampString = "456831193.400116"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "539"
-            endingLineNumber = "539"
+            startingLineNumber = "512"
+            endingLineNumber = "512"
             landmarkName = "-fetchIssuesWithParamsForPM:forPostId:filterByBlock:newIssuesFirst:onlyOverDue:"
             landmarkType = "5">
          </BreakpointContent>
@@ -20078,11 +20046,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/IssuesViewController.m"
-            timestampString = "456745357.867253"
+            timestampString = "456831064.866934"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "684"
-            endingLineNumber = "684"
+            startingLineNumber = "739"
+            endingLineNumber = "739"
             landmarkName = "-tableView:cellForRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -20094,11 +20062,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/IssuesViewController.m"
-            timestampString = "456745357.867253"
+            timestampString = "456831064.866934"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "689"
-            endingLineNumber = "689"
+            startingLineNumber = "744"
+            endingLineNumber = "744"
             landmarkName = "-tableView:cellForRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -20110,11 +20078,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/IssuesViewController.m"
-            timestampString = "456745357.867253"
+            timestampString = "456831064.866934"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "534"
-            endingLineNumber = "534"
+            startingLineNumber = "589"
+            endingLineNumber = "589"
             landmarkName = "-groupPostForGroupType:"
             landmarkType = "5">
          </BreakpointContent>
@@ -20126,11 +20094,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/IssuesViewController.m"
-            timestampString = "456745357.867253"
+            timestampString = "456831064.866934"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "687"
-            endingLineNumber = "687"
+            startingLineNumber = "742"
+            endingLineNumber = "742"
             landmarkName = "-tableView:cellForRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -20142,11 +20110,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/IssuesViewController.m"
-            timestampString = "456745357.867253"
+            timestampString = "456831064.866934"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "704"
-            endingLineNumber = "704"
+            startingLineNumber = "759"
+            endingLineNumber = "759"
             landmarkName = "-tableView:cellForRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -20158,11 +20126,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/Post.m"
-            timestampString = "456736320.871544"
+            timestampString = "456834903.847208"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "671"
-            endingLineNumber = "671"
+            startingLineNumber = "632"
+            endingLineNumber = "632"
             landmarkName = "-fetchIssuesForPO:"
             landmarkType = "5">
          </BreakpointContent>
@@ -20174,11 +20142,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/Post.m"
-            timestampString = "456746613.307623"
+            timestampString = "456834903.847208"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "677"
-            endingLineNumber = "677"
+            startingLineNumber = "638"
+            endingLineNumber = "638"
             landmarkName = "-fetchIssuesForPO:"
             landmarkType = "5">
          </BreakpointContent>
@@ -20190,11 +20158,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/Post.m"
-            timestampString = "456746613.307623"
+            timestampString = "456834903.847208"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "687"
-            endingLineNumber = "687"
+            startingLineNumber = "648"
+            endingLineNumber = "648"
             landmarkName = "-fetchIssuesForPO:"
             landmarkType = "5">
          </BreakpointContent>
@@ -20350,11 +20318,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/IssuesViewController.m"
-            timestampString = "456745357.867253"
+            timestampString = "456831064.866934"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "375"
-            endingLineNumber = "375"
+            startingLineNumber = "447"
+            endingLineNumber = "447"
             landmarkName = "-fetchPostsWithNewIssuesUp:"
             landmarkType = "5">
          </BreakpointContent>
@@ -20366,11 +20334,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/Post.m"
-            timestampString = "456736320.871544"
+            timestampString = "456831193.400116"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "524"
-            endingLineNumber = "524"
+            startingLineNumber = "497"
+            endingLineNumber = "497"
             landmarkName = "-fetchIssuesWithParamsForPM:forPostId:filterByBlock:newIssuesFirst:onlyOverDue:"
             landmarkType = "5">
          </BreakpointContent>
@@ -20382,11 +20350,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/IssuesViewController.m"
-            timestampString = "456745357.867253"
+            timestampString = "456831064.866934"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "510"
-            endingLineNumber = "510"
+            startingLineNumber = "565"
+            endingLineNumber = "565"
             landmarkName = "-groupPostForGroupType:"
             landmarkType = "5">
          </BreakpointContent>
@@ -20446,7 +20414,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/InitializerViewController.m"
-            timestampString = "454401736.949368"
+            timestampString = "456807407.908712"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1347"
@@ -20462,7 +20430,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/InitializerViewController.m"
-            timestampString = "454401736.949368"
+            timestampString = "456808239.150318"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1428"
@@ -20478,7 +20446,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/InitializerViewController.m"
-            timestampString = "455521298.337839"
+            timestampString = "456808239.150318"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1631"
@@ -20494,55 +20462,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/InitializerViewController.m"
-            timestampString = "454401736.949368"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1427"
-            endingLineNumber = "1427"
-            landmarkName = "-checkSurveyCount"
-            landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__45-[InitializerViewController checkSurveyCount]_block_invoke"
-                  moduleName = "comress"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/diffyromano/Perforce/Diffy_workspace/fmit/COMRESS/codes/TIP/TPTC/COMRESS/MOBILE/COMRESS/IOS/IOS_APP/APP/comress/comress/InitializerViewController.m"
-                  timestampString = "454230446.266702"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1414"
-                  endingLineNumber = "1414"
-                  offsetFromSymbolStart = "704">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__45-[InitializerViewController checkSurveyCount]_block_invoke_2"
-                  moduleName = "comress"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/diffyromano/Perforce/Diffy_workspace/fmit/COMRESS/codes/TIP/TPTC/COMRESS/MOBILE/COMRESS/IOS/IOS_APP/APP/comress/comress/InitializerViewController.m"
-                  timestampString = "454230446.26693"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1414"
-                  endingLineNumber = "1414"
-                  offsetFromSymbolStart = "68">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "comress/InitializerViewController.m"
-            timestampString = "454401736.949368"
+            timestampString = "456807407.908712"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "913"
@@ -20558,11 +20478,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/IssuesViewController.m"
-            timestampString = "456745357.867253"
+            timestampString = "456831064.866934"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "391"
-            endingLineNumber = "391"
+            startingLineNumber = "463"
+            endingLineNumber = "463"
             landmarkName = "-fetchPostsWithNewIssuesUp:"
             landmarkType = "5">
          </BreakpointContent>
@@ -20574,44 +20494,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/InitializerViewController.m"
-            timestampString = "454401736.949368"
+            timestampString = "456807407.908712"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "889"
             endingLineNumber = "889"
             landmarkName = "-startDownloadPostForPage:totalPage:requestDate:withUi:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "comress/IssuesViewController.m"
-            timestampString = "456745357.867253"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "493"
-            endingLineNumber = "493"
-            landmarkName = "-fetchPostsWithNewIssuesUp:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "comress/IssuesViewController.m"
-            timestampString = "456745357.867253"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "482"
-            endingLineNumber = "482"
-            landmarkName = "-fetchPostsWithNewIssuesUp:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -20734,7 +20622,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/InitializerViewController.m"
-            timestampString = "455521298.337839"
+            timestampString = "456808239.150318"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1488"
@@ -20782,11 +20670,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/Synchronize.m"
-            timestampString = "454403663.265629"
+            timestampString = "456806432.181979"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2170"
-            endingLineNumber = "2170"
+            startingLineNumber = "2171"
+            endingLineNumber = "2171"
             landmarkName = "-startDownloadPostForPage:totalPage:requestDate:"
             landmarkType = "5">
          </BreakpointContent>
@@ -20846,11 +20734,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/Post.m"
-            timestampString = "456746613.307623"
+            timestampString = "456834903.847208"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "691"
-            endingLineNumber = "691"
+            startingLineNumber = "652"
+            endingLineNumber = "652"
             landmarkName = "-fetchIssuesForPO:"
             landmarkType = "5">
          </BreakpointContent>
@@ -20862,11 +20750,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/IssuesViewController.m"
-            timestampString = "456745357.867253"
+            timestampString = "456831064.866934"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "574"
-            endingLineNumber = "574"
+            startingLineNumber = "629"
+            endingLineNumber = "629"
             landmarkName = "-groupPostForPM"
             landmarkType = "5">
          </BreakpointContent>
@@ -20878,11 +20766,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/Post.m"
-            timestampString = "456736320.871544"
+            timestampString = "456832959.224778"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "621"
-            endingLineNumber = "621"
+            startingLineNumber = "578"
+            endingLineNumber = "578"
             landmarkName = "-fetchIssuesWithParamsForPM:forPostId:filterByBlock:newIssuesFirst:onlyOverDue:"
             landmarkType = "5">
          </BreakpointContent>
@@ -20894,11 +20782,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/Post.m"
-            timestampString = "456736320.871544"
+            timestampString = "456832959.224778"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "634"
-            endingLineNumber = "634"
+            startingLineNumber = "591"
+            endingLineNumber = "591"
             landmarkName = "-fetchIssuesWithParamsForPM:forPostId:filterByBlock:newIssuesFirst:onlyOverDue:"
             landmarkType = "5">
          </BreakpointContent>
@@ -20926,43 +20814,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/Post.m"
-            timestampString = "456736320.871544"
+            timestampString = "456831193.400116"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "534"
-            endingLineNumber = "534"
-            landmarkName = "-fetchIssuesWithParamsForPM:forPostId:filterByBlock:newIssuesFirst:onlyOverDue:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "comress/Post.m"
-            timestampString = "456736320.871544"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "597"
-            endingLineNumber = "597"
-            landmarkName = "-fetchIssuesWithParamsForPM:forPostId:filterByBlock:newIssuesFirst:onlyOverDue:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "comress/Post.m"
-            timestampString = "456736320.871544"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "599"
-            endingLineNumber = "599"
+            startingLineNumber = "507"
+            endingLineNumber = "507"
             landmarkName = "-fetchIssuesWithParamsForPM:forPostId:filterByBlock:newIssuesFirst:onlyOverDue:"
             landmarkType = "5">
          </BreakpointContent>
@@ -20990,11 +20846,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/IssuesViewController.m"
-            timestampString = "456227599.663692"
+            timestampString = "456826791.988758"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "78"
-            endingLineNumber = "78"
+            startingLineNumber = "76"
+            endingLineNumber = "76"
             landmarkName = "-thereAreOVerDueIssues:"
             landmarkType = "5">
          </BreakpointContent>
@@ -21006,155 +20862,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/IssuesViewController.m"
-            timestampString = "456227599.663692"
+            timestampString = "456826791.988758"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "75"
-            endingLineNumber = "75"
-            landmarkName = "-thereAreOVerDueIssues:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "comress/IssuesViewController.m"
-            timestampString = "456227599.663692"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "77"
-            endingLineNumber = "77"
-            landmarkName = "-thereAreOVerDueIssues:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "comress/IssuesViewController.m"
-            timestampString = "456227599.663692"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "80"
-            endingLineNumber = "80"
-            landmarkName = "-thereAreOVerDueIssues:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "comress/IssuesViewController.m"
-            timestampString = "456745357.867253"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "491"
-            endingLineNumber = "491"
-            landmarkName = "-fetchPostsWithNewIssuesUp:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "comress/Post.m"
-            timestampString = "456736320.871544"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "434"
-            endingLineNumber = "434"
-            landmarkName = "-fetchIssuesWithParams:forPostId:filterByBlock:newIssuesFirst:onlyOverDue:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "comress/Post.m"
-            timestampString = "456736320.871544"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "607"
-            endingLineNumber = "607"
-            landmarkName = "-fetchIssuesWithParamsForPM:forPostId:filterByBlock:newIssuesFirst:onlyOverDue:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "comress/Post.m"
-            timestampString = "456736320.871544"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "487"
-            endingLineNumber = "487"
-            landmarkName = "-fetchIssuesWithParams:forPostId:filterByBlock:newIssuesFirst:onlyOverDue:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "comress/Post.m"
-            timestampString = "456736320.871544"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "489"
-            endingLineNumber = "489"
-            landmarkName = "-fetchIssuesWithParams:forPostId:filterByBlock:newIssuesFirst:onlyOverDue:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "comress/Post.m"
-            timestampString = "456736320.871544"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "492"
-            endingLineNumber = "492"
-            landmarkName = "-fetchIssuesWithParams:forPostId:filterByBlock:newIssuesFirst:onlyOverDue:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "comress/IssuesViewController.m"
-            timestampString = "456391697.647757"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "170"
-            endingLineNumber = "170"
+            startingLineNumber = "161"
+            endingLineNumber = "161"
             landmarkName = "-viewDidDisappear:"
             landmarkType = "5">
          </BreakpointContent>
@@ -21166,7 +20878,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/InitializerViewController.m"
-            timestampString = "455521298.337839"
+            timestampString = "456808239.150318"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1459"
@@ -21229,11 +20941,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/Post.m"
-            timestampString = "456736320.871544"
+            timestampString = "456831193.400116"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "515"
-            endingLineNumber = "515"
+            startingLineNumber = "488"
+            endingLineNumber = "488"
             landmarkName = "-fetchIssuesWithParamsForPM:forPostId:filterByBlock:newIssuesFirst:onlyOverDue:"
             landmarkType = "5">
          </BreakpointContent>
@@ -21245,11 +20957,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/Post.m"
-            timestampString = "456736320.871544"
+            timestampString = "456831193.400116"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "561"
-            endingLineNumber = "561"
+            startingLineNumber = "534"
+            endingLineNumber = "534"
             landmarkName = "-fetchIssuesWithParamsForPM:forPostId:filterByBlock:newIssuesFirst:onlyOverDue:"
             landmarkType = "5">
          </BreakpointContent>
@@ -21261,11 +20973,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/Post.m"
-            timestampString = "456736320.871544"
+            timestampString = "456831193.400116"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "533"
-            endingLineNumber = "533"
+            startingLineNumber = "506"
+            endingLineNumber = "506"
             landmarkName = "-fetchIssuesWithParamsForPM:forPostId:filterByBlock:newIssuesFirst:onlyOverDue:"
             landmarkType = "5">
          </BreakpointContent>
@@ -21309,11 +21021,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/IssuesViewController.m"
-            timestampString = "456745357.867253"
+            timestampString = "456836254.689093"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "998"
-            endingLineNumber = "998"
+            startingLineNumber = "1050"
+            endingLineNumber = "1050"
             landmarkName = "-setPostStatusAtIndexPath:withStatus:withPostDict:withActionsDict:"
             landmarkType = "5">
          </BreakpointContent>
@@ -21325,11 +21037,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/IssuesViewController.m"
-            timestampString = "456745357.867253"
+            timestampString = "456836254.689093"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "974"
-            endingLineNumber = "974"
+            startingLineNumber = "1026"
+            endingLineNumber = "1026"
             landmarkName = "-closeIssueActionSubmitFromList:"
             landmarkType = "5">
          </BreakpointContent>
@@ -21341,11 +21053,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/IssuesViewController.m"
-            timestampString = "456745357.867253"
+            timestampString = "456836254.689093"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1073"
-            endingLineNumber = "1073"
+            startingLineNumber = "1125"
+            endingLineNumber = "1125"
             landmarkName = "-setPostStatusAtIndexPath:withStatus:withPostDict:withActionsDict:"
             landmarkType = "5">
          </BreakpointContent>
@@ -21421,11 +21133,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/IssuesViewController.m"
-            timestampString = "456391697.647757"
+            timestampString = "456826791.988758"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "177"
-            endingLineNumber = "177"
+            startingLineNumber = "168"
+            endingLineNumber = "168"
             landmarkName = "-viewDidAppear:"
             landmarkType = "5">
          </BreakpointContent>
@@ -21437,7 +21149,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/InitializerViewController.m"
-            timestampString = "455521162.237771"
+            timestampString = "456807407.908712"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1406"
@@ -21453,7 +21165,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/InitializerViewController.m"
-            timestampString = "455521221.459045"
+            timestampString = "456808239.150318"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1435"
@@ -21469,7 +21181,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/InitializerViewController.m"
-            timestampString = "455521301.753761"
+            timestampString = "456808239.150318"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1448"
@@ -21485,7 +21197,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/InitializerViewController.m"
-            timestampString = "455521374.378257"
+            timestampString = "456808239.150318"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1447"
@@ -21501,11 +21213,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/Synchronize.m"
-            timestampString = "455524346.240107"
+            timestampString = "456806432.181979"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2472"
-            endingLineNumber = "2472"
+            startingLineNumber = "2473"
+            endingLineNumber = "2473"
             landmarkName = "-startDownloadCommentsForPage:totalPage:requestDate:"
             landmarkType = "5">
          </BreakpointContent>
@@ -21517,11 +21229,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/Synchronize.m"
-            timestampString = "456115006.712379"
+            timestampString = "456832356.39466"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2591"
-            endingLineNumber = "2591"
+            startingLineNumber = "2605"
+            endingLineNumber = "2605"
             landmarkName = "-startDownloadCommentNotiForPage:totalPage:requestDate:"
             landmarkType = "5">
          </BreakpointContent>
@@ -21661,11 +21373,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/Synchronize.m"
-            timestampString = "455525696.407649"
+            timestampString = "456806432.181979"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2483"
-            endingLineNumber = "2483"
+            startingLineNumber = "2484"
+            endingLineNumber = "2484"
             landmarkName = "-startDownloadCommentsForPage:totalPage:requestDate:"
             landmarkType = "5">
          </BreakpointContent>
@@ -21677,11 +21389,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/Synchronize.m"
-            timestampString = "456115006.712379"
+            timestampString = "456806432.181979"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2491"
-            endingLineNumber = "2491"
+            startingLineNumber = "2492"
+            endingLineNumber = "2492"
             landmarkName = "-startDownloadCommentsForPage:totalPage:requestDate:"
             landmarkType = "5">
          </BreakpointContent>
@@ -21693,11 +21405,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/Synchronize.m"
-            timestampString = "456115006.712379"
+            timestampString = "456832356.39466"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2602"
-            endingLineNumber = "2602"
+            startingLineNumber = "2616"
+            endingLineNumber = "2616"
             landmarkName = "-startDownloadCommentNotiForPage:totalPage:requestDate:"
             landmarkType = "5">
          </BreakpointContent>
@@ -21709,11 +21421,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/Synchronize.m"
-            timestampString = "456115006.712379"
+            timestampString = "456832356.39466"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2612"
-            endingLineNumber = "2612"
+            startingLineNumber = "2626"
+            endingLineNumber = "2626"
             landmarkName = "-startDownloadCommentNotiForPage:totalPage:requestDate:"
             landmarkType = "5">
          </BreakpointContent>
@@ -21725,11 +21437,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/IssuesViewController.m"
-            timestampString = "456745357.867253"
+            timestampString = "456831064.866934"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "615"
-            endingLineNumber = "615"
+            startingLineNumber = "670"
+            endingLineNumber = "670"
             landmarkName = "-adjustTableRowHeightForPM"
             landmarkType = "5">
          </BreakpointContent>
@@ -21789,11 +21501,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/SettingsViewController.m"
-            timestampString = "456052810.002034"
+            timestampString = "456827853.407264"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "146"
-            endingLineNumber = "146"
+            startingLineNumber = "158"
+            endingLineNumber = "158"
             landmarkName = "-changeFontSize:"
             landmarkType = "5">
          </BreakpointContent>
@@ -21805,11 +21517,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/SettingsViewController.m"
-            timestampString = "456052810.002034"
+            timestampString = "456827853.407264"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "106"
-            endingLineNumber = "106"
+            startingLineNumber = "118"
+            endingLineNumber = "118"
             landmarkName = "-changeFontSize:"
             landmarkType = "5">
          </BreakpointContent>
@@ -22349,11 +22061,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/IssuesViewController.m"
-            timestampString = "456391697.647757"
+            timestampString = "456826791.988758"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "116"
-            endingLineNumber = "116"
+            startingLineNumber = "107"
+            endingLineNumber = "107"
             landmarkName = "-reloadIssuesList"
             landmarkType = "5">
          </BreakpointContent>
@@ -22365,11 +22077,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/Post.m"
-            timestampString = "456736320.871544"
+            timestampString = "456832959.224778"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "615"
-            endingLineNumber = "615"
+            startingLineNumber = "572"
+            endingLineNumber = "572"
             landmarkName = "-fetchIssuesWithParamsForPM:forPostId:filterByBlock:newIssuesFirst:onlyOverDue:"
             landmarkType = "5">
          </BreakpointContent>
@@ -22381,11 +22093,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/SettingsViewController.m"
-            timestampString = "456052810.002034"
+            timestampString = "456827853.407264"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "80"
-            endingLineNumber = "80"
+            startingLineNumber = "92"
+            endingLineNumber = "92"
             landmarkName = "-ToggleTextSizeAdjustment:"
             landmarkType = "5">
          </BreakpointContent>
@@ -22461,11 +22173,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/IssuesViewController.m"
-            timestampString = "456735900.32926"
+            timestampString = "456831064.866934"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "297"
-            endingLineNumber = "297"
+            startingLineNumber = "369"
+            endingLineNumber = "369"
             landmarkName = "-prepareForSegue:sender:"
             landmarkType = "5">
          </BreakpointContent>
@@ -22509,11 +22221,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/SettingsViewController.m"
-            timestampString = "456053067.142798"
+            timestampString = "456827853.407264"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "86"
-            endingLineNumber = "86"
+            startingLineNumber = "98"
+            endingLineNumber = "98"
             landmarkName = "-ToggleTextSizeAdjustment:"
             landmarkType = "5">
          </BreakpointContent>
@@ -22525,11 +22237,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/SettingsViewController.m"
-            timestampString = "456053111.394604"
+            timestampString = "456827853.407264"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "187"
-            endingLineNumber = "187"
+            startingLineNumber = "199"
+            endingLineNumber = "199"
             landmarkName = "-alertView:clickedButtonAtIndex:"
             landmarkType = "5">
          </BreakpointContent>
@@ -22541,7 +22253,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/Post.m"
-            timestampString = "456736320.871544"
+            timestampString = "456831193.400116"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "312"
@@ -22557,7 +22269,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/Post.m"
-            timestampString = "456736320.871544"
+            timestampString = "456831193.400116"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "369"
@@ -22573,11 +22285,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/IssuesViewController.m"
-            timestampString = "456745357.867253"
+            timestampString = "456831064.866934"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "561"
-            endingLineNumber = "561"
+            startingLineNumber = "616"
+            endingLineNumber = "616"
             landmarkName = "-groupPostForGroupType:"
             landmarkType = "5">
          </BreakpointContent>
@@ -22589,11 +22301,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/IssuesViewController.m"
-            timestampString = "456745357.867253"
+            timestampString = "456831064.866934"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "564"
-            endingLineNumber = "564"
+            startingLineNumber = "619"
+            endingLineNumber = "619"
             landmarkName = "-groupPostForGroupType:"
             landmarkType = "5">
          </BreakpointContent>
@@ -22605,11 +22317,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/IssuesViewController.m"
-            timestampString = "456745357.867253"
+            timestampString = "456831064.866934"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "526"
-            endingLineNumber = "526"
+            startingLineNumber = "581"
+            endingLineNumber = "581"
             landmarkName = "-groupPostForGroupType:"
             landmarkType = "5">
          </BreakpointContent>
@@ -22621,11 +22333,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/IssuesViewController.m"
-            timestampString = "456745357.867253"
+            timestampString = "456831064.866934"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "520"
-            endingLineNumber = "520"
+            startingLineNumber = "575"
+            endingLineNumber = "575"
             landmarkName = "-groupPostForGroupType:"
             landmarkType = "5">
          </BreakpointContent>
@@ -22637,11 +22349,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/IssuesViewController.m"
-            timestampString = "456745357.867253"
+            timestampString = "456831064.866934"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "522"
-            endingLineNumber = "522"
+            startingLineNumber = "577"
+            endingLineNumber = "577"
             landmarkName = "-groupPostForGroupType:"
             landmarkType = "5">
          </BreakpointContent>
@@ -22653,7 +22365,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/Post.m"
-            timestampString = "456736320.871544"
+            timestampString = "456831193.400116"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "351"
@@ -22669,11 +22381,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/IssuesViewController.m"
-            timestampString = "456745357.867253"
+            timestampString = "456831064.866934"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "464"
-            endingLineNumber = "464"
+            startingLineNumber = "536"
+            endingLineNumber = "536"
             landmarkName = "-fetchPostsWithNewIssuesUp:"
             landmarkType = "5">
          </BreakpointContent>
@@ -22685,7 +22397,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/Post.m"
-            timestampString = "456736320.871544"
+            timestampString = "456831193.400116"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "357"
@@ -22701,11 +22413,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/IssuesViewController.m"
-            timestampString = "456391697.647757"
+            timestampString = "456826791.988758"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "93"
-            endingLineNumber = "93"
+            startingLineNumber = "84"
+            endingLineNumber = "84"
             landmarkName = "-toggleBulbIcon:"
             landmarkType = "5">
          </BreakpointContent>
@@ -22717,11 +22429,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/IssuesViewController.m"
-            timestampString = "456745357.867253"
+            timestampString = "456831064.866934"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "467"
-            endingLineNumber = "467"
+            startingLineNumber = "539"
+            endingLineNumber = "539"
             landmarkName = "-fetchPostsWithNewIssuesUp:"
             landmarkType = "5">
          </BreakpointContent>
@@ -22733,7 +22445,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/Post.m"
-            timestampString = "456736320.871544"
+            timestampString = "456831193.400116"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "252"
@@ -22749,7 +22461,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/Post.m"
-            timestampString = "456736320.871544"
+            timestampString = "456831193.400116"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "251"
@@ -22765,7 +22477,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/Post.m"
-            timestampString = "456736320.871544"
+            timestampString = "456831193.400116"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "285"
@@ -22781,7 +22493,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/Post.m"
-            timestampString = "456736320.871544"
+            timestampString = "456831193.400116"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "233"
@@ -22797,7 +22509,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/Post.m"
-            timestampString = "456736320.871544"
+            timestampString = "456831193.400116"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "235"
@@ -22813,7 +22525,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/Post.m"
-            timestampString = "456736320.871544"
+            timestampString = "456831193.400116"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "238"
@@ -22829,7 +22541,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/Post.m"
-            timestampString = "456736320.871544"
+            timestampString = "456831193.400116"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "255"
@@ -22845,7 +22557,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/Post.m"
-            timestampString = "456736320.871544"
+            timestampString = "456831193.400116"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "237"
@@ -22861,7 +22573,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/Post.m"
-            timestampString = "456736320.871544"
+            timestampString = "456831193.400116"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "257"
@@ -22909,7 +22621,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/Post.m"
-            timestampString = "456736320.871544"
+            timestampString = "456831193.400116"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "282"
@@ -22925,11 +22637,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/Post.m"
-            timestampString = "456736320.871544"
+            timestampString = "456831193.400116"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "611"
-            endingLineNumber = "611"
+            startingLineNumber = "568"
+            endingLineNumber = "568"
             landmarkName = "-fetchIssuesWithParamsForPM:forPostId:filterByBlock:newIssuesFirst:onlyOverDue:"
             landmarkType = "5">
          </BreakpointContent>
@@ -22957,7 +22669,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/Post.m"
-            timestampString = "456736320.871544"
+            timestampString = "456831193.400116"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "304"
@@ -22973,11 +22685,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/Post.m"
-            timestampString = "456736320.871544"
+            timestampString = "456831193.400116"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "571"
-            endingLineNumber = "571"
+            startingLineNumber = "541"
+            endingLineNumber = "541"
             landmarkName = "-fetchIssuesWithParamsForPM:forPostId:filterByBlock:newIssuesFirst:onlyOverDue:"
             landmarkType = "5">
          </BreakpointContent>
@@ -22989,11 +22701,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/Post.m"
-            timestampString = "456736320.871544"
+            timestampString = "456831193.400116"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "568"
-            endingLineNumber = "568"
+            startingLineNumber = "538"
+            endingLineNumber = "538"
             landmarkName = "-fetchIssuesWithParamsForPM:forPostId:filterByBlock:newIssuesFirst:onlyOverDue:"
             landmarkType = "5">
          </BreakpointContent>
@@ -23005,7 +22717,71 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/Post.m"
-            timestampString = "456736320.871544"
+            timestampString = "456831193.400116"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "539"
+            endingLineNumber = "539"
+            landmarkName = "-fetchIssuesWithParamsForPM:forPostId:filterByBlock:newIssuesFirst:onlyOverDue:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "comress/Post.m"
+            timestampString = "456831193.400116"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "540"
+            endingLineNumber = "540"
+            landmarkName = "-fetchIssuesWithParamsForPM:forPostId:filterByBlock:newIssuesFirst:onlyOverDue:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "comress/Post.m"
+            timestampString = "456831193.400116"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "561"
+            endingLineNumber = "561"
+            landmarkName = "-fetchIssuesWithParamsForPM:forPostId:filterByBlock:newIssuesFirst:onlyOverDue:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "comress/Post.m"
+            timestampString = "456831193.400116"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "562"
+            endingLineNumber = "562"
+            landmarkName = "-fetchIssuesWithParamsForPM:forPostId:filterByBlock:newIssuesFirst:onlyOverDue:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "comress/Post.m"
+            timestampString = "456832658.397824"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "569"
@@ -23021,75 +22797,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/Post.m"
-            timestampString = "456736320.871544"
+            timestampString = "456834903.847208"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "570"
-            endingLineNumber = "570"
-            landmarkName = "-fetchIssuesWithParamsForPM:forPostId:filterByBlock:newIssuesFirst:onlyOverDue:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "comress/Post.m"
-            timestampString = "456736320.871544"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "591"
-            endingLineNumber = "591"
-            landmarkName = "-fetchIssuesWithParamsForPM:forPostId:filterByBlock:newIssuesFirst:onlyOverDue:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "comress/Post.m"
-            timestampString = "456736320.871544"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "592"
-            endingLineNumber = "592"
-            landmarkName = "-fetchIssuesWithParamsForPM:forPostId:filterByBlock:newIssuesFirst:onlyOverDue:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "comress/Post.m"
-            timestampString = "456736320.871544"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "612"
-            endingLineNumber = "612"
-            landmarkName = "-fetchIssuesWithParamsForPM:forPostId:filterByBlock:newIssuesFirst:onlyOverDue:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "comress/Post.m"
-            timestampString = "456746613.307623"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1037"
-            endingLineNumber = "1037"
+            startingLineNumber = "998"
+            endingLineNumber = "998"
             landmarkName = "-postLIstForSegment:forUserType:"
             landmarkType = "5">
          </BreakpointContent>
@@ -23101,11 +22813,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/Post.m"
-            timestampString = "456746613.307623"
+            timestampString = "456834903.847208"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1033"
-            endingLineNumber = "1033"
+            startingLineNumber = "994"
+            endingLineNumber = "994"
             landmarkName = "-postLIstForSegment:forUserType:"
             landmarkType = "5">
          </BreakpointContent>
@@ -23117,11 +22829,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/Post.m"
-            timestampString = "456746613.307623"
+            timestampString = "456834903.847208"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1082"
-            endingLineNumber = "1082"
+            startingLineNumber = "1043"
+            endingLineNumber = "1043"
             landmarkName = "-postLIstForSegment:forUserType:"
             landmarkType = "5">
          </BreakpointContent>
@@ -23133,11 +22845,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/Post.m"
-            timestampString = "456746613.307623"
+            timestampString = "456834903.847208"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1162"
-            endingLineNumber = "1162"
+            startingLineNumber = "1123"
+            endingLineNumber = "1123"
             landmarkName = "-postLIstForSegment:forUserType:"
             landmarkType = "5">
          </BreakpointContent>
@@ -23149,11 +22861,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/Post.m"
-            timestampString = "456746613.307623"
+            timestampString = "456834903.847208"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1052"
-            endingLineNumber = "1052"
+            startingLineNumber = "1013"
+            endingLineNumber = "1013"
             landmarkName = "-postLIstForSegment:forUserType:"
             landmarkType = "5">
          </BreakpointContent>
@@ -23165,7 +22877,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/Post.m"
-            timestampString = "456736320.871544"
+            timestampString = "456831193.400116"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "221"
@@ -23197,7 +22909,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/Post.m"
-            timestampString = "456736320.871544"
+            timestampString = "456831193.400116"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "215"
@@ -23229,11 +22941,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/Post.m"
-            timestampString = "456736320.871544"
+            timestampString = "456831193.400116"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "587"
-            endingLineNumber = "587"
+            startingLineNumber = "557"
+            endingLineNumber = "557"
             landmarkName = "-fetchIssuesWithParamsForPM:forPostId:filterByBlock:newIssuesFirst:onlyOverDue:"
             landmarkType = "5">
          </BreakpointContent>
@@ -23245,11 +22957,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/Post.m"
-            timestampString = "456746613.307623"
+            timestampString = "456834903.847208"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1087"
-            endingLineNumber = "1087"
+            startingLineNumber = "1048"
+            endingLineNumber = "1048"
             landmarkName = "-postLIstForSegment:forUserType:"
             landmarkType = "5">
          </BreakpointContent>
@@ -23261,12 +22973,428 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "comress/Post.m"
-            timestampString = "456746613.307623"
+            timestampString = "456834903.847208"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1264"
-            endingLineNumber = "1264"
+            startingLineNumber = "1225"
+            endingLineNumber = "1225"
             landmarkName = "-postInfoForPostId:clientPostId:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "comress/Synchronize.m"
+            timestampString = "456806427.941418"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "2188"
+            endingLineNumber = "2188"
+            landmarkName = "-startDownloadPostForPage:totalPage:requestDate:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "comress/Synchronize.m"
+            timestampString = "456806429.30155"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "2172"
+            endingLineNumber = "2172"
+            landmarkName = "-startDownloadPostForPage:totalPage:requestDate:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "comress/InitializerViewController.m"
+            timestampString = "456807407.908712"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "902"
+            endingLineNumber = "902"
+            landmarkName = "-startDownloadPostForPage:totalPage:requestDate:withUi:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "comress/InitializerViewController.m"
+            timestampString = "456807407.908712"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "883"
+            endingLineNumber = "883"
+            landmarkName = "-startDownloadPostForPage:totalPage:requestDate:withUi:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "comress/InitializerViewController.m"
+            timestampString = "456807200.768912"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "859"
+            endingLineNumber = "859"
+            landmarkName = "-startDownloadPostForPage:totalPage:requestDate:withUi:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "comress/InitializerViewController.m"
+            timestampString = "456808239.150318"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1462"
+            endingLineNumber = "1462"
+            landmarkName = "-checkSurveyCount"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "comress/ActivationViewController.m"
+            timestampString = "456815468.8598"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "47"
+            endingLineNumber = "47"
+            landmarkName = "-doActivate:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "comress/IssuesViewController.m"
+            timestampString = "456826791.988758"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "180"
+            endingLineNumber = "180"
+            landmarkName = "-setSegmentBadge"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "comress/IssuesViewController.m"
+            timestampString = "456826791.988758"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "179"
+            endingLineNumber = "179"
+            landmarkName = "-setSegmentBadge"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "comress/IssuesViewController.m"
+            timestampString = "456830986.339546"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "190"
+            endingLineNumber = "190"
+            landmarkName = "-setSegmentBadge"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "comress/Synchronize.m"
+            timestampString = "456819448.940346"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "2173"
+            endingLineNumber = "2173"
+            landmarkName = "-startDownloadPostForPage:totalPage:requestDate:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "comress/Post.m"
+            timestampString = "456831193.400116"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "225"
+            endingLineNumber = "225"
+            landmarkName = "-fetchIssuesWithParams:forPostId:filterByBlock:newIssuesFirst:onlyOverDue:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "comress/Post.m"
+            timestampString = "456831193.400116"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "227"
+            endingLineNumber = "227"
+            landmarkName = "-fetchIssuesWithParams:forPostId:filterByBlock:newIssuesFirst:onlyOverDue:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "comress/IssuesViewController.m"
+            timestampString = "456831064.866934"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "559"
+            endingLineNumber = "559"
+            landmarkName = "-fetchPostsWithNewIssuesUp:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "comress/IssuesViewController.m"
+            timestampString = "456830986.339546"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "229"
+            endingLineNumber = "229"
+            landmarkName = "-setSegmentBadge"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "comress/IssuesViewController.m"
+            timestampString = "456830986.339546"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "259"
+            endingLineNumber = "259"
+            landmarkName = "-setSegmentBadge"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "comress/IssuesViewController.m"
+            timestampString = "456830986.339546"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "238"
+            endingLineNumber = "238"
+            landmarkName = "-setSegmentBadge"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "comress/IssuesViewController.m"
+            timestampString = "456831064.866934"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "329"
+            endingLineNumber = "329"
+            landmarkName = "-setSegmentBadge"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "comress/Database.m"
+            timestampString = "456828018.11665"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "191"
+            endingLineNumber = "191"
+            landmarkName = "-migrateDatabase"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "comress/IssuesViewController.m"
+            timestampString = "456830986.339546"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "313"
+            endingLineNumber = "313"
+            landmarkName = "-setSegmentBadge"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "comress/Post.m"
+            timestampString = "456831193.400116"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "517"
+            endingLineNumber = "517"
+            landmarkName = "-fetchIssuesWithParamsForPM:forPostId:filterByBlock:newIssuesFirst:onlyOverDue:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "comress/IssuesViewController.m"
+            timestampString = "456831109.830125"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "311"
+            endingLineNumber = "311"
+            landmarkName = "-setSegmentBadge"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "comress/Post.m"
+            timestampString = "456834903.847208"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "614"
+            endingLineNumber = "614"
+            landmarkName = "-fetchIssuesWithParamsForPM:forPostId:filterByBlock:newIssuesFirst:onlyOverDue:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "comress/Post.m"
+            timestampString = "456834903.847208"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "627"
+            endingLineNumber = "627"
+            landmarkName = "-fetchIssuesWithParamsForPM:forPostId:filterByBlock:newIssuesFirst:onlyOverDue:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "comress/IssuesViewController.m"
+            timestampString = "456834803.234724"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "664"
+            endingLineNumber = "664"
+            landmarkName = "-groupPostForPM"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "comress/IssuesViewController.m"
+            timestampString = "456836254.689093"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "789"
+            endingLineNumber = "789"
+            landmarkName = "-tableView:cellForRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

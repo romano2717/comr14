@@ -508,11 +508,11 @@
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZGL-hM-Ycc">
-                                                <rect key="frame" x="546" y="455" width="42" height="21"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZGL-hM-Ycc">
+                                                <rect key="frame" x="474" y="455" width="114" height="21"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="21" id="Aoj-A1-Tz2"/>
-                                                    <constraint firstAttribute="width" constant="42" id="laF-lM-GFT"/>
+                                                    <constraint firstAttribute="width" constant="114" id="laF-lM-GFT"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="9"/>
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -2727,10 +2727,10 @@
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="7.7.7" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QHH-aa-hBC">
-                                <rect key="frame" x="535" y="530" width="53" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="7.7.7" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QHH-aa-hBC">
+                                <rect key="frame" x="474" y="530" width="114" height="21"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="53" id="3sf-cp-YOy"/>
+                                    <constraint firstAttribute="width" constant="114" id="3sf-cp-YOy"/>
                                     <constraint firstAttribute="height" constant="21" id="rf8-Xw-hnY"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="8"/>

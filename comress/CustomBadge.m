@@ -103,7 +103,7 @@
 // Creates a Badge with a given Text 
 + (CustomBadge*) customBadgeWithString:(NSString *)badgeString
 {
-	return [[[self alloc] initWithString:badgeString withScale:1.0 withShining:YES] autorelease];
+    return [[[self alloc] initWithString:badgeString withScale:1.0 withShining:YES] autorelease];
 }
 
 

@@ -31,4 +31,6 @@
 // If you need to add or remove segments, then call clearBadges first.
 - (void)clearBadges;
 
+- (void)setSegmentTintColorForIndex:(int)index withColor:(UIColor *)color;
+
 @end

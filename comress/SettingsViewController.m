@@ -27,13 +27,25 @@
     client = [[Client alloc] init];
     
     __block NSString *dbVersion;
+    __block NSString *env;
+    
     [myDatabase.databaseQ inTransaction:^(FMDatabase *db, BOOL *rollback) {
         FMResultSet *rs = [db executeQuery:@"select version from db_version"];
         while ([rs next]) {
             dbVersion = [NSString stringWithFormat:@"%d",[rs intForColumn:@"version"]];
         }
+        
+        FMResultSet *rs2 = [db executeQuery:@"select environment from client"];
+        while ([rs2 next]) {
+            env = [rs2 stringForColumn:@"environment"];
+        }
     }];
+#if DEBUG
+    self.versionLabel.text = [NSString stringWithFormat:@"%@|%@|%@",[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"],dbVersion,env];
+#else
     self.versionLabel.text = [NSString stringWithFormat:@"%@|%@",[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"],dbVersion];
+#endif
+    
     
     //get user profile
     [myDatabase.databaseQ inTransaction:^(FMDatabase *db, BOOL *rollback) {

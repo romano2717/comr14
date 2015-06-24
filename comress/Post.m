@@ -210,7 +210,7 @@ contract_type;
             while ([rsPost next]) {
                 NSNumber *clientPostId = [NSNumber numberWithInt:[rsPost intForColumn:@"client_post_id"]];
                 NSNumber *serverPostId = [NSNumber numberWithInt:[rsPost intForColumn:@"post_id"]];
-
+                
                 //if the post is Closed and updated_on is more than 3 days ago, skip it
                 int thePostStatus = [rsPost intForColumn:@"status"];
                 NSDate *theLastUpdatedDate = [rsPost dateForColumn:@"updated_on"];
@@ -219,12 +219,12 @@ contract_type;
                 if(thePostStatus == 4 && lastUpdatedDateDiff >= 3)
                 {
                     //delete this post
-//                    BOOL delPost = NO;
-//                    
-//                    if([clientPostId intValue] > 0)
-//                        delPost = [db executeUpdate:@"delete from post where client_post_id = ?",clientPostId];
-//                    else if ([serverPostId intValue] > 0)
-//                        delPost = [db executeUpdate:@"delete from post where post_id = ?",serverPostId];
+                    BOOL delPost = NO;
+                    
+                    if([clientPostId intValue] > 0)
+                        delPost = [db executeUpdate:@"delete from post where client_post_id = ?",clientPostId];
+                    else if ([serverPostId intValue] > 0)
+                        delPost = [db executeUpdate:@"delete from post where post_id = ?",serverPostId];
                     
                     continue;
                 }
@@ -420,23 +420,6 @@ contract_type;
                 [arr addObject:postDict];
             }
             
-            //get the overdue while we are inside ME to toggle overdue bubble
-            if(POisLoggedIn && postId == nil)
-            {
-                int overdueCtr = 0;
-                
-                if(onlyOverDue == NO && filter == YES)
-                {
-                    FMResultSet *qOverdueRs = [db executeQuery:qOverDue];
-                    
-                    while ([qOverdueRs next]) {
-                        overdueCtr++;
-                    }
-                    
-                    [[NSNotificationCenter defaultCenter] postNotificationName:@"thereAreOVerDueIssues" object:nil userInfo:@{@"count":[NSNumber numberWithInt:overdueCtr]}];
-                }
-            }
-            
         }];
         
         NSMutableArray *mutArr = [[NSMutableArray alloc] initWithArray:arr];
@@ -482,16 +465,6 @@ contract_type;
             }
         }
         
-        if(postId == nil)
-        {
-            if(overDueIssues > 0)
-            {
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"thereAreOVerDueIssues" object:nil userInfo:@{@"count":[NSNumber numberWithInt:overDueIssues]}];
-            }
-            else
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"thereAreOVerDueIssues" object:nil userInfo:@{@"count":[NSNumber numberWithInt:0]}];
-        }
-
         if(mutArr.count == arr.count)
             return mutArr;
         
@@ -590,23 +563,10 @@ contract_type;
             
             [postIdArray addObject:@{@"clientPostId":theClientPostId,@"postId":thePostId,@"POId":POId}];
         }
-        
-        //get the overdue while we are inside ME to toggle overdue bubble
-        int overdueCtr = 0;
-        if(onlyOverDue == NO && filter == YES)
-        {
-            FMResultSet *qOverdueRs = [db executeQuery:qOverdue];
-            
-            while ([qOverdueRs next]) {
-                overdueCtr++;
-            }
-
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"thereAreOVerDueIssues" object:nil userInfo:@{@"count":[NSNumber numberWithInt:overdueCtr]}];
-        }
     }];
     
     NSMutableArray *postArray = [[NSMutableArray alloc] init];
-
+    
     for(int i = 0; i < postIdArray.count; i++)
     {
         NSDictionary *dict = [postIdArray objectAtIndex:i];
@@ -645,10 +605,13 @@ contract_type;
                 
                 NSString *stringPostIdArray = [filterPostIdArr componentsJoinedByString:@","];
                 
-                FMResultSet *unreadPostRs = [db executeQuery:@"select count(*) as unreadPostCount from comment_noti where post_id in (?) and status = ?",stringPostIdArray,[NSNumber numberWithInt:1]];
+                NSString *qqq = [NSString stringWithFormat:@"select * from comment_noti where post_id in (%@) and status = %@",stringPostIdArray,[NSNumber numberWithInt:1]];
+            
+                FMResultSet *unreadPostRs = [db executeQuery:qqq];
+
                 
                 while ([unreadPostRs next]) {
-                    unreadPostCount = [unreadPostRs intForColumn:@"unreadPostCount"];
+                    unreadPostCount++;
                 }
                 
                 while ([rsPostCount next]) {
@@ -657,9 +620,10 @@ contract_type;
                     [postArray addObject:dict];
                 }
             }];
+            
+            
         }
     }
-
     return postArray;
 }
 
