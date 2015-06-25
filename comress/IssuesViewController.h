@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Post.h"
 #import "IssuesTableViewCell.h"
+#import "IssuesPerPoTableViewCell.h"
 #import "IssuesChatViewController.h"
 #import "Comment.h"
 #import "Users.h"

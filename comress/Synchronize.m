@@ -1786,16 +1786,26 @@
             
             NSNumber *FeedbackIssueId = [NSNumber numberWithInt:[[dictPost valueForKey:@"FeedbackIssueId"] intValue]];
             NSNumber *Status = [NSNumber numberWithInt:[[dictPost valueForKey:@"Status"] intValue]];
-            
+            NSDate *LastUpdatedDate = [myDatabase createNSDateWithWcfDateString:[dictPost valueForKey:@"LastUpdatedDate"]];
             
             [myDatabase.databaseQ inTransaction:^(FMDatabase *theDb, BOOL *rollback) {
                 
                 FMResultSet *rsPost = [theDb executeQuery:@"select feedback_issue_id from su_feedback_issue where feedback_issue_id = ?",FeedbackIssueId];
                 if([rsPost next] == NO) //does not exist. insert
                 {
-                    BOOL qIns = [theDb executeUpdate:@"insert into su_feedback_issue (feedback_issue_id,status) values (?,?)",FeedbackIssueId,Status];
+                    BOOL qIns = [theDb executeUpdate:@"insert into su_feedback_issue (feedback_issue_id,status,updated_on) values (?,?,?)",FeedbackIssueId,Status,LastUpdatedDate];
                     
                     if(!qIns)
+                    {
+                        *rollback = YES;
+                        return;
+                    }
+                }
+                else
+                {
+                    BOOL ups = [theDb executeUpdate:@"update su_feedback_issue set feedback_issue_id = ?, status = ?, updated_on = ? where feedback_issue_id = ? ",FeedbackIssueId,Status,LastUpdatedDate,FeedbackIssueId];
+                    
+                    if(!ups)
                     {
                         *rollback = YES;
                         return;

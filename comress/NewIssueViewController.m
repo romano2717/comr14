@@ -93,10 +93,10 @@
     dispatch_async(dispatch_get_main_queue(), ^{
        
         [theBlocks enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-            NSString *postal_code = [NSString stringWithFormat:@"%@ - %@",[obj valueForKey:@"postal_code"],[obj valueForKey:@"street_name"]];
+            NSString *postal_code = [NSString stringWithFormat:@"%@ - %@ - %@",[obj valueForKey:@"postal_code"],[obj valueForKey:@"street_name"],[obj valueForKey:@"block_no"]];
             NSString *block_no = [obj valueForKey:@"block_no"];
-            NSString *street_name = [NSString stringWithFormat:@"%@ - %@",[obj valueForKey:@"street_name"],[obj valueForKey:@"postal_code"]];
-            
+            NSString *street_name = [NSString stringWithFormat:@"%@ - %@ - %@",[obj valueForKey:@"street_name"],[obj valueForKey:@"postal_code"],[obj valueForKey:@"block_no"]];
+
             [self.blocksArray addObject:[NSDictionary dictionaryWithObjectsAndKeys:postal_code,@"DisplayText",obj,@"CustomObject",block_no,@"DisplaySubText", nil]];
             
             [self.addressArray addObject:[NSDictionary dictionaryWithObjectsAndKeys:street_name,@"DisplayText",obj,@"CustomObject",block_no,@"DisplaySubText", nil]];

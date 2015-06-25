@@ -28,5 +28,7 @@
 - (NSDictionary *)surveDetailForId:(NSNumber *)surveyId forClientSurveyId:(NSNumber *)clientSurveyId;
 
 - (NSArray *)surveyForPo:(NSString *)userId;
+
+- (void)purgeInActiveSurvey;
 @end
 

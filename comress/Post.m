@@ -124,9 +124,8 @@ contract_type;
         PMisLoggedIn = YES;
         POisLoggedIn = NO;
     }
-    
-    
 
+    
 //    @try {
         int __block overDueIssues = 0;
         
@@ -161,7 +160,17 @@ contract_type;
         double timestampThreeDaysAgo = [daysAgo timeIntervalSince1970];
     
     
+        __block NSNumber *inactiveDays = [NSNumber numberWithInt:3]; //default
         
+        [myDatabase.databaseQ inTransaction:^(FMDatabase *db, BOOL *rollback) {
+            FMResultSet *rs = [db executeQuery:@"select inactiveDays from settings"];
+            while ([rs next]) {
+                inactiveDays = [NSNumber numberWithInt:[rs intForColumn:@"inactiveDays"]];
+            }
+        }];
+    
+    
+    
         if(postId == nil) //for listing
         {
             if(onlyOverDue == NO)
@@ -216,7 +225,7 @@ contract_type;
                 NSDate *theLastUpdatedDate = [rsPost dateForColumn:@"updated_on"];
                 
                 int lastUpdatedDateDiff = [self daysBetween:theLastUpdatedDate and:[NSDate date]];
-                if(thePostStatus == 4 && lastUpdatedDateDiff >= 3)
+                if(thePostStatus == 4 && lastUpdatedDateDiff >= [inactiveDays intValue])
                 {
                     //delete this post
                     BOOL delPost = NO;
@@ -251,10 +260,8 @@ contract_type;
                         if(daysBetween >= 1 && the_status != 4) //overdue and not closed, don't add to ME
                             continue;
                     }
-                    
-                    else //OVERDUE
+                    else if (onlyOverDue == YES && filter == YES && postId == nil) //overdue
                     {
-
                         //due date
                         NSDate *now = [NSDate date];
                         NSDateComponents* comps = [[NSCalendar currentCalendar] components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay fromDate:now];
@@ -276,6 +283,7 @@ contract_type;
                                 continue;
                         }
                     }
+                    
                 }
                 else
                 {
@@ -502,10 +510,23 @@ contract_type;
         {
             if(filter == YES) //ME
             {
-                //where supervisor_id = '%@ OR user_id = '%@' : some contractor is also the supervisor
-                q = [[NSMutableString alloc] initWithString:[NSString stringWithFormat:@"select p.post_id,client_post_id,p.dueDate,p.status,p.updated_on,bum.user_id from post p left join block_user_mapping bum on bum.block_id = p.block_id where p.block_id in (select block_id from block_user_mapping where supervisor_id = '%@' or user_id = '%@')",[myDatabase.userDictionary valueForKey:@"user_id"],[myDatabase.userDictionary valueForKey:@"user_id"]]];
+                if([[myDatabase.userDictionary valueForKey:@"group_name"] isEqualToString:@"CT_SA"] == NO)
+                {
+                    //where supervisor_id = '%@ OR user_id = '%@' : some contractor is also the supervisor
+                    q = [[NSMutableString alloc] initWithString:[NSString stringWithFormat:@"select p.post_id,client_post_id,p.dueDate,p.status,p.updated_on,bum.user_id from post p left join block_user_mapping bum on bum.block_id = p.block_id where p.block_id in (select block_id from block_user_mapping where supervisor_id = '%@' or user_id = '%@')",[myDatabase.userDictionary valueForKey:@"user_id"],[myDatabase.userDictionary valueForKey:@"user_id"]]];
+                    
+                    qOverdue = [[NSMutableString alloc] initWithString:[NSString stringWithFormat:@"select p.post_id,p.updated_on,client_post_id,bum.user_id from post p left join block_user_mapping bum on bum.block_id = p.block_id where p.block_id in (select block_id from block_user_mapping where supervisor_id = '%@') and dueDate <= '%f' and status != %@  ",[myDatabase.userDictionary valueForKey:@"user_id"], timestampDaysAgo, finishedStatus]];
+                }
+                else //user is ct_sa
+                {
+                    q = [[NSMutableString alloc] initWithString:[NSString stringWithFormat:@"select p.post_id,client_post_id,p.dueDate,p.status,p.updated_on,bum.user_id from post p left join block_user_mapping bum on bum.block_id = p.block_id where p.block_id in (select block_id from block_user_mapping)"]];
+                    
+                    qOverdue = [[NSMutableString alloc] initWithString:[NSString stringWithFormat:@"select p.post_id,p.updated_on,client_post_id,bum.user_id from post p left join block_user_mapping bum on bum.block_id = p.block_id where p.block_id in (select block_id from block_user_mapping) and dueDate <= '%f' and status != %@  ", timestampDaysAgo, finishedStatus]];
+                }
                 
-                qOverdue = [[NSMutableString alloc] initWithString:[NSString stringWithFormat:@"select p.post_id,p.updated_on,client_post_id,bum.user_id from post p left join block_user_mapping bum on bum.block_id = p.block_id where p.block_id in (select block_id from block_user_mapping where supervisor_id = '%@') and dueDate <= '%f' and status != %@  ",[myDatabase.userDictionary valueForKey:@"user_id"], timestampDaysAgo, finishedStatus]];
+                
+                
+
             }
             else //Others
             {
@@ -514,7 +535,15 @@ contract_type;
         }
         else //overdue
         {
-             q = [[NSMutableString alloc] initWithString:[NSString stringWithFormat:@"select p.post_id,client_post_id,p.updated_on,p.status,bum.user_id from post p left join block_user_mapping bum on bum.block_id = p.block_id where p.block_id in (select block_id from block_user_mapping where supervisor_id = '%@' or user_id = '%@') and dueDate <= '%f' and status != %@  ",[myDatabase.userDictionary valueForKey:@"user_id"],[myDatabase.userDictionary valueForKey:@"user_id"], timestampDaysAgo, finishedStatus]];
+            if([[myDatabase.userDictionary valueForKey:@"group_name"] isEqualToString:@"CT_SA"] == NO)
+            {
+                 q = [[NSMutableString alloc] initWithString:[NSString stringWithFormat:@"select p.post_id,client_post_id,p.updated_on,p.status,bum.user_id from post p left join block_user_mapping bum on bum.block_id = p.block_id where p.block_id in (select block_id from block_user_mapping where supervisor_id = '%@' or user_id = '%@') and dueDate <= '%f' and status != %@  ",[myDatabase.userDictionary valueForKey:@"user_id"],[myDatabase.userDictionary valueForKey:@"user_id"], timestampDaysAgo, finishedStatus]];
+            }
+            else
+            {
+                 q = [[NSMutableString alloc] initWithString:[NSString stringWithFormat:@"select p.post_id,client_post_id,p.updated_on,p.status,bum.user_id from post p left join block_user_mapping bum on bum.block_id = p.block_id where p.block_id in (select block_id from block_user_mapping ) and dueDate <= '%f' and status != %@  ", timestampDaysAgo, finishedStatus]];            
+            }
+            
         }
     }
     

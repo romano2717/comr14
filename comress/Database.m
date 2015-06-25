@@ -8,7 +8,7 @@
 
 #import "Database.h"
 
-static const int newDatabaseVersion = 7; //this database version is incremented everytime the database version is updated
+static const int newDatabaseVersion = 8; //this database version is incremented everytime the database version is updated
 
 @implementation Database
 
@@ -176,12 +176,17 @@ static const int newDatabaseVersion = 7; //this database version is incremented 
                                     //21-may-2015 add division for block mapping
                                     @"ALTER TABLE block_user_mapping add division VARCHAR (30)",
                                     
-                                    
                                     //21-may-2015 add dueDate for post
                                     @"ALTER TABLE post add dueDate DATE",
                                     
                                     //24-june-2015 add environment in client table
-                                    @"ALTER TABLE client add environment VARCHAR (30) DEFAULT ('DEV')"
+                                    @"ALTER TABLE client add environment VARCHAR (30) DEFAULT ('DEV')",
+                                    
+                                    //25-june-2015 add updated_on in su_feedback_issue table
+                                    @"ALTER TABLE su_feedback_issue add updated_on DATE",
+                                    
+                                    //25-june-2015 add new table for settings
+                                    @"CREATE TABLE IF NOT EXISTS settings (inactiveDays INT DEFAULT (3));"
                                     
                                     ];
         

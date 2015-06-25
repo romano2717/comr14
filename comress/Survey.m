@@ -911,4 +911,116 @@
     return surveyArr;
 }
 
+- (void)purgeInActiveSurvey
+{
+    [myDatabase.databaseQ inTransaction:^(FMDatabase *db, BOOL *rollback) {
+        NSNumber *numberOfInActiveDays = [NSNumber numberWithInt:3]; //default
+        
+        
+        FMResultSet *rsGetInactiveDays = [db executeQuery:@"select inactiveDays from settings"];
+        
+        while ([rsGetInactiveDays next]) {
+            numberOfInActiveDays = [NSNumber numberWithInt:[rsGetInactiveDays intForColumn:@"inactiveDays"]];
+        }
+        
+        
+        //get surveys to keep
+        NSDate *now = [NSDate date];
+        NSDateComponents* comps = [[NSCalendar currentCalendar] components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay fromDate:now];
+        NSDate *daysAgo = [[[NSCalendar currentCalendar] dateFromComponents:comps] dateByAddingTimeInterval:-[numberOfInActiveDays intValue]*23*59*59];
+        double timestampDaysAgo = [daysAgo timeIntervalSince1970];
+        
+        FMResultSet *rsSurveysToKeep = [db executeQuery:@"select s.survey_id \
+                                        from su_survey s \
+                                        left join su_feedback f on s.survey_id = f.survey_id \
+                                        left join su_feedback_issue fs on f.feedback_id = fs.feedback_id \
+                                        left join post p on fs.post_id = p.post_id \
+                                        where( \
+                                              (fs.feedback_issue_id is null and s.survey_date > ? ) \
+                                              or (fs.feedback_issue_id is not null and fs.post_id = 0 and (fs.status <> 4 or (fs.status = 4 and fs.updated_on > ? ))) \
+                                              or (fs.feedback_issue_id is not null and fs.post_id > 0 and (p.status <> 4 or(p.post_id =4 and p.updated_on > ?))) \
+                                        ) group by s.survey_id",[NSNumber numberWithDouble:timestampDaysAgo],[NSNumber numberWithDouble:timestampDaysAgo],[NSNumber numberWithDouble:timestampDaysAgo]];
+        
+        NSMutableArray *surveyIdsArr = [[NSMutableArray alloc] init];
+
+        while ([rsSurveysToKeep next]) {
+            [surveyIdsArr addObject:[NSNumber numberWithInt:[rsSurveysToKeep intForColumn:@"survey_id"]]];
+        }
+        
+        
+        //start deleting data not found in stringSurveyIdArray
+        NSString *stringSurveyIdArray = [surveyIdsArr componentsJoinedByString:@","];
+        
+        NSString *surveyQ = [NSString stringWithFormat:@"select * from su_survey where survey_id not in (%@)",stringSurveyIdArray];
+        
+        FMResultSet *rsSurveyToDelete = [db executeQuery:surveyQ];
+        
+        while ([rsSurveyToDelete next]) {
+
+            NSNumber *surveyId = [NSNumber numberWithInt:[rsSurveyToDelete intForColumn:@"survey_id"]];
+            NSNumber *survey_address_id = [NSNumber numberWithInt:[rsSurveyToDelete intForColumn:@"survey_address_id"]];
+            NSNumber *resident_address_id = [NSNumber numberWithInt:[rsSurveyToDelete intForColumn:@"resident_address_id"]];
+            
+            //traverse feedback
+            FMResultSet *rsFeedback = [db executeQuery:@"select feedback_id from su_feedback where survey_id = ?",surveyId];
+            NSMutableArray *feebackIdArrays = [[NSMutableArray alloc] init];
+            while ([rsFeedback next]) {
+                [feebackIdArrays addObject:[NSNumber numberWithInt:[rsFeedback intForColumn:@"feedback_id"]]];
+                
+                //delete this feedback
+                BOOL delFeedback = [db executeUpdate:@"delete from su_feedback where feedback_id = ?",[rsFeedback intForColumn:@"feedback_id"]];
+                if(!delFeedback)
+                {
+                    *rollback = YES;
+                    return;
+                }
+            }
+            
+            //delete feedback_issue
+            for (int i = 0; i < feebackIdArrays.count; i++) {
+                NSNumber *theFeedBackId = [feebackIdArrays objectAtIndex:i];
+                BOOL delFIssue = [db executeUpdate:@"delete from su_feedback_issue where feedback_id = ?",theFeedBackId];
+                if (!delFIssue) {
+                    *rollback = YES;
+                    return;
+                }
+            }
+            
+            
+            //delete address
+            BOOL delSurAddress = [db executeUpdate:@"delete from su_address where address_id = ?",survey_address_id];
+            if(!delSurAddress)
+            {
+                *rollback = YES;
+                return;
+            }
+            
+            BOOL delResAddress = [db executeUpdate:@"delete from su_address where address_id = ?",resident_address_id];
+            if(!delResAddress)
+            {
+                *rollback = YES;
+                return;
+            }
+            
+            
+            //delete answers
+            BOOL delAnswers = [db executeUpdate:@"delete from su_answers where survey_id = ?",surveyId];
+            if(!delAnswers)
+            {
+                *rollback = YES;
+                return;
+            }
+            
+            
+            //delete survey
+            BOOL delSurvey = [db executeUpdate:@"delete from su_survey where survey_id = ?",surveyId];
+            if(!delSurvey)
+            {
+                *rollback = YES;
+                return;
+            }
+        }
+    }];
+}
+
 @end

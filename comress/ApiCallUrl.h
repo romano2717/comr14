@@ -127,6 +127,9 @@ static NSString *user_manual_po = @"http://comress.fmit.sg/ComressMWCF/doc/UserG
 static NSString *user_manual_ct = @"http://comress.fmit.sg/ComressMWCF/doc/UserGuideForContractor.pdf";
 
 
+//settings
+ static NSString *inactive_days = @"Messaging/Post.svc/GetNumberOfInactivityDays";
+
 #endif
 
 

@@ -296,15 +296,15 @@
             
             
             //OTHERS
-            [myDatabase.databaseQ inTransaction:^(FMDatabase *db, BOOL *rollback) {
-                FMResultSet *othersUnReadCommentsRs = [db executeQuery:@"select count(*) as count from comment_noti where status = ? and post_id not in (select p.post_id from post p, blocks_user bu where p.block_id = bu.block_id)",[NSNumber numberWithInt:1]];
-                
-                if([othersUnReadCommentsRs next])
-                {
-                    othersNewCommentsBadge = [othersUnReadCommentsRs intForColumn:@"count"];
-                    [self.segment setBadgeNumber:othersNewCommentsBadge forSegmentAtIndex:1];
-                }
-            }];
+//            [myDatabase.databaseQ inTransaction:^(FMDatabase *db, BOOL *rollback) {
+//                FMResultSet *othersUnReadCommentsRs = [db executeQuery:@"select count(*) as count from comment_noti where status = ? and post_id not in (select p.post_id from post p, blocks_user bu where p.block_id = bu.block_id)",[NSNumber numberWithInt:1]];
+//                
+//                if([othersUnReadCommentsRs next])
+//                {
+//                    othersNewCommentsBadge = [othersUnReadCommentsRs intForColumn:@"count"];
+//                    [self.segment setBadgeNumber:othersNewCommentsBadge forSegmentAtIndex:1];
+//                }
+//            }];
             
             //OVERDUE
             [myDatabase.databaseQ inTransaction:^(FMDatabase *db, BOOL *rollback) {
@@ -761,30 +761,9 @@
         
         if(PMisLoggedIn && self.segment.selectedSegmentIndex == 1) //PM and inside Others segment
         {
-            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:pmCellIdentifier];
-            
-            if(cell == nil)
-                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:pmCellIdentifier];
-
-            int unreadMessage = [[dict valueForKey:@"unreadPost"] intValue];
-            
-            cell.textLabel.text = [NSString stringWithFormat:@"%@ (%d)",[dict valueForKey:@"po"],[[dict valueForKey:@"count"] intValue]];
-            
-            if(unreadMessage > 0)
-            {
-                CustomBadge *customBadge = [CustomBadge customBadgeWithString:[NSString stringWithFormat:@"%d", unreadMessage]];
-                customBadge.tag = 900;
+            IssuesPerPoTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:pmCellIdentifier forIndexPath:indexPath];
                 
-                CGRect contentViewFrame = cell.contentView.frame;
-                
-                CGRect customBadgeFrame = CGRectMake(0, 0, 30,30);
-                customBadgeFrame.origin.x = contentViewFrame.size.width - 30;
-                customBadgeFrame.origin.y = (contentViewFrame.size.height / 2) - 15;
-                
-                [customBadge setFrame:customBadgeFrame];
-                
-                [cell.contentView addSubview:customBadge];
-            }
+            [cell initCellWithResultSet:dict];
             
             return cell;
         }

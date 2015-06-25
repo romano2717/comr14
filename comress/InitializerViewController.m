@@ -205,6 +205,7 @@
 {
     myDatabase.userBlocksMappingInitComplete = NO;
     
+    
     [myDatabase.AfManager GET:[NSString stringWithFormat:@"%@%@",myDatabase.api_url,api_download_user_block_mapping] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         NSArray *BlockUserMappingList = (NSArray *)[responseObject objectForKey:@"BlockUserMappingList"];
@@ -286,7 +287,7 @@
         }
         
         NSDictionary *params = @{@"currentPage":[NSNumber numberWithInt:1], @"lastRequestTime" : jsonDate};
-
+        
         [myDatabase.AfManager POST:[NSString stringWithFormat:@"%@%@",myDatabase.api_url,api_download_posts] parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
             
             NSDictionary *dict = [responseObject objectForKey:@"PostContainer"];
@@ -855,7 +856,6 @@
     self.processLabel.text = [NSString stringWithFormat:@"Downloading posts page... %d/%d",currentPage,totPage];
     
     NSDictionary *params = @{@"currentPage":[NSNumber numberWithInt:page], @"lastRequestTime" : jsonDate};
-
     
     [myDatabase.AfManager POST:[NSString stringWithFormat:@"%@%@",myDatabase.api_url,api_download_posts] parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
@@ -1326,16 +1326,26 @@
             
             NSNumber *FeedbackIssueId = [NSNumber numberWithInt:[[dictPost valueForKey:@"FeedbackIssueId"] intValue]];
             NSNumber *Status = [NSNumber numberWithInt:[[dictPost valueForKey:@"Status"] intValue]];
-            
+            NSDate *LastUpdatedDate = [myDatabase createNSDateWithWcfDateString:[dictPost valueForKey:@"LastUpdatedDate"]];
             
             [myDatabase.databaseQ inTransaction:^(FMDatabase *theDb, BOOL *rollback) {
                 
                 FMResultSet *rsPost = [theDb executeQuery:@"select feedback_issue_id from su_feedback_issue where feedback_issue_id = ?",FeedbackIssueId];
                 if([rsPost next] == NO) //does not exist. insert
                 {
-                    BOOL qIns = [theDb executeUpdate:@"insert into su_feedback_issue (feedback_issue_id,status) values (?,?)",FeedbackIssueId,Status];
+                    BOOL qIns = [theDb executeUpdate:@"insert into su_feedback_issue (feedback_issue_id,status,updated_on) values (?,?,?)",FeedbackIssueId,Status,LastUpdatedDate];
                     
                     if(!qIns)
+                    {
+                        *rollback = YES;
+                        return;
+                    }
+                }
+                else
+                {
+                    BOOL ups = [theDb executeUpdate:@"update su_feedback_issue set feedback_issue_id = ?, status = ?, updated_on = ? where feedback_issue_id = ? ",FeedbackIssueId,Status,LastUpdatedDate,FeedbackIssueId];
+                    
+                    if(!ups)
                     {
                         *rollback = YES;
                         return;
@@ -1552,6 +1562,7 @@
             NSNumber *AutoAssignMe = [NSNumber numberWithInt:[[[FeedbackIssueList objectAtIndex:i] valueForKey:@"AutoAssignMe"] boolValue]];
             NSNumber *PostId = [NSNumber numberWithInt:[[[FeedbackIssueList objectAtIndex:i] valueForKey:@"PostId"] intValue]];
             NSNumber *Status = [NSNumber numberWithInt:[[[FeedbackIssueList objectAtIndex:i] valueForKey:@"Status"] intValue]];
+            NSDate *LastUpdatedDate = [myDatabase createNSDateWithWcfDateString:[[FeedbackIssueList objectAtIndex:i] valueForKey:@"LastUpdatedDate"]];
             
             [myDatabase.databaseQ inTransaction:^(FMDatabase *db, BOOL *rollback) {
                 db.traceExecution = NO;
@@ -1560,7 +1571,7 @@
 
                 if([rsCheckFi next] == NO)
                 {
-                    BOOL insAdd = [db executeUpdate:@"insert into su_feedback_issue(feedback_id,feedback_issue_id,issue_des,auto_assignme,post_id,status) values (?,?,?,?,?,?)",FeedbackId,FeedbackIssueId,IssueDes,AutoAssignMe,PostId,Status];
+                    BOOL insAdd = [db executeUpdate:@"insert into su_feedback_issue(feedback_id,feedback_issue_id,issue_des,auto_assignme,post_id,status, updated_on) values (?,?,?,?,?,?,?)",FeedbackId,FeedbackIssueId,IssueDes,AutoAssignMe,PostId,Status,LastUpdatedDate];
                     
                     if(!insAdd)
                     {
@@ -1570,7 +1581,7 @@
                 }
                 else
                 {
-                    BOOL insUp = [db executeUpdate:@"update su_feedback_issue set feedback_id = ?, feedback_issue_id = ?, issue_des = ?, auto_assignme = ?, post_id = ?, status = ? where feedback_issue_id = ?",FeedbackId,FeedbackIssueId,IssueDes,AutoAssignMe,PostId,Status,FeedbackIssueId];
+                    BOOL insUp = [db executeUpdate:@"update su_feedback_issue set feedback_id = ?, feedback_issue_id = ?, issue_des = ?, auto_assignme = ?, post_id = ?, status = ?, updated_on = ? where feedback_issue_id = ?",FeedbackId,FeedbackIssueId,IssueDes,AutoAssignMe,PostId,Status,LastUpdatedDate, FeedbackIssueId];
                     if(!insUp)
                     {
                         *rollback = YES;
@@ -1646,7 +1657,7 @@
                 }
                 else
                 {
-                    BOOL upSur = [db executeUpdate:@"update su_survey set average_rating = ?, resident_address_id = ?, resident_age_range = ?, resident_gender = ?, resident_name = ?, resident_race = ?, survey_address_id = ?, survey_date = ?, resident_contact = ?, resident_email = ?, data_protection = ?,  other_contact = ?,  created_by = ?,  isMine = ? where survey_id = ?",AverageRating,ResidentAddressId,ResidentAgeRange,ResidentGender,ResidentName,ResidentRace,SurveyAddressId,SurveyDate,ResidentContact,ResidentEmail,DataProtection,Resident2ndContact,CreatedBy,IsMine,SurveyId];
+                    BOOL upSur = [db executeUpdate:@"update su_survey set average_rating = ?, resident_address_id = ?, resident_age_range = ?, resident_gender = ?, resident_name = ?, resident_race = ?, survey_address_id = ?, survey_date = ?, resident_contact = ?, resident_email = ?, data_protection = ?,  other_contact = ?,  created_by = ?,  isMine = ?where survey_id = ?",AverageRating,ResidentAddressId,ResidentAgeRange,ResidentGender,ResidentName,ResidentRace,SurveyAddressId,SurveyDate,ResidentContact,ResidentEmail,DataProtection,Resident2ndContact,CreatedBy,IsMine,SurveyId];
                     if(!upSur)
                     {
                         *rollback = YES;

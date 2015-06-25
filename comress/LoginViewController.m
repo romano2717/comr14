@@ -226,7 +226,8 @@
                     
                     if(loginOk)
                     {
-                        [self performSegueWithIdentifier:@"push_main_view" sender:self];
+                        [self downloadUserSettings];
+                        
                     }
                     else
                         DDLogVerbose(@"%@ [%@-%@]",[db lastErrorMessage],THIS_FILE,THIS_METHOD);
@@ -252,6 +253,58 @@
     }
 }
 
+- (void)downloadUserSettings
+{
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    
+    [myDatabase.AfManager GET:[NSString stringWithFormat:@"%@%@",myDatabase.api_url,inactive_days] parameters:nil   success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSDictionary *dict = responseObject;
+        
+        NSNumber *NumberOfInactivityDays = [NSNumber numberWithInt:[[dict valueForKey:@"NumberOfInactivityDays"] intValue]];
+        
+        [myDatabase.databaseQ inTransaction:^(FMDatabase *db, BOOL *rollback) {
+            
+            FMResultSet *rs = [db executeQuery:@"select inactiveDays from settings"];
+            
+            if([rs next])
+            {
+                BOOL up = [db executeUpdate:@"update settings set inactiveDays = ?",NumberOfInactivityDays];
+                
+                if(!up)
+                {
+                    *rollback = YES;
+                    return;
+                }
+            }
+            else
+            {
+                BOOL ins = [db executeUpdate:@"insert into settings (inactiveDays) values (?)",NumberOfInactivityDays];
+                
+                if(!ins)
+                {
+                    *rollback = YES;
+                    return;
+                }
+            }
+            
+            [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+            [self performSegueWithIdentifier:@"push_main_view" sender:self];
+        }];
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Login Failed" message:[NSString stringWithFormat:@"%@",error] delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
+        [alert show];
+        
+        
+        DDLogVerbose(@"%@ [%@-%@]",error.localizedDescription,THIS_FILE,THIS_METHOD);
+    }];
+    
+
+}
 
 - (void)resetTables
 {
