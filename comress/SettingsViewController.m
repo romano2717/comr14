@@ -40,11 +40,15 @@
             env = [rs2 stringForColumn:@"environment"];
         }
     }];
-#if DEBUG
-    self.versionLabel.text = [NSString stringWithFormat:@"%@|%@|%@",[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"],dbVersion,env];
-#else
-    self.versionLabel.text = [NSString stringWithFormat:@"%@|%@",[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"],dbVersion];
-#endif
+
+    if([[env lowercaseString] isEqualToString:@"live"])
+    {
+        self.versionLabel.text = [NSString stringWithFormat:@"%@|%@",[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"],dbVersion];
+    }
+    else
+    {
+        self.versionLabel.text = [NSString stringWithFormat:@"%@|%@|%@",[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"],dbVersion,env];
+    }
     
     
     //get user profile

@@ -424,7 +424,9 @@
         else if ([reportType isEqualToString:@"Average Sentiment"])
             urlString = [NSString stringWithFormat:@"%@%@",myDatabase.api_url,api_survey_report_average_sentiment];
         
-        params = [myDatabase toJsonString:@{@"startDate":wcfDateFrom,@"endDate":wcfDateTo,@"url":urlString,@"session":[myDatabase.userDictionary valueForKey:@"guid"],@"layer":[NSNumber numberWithInt:1]}];
+        NSString *borderUrl = [NSString stringWithFormat:@"%@%@",myDatabase.api_url,api_survey_report_average_sentiment_border];
+        
+        params = [myDatabase toJsonString:@{@"startDate":wcfDateFrom,@"endDate":wcfDateTo,@"url":urlString,@"session":[myDatabase.userDictionary valueForKey:@"guid"],@"layer":[NSNumber numberWithInt:1],@"borderUrl":borderUrl}];
     }
     else if (PMisLoggedIn)
     {

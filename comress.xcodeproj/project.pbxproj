@@ -2515,7 +2515,7 @@
 				);
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "7e7f5b55-6aa9-4bc5-98d5-a7a6d69fc56a";
+				PROVISIONING_PROFILE = "32a4d8b2-ccea-4570-88d7-455dfc558e7b";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -2542,7 +2542,7 @@
 				);
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "7e7f5b55-6aa9-4bc5-98d5-a7a6d69fc56a";
+				PROVISIONING_PROFILE = "32a4d8b2-ccea-4570-88d7-455dfc558e7b";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

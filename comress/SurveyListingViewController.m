@@ -78,8 +78,6 @@
     [super viewDidAppear:animated];
     
     [self.surveyTableView reloadData];
-    
-    [survey purgeInActiveSurvey];
 }
 
 - (IBAction)segmentChanged:(id)sender
@@ -193,7 +191,8 @@
 
 - (void)fetchSurvey
 {
-
+    [survey purgeInActiveSurvey];
+    
     if(POisLoggedIn)
         surveyArray = [survey fetchSurveyForSegment2:(int)segment.selectedSegmentIndex];
     else if (PMisLoggedIn)

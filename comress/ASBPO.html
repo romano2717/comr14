@@ -45,6 +45,9 @@
                                                       var defaultCenter = new google.maps.LatLng(1.364842, 103.807187)
                                                       
                                                       function requestData(encodedJson) {
+                                                          
+                                                          currentLayer = 0;
+                                                          
                                                           jsonObject = jSonise(encodedJson);
                                                           
                                                           $.ajaxSetup({

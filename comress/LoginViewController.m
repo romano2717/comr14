@@ -36,12 +36,23 @@
         }
     }];
 
-#if DEBUG
-    self.versionLabel.text = [NSString stringWithFormat:@"%@|%@|%@",[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"],dbVersion,env];
-#else
-    self.versionLabel.text = [NSString stringWithFormat:@"%@|%@",[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"],dbVersion];
-#endif
+    if([[env lowercaseString] isEqualToString:@"live"])
+    {
+        self.versionLabel.text = [NSString stringWithFormat:@"%@|%@",[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"],dbVersion];
+    }
+    else
+    {
+        self.versionLabel.text = [NSString stringWithFormat:@"%@|%@|%@",[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"],dbVersion,env];
+    }
     
+}
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    self.companyIdTextField.text = @"";
+    self.userIdTextField.text = @"";
+    self.passwordTextField.text = @"";
 }
 
 - (void)viewDidAppear:(BOOL)animated

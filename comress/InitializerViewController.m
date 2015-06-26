@@ -883,7 +883,7 @@
             NSDate *DueDate = [myDatabase createNSDateWithWcfDateString:[dictPost valueForKey:@"DueDate"]];
             NSDate *LastUpdatedDate = [myDatabase createNSDateWithWcfDateString:[dictPost valueForKey:@"LastUpdatedDate"]];
             NSNumber *contractType = [dictPost valueForKey:@"PostGroup"];
-
+            
             [myDatabase.databaseQ inTransaction:^(FMDatabase *theDb, BOOL *rollback) {
                 
                 FMResultSet *rsPostCheck = [theDb executeQuery:@"select * from post where post_id = ?",PostId];

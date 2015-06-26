@@ -960,7 +960,8 @@
             NSNumber *surveyId = [NSNumber numberWithInt:[rsSurveyToDelete intForColumn:@"survey_id"]];
             NSNumber *survey_address_id = [NSNumber numberWithInt:[rsSurveyToDelete intForColumn:@"survey_address_id"]];
             NSNumber *resident_address_id = [NSNumber numberWithInt:[rsSurveyToDelete intForColumn:@"resident_address_id"]];
-            
+
+
             //traverse feedback
             FMResultSet *rsFeedback = [db executeQuery:@"select feedback_id from su_feedback where survey_id = ?",surveyId];
             NSMutableArray *feebackIdArrays = [[NSMutableArray alloc] init];
@@ -968,7 +969,7 @@
                 [feebackIdArrays addObject:[NSNumber numberWithInt:[rsFeedback intForColumn:@"feedback_id"]]];
                 
                 //delete this feedback
-                BOOL delFeedback = [db executeUpdate:@"delete from su_feedback where feedback_id = ?",[rsFeedback intForColumn:@"feedback_id"]];
+                BOOL delFeedback = [db executeUpdate:@"delete from su_feedback where feedback_id = ?",[NSNumber numberWithInt:[rsFeedback intForColumn:@"feedback_id"]]];
                 if(!delFeedback)
                 {
                     *rollback = YES;

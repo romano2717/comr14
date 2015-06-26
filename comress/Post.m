@@ -225,6 +225,7 @@ contract_type;
                 NSDate *theLastUpdatedDate = [rsPost dateForColumn:@"updated_on"];
                 
                 int lastUpdatedDateDiff = [self daysBetween:theLastUpdatedDate and:[NSDate date]];
+
                 if(thePostStatus == 4 && lastUpdatedDateDiff >= [inactiveDays intValue])
                 {
                     //delete this post

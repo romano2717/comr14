@@ -2188,10 +2188,6 @@
                         *rollback = YES;
                         return;
                     }
-                    
-                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                        [self notifyLocallyWithMessage:[NSString stringWithFormat:@"%@ : %@",PostBy,PostTopic]];
-                    });
                 }
                 else //update
                 {
@@ -2207,12 +2203,6 @@
                     }
                 }
             }];
-            
-            // we move this inside valid post insert
-            
-//            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-//                [self notifyLocallyWithMessage:[NSString stringWithFormat:@"%@ : %@",PostBy,PostTopic]];
-//            });
         }
         
         if(currentPage < totalPage)
@@ -2527,7 +2517,7 @@
                     {
                         NSDate *now = [NSDate date];
                         
-                        BOOL upPostUpdatedOn = [theDb executeUpdate:@"update post set updated_on = ? where post_id = ?",PostId];
+                        BOOL upPostUpdatedOn = [theDb executeUpdate:@"update post set updated_on = ? where post_id = ?",now,PostId];
                         
                         if(!upPostUpdatedOn)
                         {
@@ -2536,14 +2526,6 @@
                         }
                         newCommentSaved = YES;
                     }
-                    
-                    
-                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                        if([CommentType intValue] == 2)
-                            [self notifyLocallyWithMessage:[NSString stringWithFormat:@"%@ : Photo Message",CommentBy]];
-                        else
-                            [self notifyLocallyWithMessage:[NSString stringWithFormat:@"%@ : %@",CommentBy,CommentString]];
-                    });
                 }
             }];
             
@@ -2557,13 +2539,6 @@
                     [self reloadIssuesList];
                 }
             }
-            //we move this inside valid insert
-//            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-//                if([CommentType intValue] == 2)
-//                    [self notifyLocallyWithMessage:[NSString stringWithFormat:@"%@ : Photo Message",CommentBy]];
-//                else
-//                    [self notifyLocallyWithMessage:[NSString stringWithFormat:@"%@ : %@",CommentBy,CommentString]];
-//            });
         }
         
         if(currentPage < totalPage)
