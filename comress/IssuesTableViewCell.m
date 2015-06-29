@@ -167,10 +167,12 @@
         
         if(segment == 0) //check if the issue is 1 day before the overdue
         {
-            NSDate *now = [NSDate date];
-            int diff = [self daysBetween:dueDate and:now];
+            NSDateComponents* comps = [[NSCalendar currentCalendar] components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay fromDate:now];
+            NSDate *now = [[NSCalendar currentCalendar] dateFromComponents:comps];
             
-            if(diff >= 2 && status != 4)
+            int diff = [self daysBetween:now and:dueDate];
+            
+            if(diff == 1 && status != 4)
             {
                 postTitleLabel.textColor = [UIColor redColor];
                 addressLabel.textColor = [UIColor redColor];

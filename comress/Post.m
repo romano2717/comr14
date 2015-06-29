@@ -119,7 +119,7 @@ contract_type;
     BOOL POisLoggedIn = YES; //CT_NU uses the same logic as PO
     BOOL PMisLoggedIn = YES;
     
-    if([[myDatabase.userDictionary valueForKey:@"group_name"] isEqualToString:@"PM"] || [[myDatabase.userDictionary valueForKey:@"group_name"] isEqualToString:@"CT_SA"])
+    if([[myDatabase.userDictionary valueForKey:@"group_name"] isEqualToString:@"PM"] || [[myDatabase.userDictionary valueForKey:@"group_name"] isEqualToString:@"CT_SA"] || [[myDatabase.userDictionary valueForKey:@"group_name"] isEqualToString:@"CT_SUP"])
     {
         PMisLoggedIn = YES;
         POisLoggedIn = NO;
@@ -280,7 +280,7 @@ contract_type;
                             continue;
                         else
                         {
-                            if(daysBetween < 0 && the_status != 4) //not overdue and closed, don't add to OVERDUE
+                            if(daysBetween <= 0 && the_status != 4) //not overdue and closed, don't add to OVERDUE
                                 continue;
                         }
                     }
