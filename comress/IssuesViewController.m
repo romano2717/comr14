@@ -69,6 +69,8 @@
     //when PO close the issue
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(closeIssueActionSubmitFromList:) name:@"closeIssueActionSubmitFromList" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(closeCloseIssueActionSubmitFromList) name:@"closeCloseIssueActionSubmitFromList" object:nil];
+    
+    [self adjustTableRowHeightForPM];
 }
 
 - (void)thereAreOVerDueIssues:(NSNotification *)notif
@@ -146,8 +148,6 @@
     self.tabBarController.tabBar.hidden = NO;
     //self.navigationController.navigationBar.hidden = YES;
     self.hidesBottomBarWhenPushed = NO;
-    
-    [self adjustTableRowHeightForPM];
     
     if(myDatabase.initializingComplete == 1)
     {
@@ -280,6 +280,10 @@
                 
                 for (int i = 0; i < list.count; i++) {
                     NSString *key = [[[list objectAtIndex:i] allKeys] firstObject];
+                    
+                    if([[[[list objectAtIndex:i] objectForKey:key] valueForKey:@"post"] valueForKey:@"post_id"] == [NSNull null])
+                        continue;
+                    
                     NSNumber *thisPostId = [NSNumber numberWithInt:[[[[[list objectAtIndex:i] objectForKey:key] valueForKey:@"post"] valueForKey:@"post_id"] intValue]];
                     
                     
@@ -300,15 +304,15 @@
             
             
             //OTHERS
-//            [myDatabase.databaseQ inTransaction:^(FMDatabase *db, BOOL *rollback) {
-//                FMResultSet *othersUnReadCommentsRs = [db executeQuery:@"select count(*) as count from comment_noti where status = ? and post_id not in (select p.post_id from post p, blocks_user bu where p.block_id = bu.block_id)",[NSNumber numberWithInt:1]];
-//                
-//                if([othersUnReadCommentsRs next])
-//                {
-//                    othersNewCommentsBadge = [othersUnReadCommentsRs intForColumn:@"count"];
-//                    [self.segment setBadgeNumber:othersNewCommentsBadge forSegmentAtIndex:1];
-//                }
-//            }];
+            [myDatabase.databaseQ inTransaction:^(FMDatabase *db, BOOL *rollback) {
+                FMResultSet *othersUnReadCommentsRs = [db executeQuery:@"select count(*) as count from comment_noti where status = ? and post_id not in (select p.post_id from post p, blocks_user bu where p.block_id = bu.block_id)",[NSNumber numberWithInt:1]];
+                
+                if([othersUnReadCommentsRs next])
+                {
+                    othersNewCommentsBadge = [othersUnReadCommentsRs intForColumn:@"count"];
+                    [self.segment setBadgeNumber:othersNewCommentsBadge forSegmentAtIndex:1];
+                }
+            }];
             
             //OVERDUE
             [myDatabase.databaseQ inTransaction:^(FMDatabase *db, BOOL *rollback) {
@@ -672,7 +676,7 @@
 -(void)adjustTableRowHeightForPM
 {
     if(PMisLoggedIn && self.segment.selectedSegmentIndex == 1)
-        self.issuesTable.estimatedRowHeight = 38.0;
+        self.issuesTable.estimatedRowHeight = 60.0;
     else
         self.issuesTable.estimatedRowHeight = 115.0;
     

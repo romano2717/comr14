@@ -406,32 +406,50 @@
     DDLogVerbose(@"silentRemoteNotifValue %d",silentRemoteNotifValue);
     __block NSDate *jsonDate = [self deserializeJsonDateString:@"/Date(1388505600000+0800)/"];
     
+
     switch (silentRemoteNotifValue) {
         case 12:
         {
+            NSDate *rightNow = [NSDate date];
+            NSDate *previousCommentRequestDateTime = [[NSUserDefaults standardUserDefaults] objectForKey:@"previousCommentRequestDateTime"];
+
+            NSTimeInterval secondsBetween = [rightNow timeIntervalSinceDate:previousCommentRequestDateTime];
             
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(7 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [myDatabase.databaseQ inTransaction:^(FMDatabase *db, BOOL *rollback) {
-                    //download comments
-                    FMResultSet *rs3 = [db executeQuery:@"select date from comment_last_request_date"];
-                    
-                    if([rs3 next])
-                    {
-                        jsonDate = (NSDate *)[rs3 dateForColumn:@"date"];
-                    }
-                    [sync startDownloadCommentsForPage:1 totalPage:0 requestDate:jsonDate];
-                    
-                    
-                    //download comment noti
-                    FMResultSet *rs4 = [db executeQuery:@"select date from comment_noti_last_request_date"];
-                    
-                    if([rs4 next])
-                    {
-                        jsonDate = (NSDate *)[rs4 dateForColumn:@"date"];
-                    }
-                    [sync startDownloadCommentNotiForPage:1 totalPage:0 requestDate:jsonDate];
-                }];
-            });
+            DDLogVerbose(@"rightNow: %@",rightNow);
+            DDLogVerbose(@"previousCommentRequestDateTime: %@",previousCommentRequestDateTime);
+            DDLogVerbose(@"diff: %f",secondsBetween);
+            DDLogVerbose(@"---------------");
+            
+            if(secondsBetween <= 3)
+            {
+                DDLogVerbose(@"ignore extra notif");
+                break;
+            }
+            
+            
+            [myDatabase.databaseQ inTransaction:^(FMDatabase *db, BOOL *rollback) {
+                //download comments
+                FMResultSet *rs3 = [db executeQuery:@"select date from comment_last_request_date"];
+                
+                if([rs3 next])
+                {
+                    jsonDate = (NSDate *)[rs3 dateForColumn:@"date"];
+                }
+                [sync startDownloadCommentsForPage:1 totalPage:0 requestDate:jsonDate];
+                
+                
+                //download comment noti
+                FMResultSet *rs4 = [db executeQuery:@"select date from comment_noti_last_request_date"];
+                
+                if([rs4 next])
+                {
+                    jsonDate = (NSDate *)[rs4 dateForColumn:@"date"];
+                }
+                [sync startDownloadCommentNotiForPage:1 totalPage:0 requestDate:jsonDate];
+                DDLogVerbose(@"request");
+                [[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:@"previousCommentRequestDateTime"];
+            }];
+            
             
             break;
             
@@ -439,48 +457,85 @@
         
         case 13:
         {
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(7 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [myDatabase.databaseQ inTransaction:^(FMDatabase *db, BOOL *rollback) {
-                    //download post image
-                    FMResultSet *rs2 = [db executeQuery:@"select date from post_image_last_request_date"];
+            NSDate *rightNow = [NSDate date];
+            NSDate *previousImageRequestDateTime = [[NSUserDefaults standardUserDefaults] objectForKey:@"previousImageRequestDateTime"];
+            
+            NSTimeInterval secondsBetween = [rightNow timeIntervalSinceDate:previousImageRequestDateTime];
+            
+            DDLogVerbose(@"rightNow: %@",rightNow);
+            DDLogVerbose(@"previousImageRequestDateTime: %@",previousImageRequestDateTime);
+            DDLogVerbose(@"diff: %f",secondsBetween);
+            DDLogVerbose(@"---------------");
+            
+            if(secondsBetween <= 3)
+            {
+                DDLogVerbose(@"ignore extra notif");
+                break;
+            }
+            
+            
+            [myDatabase.databaseQ inTransaction:^(FMDatabase *db, BOOL *rollback) {
+                //download post image
+                FMResultSet *rs2 = [db executeQuery:@"select date from post_image_last_request_date"];
+                
+                if([rs2 next])
+                {
+                    jsonDate = (NSDate *)[rs2 dateForColumn:@"date"];
                     
-                    if([rs2 next])
-                    {
-                        jsonDate = (NSDate *)[rs2 dateForColumn:@"date"];
-                        
-                    }
-                    [sync startDownloadPostImagesForPage:1 totalPage:0 requestDate:jsonDate];
-                }];
-            });
+                }
+                [sync startDownloadPostImagesForPage:1 totalPage:0 requestDate:jsonDate];
+                DDLogVerbose(@"request");
+                [[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:@"previousImageRequestDateTime"];
+            }];
+
 
             break;
         }
             
         case 14:
         {
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(7 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                //download survey
-                [myDatabase.databaseQ inTransaction:^(FMDatabase *db, BOOL *rollback) {
-                    FMResultSet *rs5 = [db executeQuery:@"select date from su_survey_last_req_date"];
-                    
-                    if([rs5 next])
-                    {
-                        jsonDate = (NSDate *)[rs5 dateForColumn:@"date"];
-                    }
-                    [sync startDownloadSurveyPage:1 totalPage:0 requestDate:jsonDate];
-                    
-                    
-                    
-                    //download feedback issues list
-                    FMResultSet *rs6 = [db executeQuery:@"select date from su_feedback_issues_last_req_date"];
-                    
-                    if([rs6 next])
-                    {
-                        jsonDate = (NSDate *)[rs6 dateForColumn:@"date"];
-                    }
-                    [sync startDownloadFeedBackIssuesForPage:1 totalPage:0 requestDate:jsonDate];
-                }];
-            });
+            
+            NSDate *rightNow = [NSDate date];
+            NSDate *previousSurveyRequestDateTime = [[NSUserDefaults standardUserDefaults] objectForKey:@"previousSurveyRequestDateTime"];
+            
+            NSTimeInterval secondsBetween = [rightNow timeIntervalSinceDate:previousSurveyRequestDateTime];
+            
+            DDLogVerbose(@"rightNow: %@",rightNow);
+            DDLogVerbose(@"previousSurveyRequestDateTime: %@",previousSurveyRequestDateTime);
+            DDLogVerbose(@"diff: %f",secondsBetween);
+            DDLogVerbose(@"---------------");
+            
+            if(secondsBetween <= 3)
+            {
+                DDLogVerbose(@"ignore extra notif");
+                break;
+            }
+            
+            //download survey
+            [myDatabase.databaseQ inTransaction:^(FMDatabase *db, BOOL *rollback) {
+                FMResultSet *rs5 = [db executeQuery:@"select date from su_survey_last_req_date"];
+                
+                if([rs5 next])
+                {
+                    jsonDate = (NSDate *)[rs5 dateForColumn:@"date"];
+                }
+                [sync startDownloadSurveyPage:1 totalPage:0 requestDate:jsonDate];
+                
+                
+                
+                //download feedback issues list
+                FMResultSet *rs6 = [db executeQuery:@"select date from su_feedback_issues_last_req_date"];
+                
+                if([rs6 next])
+                {
+                    jsonDate = (NSDate *)[rs6 dateForColumn:@"date"];
+                }
+                [sync startDownloadFeedBackIssuesForPage:1 totalPage:0 requestDate:jsonDate];
+                DDLogVerbose(@"request");
+                [[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:@"previousSurveyRequestDateTime"];
+                
+            }];
+            
             
             
             break;
@@ -489,18 +544,35 @@
             
         default: //11
         {
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(7 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [myDatabase.databaseQ inTransaction:^(FMDatabase *db, BOOL *rollback) {
-                    FMResultSet *rs = [db executeQuery:@"select date from post_last_request_date"];
+            NSDate *rightNow = [NSDate date];
+            NSDate *previousPostRequestDateTime = [[NSUserDefaults standardUserDefaults] objectForKey:@"previousPostRequestDateTime"];
+            
+            NSTimeInterval secondsBetween = [rightNow timeIntervalSinceDate:previousPostRequestDateTime];
+            
+            DDLogVerbose(@"rightNow: %@",rightNow);
+            DDLogVerbose(@"previousPostRequestDateTime: %@",previousPostRequestDateTime);
+            DDLogVerbose(@"diff: %f",secondsBetween);
+            DDLogVerbose(@"---------------");
+            
+            if(secondsBetween <= 3)
+            {
+                DDLogVerbose(@"ignore extra notif");
+                break;
+            }
+            
+            [myDatabase.databaseQ inTransaction:^(FMDatabase *db, BOOL *rollback) {
+                FMResultSet *rs = [db executeQuery:@"select date from post_last_request_date"];
+                
+                if([rs next])
+                {
+                    jsonDate = (NSDate *)[rs dateForColumn:@"date"];
                     
-                    if([rs next])
-                    {
-                        jsonDate = (NSDate *)[rs dateForColumn:@"date"];
-                        
-                    }
-                    [sync startDownloadPostForPage:1 totalPage:0 requestDate:jsonDate];
-                }];
-            });
+                }
+                [sync startDownloadPostForPage:1 totalPage:0 requestDate:jsonDate];
+                DDLogVerbose(@"request");
+                [[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:@"previousPostRequestDateTime"];
+            }];
+            
 
             break;
         }

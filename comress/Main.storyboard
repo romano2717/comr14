@@ -763,40 +763,27 @@
                                             <outlet property="statusProgressView" destination="a9k-pE-rtO" id="jYu-oI-3Sr"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PMcell" rowHeight="38" id="nXr-sL-Vh7" customClass="IssuesPerPoTableViewCell">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PMcell" rowHeight="60" id="4MX-OS-Opr" userLabel="PMCell" customClass="IssuesPerPoTableViewCell">
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="nXr-sL-Vh7" id="U9d-UO-YRk">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="4MX-OS-Opr" id="a7M-CR-2Hd">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aL3-Gn-vW0">
-                                                    <rect key="frame" x="550" y="8" width="42" height="21"/>
-                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="42" id="6jb-uP-nQl"/>
-                                                        <constraint firstAttribute="height" constant="21" id="T5J-Xa-qgG"/>
-                                                    </constraints>
-                                                </view>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zcV-22-1Na">
-                                                    <rect key="frame" x="8" y="8" width="534" height="21"/>
-                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l42-mF-ERX">
+                                                    <rect key="frame" x="8" y="19" width="584" height="21"/>
+                                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="zcV-22-1Na" firstAttribute="leading" secondItem="U9d-UO-YRk" secondAttribute="leadingMargin" id="0RF-Wq-NhE"/>
-                                                <constraint firstItem="aL3-Gn-vW0" firstAttribute="top" secondItem="U9d-UO-YRk" secondAttribute="topMargin" id="Ihj-cq-D6T"/>
-                                                <constraint firstItem="aL3-Gn-vW0" firstAttribute="leading" secondItem="zcV-22-1Na" secondAttribute="trailing" constant="8" id="LhC-wS-0bu"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="aL3-Gn-vW0" secondAttribute="trailing" id="P93-9C-wJQ"/>
-                                                <constraint firstItem="aL3-Gn-vW0" firstAttribute="bottom" secondItem="zcV-22-1Na" secondAttribute="bottom" id="fRy-GY-0bY"/>
-                                                <constraint firstItem="aL3-Gn-vW0" firstAttribute="leading" secondItem="zcV-22-1Na" secondAttribute="trailing" constant="8" id="gGQ-QL-0S2"/>
-                                                <constraint firstItem="zcV-22-1Na" firstAttribute="top" secondItem="U9d-UO-YRk" secondAttribute="topMargin" id="uis-CB-McZ"/>
+                                                <constraint firstItem="l42-mF-ERX" firstAttribute="centerX" secondItem="a7M-CR-2Hd" secondAttribute="centerX" id="8IX-d5-HsG"/>
+                                                <constraint firstItem="l42-mF-ERX" firstAttribute="leading" secondItem="a7M-CR-2Hd" secondAttribute="leadingMargin" id="eHG-3x-A2v"/>
+                                                <constraint firstItem="l42-mF-ERX" firstAttribute="centerY" secondItem="a7M-CR-2Hd" secondAttribute="centerY" id="fGr-rn-dtI"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="messageCountBadge" destination="aL3-Gn-vW0" id="Kwx-MZ-Y2R"/>
-                                            <outlet property="poNameLabel" destination="zcV-22-1Na" id="rUX-IQ-iIV"/>
+                                            <outlet property="poNameLabel" destination="l42-mF-ERX" id="IMO-2y-Mx0"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>

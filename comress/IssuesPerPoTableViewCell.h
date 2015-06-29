@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "CustomBadge.h"
+#import "AppWideImports.h"
 
 @interface IssuesPerPoTableViewCell : UITableViewCell
 
