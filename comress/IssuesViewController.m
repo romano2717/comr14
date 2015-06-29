@@ -195,6 +195,10 @@
             {
                 for (int i = 0; i < self.postsArray.count; i++) {
                     NSString *key = [[[self.postsArray objectAtIndex:i] allKeys] firstObject];
+
+                    if([[[[self.postsArray objectAtIndex:i] objectForKey:key] valueForKey:@"post"] valueForKey:@"post_id"] ==  [NSNull null])
+                        continue;
+                    
                     NSNumber *thisPostId = [NSNumber numberWithInt:[[[[[self.postsArray objectAtIndex:i] objectForKey:key] valueForKey:@"post"] valueForKey:@"post_id"] intValue]];
                     
                     [myDatabase.databaseQ inTransaction:^(FMDatabase *db, BOOL *rollback) {

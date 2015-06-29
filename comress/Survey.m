@@ -350,7 +350,7 @@
         NSMutableArray *surveyPerDivArrayTemp = [[NSMutableArray alloc] init];
 
         [myDatabase.databaseQ inTransaction:^(FMDatabase *db, BOOL *rollback) {
-            FMResultSet *rs = [db executeQuery:@"select * from su_survey su left join block_user_mapping bum on lower(su.created_by) = lower(bum.user_id) where created_by in (select lower(user_id) from block_user_mapping where supervisor_id != ? group by user_id) group by su.created_by order by survey_date desc;",currentUser];
+            FMResultSet *rs = [db executeQuery:@"select * from su_survey su left join block_user_mapping bum on lower(su.created_by) = lower(bum.user_id) where lower(created_by) in (select lower(user_id) from block_user_mapping where supervisor_id != ? group by user_id) group by su.created_by order by survey_date desc;",currentUser];
             
             while ([rs next]) {
                 
