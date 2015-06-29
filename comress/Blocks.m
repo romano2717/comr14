@@ -35,7 +35,28 @@ street_name;
             FMResultSet *rs = [theDb executeQuery:@"select * from blocks"];
             
             while ([rs next]) {
-                [arr addObject:[rs resultDictionary]];
+                NSString *postalCode = [rs stringForColumn:@"postal_code"];
+                NSNumber *pKid = [NSNumber numberWithInt:[rs intForColumn:@"id"]];
+                
+                //50034 and the like(5 digits only), update it to become 050034
+                if(postalCode.length == 5)
+                {
+                    NSString *paddedPostalCode = [NSString stringWithFormat:@"0%@",postalCode];
+                    BOOL up = [theDb executeUpdate:@"update blocks set postal_code = ? where id = ?",paddedPostalCode,pKid];
+                    
+                    if(!up)
+                    {
+                        *rollback = YES;
+                        return;
+                    }
+                    
+                    FMResultSet *rsPaddedPostalCode = [theDb executeQuery:@"select * from blocks where id = ?",pKid];
+                    while ([rsPaddedPostalCode next]) {
+                        [arr addObject:[rsPaddedPostalCode resultDictionary]];
+                    }
+                }
+                else
+                    [arr addObject:[rs resultDictionary]];
             }
         }];
     }

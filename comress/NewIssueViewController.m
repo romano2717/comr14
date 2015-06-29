@@ -88,7 +88,7 @@
     self.addressArray = [[NSMutableArray alloc] init];
     
     NSArray *theBlocks = [blocks fetchBlocksWithBlockId:nil];
-    
+
     
     dispatch_async(dispatch_get_main_queue(), ^{
        
@@ -132,6 +132,10 @@
         return;
     
     self.postalCodeTextField.text = [[result objectForKey:@"CustomObject"] valueForKey:@"postal_code"];
+    
+    if([[[result objectForKey:@"CustomObject"] valueForKey:@"postal_code"] isEqualToString:@"0"])
+        self.postalCodeTextField.text = @"Not applicable";
+    
     self.addressTextField.text = [NSString stringWithFormat:@"%@ %@",[[result objectForKey:@"CustomObject"] valueForKey:@"block_no"],[[result objectForKey:@"CustomObject"] valueForKey:@"street_name"]];
     
     blockId = [[result objectForKey:@"CustomObject"] valueForKey:@"block_id"];
