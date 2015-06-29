@@ -938,7 +938,7 @@
                                         where( \
                                               (fs.feedback_issue_id is null and s.survey_date > ? ) \
                                               or (fs.feedback_issue_id is not null and fs.post_id = 0 and (fs.status <> 4 or (fs.status = 4 and fs.updated_on > ? ))) \
-                                              or (fs.feedback_issue_id is not null and fs.post_id > 0 and (p.status <> 4 or(p.post_id =4 and p.updated_on > ?))) \
+                                              or (fs.feedback_issue_id is not null and fs.post_id > 0 and (p.status <> 4 or(p.status = 4 and p.updated_on > ?))) \
                                         ) group by s.survey_id",[NSNumber numberWithDouble:timestampDaysAgo],[NSNumber numberWithDouble:timestampDaysAgo],[NSNumber numberWithDouble:timestampDaysAgo]];
         
         NSMutableArray *surveyIdsArr = [[NSMutableArray alloc] init];
