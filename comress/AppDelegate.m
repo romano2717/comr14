@@ -405,6 +405,7 @@
 //    POST= "11";
 //    COMMENT= "12";
 //    IMAGE = "13";
+//    SURVEY = "14";
     
     __block int allowanceSecondsBetweenRequests = 10;
 
@@ -426,18 +427,11 @@
 
             NSTimeInterval secondsBetween = [rightNow timeIntervalSinceDate:previousCommentRequestDateTime];
             
-//            DDLogVerbose(@"---------------");
-//            DDLogVerbose(@"rightNow: %@",rightNow);
-//            DDLogVerbose(@"previousCommentRequestDateTime: %@",previousCommentRequestDateTime);
-//            DDLogVerbose(@"diff: %f",secondsBetween);
-            
-            
             if(secondsBetween <= allowanceSecondsBetweenRequests)
             {
                 DDLogVerbose(@"ignore extra notif");
                 break;
             }
-            
             
             [myDatabase.databaseQ inTransaction:^(FMDatabase *db, BOOL *rollback) {
                 //download comments
@@ -447,9 +441,12 @@
                 {
                     jsonDate = (NSDate *)[rs3 dateForColumn:@"date"];
                 }
-                [sync startDownloadCommentsForPage:1 totalPage:0 requestDate:jsonDate];
-                
-                
+            }];
+            [sync startDownloadCommentsForPage:1 totalPage:0 requestDate:jsonDate];
+
+            
+            
+            [myDatabase.databaseQ inTransaction:^(FMDatabase *db, BOOL *rollback) {
                 //download comment noti
                 FMResultSet *rs4 = [db executeQuery:@"select date from comment_noti_last_request_date"];
                 
@@ -457,11 +454,13 @@
                 {
                     jsonDate = (NSDate *)[rs4 dateForColumn:@"date"];
                 }
-                [sync startDownloadCommentNotiForPage:1 totalPage:0 requestDate:jsonDate];
-                DDLogVerbose(@"REQUEST");
-                DDLogVerbose(@"---------------");
-                [[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:@"previousCommentRequestDateTime"];
             }];
+            [sync startDownloadCommentNotiForPage:1 totalPage:0 requestDate:jsonDate];
+            
+            
+            DDLogVerbose(@"REQUEST");
+            DDLogVerbose(@"---------------");
+            [[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:@"previousCommentRequestDateTime"];
             
             
             break;
@@ -474,11 +473,6 @@
             NSDate *previousImageRequestDateTime = [[NSUserDefaults standardUserDefaults] objectForKey:@"previousImageRequestDateTime"];
             
             NSTimeInterval secondsBetween = [rightNow timeIntervalSinceDate:previousImageRequestDateTime];
-            
-//            DDLogVerbose(@"rightNow: %@",rightNow);
-//            DDLogVerbose(@"previousImageRequestDateTime: %@",previousImageRequestDateTime);
-//            DDLogVerbose(@"diff: %f",secondsBetween);
-//            DDLogVerbose(@"---------------");
             
             if(secondsBetween <= allowanceSecondsBetweenRequests)
             {
@@ -496,11 +490,11 @@
                     jsonDate = (NSDate *)[rs2 dateForColumn:@"date"];
                     
                 }
-                [sync startDownloadPostImagesForPage:1 totalPage:0 requestDate:jsonDate];
-                DDLogVerbose(@"REQUEST");
-                DDLogVerbose(@"---------------");
-                [[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:@"previousImageRequestDateTime"];
             }];
+            [sync startDownloadPostImagesForPage:1 totalPage:0 requestDate:jsonDate];
+            DDLogVerbose(@"REQUEST");
+            DDLogVerbose(@"---------------");
+            [[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:@"previousImageRequestDateTime"];
 
 
             break;
@@ -513,11 +507,6 @@
             NSDate *previousSurveyRequestDateTime = [[NSUserDefaults standardUserDefaults] objectForKey:@"previousSurveyRequestDateTime"];
             
             NSTimeInterval secondsBetween = [rightNow timeIntervalSinceDate:previousSurveyRequestDateTime];
-            
-//            DDLogVerbose(@"rightNow: %@",rightNow);
-//            DDLogVerbose(@"previousSurveyRequestDateTime: %@",previousSurveyRequestDateTime);
-//            DDLogVerbose(@"diff: %f",secondsBetween);
-//            DDLogVerbose(@"---------------");
             
             if(secondsBetween <= allowanceSecondsBetweenRequests)
             {
@@ -533,10 +522,11 @@
                 {
                     jsonDate = (NSDate *)[rs5 dateForColumn:@"date"];
                 }
-                [sync startDownloadSurveyPage:1 totalPage:0 requestDate:jsonDate];
-                
-                
-                
+            }];
+            [sync startDownloadSurveyPage:1 totalPage:0 requestDate:jsonDate];
+            
+            
+            [myDatabase.databaseQ inTransaction:^(FMDatabase *db, BOOL *rollback) {
                 //download feedback issues list
                 FMResultSet *rs6 = [db executeQuery:@"select date from su_feedback_issues_last_req_date"];
                 
@@ -544,30 +534,23 @@
                 {
                     jsonDate = (NSDate *)[rs6 dateForColumn:@"date"];
                 }
-                [sync startDownloadFeedBackIssuesForPage:1 totalPage:0 requestDate:jsonDate];
-                DDLogVerbose(@"REQUEST");
-                DDLogVerbose(@"---------------");
-                [[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:@"previousSurveyRequestDateTime"];
-                
             }];
+            [sync startDownloadFeedBackIssuesForPage:1 totalPage:0 requestDate:jsonDate];
+            DDLogVerbose(@"REQUEST");
+            DDLogVerbose(@"---------------");
+            [[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:@"previousSurveyRequestDateTime"];
             
             
             
             break;
         }
         
-            
-        default: //11
+        case 11:
         {
             NSDate *rightNow = [NSDate date];
             NSDate *previousPostRequestDateTime = [[NSUserDefaults standardUserDefaults] objectForKey:@"previousPostRequestDateTime"];
             
             NSTimeInterval secondsBetween = [rightNow timeIntervalSinceDate:previousPostRequestDateTime];
-            
-//            DDLogVerbose(@"rightNow: %@",rightNow);
-//            DDLogVerbose(@"previousPostRequestDateTime: %@",previousPostRequestDateTime);
-//            DDLogVerbose(@"diff: %f",secondsBetween);
-//            DDLogVerbose(@"---------------");
             
             if(secondsBetween <= allowanceSecondsBetweenRequests)
             {
@@ -583,13 +566,12 @@
                     jsonDate = (NSDate *)[rs dateForColumn:@"date"];
                     
                 }
-                [sync startDownloadPostForPage:1 totalPage:0 requestDate:jsonDate];
-                DDLogVerbose(@"REQUEST");
-                DDLogVerbose(@"---------------");
-                [[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:@"previousPostRequestDateTime"];
             }];
+            [sync startDownloadPostForPage:1 totalPage:0 requestDate:jsonDate];
+            DDLogVerbose(@"REQUEST");
+            DDLogVerbose(@"---------------");
+            [[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:@"previousPostRequestDateTime"];
             
-
             break;
         }
         

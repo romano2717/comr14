@@ -110,7 +110,27 @@
 - (void)reloadIssuesList
 {
     if(self.isViewLoaded && self.view.window) //only reload the list if this VC is active
+    {
+        int allowanceSecondsBetweenRequests = 10;
+        
+        NSDate *rightNow = [NSDate date];
+        NSDate *previousReloadRequestDateTime = [[NSUserDefaults standardUserDefaults] objectForKey:@"previousReloadRequestDateTime"];
+        
+        NSTimeInterval secondsBetween = [rightNow timeIntervalSinceDate:previousReloadRequestDateTime];
+        DDLogVerbose(@"secondsBetween %f",secondsBetween);
+        if(secondsBetween <= allowanceSecondsBetweenRequests)
+        {
+            DDLogVerbose(@"ignore extra notif");
+            return;
+        }
+        
+        [[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:@"previousReloadRequestDateTime"];
+        
         [self fetchPostsWithNewIssuesUp:NO];
+        
+        DDLogVerbose(@"RELOAD!!!!!");
+    }
+    
 }
 
 - (void)autoOpenChatViewForPostMe:(NSNotification *)notif
@@ -181,6 +201,7 @@
 
 - (void)setSegmentBadge
 {
+
     @try {
         __block int meNewCommentsCtr = 0;
         __block int othersNewCommentsBadge = 0;
@@ -223,15 +244,15 @@
 //            }
         
             //OTHERS
-            [myDatabase.databaseQ inTransaction:^(FMDatabase *db, BOOL *rollback) {
-                FMResultSet *othersUnReadCommentsRs = [db executeQuery:@"select count(*) as count from comment_noti where status = ? and post_id not in (select p.post_id from post p, blocks_user bu where p.block_id = bu.block_id)",[NSNumber numberWithInt:1]];
-                
-                if([othersUnReadCommentsRs next])
-                {
-                    othersNewCommentsBadge = [othersUnReadCommentsRs intForColumn:@"count"];
-                    [self.segment setBadgeNumber:othersNewCommentsBadge forSegmentAtIndex:1];
-                }
-            }];
+//            [myDatabase.databaseQ inTransaction:^(FMDatabase *db, BOOL *rollback) {
+//                FMResultSet *othersUnReadCommentsRs = [db executeQuery:@"select count(*) as count from comment_noti where status = ? and post_id not in (select p.post_id from post p, blocks_user bu where p.block_id = bu.block_id)",[NSNumber numberWithInt:1]];
+//                
+//                if([othersUnReadCommentsRs next])
+//                {
+//                    othersNewCommentsBadge = [othersUnReadCommentsRs intForColumn:@"count"];
+//                    [self.segment setBadgeNumber:othersNewCommentsBadge forSegmentAtIndex:1];
+//                }
+//            }];
             
             
             //OVERDUE
@@ -314,15 +335,15 @@
             
             
             //OTHERS
-            [myDatabase.databaseQ inTransaction:^(FMDatabase *db, BOOL *rollback) {
-                FMResultSet *othersUnReadCommentsRs = [db executeQuery:@"select count(*) as count from comment_noti where status = ? and post_id not in (select p.post_id from post p, blocks_user bu where p.block_id = bu.block_id)",[NSNumber numberWithInt:1]];
-                
-                if([othersUnReadCommentsRs next])
-                {
-                    othersNewCommentsBadge = [othersUnReadCommentsRs intForColumn:@"count"];
-                    [self.segment setBadgeNumber:othersNewCommentsBadge forSegmentAtIndex:1];
-                }
-            }];
+//            [myDatabase.databaseQ inTransaction:^(FMDatabase *db, BOOL *rollback) {
+//                FMResultSet *othersUnReadCommentsRs = [db executeQuery:@"select count(*) as count from comment_noti where status = ? and post_id not in (select p.post_id from post p, blocks_user bu where p.block_id = bu.block_id)",[NSNumber numberWithInt:1]];
+//                
+//                if([othersUnReadCommentsRs next])
+//                {
+//                    othersNewCommentsBadge = [othersUnReadCommentsRs intForColumn:@"count"];
+//                    [self.segment setBadgeNumber:othersNewCommentsBadge forSegmentAtIndex:1];
+//                }
+//            }];
             
             //OVERDUE
             [myDatabase.databaseQ inTransaction:^(FMDatabase *db, BOOL *rollback) {
@@ -770,9 +791,9 @@
         if(self.segment.selectedSegmentIndex == 0)
         {
             if(POisLoggedIn)
-                dict = (NSDictionary *)[self.postsArray objectAtIndex:indexPath.row];
+                dict = (NSDictionary *)[self.postsArray safeObjectAtIndex:indexPath.row];
             else
-                dict = (NSDictionary *)[[self.postsArray objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+                dict = (NSDictionary *)[[self.postsArray safeObjectAtIndex:indexPath.section] safeObjectAtIndex:indexPath.row];
         }
         
         else if(self.segment.selectedSegmentIndex == 1)
@@ -780,9 +801,9 @@
         else
         {
             if(POisLoggedIn)
-                dict = (NSDictionary *)[self.postsArray objectAtIndex:indexPath.row];
+                dict = (NSDictionary *)[self.postsArray safeObjectAtIndex:indexPath.row];
             else
-                dict = (NSDictionary *)[[self.postsArray objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+                dict = (NSDictionary *)[[self.postsArray safeObjectAtIndex:indexPath.section] safeObjectAtIndex:indexPath.row];
         }
         
         

@@ -26,18 +26,23 @@
     
     self.poNameLabel.text = [NSString stringWithFormat:@"%@ (%d)",[dict valueForKey:@"po"],[[dict valueForKey:@"count"] intValue]];
 
-    CustomBadge *customBadge = [CustomBadge customBadgeWithString:[NSString stringWithFormat:@"%d", unreadMessage]];
-    customBadge.tag = 900;
-    
-    CGRect contentViewFrame = self.contentView.frame;
-    
-    CGRect customBadgeFrame = CGRectMake(0, 0, 30,30);
-    customBadgeFrame.origin.x = contentViewFrame.size.width - 30;
-    customBadgeFrame.origin.y = (contentViewFrame.size.height / 2) - 15;
-    
-    [customBadge setFrame:customBadgeFrame];
-
-    [self.contentView addSubview:customBadge];
+//    CustomBadge *customBadge = [CustomBadge customBadgeWithString:[NSString stringWithFormat:@"%d", unreadMessage]];
+//    customBadge.tag = 900;
+//    
+//    CGRect contentViewFrame = self.contentView.frame;
+//    
+//    CGRect customBadgeFrame = CGRectMake(0, 0, 30,30);
+//    customBadgeFrame.origin.x = contentViewFrame.size.width - 30;
+//    customBadgeFrame.origin.y = (contentViewFrame.size.height / 2) - 15;
+//    
+//    [customBadge setFrame:customBadgeFrame];
+//
+//    [self.contentView addSubview:customBadge];
+//    
+//    if(unreadMessage == 0)
+//        customBadge.hidden = YES;
+//    else
+//        customBadge.hidden = NO;
     
 }
 
