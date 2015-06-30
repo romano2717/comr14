@@ -863,6 +863,8 @@
 #pragma mark - upload inspection result
 - (void)uploadInspectionResultFromSelf:(BOOL)thisSelf
 {
+    return; //no routine module yet!!!
+    
     if(myDatabase.initializingComplete == NO)
         return;
     

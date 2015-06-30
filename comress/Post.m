@@ -435,7 +435,7 @@ contract_type;
         
         //re-order the posts according to unread messages
         [myDatabase.databaseQ inTransaction:^(FMDatabase *db, BOOL *rollback) {
-            FMResultSet *rs = [db executeQuery:@"select * from comment_noti order by id desc"];
+            FMResultSet *rs = [db executeQuery:@"select * from comment_noti where status = ? order by id desc",[NSNumber numberWithInt:1]];
             
             while ([rs next]) {
                 NSNumber *postId = [NSNumber numberWithInt:[rs intForColumn:@"post_id"]];

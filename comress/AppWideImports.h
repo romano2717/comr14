@@ -15,6 +15,7 @@
 #import "DDLog.h"
 #import "DDTTYLogger.h"
 #import "DDASLLogger.h"
+#import "NSArray+IndexHelper.h"
 
 #if DEBUG
     static const int ddLogLevel = LOG_LEVEL_VERBOSE;

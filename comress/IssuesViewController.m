@@ -15,6 +15,10 @@
 }
 
 @property (nonatomic, strong) NSArray *postsArray;
+
+//copy of ME segment, used in setting badge numbers
+@property (nonatomic, strong) NSArray *meArr;
+
 @property (nonatomic, strong) NSArray *sectionHeaders;
 @property (nonatomic, strong) NSMutableArray *postsNotSeen;
 
@@ -70,7 +74,6 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(closeIssueActionSubmitFromList:) name:@"closeIssueActionSubmitFromList" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(closeCloseIssueActionSubmitFromList) name:@"closeCloseIssueActionSubmitFromList" object:nil];
     
-    [self adjustTableRowHeightForPM];
 }
 
 - (void)thereAreOVerDueIssues:(NSNotification *)notif
@@ -149,9 +152,12 @@
     //self.navigationController.navigationBar.hidden = YES;
     self.hidesBottomBarWhenPushed = NO;
     
+    [self adjustTableRowHeightForPM];
+    
     if(myDatabase.initializingComplete == 1)
     {
         [self fetchPostsWithNewIssuesUp:NO];
+        
         [self setSegmentBadge];
     }
 }
@@ -191,15 +197,15 @@
         if(POisLoggedIn)
         {
             //ME
-            if(self.segment.selectedSegmentIndex == 0) //just count how many post in the list found in comment noti
-            {
-                for (int i = 0; i < self.postsArray.count; i++) {
-                    NSString *key = [[[self.postsArray objectAtIndex:i] allKeys] firstObject];
+//            if(self.segment.selectedSegmentIndex == 0) //just count how many post in the list found in comment noti
+//            {
+                for (int i = 0; i < self.meArr.count; i++) {
+                    NSString *key = [[[self.meArr objectAtIndex:i] allKeys] firstObject];
 
-                    if([[[[self.postsArray objectAtIndex:i] objectForKey:key] valueForKey:@"post"] valueForKey:@"post_id"] ==  [NSNull null])
+                    if([[[[self.meArr objectAtIndex:i] objectForKey:key] valueForKey:@"post"] valueForKey:@"post_id"] ==  [NSNull null])
                         continue;
                     
-                    NSNumber *thisPostId = [NSNumber numberWithInt:[[[[[self.postsArray objectAtIndex:i] objectForKey:key] valueForKey:@"post"] valueForKey:@"post_id"] intValue]];
+                    NSNumber *thisPostId = [NSNumber numberWithInt:[[[[[self.meArr objectAtIndex:i] objectForKey:key] valueForKey:@"post"] valueForKey:@"post_id"] intValue]];
                     
                     [myDatabase.databaseQ inTransaction:^(FMDatabase *db, BOOL *rollback) {
                         db.traceExecution = NO;
@@ -214,8 +220,8 @@
                 }
                 
                 [self.segment setBadgeNumber:meNewCommentsCtr forSegmentAtIndex:0];
-            }
-            
+//            }
+        
             //OTHERS
             [myDatabase.databaseQ inTransaction:^(FMDatabase *db, BOOL *rollback) {
                 FMResultSet *othersUnReadCommentsRs = [db executeQuery:@"select count(*) as count from comment_noti where status = ? and post_id not in (select p.post_id from post p, blocks_user bu where p.block_id = bu.block_id)",[NSNumber numberWithInt:1]];
@@ -274,11 +280,15 @@
         else if (PMisLoggedIn)
         {
             //ME
-            if(self.segment.selectedSegmentIndex == 0)
-            {
-                NSArray *list = [self.postsArray firstObject];
+//            if(self.segment.selectedSegmentIndex == 0)
+//            {
+                NSArray *list = [self.meArr firstObject];
                 
                 for (int i = 0; i < list.count; i++) {
+                    
+                    if([list isKindOfClass:[NSArray class]] == NO)
+                        continue;
+                    
                     NSString *key = [[[list objectAtIndex:i] allKeys] firstObject];
                     
                     if([[[[list objectAtIndex:i] objectForKey:key] valueForKey:@"post"] valueForKey:@"post_id"] == [NSNull null])
@@ -300,7 +310,7 @@
                 }
                 
                 [self.segment setBadgeNumber:meNewCommentsCtr forSegmentAtIndex:0];
-            }
+//            }
             
             
             //OTHERS
@@ -350,6 +360,7 @@
         {
             [[NSNotificationCenter defaultCenter] postNotificationName:@"thereAreOVerDueIssues" object:nil userInfo:@{@"count":[NSNumber numberWithInt:overDueNewCommentsDueCtr]}];
         }
+        
     }
     @catch (NSException *exception) {
         DDLogVerbose(@"Segment excp : %@",exception);
@@ -487,6 +498,8 @@
                     // group the post
                     [self groupPostForGroupType:@"under_by"];
                 }
+                
+                self.meArr = self.postsArray;
             }
             
             else if(self.segment.selectedSegmentIndex == 1)
@@ -531,7 +544,6 @@
                     // group the post
                     [self groupPostForGroupType:@"under_by"];
                 }
-                
             }
             
             
@@ -554,6 +566,8 @@
                         [[NSNotificationCenter defaultCenter] postNotificationName:@"toggleBulbIcon" object:nil userInfo:@{@"toggle":@"off"}];
                     });
                 }
+                
+                [self setSegmentBadge];
             });
         }
         @catch (NSException *exception) {
@@ -562,8 +576,6 @@
         @finally {
             
         }
-    
-        [self setSegmentBadge];
 //    });
 }
 
@@ -575,6 +587,10 @@
     //reconstruct array to create headers
     for (int i = 0; i < self.postsArray.count; i++) {
         NSDictionary *top = (NSDictionary *)[self.postsArray objectAtIndex:i];
+        
+        if([top isKindOfClass:[NSDictionary class]] == NO)
+            continue;
+        
         NSString *topKey = [[top allKeys] objectAtIndex:0];
         
         NSString *post_by = [[[top objectForKey:topKey] objectForKey:@"post"] valueForKey:groupType];
@@ -601,6 +617,10 @@
         for (int j = 0; j < self.postsArray.count; j++) {
             
             NSDictionary *top = (NSDictionary *)[self.postsArray objectAtIndex:j];
+            
+            if([top isKindOfClass:[NSDictionary class]] == NO)
+                continue;
+            
             NSString *topKey = [[top allKeys] objectAtIndex:0];
             NSString *post_by = [[[top objectForKey:topKey] objectForKey:@"post"] valueForKey:groupType];
             NSString *post_byIncremental = [[[top objectForKey:topKey] objectForKey:@"post"] valueForKey:[NSString stringWithFormat:@"under_by%d",j+1]];
@@ -676,7 +696,7 @@
 -(void)adjustTableRowHeightForPM
 {
     if(PMisLoggedIn && self.segment.selectedSegmentIndex == 1)
-        self.issuesTable.estimatedRowHeight = 60.0;
+        self.issuesTable.estimatedRowHeight = 38.0;
     else
         self.issuesTable.estimatedRowHeight = 115.0;
     
@@ -756,7 +776,7 @@
         }
         
         else if(self.segment.selectedSegmentIndex == 1)
-            dict = (NSDictionary *)[[self.postsArray objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+            dict = [[self.postsArray safeObjectAtIndex:indexPath.section] safeObjectAtIndex:indexPath.row];
         else
         {
             if(POisLoggedIn)

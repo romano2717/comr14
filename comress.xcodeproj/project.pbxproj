@@ -295,6 +295,7 @@
 		4DE801B41AD277A0008B0236 /* QuestionsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DE801B31AD277A0008B0236 /* QuestionsTableViewCell.m */; };
 		4DE801B71AD277AD008B0236 /* FeedbackTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DE801B61AD277AD008B0236 /* FeedbackTableViewCell.m */; };
 		4DE801BB1AD296B1008B0236 /* CreateIssueViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DE801BA1AD296B1008B0236 /* CreateIssueViewController.m */; };
+		4DEFCD1F1B4247F100100B81 /* NSArray+IndexHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DEFCD1E1B4247F100100B81 /* NSArray+IndexHelper.m */; };
 		4DF666A81AA8596000C3B0FF /* newmsg.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DF666A71AA8596000C3B0FF /* newmsg.png */; };
 		4DF666AC1AA946FE00C3B0FF /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DF666AB1AA946FE00C3B0FF /* QuartzCore.framework */; };
 		4DF666B41AA9615300C3B0FF /* NavigationBarTitleWithSubtitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DF666B31AA9615300C3B0FF /* NavigationBarTitleWithSubtitleView.m */; };
@@ -806,6 +807,8 @@
 		4DE801B61AD277AD008B0236 /* FeedbackTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedbackTableViewCell.m; sourceTree = "<group>"; };
 		4DE801B91AD296B1008B0236 /* CreateIssueViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateIssueViewController.h; sourceTree = "<group>"; };
 		4DE801BA1AD296B1008B0236 /* CreateIssueViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateIssueViewController.m; sourceTree = "<group>"; };
+		4DEFCD1D1B4247F100100B81 /* NSArray+IndexHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+IndexHelper.h"; sourceTree = "<group>"; };
+		4DEFCD1E1B4247F100100B81 /* NSArray+IndexHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+IndexHelper.m"; sourceTree = "<group>"; };
 		4DF666A71AA8596000C3B0FF /* newmsg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = newmsg.png; sourceTree = "<group>"; };
 		4DF666AB1AA946FE00C3B0FF /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		4DF666B21AA9615300C3B0FF /* NavigationBarTitleWithSubtitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationBarTitleWithSubtitleView.h; sourceTree = "<group>"; };
@@ -1355,6 +1358,7 @@
 		4DA203EA1A79CC2B00C7E5C7 /* Libs */ = {
 			isa = PBXGroup;
 			children = (
+				4DEFCD191B42479800100B81 /* NSArray helper */,
 				4D68561D1B01B543008D2A74 /* ALAsset */,
 				4D2496401AE64013008A786E /* mzform */,
 				4D85E6A51AD7831D00170D66 /* custom segment badge */,
@@ -1952,6 +1956,15 @@
 			name = "Create Issue";
 			sourceTree = "<group>";
 		};
+		4DEFCD191B42479800100B81 /* NSArray helper */ = {
+			isa = PBXGroup;
+			children = (
+				4DEFCD1D1B4247F100100B81 /* NSArray+IndexHelper.h */,
+				4DEFCD1E1B4247F100100B81 /* NSArray+IndexHelper.m */,
+			);
+			name = "NSArray helper";
+			sourceTree = "<group>";
+		};
 		4DF666B11AA9612B00C3B0FF /* navbar title/sub */ = {
 			isa = PBXGroup;
 			children = (
@@ -2276,6 +2289,7 @@
 				4D0C2F8F1A7B4CA2009E5E53 /* PostImage.m in Sources */,
 				4D6856201B01B555008D2A74 /* ALAssetsLibrary+CustomPhotoAlbum.m in Sources */,
 				4DE801BB1AD296B1008B0236 /* CreateIssueViewController.m in Sources */,
+				4DEFCD1F1B4247F100100B81 /* NSArray+IndexHelper.m in Sources */,
 				4DA207F51A79DA0A00C7E5C7 /* JSQMessagesCollectionView.m in Sources */,
 				4D07178D1AB00D420055191A /* MTBBarcodeScanner.m in Sources */,
 				4DD6FEA91A884CFF00CBBE1D /* UIImage+MultiFormat.m in Sources */,

@@ -395,15 +395,26 @@
     }];
 }
 
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
+{
+    DDLogVerbose(@"notification %@",userInfo);
+}
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
 {
 //    POST= "11";
 //    COMMENT= "12";
 //    IMAGE = "13";
+    
+    __block int allowanceSecondsBetweenRequests = 10;
 
     int silentRemoteNotifValue = [[userInfo valueForKeyPath:@"aps.content-available"] intValue];
+    
     DDLogVerbose(@"silentRemoteNotifValue %d",silentRemoteNotifValue);
+    
+    if(silentRemoteNotifValue == 0)
+        return;
+    
     __block NSDate *jsonDate = [self deserializeJsonDateString:@"/Date(1388505600000+0800)/"];
     
 
@@ -415,12 +426,13 @@
 
             NSTimeInterval secondsBetween = [rightNow timeIntervalSinceDate:previousCommentRequestDateTime];
             
-            DDLogVerbose(@"rightNow: %@",rightNow);
-            DDLogVerbose(@"previousCommentRequestDateTime: %@",previousCommentRequestDateTime);
-            DDLogVerbose(@"diff: %f",secondsBetween);
-            DDLogVerbose(@"---------------");
+//            DDLogVerbose(@"---------------");
+//            DDLogVerbose(@"rightNow: %@",rightNow);
+//            DDLogVerbose(@"previousCommentRequestDateTime: %@",previousCommentRequestDateTime);
+//            DDLogVerbose(@"diff: %f",secondsBetween);
             
-            if(secondsBetween <= 3)
+            
+            if(secondsBetween <= allowanceSecondsBetweenRequests)
             {
                 DDLogVerbose(@"ignore extra notif");
                 break;
@@ -446,7 +458,8 @@
                     jsonDate = (NSDate *)[rs4 dateForColumn:@"date"];
                 }
                 [sync startDownloadCommentNotiForPage:1 totalPage:0 requestDate:jsonDate];
-                DDLogVerbose(@"request");
+                DDLogVerbose(@"REQUEST");
+                DDLogVerbose(@"---------------");
                 [[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:@"previousCommentRequestDateTime"];
             }];
             
@@ -462,12 +475,12 @@
             
             NSTimeInterval secondsBetween = [rightNow timeIntervalSinceDate:previousImageRequestDateTime];
             
-            DDLogVerbose(@"rightNow: %@",rightNow);
-            DDLogVerbose(@"previousImageRequestDateTime: %@",previousImageRequestDateTime);
-            DDLogVerbose(@"diff: %f",secondsBetween);
-            DDLogVerbose(@"---------------");
+//            DDLogVerbose(@"rightNow: %@",rightNow);
+//            DDLogVerbose(@"previousImageRequestDateTime: %@",previousImageRequestDateTime);
+//            DDLogVerbose(@"diff: %f",secondsBetween);
+//            DDLogVerbose(@"---------------");
             
-            if(secondsBetween <= 3)
+            if(secondsBetween <= allowanceSecondsBetweenRequests)
             {
                 DDLogVerbose(@"ignore extra notif");
                 break;
@@ -484,7 +497,8 @@
                     
                 }
                 [sync startDownloadPostImagesForPage:1 totalPage:0 requestDate:jsonDate];
-                DDLogVerbose(@"request");
+                DDLogVerbose(@"REQUEST");
+                DDLogVerbose(@"---------------");
                 [[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:@"previousImageRequestDateTime"];
             }];
 
@@ -500,12 +514,12 @@
             
             NSTimeInterval secondsBetween = [rightNow timeIntervalSinceDate:previousSurveyRequestDateTime];
             
-            DDLogVerbose(@"rightNow: %@",rightNow);
-            DDLogVerbose(@"previousSurveyRequestDateTime: %@",previousSurveyRequestDateTime);
-            DDLogVerbose(@"diff: %f",secondsBetween);
-            DDLogVerbose(@"---------------");
+//            DDLogVerbose(@"rightNow: %@",rightNow);
+//            DDLogVerbose(@"previousSurveyRequestDateTime: %@",previousSurveyRequestDateTime);
+//            DDLogVerbose(@"diff: %f",secondsBetween);
+//            DDLogVerbose(@"---------------");
             
-            if(secondsBetween <= 3)
+            if(secondsBetween <= allowanceSecondsBetweenRequests)
             {
                 DDLogVerbose(@"ignore extra notif");
                 break;
@@ -531,7 +545,8 @@
                     jsonDate = (NSDate *)[rs6 dateForColumn:@"date"];
                 }
                 [sync startDownloadFeedBackIssuesForPage:1 totalPage:0 requestDate:jsonDate];
-                DDLogVerbose(@"request");
+                DDLogVerbose(@"REQUEST");
+                DDLogVerbose(@"---------------");
                 [[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:@"previousSurveyRequestDateTime"];
                 
             }];
@@ -549,12 +564,12 @@
             
             NSTimeInterval secondsBetween = [rightNow timeIntervalSinceDate:previousPostRequestDateTime];
             
-            DDLogVerbose(@"rightNow: %@",rightNow);
-            DDLogVerbose(@"previousPostRequestDateTime: %@",previousPostRequestDateTime);
-            DDLogVerbose(@"diff: %f",secondsBetween);
-            DDLogVerbose(@"---------------");
+//            DDLogVerbose(@"rightNow: %@",rightNow);
+//            DDLogVerbose(@"previousPostRequestDateTime: %@",previousPostRequestDateTime);
+//            DDLogVerbose(@"diff: %f",secondsBetween);
+//            DDLogVerbose(@"---------------");
             
-            if(secondsBetween <= 3)
+            if(secondsBetween <= allowanceSecondsBetweenRequests)
             {
                 DDLogVerbose(@"ignore extra notif");
                 break;
@@ -569,7 +584,8 @@
                     
                 }
                 [sync startDownloadPostForPage:1 totalPage:0 requestDate:jsonDate];
-                DDLogVerbose(@"request");
+                DDLogVerbose(@"REQUEST");
+                DDLogVerbose(@"---------------");
                 [[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:@"previousPostRequestDateTime"];
             }];
             
