@@ -53,9 +53,8 @@
     if([sender isKindOfClass:[NSIndexPath class]])
     {
         NSIndexPath *indexPath = (NSIndexPath *)sender;
-        
-        NSDictionary *dict = (NSDictionary *)[self.postsArray objectAtIndex:indexPath.row];
 
+        dict = (NSDictionary *)[self.postsArray objectAtIndex:indexPath.row];
         postId = [NSNumber numberWithInt:[[[dict allKeys] objectAtIndex:0] intValue]];
     }
 
@@ -66,10 +65,9 @@
         self.navigationController.navigationBar.hidden = NO;
         
         int ServerPostId = 0;
-        
+
         if([[[dict objectForKey:postId] objectForKey:@"post"] valueForKey:@"post_id"] != [NSNull null])
             ServerPostId = [[[[dict objectForKey:postId] objectForKey:@"post"] valueForKey:@"post_id"] intValue];
-        
         
         BOOL isFiltered = NO;
         
