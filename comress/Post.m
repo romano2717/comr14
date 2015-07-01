@@ -155,11 +155,6 @@ contract_type;
         NSNumber *finishedStatus = [NSNumber numberWithInt:4];
     
     
-        //3 days no activity
-        NSDate *threeDaysAgo = [[[NSCalendar currentCalendar] dateFromComponents:comps] dateByAddingTimeInterval:-noActivityDays*24*60*60];
-        double timestampThreeDaysAgo = [daysAgo timeIntervalSince1970];
-    
-    
         __block NSNumber *inactiveDays = [NSNumber numberWithInt:3]; //default
         
         [myDatabase.databaseQ inTransaction:^(FMDatabase *db, BOOL *rollback) {
@@ -499,9 +494,12 @@ contract_type;
     
     NSDate *now = [NSDate date];
     NSDateComponents* comps = [[NSCalendar currentCalendar] components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay fromDate:now];
-    
-    NSDate *daysAgo = [[[NSCalendar currentCalendar] dateFromComponents:comps] dateByAddingTimeInterval:-overDueDays*24*60*60];
-    double timestampDaysAgo = [daysAgo timeIntervalSince1970];
+    comps.hour = 23;
+    comps.minute = 59;
+    comps.second = 59;
+
+    NSDate *daysAgo = [[[NSCalendar currentCalendar] dateFromComponents:comps] dateByAddingTimeInterval:-overDueDays*23*59*59];
+    double timestampDaysAgo = [daysAgo timeIntervalSince1970] + 0.483;//retain the 0.483 coz existing data in already have 0.483 in date time
     
     NSNumber *finishedStatus = [NSNumber numberWithInt:4];
     
@@ -570,7 +568,7 @@ contract_type;
                 //due date
                 NSDate *now = [NSDate date];
                 NSDateComponents* comps = [[NSCalendar currentCalendar] components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay fromDate:now];
-                NSDate *dueDate = [[[NSCalendar currentCalendar] dateFromComponents:comps] dateByAddingTimeInterval:3*24*60*60]; //add 3 days
+                NSDate *dueDate = [[[NSCalendar currentCalendar] dateFromComponents:comps] dateByAddingTimeInterval:3*23*59*59]; //add 3 days
                 
                 if([rs dateForColumn:@"dueDate"] != nil)
                     dueDate = [rs dateForColumn:@"dueDate"];

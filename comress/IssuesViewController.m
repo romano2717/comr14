@@ -210,7 +210,7 @@
         NSDate *now = [NSDate date];
         NSDateComponents* comps = [[NSCalendar currentCalendar] components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay fromDate:now];
         
-        NSDate *daysAgo = [[[NSCalendar currentCalendar] dateFromComponents:comps] dateByAddingTimeInterval:-overDueDays*24*60*60];
+        NSDate *daysAgo = [[[NSCalendar currentCalendar] dateFromComponents:comps] dateByAddingTimeInterval:-overDueDays*23*59*59];
         double timestampDaysAgo = [daysAgo timeIntervalSince1970];
         
         NSNumber *finishedStatus = [NSNumber numberWithInt:4];

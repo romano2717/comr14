@@ -51,8 +51,8 @@
                         NSNumber *post_id = [NSNumber numberWithInt:[rsCheckFi intForColumn:@"post_id"]];
                         
                         NSDate *now = [NSDate date];
-                        NSDate *daysAgo = [now dateByAddingTimeInterval:-overDueDays*24*60*60];
-                        double timestampDaysAgo = [daysAgo timeIntervalSince1970];
+                        NSDate *daysAgo = [now dateByAddingTimeInterval:-overDueDays*23*59*59];
+                        double timestampDaysAgo = [daysAgo timeIntervalSince1970] + 0.483;//retain the 0.483 coz existing data in already have 0.483 in date time;
                         
                         //check if this post is overdue
                         FMResultSet *rsCheckPost = [db executeQuery:@"select * from post where (client_post_id = ? or post_id = ?) and dueDate <= ? and status != ? and (client_post_id != ? and post_id != ?)",client_post_id,post_id,[NSNumber numberWithDouble:timestampDaysAgo],[NSNumber numberWithInt:4],zero,zero];
@@ -211,8 +211,8 @@
                             continue;
                         
                         NSDate *now = [NSDate date];
-                        NSDate *daysAgo = [now dateByAddingTimeInterval:-overDueDays*24*60*60];
-                        double timestampDaysAgo = [daysAgo timeIntervalSince1970];
+                        NSDate *daysAgo = [now dateByAddingTimeInterval:-overDueDays*23*59*59];
+                        double timestampDaysAgo = [daysAgo timeIntervalSince1970] + 0.483;//retain the 0.483 coz existing data in already have 0.483 in date time
                         
                         //check if this post is overdue
                         FMResultSet *rsCheckPost = [db executeQuery:@"select * from post where (client_post_id = ? or post_id = ?) and dueDate <= ? and status != ? and (client_post_id != ? and post_id != ?)",client_post_id,post_id,[NSNumber numberWithDouble:timestampDaysAgo],[NSNumber numberWithInt:4],zero,zero];
@@ -689,8 +689,8 @@
                         NSNumber *post_id = [NSNumber numberWithInt:[rsCheckFi intForColumn:@"post_id"]];
                         
                         NSDate *now = [NSDate date];
-                        NSDate *daysAgo = [now dateByAddingTimeInterval:-overDueDays*24*60*60];
-                        double timestampDaysAgo = [daysAgo timeIntervalSince1970];
+                        NSDate *daysAgo = [now dateByAddingTimeInterval:-overDueDays*23*59*59];
+                        double timestampDaysAgo = [daysAgo timeIntervalSince1970] + 0.483;//retain the 0.483 coz existing data in already have 0.483 in date time
                         
                         //check if this post is overdue
                         FMResultSet *rsCheckPost = [db executeQuery:@"select * from post where (client_post_id = ? or post_id = ?) and dueDate <= ? and status != ? and (client_post_id != ? and post_id != ?)",client_post_id,post_id,[NSNumber numberWithDouble:timestampDaysAgo],[NSNumber numberWithInt:4],zero,zero];
@@ -849,8 +849,8 @@
                             continue;
                         
                         NSDate *now = [NSDate date];
-                        NSDate *daysAgo = [now dateByAddingTimeInterval:-overDueDays*24*60*60];
-                        double timestampDaysAgo = [daysAgo timeIntervalSince1970];
+                        NSDate *daysAgo = [now dateByAddingTimeInterval:-overDueDays*23*59*59];
+                        double timestampDaysAgo = [daysAgo timeIntervalSince1970] + 0.483;//retain the 0.483 coz existing data in already have 0.483 in date time
                         
                         //check if this post is overdue
                         FMResultSet *rsCheckPost = [db executeQuery:@"select * from post where (client_post_id = ? or post_id = ?) and dueDate <= ? and status != ? and (client_post_id != ? and post_id != ?)",client_post_id,post_id,[NSNumber numberWithDouble:timestampDaysAgo],[NSNumber numberWithInt:4],zero,zero];
