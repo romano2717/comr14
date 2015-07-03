@@ -98,9 +98,9 @@
     NSDictionary *params = @{@"order":@"order by updated_on asc"};
 
     if(isFiltered)
-        postDict = [[post fetchIssuesWithParams:params forPostId:[NSNumber numberWithInt:self.postId] filterByBlock:YES newIssuesFirst:NO onlyOverDue:NO] objectAtIndex:0];
+        postDict = [[post fetchIssuesWithParams:params forPostId:[NSNumber numberWithInt:self.postId] filterByBlock:YES newIssuesFirst:NO onlyOverDue:NO fromSurvey:NO] objectAtIndex:0];
     else
-        postDict = [[post fetchIssuesWithParams:params forPostId:[NSNumber numberWithInt:self.postId] filterByBlock:NO newIssuesFirst:NO onlyOverDue:NO] objectAtIndex:0];
+        postDict = [[post fetchIssuesWithParams:params forPostId:[NSNumber numberWithInt:self.postId] filterByBlock:NO newIssuesFirst:NO onlyOverDue:NO fromSurvey:NO] objectAtIndex:0];
 
     //get the post information so we can do a pop-up view for post
     self.postInfoDict = [NSDictionary dictionaryWithObjectsAndKeys:[[postDict objectForKey:[NSNumber numberWithInt:self.postId]] objectForKey:@"post"],@"post",[[postDict objectForKey:[NSNumber numberWithInt:self.postId]] objectForKey:@"postImages"],@"images", nil];

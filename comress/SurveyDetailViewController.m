@@ -58,9 +58,9 @@
 
 -(void) viewWillDisappear:(BOOL)animated
 {
-    if(self.pushFromSurveyListGroupByPo == NO)
+    if(self.pushFromSurveyListGroupByPo == NO && self.pushFromChat == NO)
     {
-        if ([self.navigationController.viewControllers indexOfObject:self]==NSNotFound)
+        if ([self.navigationController.viewControllers indexOfObject:self] == NSNotFound)
         {
             [self backButtonPressed];
             [self.navigationController popViewControllerAnimated:NO];
@@ -130,6 +130,8 @@
         
         fivc.feedbackId = feedBackId;
         fivc.clientfeedbackId = clientFeedBackId;
+        if(self.pushFromChat)
+            fivc.cameFromChat = YES;
     }
 }
 

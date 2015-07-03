@@ -19,6 +19,7 @@
 @property (nonatomic, weak) IBOutlet UILabel *satisfactionRatingLabel;
 @property (nonatomic, weak) IBOutlet UILabel *residentName;
 @property (nonatomic, weak) IBOutlet UILabel *dateLabel;
+@property (nonatomic, weak) IBOutlet UILabel *issueLabel;
 @property (nonatomic, weak) IBOutlet UIImageView *arrowImageView;
 @property (nonatomic) int numOfQuestions;
 

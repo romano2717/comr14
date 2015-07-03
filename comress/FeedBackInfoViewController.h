@@ -10,6 +10,7 @@
 #import "Database.h"
 #import "Feedback.h"
 #import "Contract_type.h"
+#import "IssuesChatViewController.h"
 
 @interface FeedBackInfoViewController : UIViewController<UITableViewDataSource,UITableViewDelegate>
 {
@@ -33,5 +34,7 @@
 @property (nonatomic, strong) NSMutableArray *dataArray;
 @property (nonatomic, strong) NSArray *issueStatus;
 @property (nonatomic, strong) NSArray *cmrStatus;
+
+@property (nonatomic) BOOL cameFromChat;
 
 @end

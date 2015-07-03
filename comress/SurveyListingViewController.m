@@ -77,6 +77,8 @@
 {
     [super viewDidAppear:animated];
     
+    [self fetchSurvey];
+    
     [self.surveyTableView reloadData];
 }
 
@@ -108,11 +110,13 @@
             
             int clientSurveyId = 0;
             int surveyId = 0;
+            NSString *theSegment = @"me";
             
             if(segment.selectedSegmentIndex == 0)
             {
                 clientSurveyId = [[[[surveyArray objectAtIndex:indexPath.row] objectForKey:@"survey"] valueForKey:@"client_survey_id"] intValue];
                 surveyId = [[[[surveyArray objectAtIndex:indexPath.row] objectForKey:@"survey"] valueForKey:@"survey_id"] intValue];
+                
             }
             else if (segment.selectedSegmentIndex == 1)
             {
@@ -121,11 +125,15 @@
                 
                 clientSurveyId = [[[dict objectForKey:@"survey"] valueForKey:@"client_survey_id"] intValue];
                 surveyId = [[[dict objectForKey:@"survey"] valueForKey:@"survey_id"] intValue];
+                
+                theSegment = @"others";
             }
             else
             {
                 clientSurveyId = [[[[surveyArray objectAtIndex:indexPath.row] objectForKey:@"survey"] valueForKey:@"client_survey_id"] intValue];
                 surveyId = [[[[surveyArray objectAtIndex:indexPath.row] objectForKey:@"survey"] valueForKey:@"survey_id"] intValue];
+                
+                theSegment = @"overdue";
             }
             
             SurveyDetailViewController *sdvc = [segue destinationViewController];
@@ -142,6 +150,7 @@
     else if(PMisLoggedIn)
     {
         NSIndexPath *indexPath = (NSIndexPath *)sender;
+        NSString *theSegment = @"me";
         
         if([segue.identifier isEqualToString:@"push_survey_detail_from_list"])
         {
@@ -158,12 +167,16 @@
                 clientSurveyId = [[[[[[surveyArray firstObject] objectForKey:key] objectAtIndex:indexPath.row] objectForKey:@"survey"] valueForKey:@"client_survey_id"] intValue];
                 
                 surveyId = [[[[[[surveyArray firstObject] objectForKey:key] objectAtIndex:indexPath.row] objectForKey:@"survey"] valueForKey:@"survey_id"] intValue];
+                
+                theSegment = @"me";
             }
 
             else
             {
                 clientSurveyId = [[[[surveyArray objectAtIndex:indexPath.row] objectForKey:@"survey"] valueForKey:@"client_survey_id"] intValue];
                 surveyId = [[[[surveyArray objectAtIndex:indexPath.row] objectForKey:@"survey"] valueForKey:@"survey_id"] intValue];
+                
+                theSegment = @"others";
             }
             
             SurveyDetailViewController *sdvc = [segue destinationViewController];
@@ -215,7 +228,7 @@
     if(PMisLoggedIn && segment.selectedSegmentIndex == 1)
         self.surveyTableView.estimatedRowHeight = 46.0;
     else
-        self.surveyTableView.estimatedRowHeight = 87.0;
+        self.surveyTableView.estimatedRowHeight = 130.0;
     
     self.surveyTableView.rowHeight = UITableViewAutomaticDimension;
 }

@@ -226,6 +226,7 @@
                     
                     NSString *urlParams = [NSString stringWithFormat:@"deviceId=%@&deviceToken=%@",res_deviceId,[myDatabase.deviceTokenDictionary valueForKey:@"device_token"]];
                     
+                    //update device token
                     [myDatabase.AfManager GET:[NSString stringWithFormat:@"%@%@%@",myDatabase.api_url,api_update_device_token,urlParams] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
                         
                         DDLogVerbose(@"update device token %@",responseObject);
@@ -233,6 +234,22 @@
                     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                         DDLogVerbose(@"%@ [%@-%@]",error.localizedDescription,THIS_FILE,THIS_METHOD);
                     }];
+                    
+                    
+                    //send app version
+                    if([res_deviceId intValue] != 0)
+                    {
+                        NSString *appVersion = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
+                        NSString *urlParams = [NSString stringWithFormat:@"deviceId=%@&appVersion=%@",res_deviceId,appVersion];
+
+                        [myDatabase.AfManager GET:[NSString stringWithFormat:@"%@%@%@",myDatabase.api_url,api_send_app_version,urlParams] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                            
+                            DDLogVerbose(@"update app version %@",responseObject);
+                            
+                        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                            DDLogVerbose(@"%@ [%@-%@]",error.localizedDescription,THIS_FILE,THIS_METHOD);
+                        }];
+                    }
                     
                     
                     if(loginOk)

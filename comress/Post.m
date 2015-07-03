@@ -114,7 +114,7 @@ contract_type;
     return posClienttId;
 }
 
-- (NSArray *)fetchIssuesWithParams:(NSDictionary *)params forPostId:(NSNumber *)postId filterByBlock:(BOOL)filter newIssuesFirst:(BOOL)newIssuesFirst onlyOverDue:(BOOL)onlyOverDue
+- (NSArray *)fetchIssuesWithParams:(NSDictionary *)params forPostId:(NSNumber *)postId filterByBlock:(BOOL)filter newIssuesFirst:(BOOL)newIssuesFirst onlyOverDue:(BOOL)onlyOverDue fromSurvey:(BOOL)fromSurvey
 {
     BOOL POisLoggedIn = YES; //CT_NU uses the same logic as PO
     BOOL PMisLoggedIn = YES;
@@ -328,7 +328,7 @@ contract_type;
                 }
                 
                 //OTHERS: check if this block is owned by a PO/contractor under the current user's pm/supervisor
-                if(onlyOverDue == NO && filter == NO)
+                if(onlyOverDue == NO && filter == NO && fromSurvey == NO)
                 {
                     if(POisLoggedIn)
                     {
@@ -605,7 +605,7 @@ contract_type;
 
         if(filter == YES)
         {
-            NSArray *post = [self fetchIssuesWithParams:params forPostId:clientPostId filterByBlock:filter newIssuesFirst:NO onlyOverDue:onlyOverDue];
+            NSArray *post = [self fetchIssuesWithParams:params forPostId:clientPostId filterByBlock:filter newIssuesFirst:NO onlyOverDue:onlyOverDue fromSurvey:NO];
 
             if(post.count > 0)
                 [postArray addObject:[post firstObject]];
@@ -677,7 +677,7 @@ contract_type;
         
         NSNumber *thePostId = [postIdArray objectAtIndex:i];
         
-        NSArray *post = [self fetchIssuesWithParams:params forPostId:thePostId filterByBlock:NO newIssuesFirst:YES onlyOverDue:NO];
+        NSArray *post = [self fetchIssuesWithParams:params forPostId:thePostId filterByBlock:NO newIssuesFirst:YES onlyOverDue:NO fromSurvey:NO];
         
         if(post.count > 0)
             [postArray addObject:[post firstObject]];

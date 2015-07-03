@@ -52,6 +52,8 @@ static NSString *api_update_post_status = @"Messaging/Post.svc/UpdatePostActionS
 
 static NSString *api_download_user_block_mapping =  @"Job/Block.svc/GetBlockUserMapping";
 
+static NSString *api_send_app_version = @"User.svc/UpdateAppVersion?";
+
 
 
 

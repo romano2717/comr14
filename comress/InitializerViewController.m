@@ -653,8 +653,16 @@
                     if(expectedSize > 1 && receivedSize > 1)
                     {
                         NSInteger percentage = 100 / (expectedSize / receivedSize);
-                        
-                        self.processLabel.text = [NSString stringWithFormat:@"Downloading image. %ld%%",(long)percentage];
+                        @try {
+                            //sometimes dragons appear here!
+                            self.processLabel.text = [NSString stringWithFormat:@"Downloading image. %ld%%",(long)percentage];
+                        }
+                        @catch (NSException *exception) {
+                            NSLog(@"%@-%@ %@",THIS_FILE,THIS_METHOD,exception);
+                        }
+                        @finally {
+                            
+                        }
                     }
                 } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
                     
@@ -1491,7 +1499,7 @@
     self.processLabel.text = [NSString stringWithFormat:@"Downloading your survey... %d/%d",currentPage,totPage];
     
     NSDictionary *params = @{@"currentPage":[NSNumber numberWithInt:page], @"lastRequestTime" : jsonDate};
-
+    
     [myDatabase.AfManager POST:[NSString stringWithFormat:@"%@%@",myDatabase.api_url,api_download_survey] parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         

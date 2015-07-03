@@ -20,6 +20,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    myDatabase = [Database sharedMyDbManager];
+    
     contract_type = [[Contract_type alloc] init];
     
     self.issueLabel.text = [[postInfoDict objectForKey:@"post"] valueForKey:@"post_topic"];
@@ -70,6 +72,35 @@
             [self.imagesArray addObject:image];
         }
     }
+    
+    self.relatedSurveyBtn.hidden = YES;
+    
+    
+    if(!self.cameFromSurvey)
+    {
+        NSNumber *thePostId = [NSNumber numberWithInt:[[[postInfoDict objectForKey:@"post"] valueForKey:@"post_id"] intValue]];
+        NSNumber *theClientPostId = [NSNumber numberWithInt:[[[postInfoDict objectForKey:@"post"] valueForKey:@"client_post_id"] intValue]];
+        //check if this post has a survey
+        [myDatabase.databaseQ inTransaction:^(FMDatabase *db, BOOL *rollback) {
+            FMResultSet *rs = [db executeQuery:@"select s.survey_id, s.client_survey_id, s.resident_name ,sfi.post_id as sfi_post_id,p.post_id,p.post_topic from su_survey s \
+                               left join su_feedback sf on s.survey_id = sf.survey_id or s.client_survey_id = sf.client_survey_id \
+                               left join su_feedback_issue sfi on sfi.feedback_id = sf.feedback_id or sfi.client_feedback_id = sf.client_feedback_id \
+                               left join post p on sfi.post_id = p.post_id or sfi.client_post_id = p.client_post_id \
+                               where (p.post_id = ? and sfi.post_id = ?) or (p.client_post_id = ? and sfi.client_post_id = ?);",thePostId,thePostId,theClientPostId,theClientPostId];
+            
+            while ([rs next]) {
+                self.relatedSurveyBtn.hidden = NO;
+                
+                self.relatedSurveyId = [NSNumber numberWithInt:[rs intForColumn:@"survey_id"]];
+                self.relatedClientSurveyId =  [NSNumber numberWithInt:[rs intForColumn:@"client_survey_id"]];
+            }
+        }];
+    }
+}
+
+- (IBAction)goToSurvey:(id)sender
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"gotoSurvey" object:nil userInfo:@{@"surveyId":self.relatedSurveyId,@"clientSurveyId":self.relatedClientSurveyId}];
 }
 
 - (void)viewDidAppear:(BOOL)animated

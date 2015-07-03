@@ -1024,4 +1024,45 @@
     }];
 }
 
+
+- (NSArray *)surveyListForSegment:(int)segment
+{
+    NSMutableArray *arr = [[NSMutableArray alloc] init];
+    
+    if(segment == 0)
+    {
+        /*
+         select s.* from su_survey s
+         left join su_feedback f on f.survey_id = s.survey_id or f.client_survey_id = s.client_survey_id
+         left join su_feedback_issue fi on f.feedback_id = fi.feedback_id or f.client_feedback_id = fi.client_feedback_id
+         left join post p on fi.post_id = p.post_id or fi.client_post_id = p.client_post_id
+         where p.dueDate > 1435924799000 and s.created_by = 'rawi' order by s.survey_date desc
+         */
+    }
+    else if (segment == 1)
+    {
+        /*
+         select s.* from su_survey s
+         left join su_feedback f on f.survey_id = s.survey_id or f.client_survey_id = s.client_survey_id
+         left join su_feedback_issue fi on f.feedback_id = fi.feedback_id or f.client_feedback_id = fi.client_feedback_id
+         left join post p on fi.post_id = p.post_id or fi.client_post_id = p.client_post_id
+         where s.created_by in (select user_id from block_user_mapping where user_id != 'rawi') order by s.survey_date desc;
+         */
+    }
+    else
+    {
+        /*
+         select s.* from su_survey s
+         left join su_feedback f on f.survey_id = s.survey_id or f.client_survey_id = s.client_survey_id
+         left join su_feedback_issue fi on f.feedback_id = fi.feedback_id or f.client_feedback_id = fi.client_feedback_id
+         left join post p on fi.post_id = p.post_id or fi.client_post_id = p.client_post_id
+         where p.dueDate <= 1435924799000 and s.created_by = 'rawi' order by s.survey_date desc
+         */
+    }
+    
+    
+    return arr;
+    
+}
+
 @end

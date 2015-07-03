@@ -25,6 +25,8 @@
 #import "MBProgressHUD.h"
 #import "Database.h"
 #import "CloseIssueActionViewController.h"
+#import "SurveyDetailViewController.h"
+
 @class IssuesChatViewController;
 
 @protocol IssuesChatViewControllerDelegate <NSObject>
@@ -61,6 +63,7 @@
 @property (nonatomic) BOOL hideActionStatusBtn; //hide this for PM when viewing under Others tab
 @property (nonatomic, strong) UITapGestureRecognizer *tapNavBarTapGesture;
 @property (nonatomic) BOOL cameFromOverDueList;
+@property (nonatomic) BOOL cameFromSurvey;
 
 - (void)selectedTableRow:(NSNotification *)notif; //when user select a status from the pop-up
 

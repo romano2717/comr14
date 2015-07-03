@@ -11,6 +11,9 @@
 #import "AppWideImports.h"
 
 @interface IssuesPerPoTableViewCell : UITableViewCell
+{
+    CustomBadge *customBadge;
+}
 
 @property (nonatomic, weak) IBOutlet UILabel *poNameLabel;
 @property (nonatomic, weak) IBOutlet UIView *messageCountBadge;

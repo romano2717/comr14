@@ -73,7 +73,6 @@
     //when PO close the issue
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(closeIssueActionSubmitFromList:) name:@"closeIssueActionSubmitFromList" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(closeCloseIssueActionSubmitFromList) name:@"closeCloseIssueActionSubmitFromList" object:nil];
-    
 }
 
 - (void)thereAreOVerDueIssues:(NSNotification *)notif
@@ -172,8 +171,6 @@
     //self.navigationController.navigationBar.hidden = YES;
     self.hidesBottomBarWhenPushed = NO;
     
-    [self adjustTableRowHeightForPM];
-    
     if(myDatabase.initializingComplete == 1)
     {
         [self fetchPostsWithNewIssuesUp:NO];
@@ -244,15 +241,15 @@
 //            }
         
             //OTHERS
-//            [myDatabase.databaseQ inTransaction:^(FMDatabase *db, BOOL *rollback) {
-//                FMResultSet *othersUnReadCommentsRs = [db executeQuery:@"select count(*) as count from comment_noti where status = ? and post_id not in (select p.post_id from post p, blocks_user bu where p.block_id = bu.block_id)",[NSNumber numberWithInt:1]];
-//                
-//                if([othersUnReadCommentsRs next])
-//                {
-//                    othersNewCommentsBadge = [othersUnReadCommentsRs intForColumn:@"count"];
-//                    [self.segment setBadgeNumber:othersNewCommentsBadge forSegmentAtIndex:1];
-//                }
-//            }];
+            [myDatabase.databaseQ inTransaction:^(FMDatabase *db, BOOL *rollback) {
+                FMResultSet *othersUnReadCommentsRs = [db executeQuery:@"select count(*) as count from comment_noti where status = ? and post_id not in (select p.post_id from post p, blocks_user bu where p.block_id = bu.block_id)",[NSNumber numberWithInt:1]];
+                
+                if([othersUnReadCommentsRs next])
+                {
+                    othersNewCommentsBadge = [othersUnReadCommentsRs intForColumn:@"count"];
+                    [self.segment setBadgeNumber:othersNewCommentsBadge forSegmentAtIndex:1];
+                }
+            }];
             
             
             //OVERDUE
@@ -335,15 +332,15 @@
             
             
             //OTHERS
-//            [myDatabase.databaseQ inTransaction:^(FMDatabase *db, BOOL *rollback) {
-//                FMResultSet *othersUnReadCommentsRs = [db executeQuery:@"select count(*) as count from comment_noti where status = ? and post_id not in (select p.post_id from post p, blocks_user bu where p.block_id = bu.block_id)",[NSNumber numberWithInt:1]];
-//                
-//                if([othersUnReadCommentsRs next])
-//                {
-//                    othersNewCommentsBadge = [othersUnReadCommentsRs intForColumn:@"count"];
-//                    [self.segment setBadgeNumber:othersNewCommentsBadge forSegmentAtIndex:1];
-//                }
-//            }];
+            [myDatabase.databaseQ inTransaction:^(FMDatabase *db, BOOL *rollback) {
+                FMResultSet *othersUnReadCommentsRs = [db executeQuery:@"select count(*) as count from comment_noti where status = ? and post_id not in (select p.post_id from post p, blocks_user bu where p.block_id = bu.block_id)",[NSNumber numberWithInt:1]];
+                
+                if([othersUnReadCommentsRs next])
+                {
+                    othersNewCommentsBadge = [othersUnReadCommentsRs intForColumn:@"count"];
+                    [self.segment setBadgeNumber:othersNewCommentsBadge forSegmentAtIndex:1];
+                }
+            }];
             
             //OVERDUE
             [myDatabase.databaseQ inTransaction:^(FMDatabase *db, BOOL *rollback) {
@@ -505,9 +502,9 @@
                 if(POisLoggedIn)
                 {
                     if(newIssuesUp)
-                        self.postsArray = [[NSMutableArray alloc] initWithArray:[post fetchIssuesWithParams:params forPostId:nil filterByBlock:YES newIssuesFirst:YES onlyOverDue:NO]];
+                        self.postsArray = [[NSMutableArray alloc] initWithArray:[post fetchIssuesWithParams:params forPostId:nil filterByBlock:YES newIssuesFirst:YES onlyOverDue:NO fromSurvey:NO]];
                     else
-                        self.postsArray = [[NSMutableArray alloc] initWithArray:[post fetchIssuesWithParams:params forPostId:nil filterByBlock:YES newIssuesFirst:NO onlyOverDue:NO]];
+                        self.postsArray = [[NSMutableArray alloc] initWithArray:[post fetchIssuesWithParams:params forPostId:nil filterByBlock:YES newIssuesFirst:NO onlyOverDue:NO fromSurvey:NO]];
                 }
                 else if (PMisLoggedIn)
                 {
@@ -528,9 +525,9 @@
                 if(POisLoggedIn)
                 {
                     if(newIssuesUp)
-                        self.postsArray = [[NSMutableArray alloc] initWithArray:[post fetchIssuesWithParams:params forPostId:nil filterByBlock:NO newIssuesFirst:YES onlyOverDue:NO]];
+                        self.postsArray = [[NSMutableArray alloc] initWithArray:[post fetchIssuesWithParams:params forPostId:nil filterByBlock:NO newIssuesFirst:YES onlyOverDue:NO fromSurvey:NO]];
                     else
-                        self.postsArray = [[NSMutableArray alloc] initWithArray:[post fetchIssuesWithParams:params forPostId:nil filterByBlock:NO newIssuesFirst:NO onlyOverDue:NO]];
+                        self.postsArray = [[NSMutableArray alloc] initWithArray:[post fetchIssuesWithParams:params forPostId:nil filterByBlock:NO newIssuesFirst:NO onlyOverDue:NO fromSurvey:NO]];
                     
                     [self groupPostForGroupType:@"under_by"];
                 }
@@ -551,9 +548,9 @@
                 if(POisLoggedIn)
                 {
                     if(newIssuesUp)
-                        self.postsArray = [[NSMutableArray alloc] initWithArray:[post fetchIssuesWithParams:params forPostId:nil filterByBlock:YES newIssuesFirst:YES onlyOverDue:YES]];
+                        self.postsArray = [[NSMutableArray alloc] initWithArray:[post fetchIssuesWithParams:params forPostId:nil filterByBlock:YES newIssuesFirst:YES onlyOverDue:YES fromSurvey:NO]];
                     else
-                        self.postsArray = [[NSMutableArray alloc] initWithArray:[post fetchIssuesWithParams:params forPostId:nil filterByBlock:YES newIssuesFirst:NO onlyOverDue:YES]];
+                        self.postsArray = [[NSMutableArray alloc] initWithArray:[post fetchIssuesWithParams:params forPostId:nil filterByBlock:YES newIssuesFirst:NO onlyOverDue:YES fromSurvey:NO]];
                 }
                 else if (PMisLoggedIn)
                 {
@@ -714,16 +711,15 @@
 }
 
 #pragma mark - Table view data source
--(void)adjustTableRowHeightForPM
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if(PMisLoggedIn && self.segment.selectedSegmentIndex == 1)
-        self.issuesTable.estimatedRowHeight = 38.0;
+    if(self.segment.selectedSegmentIndex == 1 && PMisLoggedIn)
+        return 60.0f;
     else
-        self.issuesTable.estimatedRowHeight = 115.0;
+        return 115.0f;
     
-    self.issuesTable.rowHeight = UITableViewAutomaticDimension;
+    return 0.0f;
 }
-
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     // Return the number of sections.

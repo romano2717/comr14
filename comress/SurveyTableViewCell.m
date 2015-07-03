@@ -71,7 +71,18 @@
         if(address != nil)
         {
             if([survey valueForKey:@"address"] != [NSNull null])
+            {
+#if DEBUG
+                if([survey valueForKey:@"survey_id"] != [NSNull null])
+                    self.addressLabel.text = [NSString stringWithFormat:@"%d:%@",[[survey valueForKey:@"survey_id"] intValue],[address valueForKey:@"address"]];
+                else
+                    self.addressLabel.text = [NSString stringWithFormat:@"%d:%@",0,[address valueForKey:@"address"]];
+#else
                 self.addressLabel.text = [address valueForKey:@"address"];
+#endif
+                
+            }
+            
         }
         
         if([segment intValue] == 0)

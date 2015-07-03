@@ -198,6 +198,19 @@
     return cell;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if(self.cameFromChat == NO)
+    {
+        if(indexPath.section == 1)
+        {
+            NSDictionary *dict = [[dataArray objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+            
+            [self performSegueWithIdentifier:@"push_chat_issues" sender:dict];
+        }
+    }
+}
+
 
 
 - (void)didReceiveMemoryWarning {
@@ -205,14 +218,24 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
+
 #pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    
+    if([segue.identifier isEqualToString:@"push_chat_issues"])
+    {
+        NSDictionary *dict = sender;
+
+        IssuesChatViewController *issuesVc = [segue destinationViewController];
+        issuesVc.postId = [[dict valueForKey:@"client_post_id"] intValue];
+        issuesVc.isFiltered = YES;
+        issuesVc.ServerPostId = [[dict valueForKey:@"post_id"] intValue];
+        issuesVc.cameFromSurvey = YES;
+    }
+    
 }
-*/
+
 
 @end

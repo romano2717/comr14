@@ -38,6 +38,8 @@
 
 @property (nonatomic) BOOL pushFromSurveyListGroupByPo;
 
+@property (nonatomic) BOOL pushFromChat;
+
 @property (nonatomic, weak) IBOutlet UIButton *residentInfoBtn;
 
 @end

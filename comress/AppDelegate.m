@@ -294,6 +294,8 @@
 {
     
     NSString *token = [[[[deviceToken description] stringByReplacingOccurrencesOfString: @"<" withString: @""] stringByReplacingOccurrencesOfString: @">" withString: @""] stringByReplacingOccurrencesOfString: @" " withString: @""];
+    
+    __block NSNumber *deviceId = [NSNumber numberWithInt:0];
 
     [myDatabase.databaseQ inTransaction:^(FMDatabase *db, BOOL *rollback) {
         FMResultSet *rs = [db executeQuery:@"select device_token from device_token"];
@@ -320,7 +322,7 @@
             }
         }
         
-        NSNumber *deviceId = [myDatabase.userDictionary valueForKey:@"device_id"] ? [myDatabase.userDictionary valueForKey:@"device_id"] : 0;
+        deviceId = [myDatabase.userDictionary valueForKey:@"device_id"] ? [myDatabase.userDictionary valueForKey:@"device_id"] : 0;
         
         if([deviceId intValue] != 0) //the use is currently logged in
         {
@@ -337,6 +339,23 @@
     }];
     
     [myDatabase createDeviceToken];
+    
+    
+    //send app version
+    if([deviceId intValue] != 0)
+    {
+        NSString *appVersion = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
+        NSString *urlParams = [NSString stringWithFormat:@"deviceId=%@&appVersion=%@",deviceId,appVersion];
+
+        [myDatabase.AfManager GET:[NSString stringWithFormat:@"%@%@%@",myDatabase.api_url,api_send_app_version,urlParams] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            
+            DDLogVerbose(@"update app version %@",responseObject);
+            
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            DDLogVerbose(@"%@ [%@-%@]",error.localizedDescription,THIS_FILE,THIS_METHOD);
+        }];
+    }
+    
 }
 
 - (void)downloadNewItems

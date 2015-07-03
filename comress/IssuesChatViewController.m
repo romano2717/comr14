@@ -64,6 +64,8 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(closeIssueActionSubmitFromChat:) name:@"closeIssueActionSubmitFromChat" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(closeCloseIssueActionSubmitFromChat) name:@"closeCloseIssueActionSubmitFromChat" object:nil];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(gotoSurvey:) name:@"gotoSurvey" object:nil];
+    
     if(hideActionStatusBtn)
         self.navigationItem.rightBarButtonItem = nil;
 }
@@ -82,11 +84,18 @@
     commentsArray = nil;
 
     NSDictionary *params = @{@"order":@"order by updated_on asc"};
-    if(isFiltered)
-        postDict = [[post fetchIssuesWithParams:params forPostId:[NSNumber numberWithInt:self.postId] filterByBlock:YES newIssuesFirst:NO onlyOverDue:cameFromOverDueList] objectAtIndex:0];
+    if(self.cameFromSurvey == NO)
+    {
+        if(isFiltered)
+            postDict = [[post fetchIssuesWithParams:params forPostId:[NSNumber numberWithInt:self.postId] filterByBlock:YES newIssuesFirst:NO onlyOverDue:cameFromOverDueList fromSurvey:NO] safeObjectAtIndex:0];
+        else
+            postDict = [[post fetchIssuesWithParams:params forPostId:[NSNumber numberWithInt:self.postId] filterByBlock:NO newIssuesFirst:NO onlyOverDue:cameFromOverDueList fromSurvey:NO] safeObjectAtIndex:0];
+    }
     else
-        postDict = [[post fetchIssuesWithParams:params forPostId:[NSNumber numberWithInt:self.postId] filterByBlock:NO newIssuesFirst:NO onlyOverDue:cameFromOverDueList] objectAtIndex:0];
+        postDict = [[post fetchIssuesWithParams:params forPostId:[NSNumber numberWithInt:self.postId] filterByBlock:NO newIssuesFirst:NO onlyOverDue:cameFromOverDueList fromSurvey:YES] safeObjectAtIndex:0];
+        
     
+
     //get the post information so we can do a pop-up view for post
     self.postInfoDict = [NSDictionary dictionaryWithObjectsAndKeys:[[postDict objectForKey:[NSNumber numberWithInt:self.postId]] objectForKey:@"post"],@"post",[[postDict objectForKey:[NSNumber numberWithInt:self.postId]] objectForKey:@"postImages"],@"images", nil];
 
@@ -338,7 +347,6 @@
 
 - (IBAction)postStatusActions:(id)sender
 {
-    
     postStatusVc = [[PostStatusTableViewController alloc] initWithStyle:UITableViewStylePlain];
     postStatusVc.delegate = self;
     
@@ -388,6 +396,9 @@
 
     postInfoVc = [self.storyboard instantiateViewControllerWithIdentifier:@"PostInfoViewController"];
     postInfoVc.postInfoDict = self.postInfoDict;
+    if(self.cameFromSurvey)
+        postInfoVc.cameFromSurvey = YES;
+    
     
     MZFormSheetController *formSheet = [[MZFormSheetController alloc] initWithViewController:postInfoVc];
     
@@ -420,6 +431,15 @@
     };
 }
 
+- (void)gotoSurvey:(NSNotification *)notif
+{
+    [self mz_dismissFormSheetControllerAnimated:YES completionHandler:^(MZFormSheetController *formSheetController) {
+        NSDictionary *dict = [notif userInfo];
+        
+        [self performSegueWithIdentifier:@"push_survey_detail_from_list" sender:dict];
+    }];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -450,6 +470,16 @@
         postInfoVcc.postInfoDict = self.postInfoDict;
         
         postInfoVcc = segue.destinationViewController;
+    }
+    if([segue.identifier isEqualToString:@"push_survey_detail_from_list"])
+    {
+        NSDictionary *dict = sender;
+        
+        SurveyDetailViewController *sdvc = [segue destinationViewController];
+        sdvc.surveyId = [dict valueForKey:@"surveyId"];
+        sdvc.clientSurveyId = [dict valueForKey:@"clientSurveyId"];
+        sdvc.pushFromChat = YES;
+        
     }
 }
 

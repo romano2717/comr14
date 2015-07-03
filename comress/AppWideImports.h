@@ -28,7 +28,7 @@ static const int ping_interval = 600;
 
 static const BOOL allowLogging = NO;
 
-static const int sync_interval = 5;
+static const int sync_interval = 3;
 
 static const int overDueDays = 0; //used to be 3 days but changed to zero(today). Server will calculate overduedate
 
